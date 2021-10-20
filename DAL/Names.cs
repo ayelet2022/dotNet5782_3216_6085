@@ -37,38 +37,37 @@ namespace DalObject
         }
         static void Initialize()
         {
-            drones[dronesIndex].battery = 100;
             drones[0].battery = 100;
-
-            stations[0].emptyCharges = 4;
-            drones[0].id = 123;
+            drones[0].id = 1111;
             drones[0].maxWeight =(WeightCategories)0;
-            drones[0].model = "xxx";
+            drones[0].model = "aaa";
             drones[0].status = (DroneStatuses)0; 
 
-            drones[dronesIndex].battery = 50;
-            drones[1].id = 456;
+            drones[dronesIndex].battery = 90;
+            drones[1].id = 2222;
             drones[1].maxWeight = (WeightCategories)1;
-            drones[1].model = "yyy";
+            drones[1].model = "bbb";
             drones[1].status = (DroneStatuses)1;
 
-            drones[dronesIndex].battery = 50;
-            drones[2].id = 456;
-            drones[2].maxWeight = (WeightCategories)1;
-            drones[2].model = "yyy";
-            drones[2].status = (DroneStatuses)1;
+            drones[dronesIndex].battery = 80;
+            drones[2].id = 3333;
+            drones[2].maxWeight = (WeightCategories)2;
+            drones[2].model = "ccc";
+            drones[2].status = (DroneStatuses)2;
 
-            drones[dronesIndex].battery = 50;
-            drones[3].id = 456;
-            drones[3].maxWeight = (WeightCategories)1;
-            drones[1].model = "yyy";
+            drones[dronesIndex].battery = 70;
+            drones[3].id = 4444;
+            drones[3].maxWeight = (WeightCategories)0;
+            drones[1].model = "ddd";
             drones[1].status = (DroneStatuses)1;
 
-            drones[dronesIndex].battery = 50;
-            drones[1].id = 456;
+            drones[dronesIndex].battery = 60;
+            drones[1].id = 4444;
             drones[1].maxWeight = (WeightCategories)1;
-            drones[1].model = "yyy";
-            drones[1].status = (DroneStatuses)1;
+            drones[1].model = "eee";
+            drones[1].status = (DroneStatuses)2;
+
+            customers[0].id=
         }
 
     }
