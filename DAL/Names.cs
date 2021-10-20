@@ -38,9 +38,6 @@ namespace DalObject
         static void Initialize()
         {
             drones[dronesIndex].battery = 100;
-            drones[0].battery = 100;
-
-            stations[0].emptyCharges = 4;
             drones[0].id = 123;
             drones[0].maxWeight =(WeightCategories)0;
             drones[0].model = "xxx";
@@ -69,6 +66,20 @@ namespace DalObject
             drones[1].maxWeight = (WeightCategories)1;
             drones[1].model = "yyy";
             drones[1].status = (DroneStatuses)1;
+
+            stations[0].emptyCharges = 4;
+            stations[0].id = 264;
+            stations[0].latitude = 26.8;
+            stations[0].longitud = 50;
+            stations[0].name = "jerusalem";
+
+            stations[0].emptyCharges = 4;
+            stations[0].id = 264;
+            Random r =new Random();
+            stations[0].latitude = r;
+            stations[0].longitud = 50;
+            stations[0].name = "jerusalem";
+
         }
 
     }
