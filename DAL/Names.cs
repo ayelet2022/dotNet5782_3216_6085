@@ -32,6 +32,8 @@ namespace DalObject
         {
             drones[dronesIndex].battery = 100;
             drones[0].battery = 100;
+
+            stations[0].emptyCharges = 4;
         }
 
     }
