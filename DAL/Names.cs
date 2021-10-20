@@ -1,5 +1,6 @@
 ﻿using System;
 using DAL;
+using IDAL.DO;
  namespace IDAL
  {
      namespace DO
@@ -12,6 +13,7 @@ using DAL;
   
 
  }
+
 namespace DalObject
 {
     class DataSource
@@ -20,13 +22,18 @@ namespace DalObject
         static BaseStation[] stations = new BaseStation[5];
         static Customer[] customers = new Customer[100];
         static Parcel[] parcels = new Parcel[1000];
-        class Config
+        internal class Config
         {
-            static int dronesIndex = 0;
-            static int stationsIndex = 0;
-            static int customersIndex = 0;
-            static int parcelsIndex = 0;
-            int i = 0;
+            internal static int dronesIndex = 0;
+            internal static int stationsIndex = 0;
+            internal static int customersIndex = 0;
+            internal static int parcelsIndex = 0;
+            internal int i = 0;
+            public int DronesIndex
+            {
+                get => dronesIndex;
+                set { dronesIndex = value; }
+            }
         }
         static void Initialize()
         {
@@ -34,6 +41,34 @@ namespace DalObject
             drones[0].battery = 100;
 
             stations[0].emptyCharges = 4;
+            drones[0].id = 123;
+            drones[0].maxWeight =(WeightCategories)0;
+            drones[0].model = "xxx";
+            drones[0].status = (DroneStatuses)0; 
+
+            drones[dronesIndex].battery = 50;
+            drones[1].id = 456;
+            drones[1].maxWeight = (WeightCategories)1;
+            drones[1].model = "yyy";
+            drones[1].status = (DroneStatuses)1;
+
+            drones[dronesIndex].battery = 50;
+            drones[2].id = 456;
+            drones[2].maxWeight = (WeightCategories)1;
+            drones[2].model = "yyy";
+            drones[2].status = (DroneStatuses)1;
+
+            drones[dronesIndex].battery = 50;
+            drones[3].id = 456;
+            drones[3].maxWeight = (WeightCategories)1;
+            drones[1].model = "yyy";
+            drones[1].status = (DroneStatuses)1;
+
+            drones[dronesIndex].battery = 50;
+            drones[1].id = 456;
+            drones[1].maxWeight = (WeightCategories)1;
+            drones[1].model = "yyy";
+            drones[1].status = (DroneStatuses)1;
         }
 
     }
