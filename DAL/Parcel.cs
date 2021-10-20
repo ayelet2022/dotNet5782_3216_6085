@@ -3,20 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DAL.IDAL.DO;
 namespace DAL
 {
     public struct Parcel
     {
-        public int id { get; set; }
-        public int senderId { get; set; }
-        public int targetId { get; set; }
-        public int droneId { get; set; }
-        public WeightCategories weight { get; set; }
-        public Priorities priority { get; set; }
-        public DateTime creatParcel { get; set; }
-        public DateTime paired { get; set; }
-        public DateTime pickedUp { get; set; }
-        public DateTime arrival { get; set; }
+        public int Id { get; set; }
+        public int SenderId { get; set; }
+        public int TargetId { get; set; }
+        public int DroneId { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public DateTime Requested { get; set; }
+        public DateTime Scheduled { get; set; }
+        public DateTime PickedUp { get; set; }
+        public DateTime Delivered { get; set; }
+        public override string ToString()
+        {
+            String result = " ";
+            result += $"ID is {Id}, \n";
+            result += $"SenderId is {SenderId}, \n";
+            result += $"TargetId is {TargetId}, \n";
+            result += $"Weight is {Weight}, \n";
+            result += $"Priority is {Priority}, \n";
+            result += $"Requested is {Requested}, \n";
+            result += $"Droneld is {DroneId}, \n";
+            result += $"Scheduled is {Scheduled}, \n";
+            result += $"PickedUp is {PickedUp}, \n";
+            result += $"Delivered is {Delivered}, \n";
+            return result;
+        }
     }
 }

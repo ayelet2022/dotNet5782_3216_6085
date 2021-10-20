@@ -8,7 +8,14 @@ namespace DAL
 {
     public struct DroneCharge
     {
-        public int droneId { get; set; }
-        public int stationId { get; set; }
+        public int DroneId { get; set; }
+        public int StationId { get; set; }
+        public override string ToString()
+        {
+            String result = " ";
+            result += $"DroneId is {DroneId}, \n";
+            result += $"StationId is {StationId}, \n";
+            return result;
+        }
     }
 }

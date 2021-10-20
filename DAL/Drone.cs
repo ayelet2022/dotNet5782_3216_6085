@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DAL.IDAL.DO;
 
 namespace DAL
 {
-  
+
     public struct Drone
     {
-       public int id { get; set; }
-       public string model { get; set; }
-       public WeightCategories maxWeight { get; set; }
-       public double battery { get; set; }
-       public DroneStatuses status { get; set; }
+        public int Id { get; set; }
+        public string Model { get; set; }
+        public WeightCategories MaxWeight { get; set; }
+        public double Battery { get; set; }
+        public DroneStatuses Status { get; set; }
+        public override string ToString()
+        {
+            String result = " ";
+            result += $"ID is {Id}, \n";
+            result += $"Model is {Model}, \n";
+            result += $"MaxWeight is {MaxWeight}, \n";
+            result += $"Status is {Status}, \n";
+            result += $"Battery is {Battery}, \n";
+            return result;
+        }
     }
 }

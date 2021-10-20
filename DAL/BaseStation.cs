@@ -8,10 +8,19 @@ namespace DAL
 {
     public struct BaseStation
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public int emptyCharges { get; set; }
-        public double longitud { get; set; }
-        public double latitude { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int EmptyCharges { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public override string ToString()
+        {
+            String result = " ";
+            result += $"ID is {Id}, \n";
+            result += $"Name is {Name}, \n";
+            result += $"Latitude is {Latitude}, \n";
+            result += $"longitude is {Longitude}, \n";
+            return result;
+        }
     }
 }
