@@ -1,8 +1,6 @@
 ﻿using System;
 using DAL.IDAL.DO;
-
 Random Rand = new Random(DateTime.Now.Millisecond);
-
 namespace DAL
 {
     namespace DalObject
