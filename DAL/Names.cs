@@ -61,12 +61,9 @@ namespace DAL
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)1;
                         if (Weight == "heavy")
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)2;
-                        int i = 0;
-                        while ((DataSource.Drones[i].Status != (DroneStatuses)0) && (DataSource.Drones[i].Battery != 0) &&
-                            (DataSource.Drones[i].MaxWeight >= DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight))
-                            i++;
                         DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId = DataSource.Drones[i].Id;
+          
+                        DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId =DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
                         Console.WriteLine("Enter Priority (regular/fast/urgent): ");
                         string Priority = Console.ReadLine();
                         if (Priority == "regular")
@@ -75,10 +72,58 @@ namespace DAL
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = (Priorities)1;
                         if (Priority == "urgent")
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = (Priorities)2;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].PickedUp;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].Delivered;
+                        PickUpParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
+                        ParcelToCustomer(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
                         break;
                 }
+            }
+
+            int DronToAParcel(Parcel newParcel)
+            {
+                int i = 0;
+                while ((DataSource.Drones[i].Status != (DroneStatuses)0) && (DataSource.Drones[i].Battery != 0) &&
+                    (DataSource.Drones[i].MaxWeight >= newParcel.Weight))
+                    i++;
+                DataSource.Drones[i].Status = (DroneStatuses)2;
+                return DataSource.Drones[i].Id;
+            }
+
+            void DronToCharger(Drone dronToCharge )
+            {
+                Console.WriteLine("Enter the name of the basestation you whant to charge the drone in: ");
+                string NameOfBaseStation = Console.ReadLine();
+                int i = 0;
+                while (i < DataSource.Config.StationsIndex && DataSource.Stations[i].Name != NameOfBaseStation)
+                    i++;
+                DataSource.Stations[i].EmptyCharges--;
+                dronToCharge.Status = (DroneStatuses)1;
+            }
+
+            void FreeDroneFromBaseStation(Drone dronToFree)
+            {
+                dronToFree.Battery = 100;
+                dronToFree.Status= (DroneStatuses)0;
+            }
+
+            /// <summary>
+            /// parcel was picked up by the dron
+            /// </summary>
+            /// <param name="ParclToPickup"></param> the parcel that needs delevering
+            void PickUpParcel(Parcel ParclToPickup)
+            {
+                ParclToPickup.PickedUp= DateTime.Now;
+            }
+
+            
+            void ParcelToCustomer(Parcel ParcelDeliverd )
+            {
+                ParcelDeliverd.Delivered = DateTime.Now;
+                int i=0;
+                while (i < DataSource.Config.DronesIndex && DataSource.Drones[i].Id != ParcelDeliverd.DroneId)
+                    i++;
+                DataSource.Drones[i].Status = (DroneStatuses)0;
+            }
+
             }
 
         }
