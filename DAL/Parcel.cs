@@ -14,7 +14,7 @@ namespace DAL
         public int DroneId { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public DateTime Requested { get; set; }
+        public DateTime CreatParcel { get; set; }
         public DateTime Scheduled { get; set; }
         public DateTime PickedUp { get; set; }
         public DateTime Delivered { get; set; }
@@ -26,7 +26,7 @@ namespace DAL
             result += $"TargetId is {TargetId}, \n";
             result += $"Weight is {Weight}, \n";
             result += $"Priority is {Priority}, \n";
-            result += $"Requested is {Requested}, \n";
+            result += $"Requested is {CreatParcel}, \n";
             result += $"Droneld is {DroneId}, \n";
             result += $"Scheduled is {Scheduled}, \n";
             result += $"PickedUp is {PickedUp}, \n";

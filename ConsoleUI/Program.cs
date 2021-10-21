@@ -10,22 +10,6 @@ namespace ConsoleUI
             switch (Choice)
             {
                 case "add":
-                    Choice = Console.ReadLine();
-                    switch(Choice)
-                    {
-                        case "BaseStation":
-                            
-                            break;
-                        case "Drone":
-
-                            break;
-                        case "Customer":
-
-                            break;
-                        case "Parcel":
-
-                            break;
-                    }
                     break;
                 case "Update":
                     Choice = Console.ReadLine();
