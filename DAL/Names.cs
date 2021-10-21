@@ -11,6 +11,10 @@ namespace DAL
             {
                 DataSource.Initialize();
             }
+            /// <summary>
+            /// adds a new object(a new drone\a new basestation\a new customer\a new parcel) 
+            /// and updates all that needs to be updated becuas of what we added
+            /// </summary>
             internal void AddObject()
             {
                 string Choice = Console.ReadLine();
@@ -24,6 +28,7 @@ namespace DAL
                         DataSource.Stations[DataSource.Config.StationsIndex].Name = "aaa";
                         DataSource.Config.StationsIndex++;
                         break;
+
                     case "Drone":
                         DataSource.Drones[DataSource.Config.DronesIndex].Id = Rand.Next(0, 1000000);
                         DataSource.Drones[DataSource.Config.DronesIndex].MaxWeight = (WeightCategories)Rand.Next(0, 3);
@@ -32,6 +37,7 @@ namespace DAL
                         DataSource.Drones[DataSource.Config.DronesIndex].Model = "xxx";
                         DataSource.Config.DronesIndex++;
                         break;
+
                     case "Customer":
                         Console.WriteLine("Enter Id: ");
                         DataSource.Customers[DataSource.Config.CustomersIndex].Id = int.Parse(Console.ReadLine());
@@ -45,6 +51,7 @@ namespace DAL
                         DataSource.Customers[DataSource.Config.CustomersIndex].Phone = Console.ReadLine();
                         DataSource.Config.CustomersIndex++;
                         break;
+
                     case "Parcel":
                         DataSource.Parcels[DataSource.Config.ParcelsIndex].CreatParcel = DateTime.Now;
                         Console.WriteLine("Enter Parcel Id: ");
@@ -77,6 +84,11 @@ namespace DAL
                 }
             }
 
+            /// <summary>
+            /// looks for a free drone that can the delever the parcel to the customer
+            /// </summary>
+            /// <param name="newParcel"></param> the parcel thats the dron need to deliver
+            /// <returns></returns>the id of the drone that can deliver the parcel
             int DronToAParcel(Parcel newParcel)
             {
                 int i = 0;
@@ -87,6 +99,11 @@ namespace DAL
                 return DataSource.Drones[i].Id;
             }
 
+            /// <summary>
+            /// looks for an empty charger in the base station so the drone will be able to charge there 
+            /// and updates all that needs to be update becaus of that
+            /// </summary>
+            /// <param name="dronToCharge"></param> the drone that need charging
             void DronToCharger(Drone dronToCharge )
             {
                 Console.WriteLine("Enter the name of the basestation you whant to charge the drone in: ");
@@ -98,6 +115,10 @@ namespace DAL
                 dronToCharge.Status = (DroneStatuses)1;
             }
 
+            /// <summary>
+            /// free the drone from the charger that he was cherging from in the base station
+            /// </summary>
+            /// <param name="dronToFree"></param>the drone that needs to get free from the charger he his charging from
             void FreeDroneFromBaseStation(Drone dronToFree)
             {
                 dronToFree.Battery = 100;
@@ -105,7 +126,7 @@ namespace DAL
             }
 
             /// <summary>
-            /// parcel was picked up by the dron
+            /// updates the time that the parcel was picked up by the dron
             /// </summary>
             /// <param name="ParclToPickup"></param> the parcel that needs delevering
             void PickUpParcel(Parcel ParclToPickup)
@@ -113,6 +134,10 @@ namespace DAL
                 ParclToPickup.PickedUp= DateTime.Now;
             }
 
+            /// <summary>
+            /// updates the time that the parcel was deleverd to the customer
+            /// </summary>
+            /// <param name="ParcelDeliverd"></param>
             void ParcelToCustomer(Parcel ParcelDeliverd )
             {
                 ParcelDeliverd.Delivered = DateTime.Now;
@@ -122,6 +147,10 @@ namespace DAL
                 DataSource.Drones[i].Status = (DroneStatuses)0;
             }
 
+            /// <summary>
+            /// prints the object(base station,drone,customer,parcel) 
+            /// that the user wants to print according to the object id
+            /// </summary>
             void PrintObject()
             {
                 Console.WriteLine("Enter What Would Yot Want To Print: ");
@@ -159,7 +188,49 @@ namespace DAL
                         break;
                 }
             }
+
+            /// <summary>
+            /// prints the whole list of the object according to what the user enterd
+            /// </summary>
+            void PrintObjectsArr()
+            {
+                Console.WriteLine("What list would you like to print?");
+                string Choice = Console.ReadLine();
+                switch (Choice)
+                {
+                    case "BaseStation":
+                        for (int i = 0; i < DataSource.Config.StationsIndex; i++)
+                            DataSource.Stations[i].ToString();
+                        break;
+                    case "Drone":
+                        for (int i = 0; i < DataSource.Config.DronesIndex; i++)
+                            DataSource.Drones[i].ToString();
+                        break;
+                    case "Customer":
+                        for (int i = 0; i < DataSource.Config.CustomersIndex; i++)
+                            DataSource.Customers[i].ToString();
+                        break;
+                    case "Parcel":
+                        for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
+                            DataSource.Parcels[i].ToString();
+                        break;
+                    case "Parcel_that_weren't_paired":
+                        for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
+                            if(DataSource.Parcels[i].DroneId==0)
+                                    DataSource.Parcels[i].ToString();
+                        break;
+                    case "BaseStation_with_available_charges":
+                        for (int i = 0; i < DataSource.Config.StationsIndex; i++)
+                            if(DataSource.Stations[i].EmptyCharges>0)
+                            DataSource.Stations[i].ToString();
+                        break;
+                }
+            }
         }
+        /// <summary>
+        /// includs all the data of the object-the arr of each object,
+        /// the index of each arr 
+        /// </summary>
     class DataSource
         {
             internal static Drone[] Drones = new Drone[10];
