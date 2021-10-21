@@ -35,7 +35,7 @@ namespace DAL
                 drones[0].model = "aaa";
                 drones[0].status = (DroneStatuses)0;
 
-                drones[dronesIndex].battery = 90;
+                drones[DataSource.Config.dronesIndex].battery = 90;
                 drones[1].id = 2222;
                 drones[1].maxWeight = (WeightCategories)1;
                 drones[1].model = "bbb";
