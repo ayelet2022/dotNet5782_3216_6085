@@ -33,7 +33,7 @@ namespace DAL
                     Stations[i].Id = Rand.Next(0, 1000000);
                     Stations[i].Latitude = Rand.Next(0, 1000000);
                     Stations[i].Latitude = Rand.Next(0, 1000000);
-                    Stations[i].EmptyCharges = Rand.Next(0, 10);
+                    Stations[i].EmptyCharges = Rand.Next(0,15);
                     DataSource.Config.StationsIndex++;
                 }
                 Stations[0].Name = "aaa";
@@ -42,8 +42,8 @@ namespace DAL
                 for (int i = 0; i < 5; i++)
                 {
                     Drones[i].Id = Rand.Next(0, 1000000);
-                    Drones[i].MaxWeight = (WeightCategories)Rand.Next(0,2);
-                    Drones[i].Status = (DroneStatuses)Rand.Next(0, 2);
+                    Drones[i].MaxWeight = (WeightCategories)Rand.Next(0,3);
+                    Drones[i].Status = (DroneStatuses)Rand.Next(0,3);
                     DataSource.Config.DronesIndex++;
                 }
                 Drones[0].Model = "a";
@@ -69,9 +69,30 @@ namespace DAL
                 Customers[7].Name = "Chaya";
                 Customers[8].Name = "Chani";
                 Customers[9].Name = "Yakov";
-            }
-        }
 
+                Customers[0].Phone = "051111111";
+                Customers[1].Name = "0522222222";
+                Customers[2].Name = "0533333333";
+                Customers[3].Name = "0544444444";
+                Customers[4].Name = "0555555555";
+                Customers[5].Name = "0566666666";
+                Customers[6].Name = "0577777777";
+                Customers[7].Name = "0588888888";
+                Customers[8].Name = "0599999999";
+                Customers[9].Name = "0500000000";
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Parcels[i].Id = Rand.Next(0, 1000000);
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].Priority = (Priorities)Rand.Next(0,3);
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].SenderId= Rand.Next(0, 1000000);
+                    Parcels[i].SenderId= Rand.Next(0, 1000000);
+                    Parcels[i].Weight= (WeightCategories)Rand.Next(0,3);
+                }
+            }
         }
     }
 }
