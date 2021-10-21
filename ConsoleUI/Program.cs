@@ -16,22 +16,7 @@ namespace ConsoleUI
                     
                     break;
                 case "present_according_to_the_id":
-                    Choice = Console.ReadLine();
-                    switch (Choice)
-                    {
-                        case "BaseStation":
-
-                            break;
-                        case "Drone":
-
-                            break;
-                        case "Customer":
-
-                            break;
-                        case "Parcel":
-
-                            break;
-                    }
+                    
                     break;
                 case "present_the_whole_list":
                     Choice = Console.ReadLine();

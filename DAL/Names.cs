@@ -62,7 +62,6 @@ namespace DAL
                         if (Weight == "heavy")
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)2;
                         DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
-          
                         DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId =DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
                         Console.WriteLine("Enter Priority (regular/fast/urgent): ");
                         string Priority = Console.ReadLine();
@@ -114,7 +113,6 @@ namespace DAL
                 ParclToPickup.PickedUp= DateTime.Now;
             }
 
-            
             void ParcelToCustomer(Parcel ParcelDeliverd )
             {
                 ParcelDeliverd.Delivered = DateTime.Now;
@@ -124,8 +122,43 @@ namespace DAL
                 DataSource.Drones[i].Status = (DroneStatuses)0;
             }
 
+            void PrintObject()
+            {
+                Console.WriteLine("Enter What Would Yot Want To Print: ");
+                string Choice = Console.ReadLine();
+                int i = 0;
+                switch (Choice)
+                {
+                    case "BaseStation":
+                        Console.WriteLine("Enter the BaseStation Id: ");
+                        int BaseStationId = int.Parse(Console.ReadLine());
+                        while (DataSource.Stations[i].Id != BaseStationId)
+                            i++;
+                        DataSource.Stations[i].ToString();
+                        break;
+                    case "Drone":
+                        Console.WriteLine("Enter the Drone Id: ");
+                        int DroneId = int.Parse(Console.ReadLine());
+                        while (DataSource.Drones[i].Id != DroneId)
+                            i++;
+                        DataSource.Drones[i].ToString();
+                        break;
+                    case "Customer":
+                        Console.WriteLine("Enter the Customer Id: ");
+                        int CustomerId = int.Parse(Console.ReadLine());
+                        while (DataSource.Customers[i].Id != CustomerId)
+                            i++;
+                        DataSource.Customers[i].ToString();
+                        break;
+                    case "Parcel":
+                        Console.WriteLine("Enter the Parcel Id: ");
+                        int ParcelId = int.Parse(Console.ReadLine());
+                        while (DataSource.Parcels[i].Id != ParcelId)
+                            i++;
+                        DataSource.Parcels[i].ToString();
+                        break;
+                }
             }
-
         }
     class DataSource
         {
