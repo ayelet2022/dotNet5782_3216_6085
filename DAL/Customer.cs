@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.IDAL.DO
+using DAL.IDAL.DO;
 namespace DAL
 {
     public struct Customer

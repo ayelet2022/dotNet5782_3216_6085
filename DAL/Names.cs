@@ -25,7 +25,7 @@ namespace DAL
                 internal static int ParcelsIndex = 0;
                 int I = 0;
             }
-            public static void Initialize()
+           internal static void Initialize()
             {
                 Random Rand = new Random(DateTime.Now.Millisecond);
                 for (int i = 0; i < 2; i++)
