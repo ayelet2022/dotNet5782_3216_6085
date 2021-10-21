@@ -1,6 +1,5 @@
 ﻿using System;
 using DAL.IDAL.DO;
-Random Rand = new Random(DateTime.Now.Millisecond);
 namespace DAL
 {
     namespace DalObject
@@ -20,64 +19,80 @@ namespace DAL
             static Parcel[] Parcels = new Parcel[1000];
             internal class Config
             {
-                static int DronesIndex = 0;
-                static int StationsIndex = 0;
-                static int CustomersIndex = 0;
-                static int ParcelsIndex = 0;
+                internal static int DronesIndex = 0;
+                internal static int StationsIndex = 0;
+                internal static int CustomersIndex = 0;
+                internal static int ParcelsIndex = 0;
                 int I = 0;
             }
             static void Initialize()
             {
-                drones[0].id = rand(0,10);
-                drones[0].battery = 100;
-                drones[0].id = 1111;
-                drones[0].maxWeight = (WeightCategories)0;
-                drones[0].model = "aaa";
-                drones[0].status = (DroneStatuses)0;
+                Random Rand = new Random(DateTime.Now.Millisecond);
+                for (int i = 0; i < 2; i++)
+                {
+                    Stations[i].Id = Rand.Next(0, 1000000);
+                    Stations[i].Latitude = Rand.Next(0, 1000000);
+                    Stations[i].Latitude = Rand.Next(0, 1000000);
+                    Stations[i].EmptyCharges = Rand.Next(0,15);
+                    DataSource.Config.StationsIndex++;
+                }
+                Stations[0].Name = "aaa";
+                Stations[1].Name = "bbb";
 
-                drones[DataSource.Config.dronesIndex].battery = 90;
-                drones[1].id = 2222;
-                drones[1].maxWeight = (WeightCategories)1;
-                drones[1].model = "bbb";
-                drones[1].status = (DroneStatuses)1;
+                for (int i = 0; i < 5; i++)
+                {
+                    Drones[i].Id = Rand.Next(0, 1000000);
+                    Drones[i].MaxWeight = (WeightCategories)Rand.Next(0,3);
+                    Drones[i].Status = (DroneStatuses)Rand.Next(0,3);
+                    DataSource.Config.DronesIndex++;
+                }
+                Drones[0].Model = "a";
+                Drones[2].Model = "b";
+                Drones[3].Model = "c";
+                Drones[4].Model = "d";
+                Drones[1].Model = "e";
 
-                drones[dronesIndex].battery = 80;
-                drones[2].id = 3333;
-                drones[2].maxWeight = (WeightCategories)2;
-                drones[2].model = "ccc";
-                drones[2].status = (DroneStatuses)2;
+                for (int i = 0; i < 10; i++)
+                {
+                    Customers[i].Id = Rand.Next(0, 1000000);
+                    Customers[i].Latitude = Rand.Next(0, 1000000);
+                    Customers[i].Longitude = Rand.Next(0, 1000000);
+                    DataSource.Config.CustomersIndex++;
+                }
+                Customers[0].Name = "Ayelet";
+                Customers[1].Name = "Penina";
+                Customers[2].Name = "Yosi";
+                Customers[3].Name = "Avi";
+                Customers[4].Name = "Nomi";
+                Customers[5].Name = "Michal";
+                Customers[6].Name = "Daniel";
+                Customers[7].Name = "Chaya";
+                Customers[8].Name = "Chani";
+                Customers[9].Name = "Yakov";
 
-                drones[dronesIndex].battery = 70;
-                drones[3].id = 4444;
-                drones[3].maxWeight = (WeightCategories)0;
-                drones[1].model = "ddd";
-                drones[1].status = (DroneStatuses)1;
+                Customers[0].Phone = "051111111";
+                Customers[1].Name = "0522222222";
+                Customers[2].Name = "0533333333";
+                Customers[3].Name = "0544444444";
+                Customers[4].Name = "0555555555";
+                Customers[5].Name = "0566666666";
+                Customers[6].Name = "0577777777";
+                Customers[7].Name = "0588888888";
+                Customers[8].Name = "0599999999";
+                Customers[9].Name = "0500000000";
 
-                drones[dronesIndex].battery = 60;
-                drones[1].id = 4444;
-                drones[1].maxWeight = (WeightCategories)1;
-                drones[1].model = "yyy";
-                drones[1].status = (DroneStatuses)1;
-
-                stations[0].emptyCharges = 4;
-                stations[0].id = 264;
-                stations[0].latitude = 26.8;
-                stations[0].longitud = 50;
-                stations[0].name = "jerusalem";
-
-                stations[0].emptyCharges = 4;
-                stations[0].id = 264;
-                Random r = new Random();
-                stations[0].latitude = r;
-                stations[0].longitud = 50;
-                stations[0].name = "jerusalem";
-
-                drones[1].model = "eee";
-                drones[1].status = (DroneStatuses)2;
-
-                customers[0].id =
+                for (int i = 0; i < 10; i++)
+                {
+                    Parcels[i].Id = Rand.Next(0, 1000000);
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].Priority = (Priorities)Rand.Next(0,3);
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].PickedUp = DateTime.Now;
+                    Parcels[i].SenderId= Rand.Next(0, 1000000);
+                    Parcels[i].SenderId= Rand.Next(0, 1000000);
+                    Parcels[i].Weight= (WeightCategories)Rand.Next(0,3);
+                }
             }
-       
         }
         
 
