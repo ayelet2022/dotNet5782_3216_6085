@@ -71,15 +71,15 @@ namespace DAL
                 Customers[9].Name = "Yakov";
 
                 Customers[0].Phone = "051111111";
-                Customers[1].Name = "0522222222";
-                Customers[2].Name = "0533333333";
-                Customers[3].Name = "0544444444";
-                Customers[4].Name = "0555555555";
-                Customers[5].Name = "0566666666";
-                Customers[6].Name = "0577777777";
-                Customers[7].Name = "0588888888";
-                Customers[8].Name = "0599999999";
-                Customers[9].Name = "0500000000";
+                Customers[1].Phone = "0522222222";
+                Customers[2].Phone = "0533333333";
+                Customers[3].Phone = "0544444444";
+                Customers[4].Phone = "0555555555";
+                Customers[5].Phone = "0566666666";
+                Customers[6].Phone = "0577777777";
+                Customers[7].Phone = "0588888888";
+                Customers[8].Phone = "0599999999";
+                Customers[9].Phone = "0500000000";
 
                 for (int i = 0; i < 10; i++)
                 {
