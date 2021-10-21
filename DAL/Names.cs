@@ -1,27 +1,30 @@
 ﻿using System;
-using DAL;
-using IDAL.DO;
-Random rand = new Random(DateTime.Now.Millisecond);
-
-namespace DalObject
+using DAL.IDAL.DO;
+Random Rand = new Random(DateTime.Now.Millisecond);
+namespace DAL
 {
-    class DataSource
+    namespace DalObject
     {
-        static Drone[] drones = new Drone[10];
-        static BaseStation[] stations = new BaseStation[5];
-        static Customer[] customers = new Customer[100];
-        static Parcel[] parcels = new Parcel[1000];
-        internal class Config
+        public class DalObject
         {
-            internal static int dronesIndex = 0;
-            internal static int stationsIndex = 0;
-            internal static int customersIndex = 0;
-            internal static int parcelsIndex = 0;
-            internal int i = 0;
-            public int DronesIndex
+            DalObject()
             {
-                get => dronesIndex;
-                set { dronesIndex = value; }
+                DataSource.Initialize();
+            }
+        }
+        class DataSource
+        {
+            static Drone[] Drones = new Drone[10];
+            static BaseStation[] Stations = new BaseStation[5];
+            static Customer[] Customers = new Customer[100];
+            static Parcel[] Parcels = new Parcel[1000];
+            internal class Config
+            {
+                static int DronesIndex = 0;
+                static int StationsIndex = 0;
+                static int CustomersIndex = 0;
+                static int ParcelsIndex = 0;
+                int I = 0;
             }
             static void Initialize()
             {
