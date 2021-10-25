@@ -140,13 +140,13 @@ namespace DAL
             /// and updates all that needs to be update becaus of that
             /// </summary>
             /// <param name="dronToCharge"></param> the drone that need charging
-            public static void DronToCharger(int DronesId, string NameOfBaseStation)
+            public static void DronToCharger(int DronesId, int IdOfBaseStation)
             {
                 int j = 0;
                 while (DataSource.Drones[j].Id != DronesId)
                     j++;
                 int i = 0;
-                while (i < DataSource.Config.StationsIndex && DataSource.Stations[i].Name != NameOfBaseStation)
+                while (i < DataSource.Config.StationsIndex && DataSource.Stations[i].Id != IdOfBaseStation)
                     i++;
                 DataSource.DroneCharges[DataSource.Config.DroneChargesIndex].DroneId = DataSource.Drones[j].Id;
                 DataSource.DroneCharges[DataSource.Config.DroneChargesIndex].StationId = DataSource.Stations[i].Id;

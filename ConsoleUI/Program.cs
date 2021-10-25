@@ -34,7 +34,6 @@ namespace ConsoleUI
                         int.TryParse(Console.ReadLine(), out ChoiceAdd);
                         switch (ChoiceAdd)
                         {
-
                             case 1:
                                 DalObject.AddBaseStation();
                                 break;
@@ -123,18 +122,19 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter the  drone Id (4 digits): ");
                                 int DronesId1;
                                 int.TryParse(Console.ReadLine(), out DronesId1);
-                                Console.WriteLine("Enter the name of the basestation you whant to charge the drone in (from the list): ");
+                                Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
                                 BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
                                 for (int i = 0; i < Stations.Length; i++)
                                     Console.WriteLine(Stations[i].ToString());
-                                string NameOfBaseStation = Console.ReadLine();
-                                DAL.DalObject.DalObject.DronToCharger(DronesId1, NameOfBaseStation);//לבדוק בפרוגרם
+                                int IdOfBaseStation;
+                                int.TryParse(Console.ReadLine(), out IdOfBaseStation);
+                                DAL.DalObject.DalObject.DronToCharger(DronesId1, IdOfBaseStation);
                                 break;
                             case 5:
                                 Console.WriteLine("Enter the  drone Id (4 digits): ");
                                 int DronesId2;
                                 int.TryParse(Console.ReadLine(), out DronesId2);
-                                DAL.DalObject.DalObject.FreeDroneFromBaseStation(DronesId2);//לבדוק בפרוגרם
+                                DAL.DalObject.DalObject.FreeDroneFromBaseStation(DronesId2);
                                 break;
                         }
                         break;
