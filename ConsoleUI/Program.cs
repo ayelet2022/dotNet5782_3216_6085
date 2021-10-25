@@ -64,7 +64,6 @@ namespace ConsoleUI
                                 break;
                             case 4:
                                 Parcel newParcel = new Parcel();
-                                int idParcel;
                                 newParcel.Id = 0;
                                 Console.WriteLine("Enter SenderId (4 digits): ");
                                 int senderId;
