@@ -33,7 +33,7 @@ namespace DAL
                         DataSource.Drones[DataSource.Config.DronesIndex].Id = Rand.Next(0, 1000000);
                         DataSource.Drones[DataSource.Config.DronesIndex].MaxWeight = (WeightCategories)Rand.Next(0, 3);
                         DataSource.Drones[DataSource.Config.DronesIndex].Status = (DroneStatuses)Rand.Next(0, 3);
-                        DataSource.Drones[DataSource.Config.DronesIndex].Battery= Rand.Next(0, 101);
+                        DataSource.Drones[DataSource.Config.DronesIndex].Battery = Rand.Next(0, 101);
                         DataSource.Drones[DataSource.Config.DronesIndex].Model = "xxx";
                         DataSource.Config.DronesIndex++;
                         break;
@@ -44,7 +44,7 @@ namespace DAL
                         Console.WriteLine("Enter Latitude: ");
                         DataSource.Customers[DataSource.Config.CustomersIndex].Latitude = double.Parse(Console.ReadLine());
                         Console.WriteLine("Enter Longitude: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Longitude= double.Parse(Console.ReadLine());
+                        DataSource.Customers[DataSource.Config.CustomersIndex].Longitude = double.Parse(Console.ReadLine());
                         Console.WriteLine("Enter Name: ");
                         DataSource.Customers[DataSource.Config.CustomersIndex].Name = Console.ReadLine();
                         Console.WriteLine("Enter Phone: ");
@@ -69,7 +69,7 @@ namespace DAL
                         if (Weight == "heavy")
                             DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)2;
                         DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId =DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
+                        DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId = DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
                         Console.WriteLine("Enter Priority (regular/fast/urgent): ");
                         string Priority = Console.ReadLine();
                         if (Priority == "regular")
@@ -89,14 +89,17 @@ namespace DAL
             /// </summary>
             /// <param name="newParcel"></param> the parcel thats the dron need to deliver
             /// <returns></returns>the id of the drone that can deliver the parcel
-            int DronToAParcel(Parcel newParcel)
+            public static void DronToAParcel(int NewId)
             {
+                int j = 0;
+                while (DataSource.Parcels[j].Id != NewId)
+                    j++;
                 int i = 0;
                 while ((DataSource.Drones[i].Status != (DroneStatuses)0) && (DataSource.Drones[i].Battery != 0) &&
-                    (DataSource.Drones[i].MaxWeight >= newParcel.Weight))
+                    (DataSource.Drones[i].MaxWeight >= DataSource.Parcels[j].Weight))
                     i++;
                 DataSource.Drones[i].Status = (DroneStatuses)2;
-                return DataSource.Drones[i].Id;
+                //return DataSource.Drones[i].Id;
             }
 
             /// <summary>
@@ -104,45 +107,55 @@ namespace DAL
             /// and updates all that needs to be update becaus of that
             /// </summary>
             /// <param name="dronToCharge"></param> the drone that need charging
-            void DronToCharger(Drone dronToCharge )
+            public static void DronToCharger(int DronesId, string NameOfBaseStation)
             {
-                Console.WriteLine("Enter the name of the basestation you whant to charge the drone in: ");
-                string NameOfBaseStation = Console.ReadLine();
+                int j = 0;
+                while (DataSource.Drones[j].Id != DronesId)
+                    j++;
                 int i = 0;
                 while (i < DataSource.Config.StationsIndex && DataSource.Stations[i].Name != NameOfBaseStation)
                     i++;
                 DataSource.Stations[i].EmptyCharges--;
-                dronToCharge.Status = (DroneStatuses)1;
+                DataSource.Drones[j].Status = (DroneStatuses)1;
             }
 
             /// <summary>
             /// free the drone from the charger that he was cherging from in the base station
             /// </summary>
             /// <param name="dronToFree"></param>the drone that needs to get free from the charger he his charging from
-            void FreeDroneFromBaseStation(Drone dronToFree)
+            public static void FreeDroneFromBaseStation(int DronesId)
             {
-                dronToFree.Battery = 100;
-                dronToFree.Status= (DroneStatuses)0;
+                int j = 0;
+                while (DataSource.Drones[j].Id != DronesId)
+                    j++;
+                DataSource.Drones[j].Battery = 100;
+                DataSource.Drones[j].Status = (DroneStatuses)0;
             }
 
             /// <summary>
             /// updates the time that the parcel was picked up by the dron
             /// </summary>
             /// <param name="ParclToPickup"></param> the parcel that needs delevering
-            void PickUpParcel(Parcel ParclToPickup)
+            public static void PickUpParcel(int NewId)
             {
-                ParclToPickup.PickedUp= DateTime.Now;
+                int j = 0;
+                while (DataSource.Parcels[j].Id != NewId)
+                    j++;
+                DataSource.Parcels[j].PickedUp = DateTime.Now;
             }
 
             /// <summary>
             /// updates the time that the parcel was deleverd to the customer
             /// </summary>
             /// <param name="ParcelDeliverd"></param>
-            void ParcelToCustomer(Parcel ParcelDeliverd )
+            public static void ParcelToCustomer(int NewId)
             {
-                ParcelDeliverd.Delivered = DateTime.Now;
-                int i=0;
-                while (i < DataSource.Config.DronesIndex && DataSource.Drones[i].Id != ParcelDeliverd.DroneId)
+                int j = 0;
+                while (DataSource.Parcels[j].Id != NewId)
+                    j++;
+                DataSource.Parcels[j].Delivered = DateTime.Now;
+                int i = 0;
+                while (i < DataSource.Config.DronesIndex && DataSource.Drones[i].Id != DataSource.Parcels[j].DroneId)
                     i++;
                 DataSource.Drones[i].Status = (DroneStatuses)0;
             }
@@ -192,39 +205,64 @@ namespace DAL
             /// <summary>
             /// prints the whole list of the object according to what the user enterd
             /// </summary>
-            void PrintObjectsArr()
+            public static BaseStation[] PrintBaseStations()
             {
-                Console.WriteLine("What list would you like to print?");
-                string Choice = Console.ReadLine();
-                switch (Choice)
+                BaseStation[] ActiveStations = new BaseStation[DataSource.Config.StationsIndex]; 
+                for (int i = 0; i < DataSource.Config.StationsIndex; i++)
                 {
-                    case "BaseStation":
-                        for (int i = 0; i < DataSource.Config.StationsIndex; i++)
-                            DataSource.Stations[i].ToString();
-                        break;
-                    case "Drone":
-                        for (int i = 0; i < DataSource.Config.DronesIndex; i++)
-                            DataSource.Drones[i].ToString();
-                        break;
-                    case "Customer":
-                        for (int i = 0; i < DataSource.Config.CustomersIndex; i++)
-                            DataSource.Customers[i].ToString();
-                        break;
-                    case "Parcel":
-                        for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
-                            DataSource.Parcels[i].ToString();
-                        break;
-                    case "Parcel_that_weren't_paired":
-                        for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
-                            if(DataSource.Parcels[i].DroneId==0)
-                                    DataSource.Parcels[i].ToString();
-                        break;
-                    case "BaseStation_with_available_charges":
-                        for (int i = 0; i < DataSource.Config.StationsIndex; i++)
-                            if(DataSource.Stations[i].EmptyCharges>0)
-                            DataSource.Stations[i].ToString();
-                        break;
+                    ActiveStations[i] = DataSource.Stations[i];
+                    //ActiveStations[i].Id = DataSource.Stations[i].Id;
+                    //ActiveStations[i].Name = DataSource.Stations[i].Name;
+                    //ActiveStations[i].EmptyCharges = DataSource.Stations[i].EmptyCharges;
+                    //ActiveStations[i].Latitude = DataSource.Stations[i].Latitude;
+                    //ActiveStations[i].Longitude = DataSource.Stations[i].Longitude;
                 }
+                return ActiveStations;
+            }
+            public static Drone[] PrintDrones()
+            {
+                Drone[] ActiveDrones = new Drone[DataSource.Config.DronesIndex];
+                for (int i = 0; i < DataSource.Config.DronesIndex; i++)
+                    ActiveDrones[i] = DataSource.Drones[i];
+                return ActiveDrones;
+            }
+            public static Customer[] PrintCustomers()
+            {
+                Customer[] ActiveCustomers = new Customer[DataSource.Config.CustomersIndex];
+                for (int i = 0; i < DataSource.Config.CustomersIndex; i++)
+                    ActiveCustomers[i] = DataSource.Customers[i];
+                return ActiveCustomers;
+            }
+            public static Parcel[] PrintPercels()
+            {
+                Parcel[] ActiveParcels = new Parcel[DataSource.Config.ParcelsIndex];
+                for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
+                    ActiveParcels[i] = DataSource.Parcels[i];
+                return ActiveParcels;
+            }
+            public static Parcel[] ParcelThatWerenNotPaired()
+            {
+                int count = 0;
+                for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
+                    if (DataSource.Parcels[i].DroneId == 0)
+                        count++;
+                Parcel[] Parcels = new Parcel[count];
+                for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
+                    if (DataSource.Parcels[i].DroneId == 0)
+                        Parcels[i] = DataSource.Parcels[i];
+                return Parcels;
+            }
+            public static BaseStation[] BaseStationWithAvailableCharges()
+            {
+                int count = 0;
+                for (int i = 0; i < DataSource.Config.StationsIndex; i++)
+                    if (DataSource.Stations[i].EmptyCharges > 0)
+                        count++;
+                BaseStation[] Stations = new BaseStation[count];
+                for (int i = 0; i < DataSource.Config.StationsIndex; i++)
+                    if (DataSource.Stations[i].EmptyCharges > 0)
+                        Stations[i] = DataSource.Stations[i];
+                return Stations;
             }
         }
         /// <summary>
