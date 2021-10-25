@@ -59,10 +59,10 @@ namespace DAL
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = newParcel.Id;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].SenderId = newParcel.SenderId;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].TargetId = newParcel.TargetId;
-                DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId = DataSource.Drones[0].Id;
-                DataSource.Parcels[DataSource.Config.ParcelsIndex].PickedUp = DateTime.Now;
-                DataSource.Parcels[DataSource.Config.ParcelsIndex].Delivered= DateTime.Now;
+                DalObject.DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex].Id);
+                DalObject.PickUpParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex].Id);
+                DalObject.ParcelToCustomer(DataSource.Parcels[DataSource.Config.ParcelsIndex].Id);
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = newParcel.Priority;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = newParcel.Weight;
 
