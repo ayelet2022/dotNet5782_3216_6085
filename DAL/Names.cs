@@ -205,47 +205,6 @@ namespace DAL
                 DataSource.Drones[i].Status = (DroneStatuses)0;
             }
 
-            /// <summary>
-            /// prints the object(base station,drone,customer,parcel) 
-            /// that the user wants to print according to the object id
-            /// </summary>
-            void PrintObject()
-            {
-                Console.WriteLine("Enter What Would Yot Want To Print: ");
-                string Choice = Console.ReadLine();
-                int i = 0;
-                switch (Choice)
-                {
-                    case "BaseStation":
-                        Console.WriteLine("Enter the BaseStation Id: ");
-                        int BaseStationId = int.Parse(Console.ReadLine());
-                        while (DataSource.Stations[i].Id != BaseStationId)
-                            i++;
-                        DataSource.Stations[i].ToString();
-                        break;
-                    case "Drone":
-                        Console.WriteLine("Enter the Drone Id: ");
-                        int DroneId = int.Parse(Console.ReadLine());
-                        while (DataSource.Drones[i].Id != DroneId)
-                            i++;
-                        DataSource.Drones[i].ToString();
-                        break;
-                    case "Customer":
-                        Console.WriteLine("Enter the Customer Id: ");
-                        int CustomerId = int.Parse(Console.ReadLine());
-                        while (DataSource.Customers[i].Id != CustomerId)
-                            i++;
-                        DataSource.Customers[i].ToString();
-                        break;
-                    case "Parcel":
-                        Console.WriteLine("Enter the Parcel Id: ");
-                        int ParcelId = int.Parse(Console.ReadLine());
-                        while (DataSource.Parcels[i].Id != ParcelId)
-                            i++;
-                        DataSource.Parcels[i].ToString();
-                        break;
-                }
-            }
 
             /// <summary>
             /// prints the whole list of the object according to what the user enterd
@@ -268,21 +227,44 @@ namespace DAL
             {
                 Drone[] ActiveDrones = new Drone[DataSource.Config.DronesIndex];
                 for (int i = 0; i < DataSource.Config.DronesIndex; i++)
-                    ActiveDrones[i] = DataSource.Drones[i];
+                {
+                    ActiveDrones[i].Id = DataSource.Drones[i].Id;
+                    ActiveDrones[i].MaxWeight = DataSource.Drones[i].MaxWeight;
+                    ActiveDrones[i].Model = DataSource.Drones[i].Model;
+                    ActiveDrones[i].Status = DataSource.Drones[i].Status;
+                    ActiveDrones[i].Battery = DataSource.Drones[i].Battery;
+                }
                 return ActiveDrones;
             }
             public static Customer[] PrintCustomers()
             {
                 Customer[] ActiveCustomers = new Customer[DataSource.Config.CustomersIndex];
                 for (int i = 0; i < DataSource.Config.CustomersIndex; i++)
-                    ActiveCustomers[i] = DataSource.Customers[i];
+                {
+                    ActiveCustomers[i].Id = DataSource.Customers[i].Id;
+                    ActiveCustomers[i].Latitude = DataSource.Customers[i].Latitude;
+                    ActiveCustomers[i].Longitude = DataSource.Customers[i].Longitude;
+                    ActiveCustomers[i].Name = DataSource.Customers[i].Name;
+                    ActiveCustomers[i].Phone = DataSource.Customers[i].Phone;
+                }
                 return ActiveCustomers;
             }
             public static Parcel[] PrintPercels()
             {
                 Parcel[] ActiveParcels = new Parcel[DataSource.Config.ParcelsIndex];
                 for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
-                    ActiveParcels[i] = DataSource.Parcels[i];
+                {
+                    ActiveParcels[i].Id = DataSource.Parcels[i].Id;
+                    ActiveParcels[i].PickedUp = DataSource.Parcels[i].PickedUp;
+                    ActiveParcels[i].Priority = DataSource.Parcels[i].Priority;
+                    ActiveParcels[i].Scheduled = DataSource.Parcels[i].Scheduled;
+                    ActiveParcels[i].SenderId = DataSource.Parcels[i].SenderId;
+                    ActiveParcels[i].TargetId = DataSource.Parcels[i].TargetId;
+                    ActiveParcels[i].Weight = DataSource.Parcels[i].Weight;
+                    ActiveParcels[i].DroneId = DataSource.Parcels[i].DroneId;
+                    ActiveParcels[i].Delivered = DataSource.Parcels[i].Delivered;
+                    ActiveParcels[i].CreatParcel = DataSource.Parcels[i].CreatParcel;
+                }
                 return ActiveParcels;
             }
             public static Parcel[] ParcelThatWerenNotPaired()
@@ -294,7 +276,18 @@ namespace DAL
                 Parcel[] Parcels = new Parcel[count];
                 for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
                     if (DataSource.Parcels[i].DroneId == 0)
-                        Parcels[i] = DataSource.Parcels[i];
+                    {
+                        Parcels[i].Id = DataSource.Parcels[i].Id;
+                        Parcels[i].PickedUp = DataSource.Parcels[i].PickedUp;
+                        Parcels[i].Priority = DataSource.Parcels[i].Priority;
+                        Parcels[i].Scheduled = DataSource.Parcels[i].Scheduled;
+                        Parcels[i].SenderId = DataSource.Parcels[i].SenderId;
+                        Parcels[i].TargetId = DataSource.Parcels[i].TargetId;
+                        Parcels[i].Weight = DataSource.Parcels[i].Weight;
+                        Parcels[i].DroneId = DataSource.Parcels[i].DroneId;
+                        Parcels[i].Delivered = DataSource.Parcels[i].Delivered;
+                        Parcels[i].CreatParcel = DataSource.Parcels[i].CreatParcel;
+                    }
                 return Parcels;
             }
             public static BaseStation[] BaseStationWithAvailableCharges()
@@ -306,7 +299,13 @@ namespace DAL
                 BaseStation[] Stations = new BaseStation[count];
                 for (int i = 0; i < DataSource.Config.StationsIndex; i++)
                     if (DataSource.Stations[i].EmptyCharges > 0)
-                        Stations[i] = DataSource.Stations[i];
+                    {
+                       Stations[i].Id = DataSource.Stations[i].Id;
+                       Stations[i].Name = DataSource.Stations[i].Name;
+                       Stations[i].EmptyCharges = DataSource.Stations[i].EmptyCharges;
+                       Stations[i].Latitude = DataSource.Stations[i].Latitude;
+                       Stations[i].Longitude = DataSource.Stations[i].Longitude;
+                    }
                 return Stations;
             }
         }
