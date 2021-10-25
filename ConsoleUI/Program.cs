@@ -93,25 +93,25 @@ namespace ConsoleUI
                             Console.WriteLine("Enter the base station id\n");
                             int id;
                             int.TryParse(Console.ReadLine(), out id);
-                            DalObject.PrintBaseStation(id);
+                            Console.WriteLine(DalObject.PrintBaseStation(id).ToString());
                             break;
                         case 2:
                             Console.WriteLine("Enter the base drone id\n");
                             int idDrone;
                             int.TryParse(Console.ReadLine(), out idDrone);
-                            DalObject.PrintBaseStation(idDrone);
+                            Console.WriteLine(DalObject.PrintBaseStation(idDrone).ToString()); 
                             break;
                         case 3:
                             Console.WriteLine("Enter the base customer id\n");
                             int idCustomer;
                             int.TryParse(Console.ReadLine(), out idCustomer);
-                            DalObject.PrintBaseStation(idCustomer);
+                            Console.WriteLine(DalObject.PrintBaseStation(idCustomer).ToString());
                             break;
                         case 4:
                             Console.WriteLine("Enter the base parcel id\n");
                             int idParcel;
                             int.TryParse(Console.ReadLine(), out idParcel);
-                            DalObject.PrintBaseStation(idParcel);
+                            Console.WriteLine(DalObject.PrintBaseStation(idParcel).ToString());
                             break;
                     }
                     break;

@@ -6,29 +6,40 @@ namespace DAL
     {
        public class DalObject
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             DalObject()
             {
                 DataSource.Initialize();
             }
+            /// <summary>
+            /// adds a new base station to the arrey
+            /// </summary>
             public static void AddBaseStation()
             {
+                Random Rand = new Random(DateTime.Now.Millisecond);
                 DataSource.Stations[DataSource.Config.StationsIndex].Id = Rand.Next(1000, 10000);
                 DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
                 DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
-                DataSource.Stations[DataSource.Config.StationsIndex].EmptyCharges = Rand.Next(0, 15);
-                DataSource.Stations[DataSource.Config.StationsIndex].Name = "aaa";
+                DataSource.Stations[DataSource.Config.StationsIndex].EmptyCharges = Rand.Next(0, 6);
+                DataSource.Stations[DataSource.Config.StationsIndex].Name = "ccc";
                 DataSource.Config.StationsIndex++;
             }
+            /// <summary>
+            /// adds a new drone to the arrey
+            /// </summary>
             public static void AddDrone()
             {
+                Random Rand = new Random(DateTime.Now.Millisecond);
                 DataSource.Drones[DataSource.Config.DronesIndex].Id = Rand.Next(1000, 10000);
                 DataSource.Drones[DataSource.Config.DronesIndex].MaxWeight = (WeightCategories)Rand.Next(0, 3);
                 DataSource.Drones[DataSource.Config.DronesIndex].Status = (DroneStatuses)Rand.Next(0, 3);
                 DataSource.Drones[DataSource.Config.DronesIndex].Battery = Rand.Next(0, 101);
-                DataSource.Drones[DataSource.Config.DronesIndex].Model = "xxx";
+                DataSource.Drones[DataSource.Config.DronesIndex].Model = "x";
                 DataSource.Config.DronesIndex++;
             }
+            /// <summary>
+            /// adds a new customer to the arrey
+            /// </summary>
+            /// <param name="newCustomer"></param>
             public static void AddCustomer(Customer newCustomer)
             {
                 DataSource.Customers[DataSource.Config.CustomersIndex].Id = newCustomer.Id;
@@ -38,6 +49,10 @@ namespace DAL
                 DataSource.Customers[DataSource.Config.CustomersIndex].Phone = newCustomer.Phone;
                 DataSource.Config.CustomersIndex++;
             }
+            /// <summary>
+            /// adds a new parcel to the arrey
+            /// </summary>
+            /// <param name="newParcel"></param>
             public static void AddParcel(Parcel newParcel)
             {
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].CreatParcel = DateTime.Now;
@@ -52,40 +67,53 @@ namespace DAL
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = newParcel.Weight;
 
             }
-
-            public static void PrintBaseStation(int idBaseStation)
+            /// <summary>
+            ///  returnes the base sation that the user wants to print according to his id
+            /// </summary>
+            /// <param name="idBaseStation"></param>
+            /// <returns></returns>
+            public static BaseStation PrintBaseStation(int idBaseStation)
             {
                 int i = 0;
                 while (i < DataSource.Config.StationsIndex && DataSource.Stations[DataSource.Config.StationsIndex].Id != idBaseStation)
                     i++;
-                DataSource.Stations[i].ToString();
+                return (DataSource.Stations[i]);
 
             }
 
-            public static void PrintDrone(int idDrone)
+            /// <summary>
+            ///  returnes the drone that the user wantes to print according to his id
+            /// </summary>
+            /// <param name="idDrone"></param>
+            /// <returns></returns>
+            public static Drone PrintDrone(int idDrone)
             {
                 int i = 0;
                 while (i < DataSource.Config.DronesIndex && DataSource.Drones[DataSource.Config.DronesIndex].Id != idDrone)
                     i++;
-                DataSource.Drones[i].ToString();
+                return (DataSource.Drones[i]);
 
             }
 
-            public static void PrintCustomer(int idCustomer)
+            public static Customer PrintCustomer(int idCustomer)
             {
                 int i = 0;
                 while (i < DataSource.Config.CustomersIndex && DataSource.Customers[DataSource.Config.CustomersIndex].Id != idCustomer)
                     i++;
-                DataSource.Customers[i].ToString();
+                return ( DataSource.Customers[i]);
 
             }
-
-            public static void PrintParcel(int idParcel)
+            /// <summary>
+            /// returnes the parcel that the user wanted to print according to his id
+            /// </summary>
+            /// <param name="idParcel"></param> the id of the parcel the the user wants to print
+            /// <returns></returns>the parcel that needs to be printed
+            public static Parcel PrintParcel(int idParcel)
             {
                 int i = 0;
                 while (i < DataSource.Config.ParcelsIndex && DataSource.Parcels[DataSource.Config.ParcelsIndex].Id != idParcel)
                     i++;
-                DataSource.Parcels[i].ToString();
+               return (DataSource.Parcels[i]);
 
             }
             /// <summary>
@@ -249,6 +277,9 @@ namespace DAL
                 internal static int ParcelsIndex = 0;
                 internal static int RunningParcelId = 0;
             }
+            /// <summary>
+            /// Incluods the data that we enterd
+            /// </summary>
             internal static void Initialize()
             {
                 Random Rand = new Random(DateTime.Now.Millisecond);
