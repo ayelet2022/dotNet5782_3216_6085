@@ -6,7 +6,7 @@ namespace DAL
     {
        public class DalObject
         {
-            DalObject()
+            public DalObject()
             {
                 DataSource.Initialize();
             }
@@ -256,11 +256,11 @@ namespace DAL
                 for (int i = 0; i < DataSource.Config.StationsIndex; i++)
                 {
                     ActiveStations[i] = DataSource.Stations[i];
-                    //ActiveStations[i].Id = DataSource.Stations[i].Id;
-                    //ActiveStations[i].Name = DataSource.Stations[i].Name;
-                    //ActiveStations[i].EmptyCharges = DataSource.Stations[i].EmptyCharges;
-                    //ActiveStations[i].Latitude = DataSource.Stations[i].Latitude;
-                    //ActiveStations[i].Longitude = DataSource.Stations[i].Longitude;
+                    ActiveStations[i].Id = DataSource.Stations[i].Id;
+                    ActiveStations[i].Name = DataSource.Stations[i].Name;
+                    ActiveStations[i].EmptyCharges = DataSource.Stations[i].EmptyCharges;
+                    ActiveStations[i].Latitude = DataSource.Stations[i].Latitude;
+                    ActiveStations[i].Longitude = DataSource.Stations[i].Longitude;
                 }
                 return ActiveStations;
             }
