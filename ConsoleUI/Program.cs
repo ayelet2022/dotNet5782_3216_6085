@@ -51,7 +51,10 @@ namespace ConsoleUI
                             Console.WriteLine("Enter the  drone Id (4 digits): ");
                             int DronesId1;
                             int.TryParse(Console.ReadLine(), out DronesId1);
-                            Console.WriteLine("Enter the name of the basestation you whant to charge the drone in: ");
+                            Console.WriteLine("Enter the name of the basestation you whant to charge the drone in (from the list): ");
+                            BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
+                            for (int i = 0; i < Stations.Length; i++)
+                                Console.WriteLine(Stations[i].ToString());
                             string NameOfBaseStation = Console.ReadLine();
                             DAL.DalObject.DalObject.DronToCharger(DronesId1, NameOfBaseStation);//לבדוק בפרוגרם
                             break;
@@ -73,32 +76,32 @@ namespace ConsoleUI
                         case "BaseStation":
                             BaseStation[] ActiveStations = DAL.DalObject.DalObject.PrintBaseStations();
                             for (int i = 0; i < ActiveStations.Length; i++)
-                                ActiveStations.ToString();
+                                Console.WriteLine(ActiveStations.ToString());
                             break;
                         case "Drone":
                             Drone[] ActiveDrones = DAL.DalObject.DalObject.PrintDrones();
                             for (int i = 0; i < ActiveDrones.Length; i++)
-                                ActiveDrones[i].ToString();
+                                Console.WriteLine(ActiveDrones[i].ToString());
                             break;
                         case "Customer":
                             Customer[] ActiveCustomers = DAL.DalObject.DalObject.PrintCustomers();
                             for (int i = 0; i < ActiveCustomers.Length; i++)
-                                ActiveCustomers[i].ToString();
+                                Console.WriteLine(ActiveCustomers[i].ToString());
                             break;
                         case "Parcel":
                             Parcel[] ActiveParcels = DAL.DalObject.DalObject.PrintPercels();
                             for (int i = 0; i < ActiveParcels.Length; i++)
-                                ActiveParcels[i].ToString();
+                                Console.WriteLine(ActiveParcels[i].ToString());
                             break;
                         case "Parcel_that_weren't_paired":
                             Parcel[] Parcels = DAL.DalObject.DalObject.ParcelThatWerenNotPaired();
                             for (int i = 0; i < Parcels.Length; i++)
-                                Parcels[i].ToString();
+                                Console.WriteLine(Parcels[i].ToString());
                             break;
                         case "BaseStation_with_available_charges":
                             BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
                             for (int i = 0; i < Stations.Length; i++)
-                                Stations[i].ToString();
+                                Console.WriteLine(Stations[i].ToString());
                             break;
                     }
                     break;

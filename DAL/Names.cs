@@ -98,8 +98,9 @@ namespace DAL
                 while ((DataSource.Drones[i].Status != (DroneStatuses)0) && (DataSource.Drones[i].Battery != 0) &&
                     (DataSource.Drones[i].MaxWeight >= DataSource.Parcels[j].Weight))
                     i++;
+                DataSource.Parcels[j].DroneId = DataSource.Drones[i].Id;
+                DataSource.Parcels[j].Scheduled = DateTime.Now;
                 DataSource.Drones[i].Status = (DroneStatuses)2;
-                //return DataSource.Drones[i].Id;
             }
 
             /// <summary>
@@ -115,6 +116,9 @@ namespace DAL
                 int i = 0;
                 while (i < DataSource.Config.StationsIndex && DataSource.Stations[i].Name != NameOfBaseStation)
                     i++;
+                DataSource.DroneCharges[DataSource.Config.DroneChargesIndex].DroneId = DataSource.Drones[j].Id;
+                DataSource.DroneCharges[DataSource.Config.DroneChargesIndex].StationId = DataSource.Stations[i].Id;
+                DataSource.Config.DroneChargesIndex++;
                 DataSource.Stations[i].EmptyCharges--;
                 DataSource.Drones[j].Status = (DroneStatuses)1;
             }
@@ -130,6 +134,15 @@ namespace DAL
                     j++;
                 DataSource.Drones[j].Battery = 100;
                 DataSource.Drones[j].Status = (DroneStatuses)0;
+                int i = 0;
+                while (DataSource.DroneCharges[i].DroneId != DronesId)
+                    i++;
+                DataSource.DroneCharges[i].DroneId = 0;
+                j = 0;
+                while (DataSource.Stations[j].Id != DataSource.DroneCharges[i].StationId)
+                    j++;
+                DataSource.Stations[j].EmptyCharges++;
+                DataSource.DroneCharges[i].StationId = 0;
             }
 
             /// <summary>
@@ -275,12 +288,14 @@ namespace DAL
             internal static BaseStation[] Stations = new BaseStation[5];
             internal static Customer[] Customers = new Customer[100];
             internal static Parcel[] Parcels = new Parcel[1000];
+            internal static DroneCharge[] DroneCharges = new DroneCharge[25];
             internal class Config
             {
                 internal static int DronesIndex = 0;
                 internal static int StationsIndex = 0;
                 internal static int CustomersIndex = 0;
                 internal static int ParcelsIndex = 0;
+                internal static int DroneChargesIndex = 0;
                 internal static int RunningParcelId = 0;
             }
             internal static void Initialize()
@@ -288,10 +303,10 @@ namespace DAL
                 Random Rand = new Random(DateTime.Now.Millisecond);
                 for (int i = 0; i < 2; i++)
                 {
-                    Stations[i].Id = Rand.Next(0, 1000000);
+                    Stations[i].Id = Rand.Next(1000, 10000);
                     Stations[i].Latitude = Rand.Next(0, 1000000);
                     Stations[i].Latitude = Rand.Next(0, 1000000);
-                    Stations[i].EmptyCharges = Rand.Next(0,15);
+                    Stations[i].EmptyCharges = Rand.Next(0,6);
                     DataSource.Config.StationsIndex++;
                 }
                 Stations[0].Name = "aaa";
@@ -299,7 +314,7 @@ namespace DAL
 
                 for (int i = 0; i < 5; i++)
                 {
-                    Drones[i].Id = Rand.Next(0, 1000000);
+                    Drones[i].Id = Rand.Next(1000, 10000);
                     Drones[i].MaxWeight = (WeightCategories)Rand.Next(0,3);
                     Drones[i].Status = (DroneStatuses)Rand.Next(0,3);
                     DataSource.Config.DronesIndex++;
@@ -312,7 +327,7 @@ namespace DAL
 
                 for (int i = 0; i < 10; i++)
                 {
-                    Customers[i].Id = Rand.Next(0, 1000000);
+                    Customers[i].Id = Rand.Next(1000, 10000);
                     Customers[i].Latitude = Rand.Next(0, 1000000);
                     Customers[i].Longitude = Rand.Next(0, 1000000);
                     DataSource.Config.CustomersIndex++;
@@ -328,7 +343,7 @@ namespace DAL
                 Customers[8].Name = "Chani";
                 Customers[9].Name = "Yakov";
 
-                Customers[0].Phone = "051111111";
+                Customers[0].Phone = "0511111111";
                 Customers[1].Phone = "0522222222";
                 Customers[2].Phone = "0533333333";
                 Customers[3].Phone = "0544444444";
@@ -342,19 +357,14 @@ namespace DAL
                 for (int i = 0; i < 10; i++)
                 {
                     Parcels[i].CreatParcel = DateTime.Now;
-                    Parcels[i].Id = DataSource.Config.RunningParcelId++;
+                    Parcels[i].Id = DataSource.Config.RunningParcelId++ * 1000;
                     Parcels[i].Priority = (Priorities)Rand.Next(0,3);
-                    Parcels[i].SenderId= Rand.Next(0, 1000000);
-                    Parcels[i].TargetId = Rand.Next(0, 1000000);
+                    Parcels[i].SenderId= Rand.Next(1000, 10000);
+                    Parcels[i].TargetId = Rand.Next(1000, 10000);
                     Parcels[i].Weight = (WeightCategories)Rand.Next(0, 3);
-                    int j = 0;
-                    while ((DataSource.Drones[j].Status != (DroneStatuses)0) && (DataSource.Drones[j].Battery != 0) &&
-                        (DataSource.Drones[j].MaxWeight >= DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight))
-                        j++;
-                    Parcels[i].DroneId = DataSource.Drones[j].Id;
-                    Parcels[i].Scheduled = DateTime.Now;
-                    Parcels[i].PickedUp = DateTime.Now;
-                    Parcels[i].Delivered = DateTime.Now;
+                    DalObject.DronToAParcel(Parcels[i].Id);
+                    DalObject.PickUpParcel(Parcels[i].Id);
+                    DalObject.ParcelToCustomer(Parcels[i].Id);
                     DataSource.Config.ParcelsIndex++;
                 }
             }
