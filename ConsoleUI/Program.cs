@@ -66,9 +66,7 @@ namespace ConsoleUI
                             case 4:
                                 Parcel newParcel = new Parcel();
                                 int idParcel;
-                                Console.WriteLine("Enter Parcel Id (4 digits): ");
-                                int.TryParse(Console.ReadLine(), out idParcel);
-                                newParcel.Id = idParcel;
+                                newParcel.Id = 0;
                                 Console.WriteLine("Enter SenderId (4 digits): ");
                                 int senderId;
                                 int.TryParse(Console.ReadLine(), out senderId);

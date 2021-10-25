@@ -56,7 +56,7 @@ namespace DAL
             public static void AddParcel(Parcel newParcel)
             {
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].CreatParcel = DateTime.Now;
-                DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = newParcel.Id;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = DataSource.Config.RunningParcelId++;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].SenderId = newParcel.SenderId;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].TargetId = newParcel.TargetId;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId = DataSource.Drones[0].Id;
@@ -253,7 +253,7 @@ namespace DAL
                 Parcel[] ActiveParcels = new Parcel[DataSource.Config.ParcelsIndex];
                 for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
                 {
-                    ActiveParcels[i].Id = DataSource.Parcels[i].Id;
+                    ActiveParcels[i].Id =DataSource.Config.RunningParcelId++;
                     ActiveParcels[i].PickedUp = DataSource.Parcels[i].PickedUp;
                     ActiveParcels[i].Priority = DataSource.Parcels[i].Priority;
                     ActiveParcels[i].Scheduled = DataSource.Parcels[i].Scheduled;
