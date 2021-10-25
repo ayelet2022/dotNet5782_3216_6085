@@ -4,86 +4,90 @@ namespace DAL
 {
     namespace DalObject
     {
-        public class DalObject
+       public class DalObject
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             DalObject()
             {
                 DataSource.Initialize();
             }
-            /// <summary>
-            /// adds a new object(a new drone\a new basestation\a new customer\a new parcel) 
-            /// and updates all that needs to be updated becuas of what we added
-            /// </summary>
-            internal void AddObject()
+            public static void AddBaseStation()
             {
-                string Choice = Console.ReadLine();
-                switch (Choice)
-                {
-                    case "BaseStation":
-                        DataSource.Stations[DataSource.Config.StationsIndex].Id = Rand.Next(0, 1000000);
-                        DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
-                        DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
-                        DataSource.Stations[DataSource.Config.StationsIndex].EmptyCharges = Rand.Next(0, 15);
-                        DataSource.Stations[DataSource.Config.StationsIndex].Name = "aaa";
-                        DataSource.Config.StationsIndex++;
-                        break;
+                DataSource.Stations[DataSource.Config.StationsIndex].Id = Rand.Next(1000, 10000);
+                DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
+                DataSource.Stations[DataSource.Config.StationsIndex].Latitude = Rand.Next(0, 1000000);
+                DataSource.Stations[DataSource.Config.StationsIndex].EmptyCharges = Rand.Next(0, 15);
+                DataSource.Stations[DataSource.Config.StationsIndex].Name = "aaa";
+                DataSource.Config.StationsIndex++;
+            }
+            public static void AddDrone()
+            {
+                DataSource.Drones[DataSource.Config.DronesIndex].Id = Rand.Next(1000, 10000);
+                DataSource.Drones[DataSource.Config.DronesIndex].MaxWeight = (WeightCategories)Rand.Next(0, 3);
+                DataSource.Drones[DataSource.Config.DronesIndex].Status = (DroneStatuses)Rand.Next(0, 3);
+                DataSource.Drones[DataSource.Config.DronesIndex].Battery = Rand.Next(0, 101);
+                DataSource.Drones[DataSource.Config.DronesIndex].Model = "xxx";
+                DataSource.Config.DronesIndex++;
+            }
+            public static void AddCustomer(Customer newCustomer)
+            {
+                DataSource.Customers[DataSource.Config.CustomersIndex].Id = newCustomer.Id;
+                DataSource.Customers[DataSource.Config.CustomersIndex].Latitude = newCustomer.Latitude;
+                DataSource.Customers[DataSource.Config.CustomersIndex].Longitude = newCustomer.Longitude;
+                DataSource.Customers[DataSource.Config.CustomersIndex].Name = newCustomer.Name;
+                DataSource.Customers[DataSource.Config.CustomersIndex].Phone = newCustomer.Phone;
+                DataSource.Config.CustomersIndex++;
+            }
+            public static void AddParcel(Parcel newParcel)
+            {
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].CreatParcel = DateTime.Now;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = newParcel.Id;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].SenderId = newParcel.SenderId;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].TargetId = newParcel.TargetId;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId = DataSource.Drones[0].Id;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].PickedUp = DateTime.Now;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Delivered= DateTime.Now;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = newParcel.Priority;
+                DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = newParcel.Weight;
 
-                    case "Drone":
-                        DataSource.Drones[DataSource.Config.DronesIndex].Id = Rand.Next(0, 1000000);
-                        DataSource.Drones[DataSource.Config.DronesIndex].MaxWeight = (WeightCategories)Rand.Next(0, 3);
-                        DataSource.Drones[DataSource.Config.DronesIndex].Status = (DroneStatuses)Rand.Next(0, 3);
-                        DataSource.Drones[DataSource.Config.DronesIndex].Battery= Rand.Next(0, 101);
-                        DataSource.Drones[DataSource.Config.DronesIndex].Model = "xxx";
-                        DataSource.Config.DronesIndex++;
-                        break;
-
-                    case "Customer":
-                        Console.WriteLine("Enter Id: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Id = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter Latitude: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Latitude = double.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter Longitude: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Longitude= double.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter Name: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Name = Console.ReadLine();
-                        Console.WriteLine("Enter Phone: ");
-                        DataSource.Customers[DataSource.Config.CustomersIndex].Phone = Console.ReadLine();
-                        DataSource.Config.CustomersIndex++;
-                        break;
-
-                    case "Parcel":
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].CreatParcel = DateTime.Now;
-                        Console.WriteLine("Enter Parcel Id: ");
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter SenderId: ");
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].SenderId = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter TargetId: ");
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].TargetId = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Enter Weight (light/inbetween/heavy): ");
-                        string Weight = Console.ReadLine();
-                        if (Weight == "light")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)0;
-                        if (Weight == "inbetween")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)1;
-                        if (Weight == "heavy")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = (WeightCategories)2;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].Scheduled = DateTime.Now;
-                        DataSource.Parcels[DataSource.Config.ParcelsIndex].DroneId =DronToAParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
-                        Console.WriteLine("Enter Priority (regular/fast/urgent): ");
-                        string Priority = Console.ReadLine();
-                        if (Priority == "regular")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = (Priorities)0;
-                        if (Priority == "fast")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = (Priorities)1;
-                        if (Priority == "urgent")
-                            DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = (Priorities)2;
-                        PickUpParcel(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
-                        ParcelToCustomer(DataSource.Parcels[DataSource.Config.ParcelsIndex]);
-                        break;
-                }
             }
 
+            public static void PrintBaseStation(int idBaseStation)
+            {
+                int i = 0;
+                while (i < DataSource.Config.StationsIndex && DataSource.Stations[DataSource.Config.StationsIndex].Id != idBaseStation)
+                    i++;
+                DataSource.Stations[i].ToString();
+
+            }
+
+            public static void PrintDrone(int idDrone)
+            {
+                int i = 0;
+                while (i < DataSource.Config.DronesIndex && DataSource.Drones[DataSource.Config.DronesIndex].Id != idDrone)
+                    i++;
+                DataSource.Drones[i].ToString();
+
+            }
+
+            public static void PrintCustomer(int idCustomer)
+            {
+                int i = 0;
+                while (i < DataSource.Config.CustomersIndex && DataSource.Customers[DataSource.Config.CustomersIndex].Id != idCustomer)
+                    i++;
+                DataSource.Customers[i].ToString();
+
+            }
+
+            public static void PrintParcel(int idParcel)
+            {
+                int i = 0;
+                while (i < DataSource.Config.ParcelsIndex && DataSource.Parcels[DataSource.Config.ParcelsIndex].Id != idParcel)
+                    i++;
+                DataSource.Parcels[i].ToString();
+
+            }
             /// <summary>
             /// looks for a free drone that can the delever the parcel to the customer
             /// </summary>
@@ -129,7 +133,7 @@ namespace DAL
             /// updates the time that the parcel was picked up by the dron
             /// </summary>
             /// <param name="ParclToPickup"></param> the parcel that needs delevering
-            void PickUpParcel(Parcel ParclToPickup)
+            void  PickUpParcel(Parcel ParclToPickup)
             {
                 ParclToPickup.PickedUp= DateTime.Now;
             }

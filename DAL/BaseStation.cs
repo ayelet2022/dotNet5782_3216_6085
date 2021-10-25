@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public struct BaseStation
+    internal struct BaseStation
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int EmptyCharges { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        internal int Id { get; set; }
+        internal string Name { get; set; }
+        internal int EmptyCharges { get; set; }
+        internal double Longitude { get; set; }
+        internal double Latitude { get; set; }
         public override string ToString()
         {
             String result = " ";
