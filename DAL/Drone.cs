@@ -38,7 +38,7 @@ namespace DAL
         /// <returns></returns>the string that collect all the delaies and then prints it
         public override string ToString()
         {
-            String result = " ";
+            String result = "";
             result += $"ID is {Id}, \n";
             result += $"Model is {Model}, \n";
             result += $"MaxWeight is {MaxWeight}, \n";

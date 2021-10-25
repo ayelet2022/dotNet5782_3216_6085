@@ -4,16 +4,18 @@ using DAL;
 using DAL.IDAL.DO;
 namespace ConsoleUI
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
             DalObject obj = new DalObject();
-            Console.WriteLine("Enter 1 to add an object, ");
-            Console.WriteLine("Enter 2 to update an object, ");
-            Console.WriteLine("Enter 3 to print an object according to the id, ");
-            Console.WriteLine("Enter 4 to print the whole list of an object, ");
-            Console.WriteLine("Enter 5 to end the program, ");
+            string print="";
+            print+=$"Enter 1 to add an object.\n";
+            print+=$"Enter 2 to update an object.\n";
+            print+=$"Enter 3 to print an object according to the id.\n";
+            print+= $"Enter 4 to print the whole list of an object.\n";
+            print+= $"Enter 5 to end the program.\n";
+            Console.WriteLine(print);
             int Choice;
             int.TryParse(Console.ReadLine(), out Choice);
             while (Choice != 5)
@@ -21,11 +23,13 @@ namespace ConsoleUI
                 switch (Choice)
                 {
                     case 1:
-                        Console.WriteLine("Enter what would you like to add:");
-                        Console.WriteLine("Enter 1 to add a base station");
-                        Console.WriteLine("Enter 2 to add a drone");
-                        Console.WriteLine("Enter 3 to add a customer");
-                        Console.WriteLine("Enter 4 to add a parcel");
+                        string print1 = "";
+                        print1+=$"Enter what would you like to add:\n";
+                        print1+=$"Enter 1 to add a base station.\n";
+                        print1+=$"Enter 2 to add a drone.\n";
+                        print1+=$"Enter 3 to add a customer.\n";
+                        print1+=$"Enter 4 to add a parcel.\n";
+                        Console.WriteLine(print1);
                         int ChoiceAdd;
                         int.TryParse(Console.ReadLine(), out ChoiceAdd);
                         switch (ChoiceAdd)
@@ -39,7 +43,7 @@ namespace ConsoleUI
                                 break;
                             case 3:
                                 Customer newCustomer = new Customer();
-                                Console.WriteLine("Enter Id: ");
+                                Console.WriteLine("Enter Id (4 digits): ");
                                 int idCustomer;
                                 int.TryParse(Console.ReadLine(), out idCustomer);
                                 newCustomer.Id = idCustomer;
@@ -62,14 +66,14 @@ namespace ConsoleUI
                             case 4:
                                 Parcel newParcel = new Parcel();
                                 int idParcel;
-                                Console.WriteLine("Enter Parcel Id: ");
+                                Console.WriteLine("Enter Parcel Id (4 digits): ");
                                 int.TryParse(Console.ReadLine(), out idParcel);
                                 newParcel.Id = idParcel;
-                                Console.WriteLine("Enter SenderId: ");
+                                Console.WriteLine("Enter SenderId (4 digits): ");
                                 int senderId;
                                 int.TryParse(Console.ReadLine(), out senderId);
                                 newParcel.SenderId = senderId;
-                                Console.WriteLine("Enter TargetId: ");
+                                Console.WriteLine("Enter TargetId (4 digits): ");
                                 int targetId;
                                 int.TryParse(Console.ReadLine(), out targetId);
                                 newParcel.TargetId = targetId;
@@ -135,39 +139,40 @@ namespace ConsoleUI
                         }
                         break;
                     case 3:
-                        String print = " ";
-                        print += $"Enter what would you like to do\n";
-                        print += $"1 to present a station according to his id.\n";
-                        print += $"2 to present a drone according to his id.\n";
-                        print += $"1 to present a customer according to his id.\n";
-                        print += $"1 to present a parcel according to his id.\n";
+                        String print3 = "";
+                        print3 += $"Enter what would you like to do\n";
+                        print3 += $"1 to present a station according to his id.\n";
+                        print3 += $"2 to present a drone according to his id.\n";
+                        print3 += $"3 to present a customer according to his id.\n";
+                        print3 += $"4 to present a parcel according to his id.\n";
+                        Console.WriteLine(print3);
                         int choice;
                         int.TryParse(Console.ReadLine(), out choice);
                         switch (choice)
                         {
                             case 1:
-                                Console.WriteLine("Enter the base station id\n");
+                                Console.WriteLine("Enter the base station id (4 digits)\n");
                                 int id;
                                 int.TryParse(Console.ReadLine(), out id);
                                 Console.WriteLine(DalObject.PrintBaseStation(id).ToString());
                                 break;
                             case 2:
-                                Console.WriteLine("Enter the base drone id\n");
+                                Console.WriteLine("Enter the drone id (4 digits)\n");
                                 int idDrone;
                                 int.TryParse(Console.ReadLine(), out idDrone);
-                                Console.WriteLine(DalObject.PrintBaseStation(idDrone).ToString());
+                                Console.WriteLine(DalObject.PrintDrone(idDrone).ToString());
                                 break;
                             case 3:
-                                Console.WriteLine("Enter the base customer id\n");
+                                Console.WriteLine("Enter the customer id (4 digits)\n");
                                 int idCustomer;
                                 int.TryParse(Console.ReadLine(), out idCustomer);
-                                Console.WriteLine(DalObject.PrintBaseStation(idCustomer).ToString());
+                                Console.WriteLine(DalObject.PrintCustomer(idCustomer).ToString());
                                 break;
                             case 4:
-                                Console.WriteLine("Enter the base parcel id\n");
+                                Console.WriteLine("Enter the parcel id (4 digits)\n");
                                 int idParcel;
                                 int.TryParse(Console.ReadLine(), out idParcel);
-                                Console.WriteLine(DalObject.PrintBaseStation(idParcel).ToString());
+                                Console.WriteLine(DalObject.PrintParcel(idParcel).ToString());
                                 break;
                         }
                         break;
@@ -179,7 +184,7 @@ namespace ConsoleUI
                             case "BaseStation":
                                 BaseStation[] ActiveStations = DAL.DalObject.DalObject.PrintBaseStations();
                                 for (int i = 0; i < ActiveStations.Length; i++)
-                                    Console.WriteLine(ActiveStations.ToString());
+                                    Console.WriteLine(ActiveStations[i].ToString());
                                 break;
                             case "Drone":
                                 Drone[] ActiveDrones = DAL.DalObject.DalObject.PrintDrones();

@@ -75,7 +75,7 @@ namespace DAL
             public static BaseStation PrintBaseStation(int idBaseStation)
             {
                 int i = 0;
-                while (i < DataSource.Config.StationsIndex && DataSource.Stations[DataSource.Config.StationsIndex].Id != idBaseStation)
+                while (DataSource.Stations[i].Id != idBaseStation)
                     i++;
                 return (DataSource.Stations[i]);
 
@@ -89,7 +89,7 @@ namespace DAL
             public static Drone PrintDrone(int idDrone)
             {
                 int i = 0;
-                while (i < DataSource.Config.DronesIndex && DataSource.Drones[DataSource.Config.DronesIndex].Id != idDrone)
+                while (DataSource.Drones[i].Id != idDrone)
                     i++;
                 return (DataSource.Drones[i]);
 
@@ -98,9 +98,9 @@ namespace DAL
             public static Customer PrintCustomer(int idCustomer)
             {
                 int i = 0;
-                while (i < DataSource.Config.CustomersIndex && DataSource.Customers[DataSource.Config.CustomersIndex].Id != idCustomer)
+                while (DataSource.Customers[i].Id != idCustomer)
                     i++;
-                return ( DataSource.Customers[i]);
+                return (DataSource.Customers[i]);
 
             }
             /// <summary>
@@ -111,7 +111,7 @@ namespace DAL
             public static Parcel PrintParcel(int idParcel)
             {
                 int i = 0;
-                while (i < DataSource.Config.ParcelsIndex && DataSource.Parcels[DataSource.Config.ParcelsIndex].Id != idParcel)
+                while (DataSource.Parcels[i].Id != idParcel)
                     i++;
                return (DataSource.Parcels[i]);
 
@@ -214,7 +214,6 @@ namespace DAL
                 BaseStation[] ActiveStations = new BaseStation[DataSource.Config.StationsIndex]; 
                 for (int i = 0; i < DataSource.Config.StationsIndex; i++)
                 {
-                    ActiveStations[i] = DataSource.Stations[i];
                     ActiveStations[i].Id = DataSource.Stations[i].Id;
                     ActiveStations[i].Name = DataSource.Stations[i].Name;
                     ActiveStations[i].EmptyCharges = DataSource.Stations[i].EmptyCharges;

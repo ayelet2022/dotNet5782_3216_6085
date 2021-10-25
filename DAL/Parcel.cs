@@ -47,7 +47,7 @@ namespace DAL
         public DateTime Delivered { get; set; }
         public override string ToString()
         {
-            String result = " ";
+            String result = "";
             result += $"ID is {Id}, \n";
             result += $"SenderId is {SenderId}, \n";
             result += $"TargetId is {TargetId}, \n";

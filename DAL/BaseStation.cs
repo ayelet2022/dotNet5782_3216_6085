@@ -15,7 +15,7 @@ namespace DAL
         public double Latitude { get; set; }
         public override string ToString()
         {
-            String result = " ";
+            String result="";
             result += $"ID is {Id}, \n";
             result += $"Name is {Name}, \n";
             result += $"Latitude is {Latitude}, \n";

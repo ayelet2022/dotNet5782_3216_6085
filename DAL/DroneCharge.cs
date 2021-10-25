@@ -12,7 +12,7 @@ namespace DAL
         public int StationId { get; set; }
         public override string ToString()
         {
-            String result = " ";
+            String result = "";
             result += $"DroneId is {DroneId}, \n";
             result += $"StationId is {StationId}, \n";
             return result;
