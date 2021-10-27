@@ -65,7 +65,7 @@ namespace DAL
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Delivered = new(0);
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Priority = newParcel.Priority;
                 DataSource.Parcels[DataSource.Config.ParcelsIndex].Weight = newParcel.Weight;
-
+                DataSource.Config.ParcelsIndex++;
             }
             /// <summary>
             ///  returnes the base sation that the user wants to print according to his id
@@ -121,7 +121,7 @@ namespace DAL
             /// </summary>
             /// <param name="newParcel"></param> the parcel thats the dron need to deliver
             /// <returns></returns>the id of the drone that can deliver the parcel
-            public static void DronToAParcel(int parcelId, int droneId)
+            public static void DronToAParcel(int droneId, int parcelId)
             {
                 int pareclIndex = 0;
                 while (DataSource.Parcels[pareclIndex].Id != parcelId)
@@ -247,8 +247,7 @@ namespace DAL
                 Parcel[] ActiveParcels = new Parcel[DataSource.Config.ParcelsIndex];
                 for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)
                 {
-                    ActiveParcels[i].Id =DataSource.Parcels[i].Id;
-                    Console.WriteLine(ActiveParcels[i].ToString());
+                    ActiveParcels[i].Id = DataSource.Parcels[i].Id;
                     ActiveParcels[i].PickedUp = DataSource.Parcels[i].PickedUp;
                     ActiveParcels[i].Priority = DataSource.Parcels[i].Priority;
                     ActiveParcels[i].Scheduled = DataSource.Parcels[i].Scheduled;

@@ -105,7 +105,7 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter the  drone Id (4 digits): ");
                                 int droneId1;
                                 int.TryParse(Console.ReadLine(), out droneId1);
-                                DAL.DalObject.DalObject.DronToAParcel(droneId1, droneId1);
+                                DAL.DalObject.DalObject.DronToAParcel(droneId1, percelId1);
                                 break;
                             case UpdateAnObject.PickupAPercelFromTheDron:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
