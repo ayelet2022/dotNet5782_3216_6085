@@ -16,13 +16,13 @@ namespace ConsoleUI
             print+= $"Enter 4 to print the whole list of an object.\n";
             print+= $"Enter 5 to end the program.\n";
             Console.WriteLine(print);
-            int Choice;
-            int.TryParse(Console.ReadLine(), out Choice);
-            while (Choice != 5)
+            MainQuastions choice;
+            MainQuastions.TryParse(Console.ReadLine(), out choice);
+            while (choice!=MainQuastions.EndTheProgram)
             {
-                switch (Choice)
+                switch (choice)
                 {
-                    case 1:
+                    case MainQuastions.AddAnObject:
                         string print1 = "";
                         print1+=$"Enter what would you like to add:\n";
                         print1+=$"Enter 1 to add a base station.\n";
@@ -30,17 +30,17 @@ namespace ConsoleUI
                         print1+=$"Enter 3 to add a customer.\n";
                         print1+=$"Enter 4 to add a parcel.\n";
                         Console.WriteLine(print1);
-                        int ChoiceAdd;
-                        int.TryParse(Console.ReadLine(), out ChoiceAdd);
+                        AddAnObject ChoiceAdd;
+                        AddAnObject.TryParse(Console.ReadLine(), out ChoiceAdd);
                         switch (ChoiceAdd)
                         {
-                            case 1:
+                            case AddAnObject.AddABaseStation:
                                 DalObject.AddBaseStation();
                                 break;
-                            case 2:
+                            case AddAnObject.AddADrone:
                                 DalObject.AddDrone();
                                 break;
-                            case 3:
+                            case AddAnObject.AddACustomer:
                                 Customer newCustomer = new Customer();
                                 Console.WriteLine("Enter Id (4 digits): ");
                                 int idCustomer;
@@ -62,7 +62,7 @@ namespace ConsoleUI
                                 newCustomer.Longitude = longitude;
                                 DalObject.AddCustomer(newCustomer);
                                 break;
-                            case 4:
+                            case AddAnObject.AddAParcel:
                                 Parcel newParcel = new Parcel();
                                 newParcel.Id = 0;
                                 Console.WriteLine("Enter SenderId (4 digits): ");
@@ -85,7 +85,7 @@ namespace ConsoleUI
                                 break;
                         }
                         break;
-                    case 2:
+                    case MainQuastions.UpdateAnObject:
                         String result = " ";
                         result += "What would you want to update? \n";
                         result += "Enter 1 to conect a dron to a parcel\n";
@@ -94,40 +94,41 @@ namespace ConsoleUI
                         result += "Enter 4 to send a dron to a charge station\n";
                         result += "Enter 5 to free a dron from a charge station\n";
                         Console.WriteLine(result);
-                        int.TryParse(Console.ReadLine(), out Choice);
-                        switch (Choice)
+                        UpdateAnObject updateChoice;
+                        UpdateAnObject.TryParse(Console.ReadLine(), out updateChoice);
+                        switch (updateChoice)
                         {
-                            case 1:
+                            case UpdateAnObject.DronToAParcel:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
                                 int PercelId1;
                                 int.TryParse(Console.ReadLine(), out PercelId1);
                                 DAL.DalObject.DalObject.DronToAParcel(PercelId1);
                                 break;
-                            case 2:
+                            case UpdateAnObject.PickupAPercelFromTheDron:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
                                 int PercelId2;
                                 int.TryParse(Console.ReadLine(), out PercelId2);
                                 DAL.DalObject.DalObject.PickUpParcel(PercelId2);
                                 break;
-                            case 3:
+                            case UpdateAnObject.DeliverAPercelToACustomer:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
                                 int PercelId3;
                                 int.TryParse(Console.ReadLine(), out PercelId3);
                                 DAL.DalObject.DalObject.ParcelToCustomer(PercelId3);
                                 break;
-                            case 4:
+                            case UpdateAnObject.SendADronToAChargeStation:
                                 Console.WriteLine("Enter the  drone Id (4 digits): ");
                                 int DronesId1;
                                 int.TryParse(Console.ReadLine(), out DronesId1);
                                 Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
                                 BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
-                                for (int i = 0; i < Stations.Length; i++)
-                                    Console.WriteLine(Stations[i].ToString());
+                                for (int baseStationIndex = 0; baseStationIndex < Stations.Length; baseStationIndex++)
+                                    Console.WriteLine(Stations[baseStationIndex].ToString());
                                 int IdOfBaseStation;
                                 int.TryParse(Console.ReadLine(), out IdOfBaseStation);
                                 DAL.DalObject.DalObject.DronToCharger(DronesId1, IdOfBaseStation);
                                 break;
-                            case 5:
+                            case UpdateAnObject.FreeADronFromACharge:
                                 Console.WriteLine("Enter the  drone Id (4 digits): ");
                                 int DronesId2;
                                 int.TryParse(Console.ReadLine(), out DronesId2);
@@ -135,7 +136,7 @@ namespace ConsoleUI
                                 break;
                         }
                         break;
-                    case 3:
+                    case MainQuastions.PrintAnObjectAccordingToTheId:
                         String print3 = "";
                         print3 += $"Enter what would you like to do\n";
                         print3 += $"1 to present a station according to his id.\n";
@@ -143,29 +144,29 @@ namespace ConsoleUI
                         print3 += $"3 to present a customer according to his id.\n";
                         print3 += $"4 to present a parcel according to his id.\n";
                         Console.WriteLine(print3);
-                        int choice;
-                        int.TryParse(Console.ReadLine(), out choice);
-                        switch (choice)
+                        PrintAnObjectAccordingToTheId choiceAccorIdPrint;
+                        PrintAnObjectAccordingToTheId.TryParse(Console.ReadLine(), out choiceAccorIdPrint);
+                        switch (choiceAccorIdPrint)
                         {
-                            case 1:
+                            case PrintAnObjectAccordingToTheId.PresentAStationAccordingToHisId:
                                 Console.WriteLine("Enter the base station id (4 digits)\n");
                                 int id;
                                 int.TryParse(Console.ReadLine(), out id);
                                 Console.WriteLine(DalObject.PrintBaseStation(id).ToString());
                                 break;
-                            case 2:
+                            case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
                                 Console.WriteLine("Enter the drone id (4 digits)\n");
                                 int idDrone;
                                 int.TryParse(Console.ReadLine(), out idDrone);
                                 Console.WriteLine(DalObject.PrintDrone(idDrone).ToString());
                                 break;
-                            case 3:
+                            case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
                                 Console.WriteLine("Enter the customer id (4 digits)\n");
                                 int idCustomer;
                                 int.TryParse(Console.ReadLine(), out idCustomer);
                                 Console.WriteLine(DalObject.PrintCustomer(idCustomer).ToString());
                                 break;
-                            case 4:
+                            case PrintAnObjectAccordingToTheId.PresentAParcelAccordingToHisId:
                                 Console.WriteLine("Enter the parcel id (4 digits)\n");
                                 int idParcel;
                                 int.TryParse(Console.ReadLine(), out idParcel);
@@ -173,40 +174,49 @@ namespace ConsoleUI
                                 break;
                         }
                         break;
-                    case 4:
+                    case MainQuastions.PrintTheWholeListOfAnObject:
+                        string print4="";
+                        print4+= $"What list would you like to print ?\n";
+                        print4+= $"Enter 1 to print all the base stations\n";
+                        print4+= $"Enter 2 to print all the drone\n";
+                        print4+= $"Enter 3 to print all the customer\n";
+                        print4+= $"Enter 4 to print all the parcel\n";
+                        print4+= $"Enter 5 to print all the parcels that weren't paired\n";
+                        print4+= $"Enter 6 to print all the base station with available charges\n";
                         Console.WriteLine("What list would you like to print?");
-                        string PrintChoice = Console.ReadLine();
+                        PrintTheWholeListOfAnObject PrintChoice;
+                        PrintTheWholeListOfAnObject.TryParse(Console.ReadLine(), out PrintChoice);
                         switch (PrintChoice)
                         {
-                            case "BaseStation":
+                            case PrintTheWholeListOfAnObject.PrintAllTheBaseStations:
                                 BaseStation[] ActiveStations = DAL.DalObject.DalObject.PrintBaseStations();
-                                for (int i = 0; i < ActiveStations.Length; i++)
-                                    Console.WriteLine(ActiveStations[i].ToString());
+                                for (int ActiveStationIndex = 0; ActiveStationIndex < ActiveStations.Length; ActiveStationIndex++)
+                                    Console.WriteLine(ActiveStations[ActiveStationIndex].ToString());
                                 break;
-                            case "Drone":
+                            case PrintTheWholeListOfAnObject.PrintAllTheDrone:
                                 Drone[] ActiveDrones = DAL.DalObject.DalObject.PrintDrones();
-                                for (int i = 0; i < ActiveDrones.Length; i++)
-                                    Console.WriteLine(ActiveDrones[i].ToString());
+                                for (int activeDronesIndex = 0; activeDronesIndex < ActiveDrones.Length; activeDronesIndex++)
+                                    Console.WriteLine(ActiveDrones[activeDronesIndex].ToString());
                                 break;
-                            case "Customer":
+                            case PrintTheWholeListOfAnObject.PrintAllTheCustomer:
                                 Customer[] ActiveCustomers = DAL.DalObject.DalObject.PrintCustomers();
-                                for (int i = 0; i < ActiveCustomers.Length; i++)
-                                    Console.WriteLine(ActiveCustomers[i].ToString());
+                                for (int activeCustomersIndex = 0; activeCustomersIndex < ActiveCustomers.Length; activeCustomersIndex++)
+                                    Console.WriteLine(ActiveCustomers[activeCustomersIndex].ToString());
                                 break;
-                            case "Parcel":
+                            case PrintTheWholeListOfAnObject.PrintAllTheParcel:
                                 Parcel[] ActiveParcels = DAL.DalObject.DalObject.PrintPercels();
-                                for (int i = 0; i < ActiveParcels.Length; i++)
-                                    Console.WriteLine(ActiveParcels[i].ToString());
+                                for (int activeParcelsIndex = 0; activeParcelsIndex < ActiveParcels.Length; activeParcelsIndex++)
+                                    Console.WriteLine(ActiveParcels[activeParcelsIndex].ToString());
                                 break;
-                            case "Parcel_that_weren't_paired":
+                            case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                 Parcel[] Parcels = DAL.DalObject.DalObject.ParcelThatWerenNotPaired();
-                                for (int i = 0; i < Parcels.Length; i++)
-                                    Console.WriteLine(Parcels[i].ToString());
+                                for (int parcelsIndex = 0; parcelsIndex < Parcels.Length; parcelsIndex++)
+                                    Console.WriteLine(Parcels[parcelsIndex].ToString());
                                 break;
-                            case "BaseStation_with_available_charges":
+                            case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                 BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
-                                for (int i = 0; i < Stations.Length; i++)
-                                    Console.WriteLine(Stations[i].ToString());
+                                for (int stationsIndex = 0; stationsIndex < Stations.Length; stationsIndex++)
+                                    Console.WriteLine(Stations[stationsIndex].ToString());
                                 break;
                         }
                         break;
@@ -216,7 +226,7 @@ namespace ConsoleUI
                 Console.WriteLine("Enter 3 to print an object according to the id, ");
                 Console.WriteLine("Enter 4 to print the whole list of an object, ");
                 Console.WriteLine("Enter 5 to end the program, ");
-                int.TryParse(Console.ReadLine(), out Choice);
+                MainQuastions.TryParse(Console.ReadLine(), out choice);
             }
         }
     }
