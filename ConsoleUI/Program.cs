@@ -224,7 +224,7 @@ namespace ConsoleUI
                         }
                         break;
                 }
-                Console.WriteLine("Enter 1 to add an object, ");
+                Console.WriteLine("Enter 1 to add an object,");
                 Console.WriteLine("Enter 2 to update an object, ");
                 Console.WriteLine("Enter 3 to print an object according to the id, ");
                 Console.WriteLine("Enter 4 to print the whole list of an object, ");
