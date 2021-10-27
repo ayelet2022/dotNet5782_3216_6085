@@ -65,11 +65,11 @@ namespace ConsoleUI
                             case AddAnObject.AddAParcel:
                                 Parcel newParcel = new Parcel();
                                 newParcel.Id = 0;
-                                Console.WriteLine("Enter SenderId (4 digits): ");
+                                Console.WriteLine("Enter Sender id (4 digits): ");
                                 int senderId;
                                 int.TryParse(Console.ReadLine(), out senderId);
                                 newParcel.SenderId = senderId;
-                                Console.WriteLine("Enter TargetId (4 digits): ");
+                                Console.WriteLine("Enter Target id (4 digits): ");
                                 int targetId;
                                 int.TryParse(Console.ReadLine(), out targetId);
                                 newParcel.TargetId = targetId;
@@ -141,7 +141,7 @@ namespace ConsoleUI
                         break;
                     case MainQuastions.PrintAnObjectAccordingToTheId:
                         String print3 = "";
-                        print3 += $"Enter what would you like to do\n";
+                        print3 += $"Enter what would you like to print\n";
                         print3 += $"1 to present a station according to his id.\n";
                         print3 += $"2 to present a drone according to his id.\n";
                         print3 += $"3 to present a customer according to his id.\n";
@@ -186,12 +186,12 @@ namespace ConsoleUI
                         print4+= $"Enter 4 to print all the parcel\n";
                         print4+= $"Enter 5 to print all the parcels that weren't paired\n";
                         print4+= $"Enter 6 to print all the base station with available charges\n";
-                        Console.WriteLine("What list would you like to print?");
+                        Console.WriteLine(print4);
                         PrintTheWholeListOfAnObject PrintChoice;
                         PrintTheWholeListOfAnObject.TryParse(Console.ReadLine(), out PrintChoice);
                         switch (PrintChoice)
                         {
-                            case PrintTheWholeListOfAnObject.PrintAllTheBaseStations:
+                            case PrintTheWholeListOfAnObject.PrintAllTheBaseStation:
                                 BaseStation[] ActiveStations = DAL.DalObject.DalObject.PrintBaseStations();
                                 for (int ActiveStationIndex = 0; ActiveStationIndex < ActiveStations.Length; ActiveStationIndex++)
                                     Console.WriteLine(ActiveStations[ActiveStationIndex].ToString());

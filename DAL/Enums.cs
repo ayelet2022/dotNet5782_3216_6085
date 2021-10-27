@@ -13,14 +13,14 @@ namespace DAL
             public enum WeightCategories { light, inbetween, heavy };
             public enum DroneStatuses { available, inFix, delivery };
             public enum Priorities { regular, fast, urgent };
-            public enum MainQuastions { AddAnObject, UpdateAnObject, PrintAnObjectAccordingToTheId, PrintTheWholeListOfAnObject, EndTheProgram };
-            public enum AddAnObject { AddABaseStation, AddADrone, AddACustomer, AddAParcel };
+            public enum MainQuastions { AddAnObject=1, UpdateAnObject, PrintAnObjectAccordingToTheId, PrintTheWholeListOfAnObject, EndTheProgram };
+            public enum AddAnObject { AddABaseStation=1, AddADrone, AddACustomer, AddAParcel };
             public enum UpdateAnObject 
-            { DronToAParcel, PickupAPercelFromTheDron, DeliverAPercelToACustomer, SendADronToAChargeStation, FreeADronFromACharge };
+            { DronToAParcel=1, PickupAPercelFromTheDron, DeliverAPercelToACustomer, SendADronToAChargeStation, FreeADronFromACharge };
             public enum PrintAnObjectAccordingToTheId
-            { PresentAStationAccordingToHisId, PresentADroneAccordingToHisId, DeliverAPercelToACustomer, PesentACustomerAccordingToHisId, PresentAParcelAccordingToHisId };
+            { PresentAStationAccordingToHisId=1, PresentADroneAccordingToHisId,PesentACustomerAccordingToHisId, PresentAParcelAccordingToHisId };
             public enum PrintTheWholeListOfAnObject
-            { PrintAllTheBaseStations, PrintAllTheDrone, PrintAllTheCustomer,PrintAllTheParcel, printAllTheParcelsThatWerentPaired,PrintAllTheBaseStationWithAvailableCharges }
+            { PrintAllTheBaseStation=1, PrintAllTheDrone, PrintAllTheCustomer,PrintAllTheParcel, printAllTheParcelsThatWerentPaired,PrintAllTheBaseStationWithAvailableCharges }
 
 
         }
