@@ -99,9 +99,12 @@ namespace ConsoleUI
                         {
                             case 1:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
-                                int PercelId1;
-                                int.TryParse(Console.ReadLine(), out PercelId1);
-                                DAL.DalObject.DalObject.DronToAParcel(PercelId1);
+                                int percelId1;
+                                int.TryParse(Console.ReadLine(), out percelId1);
+                                Console.WriteLine("Enter the  drone Id (4 digits): ");
+                                int droneId1;
+                                int.TryParse(Console.ReadLine(), out droneId1);
+                                DAL.DalObject.DalObject.DronToAParcel(droneId1, droneId1);
                                 break;
                             case 2:
                                 Console.WriteLine("Enter the  percel Id (4 digits): ");
@@ -152,7 +155,7 @@ namespace ConsoleUI
                                 int id;
                                 int.TryParse(Console.ReadLine(), out id);
                                 Console.WriteLine(DalObject.PrintBaseStation(id).ToString());
-                                break;
+                                break; 
                             case 2:
                                 Console.WriteLine("Enter the drone id (4 digits)\n");
                                 int idDrone;
