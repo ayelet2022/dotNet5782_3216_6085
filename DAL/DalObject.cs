@@ -4,6 +4,10 @@ namespace DalObject
 {
     public class DalObject
     {
+        public DalObject()
+        {
+            DataSource.Initialize();
+        }
         /// <summary>
         /// adds a new base station to the arrey
         /// </summary>

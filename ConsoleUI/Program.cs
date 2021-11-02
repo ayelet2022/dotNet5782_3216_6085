@@ -12,12 +12,17 @@ namespace ConsoleUI
     { PrintAllTheBaseStation = 1, PrintAllTheDrone, PrintAllTheCustomer, PrintAllTheParcel, printAllTheParcelsThatWerentPaired, PrintAllTheBaseStationWithAvailableCharges }
     class Program 
     {
+        
+
         /// <summary>
         /// It runs the whole program to the user.
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+
+            DalObject.DalObject dalObj = new DalObject.DalObject();
+
             //It prints the options to the user.
             string print="";
             print+=$"Enter 1 to add an object.\n";
@@ -178,13 +183,13 @@ namespace ConsoleUI
                                 int DronesId1;
                                 int.TryParse(Console.ReadLine(), out DronesId1);//cin the drones id
                                 Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
-                                BaseStation[] Stations = DAL.DalObject.DalObject.BaseStationWithAvailableCharges();
+                                BaseStation[] Stations = DalObject.DalObject.BaseStationWithAvailableCharges();
                                 //prints for the user the baseStations that have free charge stations
                                 for (int baseStationIndex = 0; baseStationIndex < Stations.Length; baseStationIndex++)
                                     Console.WriteLine(Stations[baseStationIndex].ToString());
                                 int IdOfBaseStation;
                                 int.TryParse(Console.ReadLine(), out IdOfBaseStation);//cin the baseStations id
-                                DAL.DalObject.DalObject.DronToCharger(DronesId1, IdOfBaseStation);// sends to a function that sends a drone to a charge station
+                                DalObject.DalObject.DronToCharger(DronesId1, IdOfBaseStation);// sends to a function that sends a drone to a charge station
                                 break;
                             //a case to free a drone from a charge station
                             case UpdateAnObject.FreeADronFromACharge:

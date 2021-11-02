@@ -21,7 +21,8 @@ namespace IDAL
                 result += $"ID is {Id}, \n";
                 result += $"Name is {Name}, \n";
                 result += $"Latitude is {Latitude}, \n";
-                result += $"longitude is {Longitude}, \n";
+                result += $"Longitude is {Longitude}, \n";
+                result += $"EmptyCharges is {EmptyCharges}, \n";
                 return result;
             }
         }

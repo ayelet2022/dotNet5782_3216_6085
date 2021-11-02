@@ -25,7 +25,6 @@ namespace DalObject
             internal static int DroneChargesIndex = 0;
             internal static int RunningParcelId = 1000;
         }
-          static DataSource()=>Initialize();
 
         /// <summary>
         /// Incluods the data that we enterd
