@@ -318,6 +318,7 @@ namespace ConsoleUI
                 Console.WriteLine("Enter 3 to print an object according to the id, ");
                 Console.WriteLine("Enter 4 to print the whole list of an object, ");
                 Console.WriteLine("Enter 5 to end the program, ");
+
                 MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the users choice.
             }
         }
