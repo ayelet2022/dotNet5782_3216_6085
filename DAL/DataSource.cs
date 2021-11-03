@@ -1,5 +1,6 @@
 ﻿using System;
 using IDAL.DO;
+using System.Collections.Generic;
 namespace DalObject
 {
     /// <summary>
@@ -8,11 +9,11 @@ namespace DalObject
     /// </summary>
     public static class DataSource
     {
-        internal static Drone[] Drones = new Drone[10];
-        internal static BaseStation[] Stations = new BaseStation[5];
-        internal static Customer[] Customers = new Customer[100];
-        internal static Parcel[] Parcels = new Parcel[1000];
-        internal static DroneCharge[] DroneCharges = new DroneCharge[25];
+        internal static List<Drone> Drones;
+        internal static List<BaseStation> Stations;
+        internal static List<Customer> Customers;
+        internal static List<Parcel> Parcels;
+        internal static List<DroneCharge> DroneCharges;
         /// <summary>
         /// restarting the indexes
         /// </summary>
@@ -25,123 +26,95 @@ namespace DalObject
             internal static int DroneChargesIndex = 0;
             internal static int RunningParcelId = 1000;
         }
+        static void InitializeBaseStation(string name)
+        {
+            Random Rand = new Random(DateTime.Now.Millisecond);
+            BaseStation newStation = new BaseStation();
+            newStation.Id = Rand.Next(1000, 10000);
+            newStation.Latitude = Rand.Next(0, 1000000);
+            newStation.Latitude = Rand.Next(0, 1000000);
+            newStation.EmptyCharges = Rand.Next(0, 6);
+            newStation.Name = name;
+            Stations.Add(newStation);
+            DataSource.Config.StationsIndex++;
+        }
+        static void InitializeDrones(string name)
+        {
+            Random Rand = new Random(DateTime.Now.Millisecond);
+            Drone addDrone = new Drone();
+            addDrone.Id = Rand.Next(1000, 10000);
+            addDrone.MaxWeight = (WeightCategories)Rand.Next(0, 3);
+            //addDrone.Status = (DroneStatuses)Rand.Next(0, 3);
+            addDrone.Model = name;
+            DataSource.Config.DronesIndex++;
+            Drones.Add(addDrone);
+        }
+        static void InitializeCustomer(string phone,string name)
+        {
+            Random Rand = new Random(DateTime.Now.Millisecond);
+            Customer addCustomer = new Customer();
+            addCustomer.Id = Rand.Next(1000, 10000);
+            addCustomer.Latitude = Rand.Next(0, 1000000);
+            addCustomer.Longitude = Rand.Next(0, 1000000);
+            addCustomer.Phone = phone;
+            addCustomer.Name = name;
+            DataSource.Config.CustomersIndex++;
+            Customers.Add(addCustomer);
+        }
+        static void InitializeParcel(DateTime timeCreatParcel,DateTime timeScheduled,DateTime timePickedUp,DateTime timeDelivered)
+        {
+            Random Rand = new Random(DateTime.Now.Millisecond);
+            Parcel addParcel = new Parcel();
+            addParcel.CreatParcel = new(0);
+            addParcel.Id = DataSource.Config.RunningParcelId++;
+            addParcel.Priority = (Priorities)Rand.Next(0, 3);
+            addParcel.SenderId = Rand.Next(1000, 10000);
+            addParcel.TargetId = Rand.Next(1000, 10000);
+            addParcel.Weight = (WeightCategories)Rand.Next(0, 3);
+            addParcel.DroneId = 0;
+            addParcel.Delivered = timeDelivered;
+            addParcel.PickedUp = timePickedUp;
+            addParcel.Scheduled = timeScheduled;
+            addParcel.CreatParcel = timeCreatParcel;
+            DataSource.Config.ParcelsIndex++;
+            Parcels.Add(addParcel);
+        }
 
         /// <summary>
         /// Incluods the data that we enterd
         /// </summary>
         internal static void Initialize()
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < 2; i++)
-            {
-                Stations[i].Id = Rand.Next(1000, 10000);
-                Stations[i].Latitude = Rand.Next(0, 1000000);
-                Stations[i].Latitude = Rand.Next(0, 1000000);
-                Stations[i].EmptyCharges = Rand.Next(0, 6);
-                DataSource.Config.StationsIndex++;
-            }
-            Stations[0].Name = "aaa";
-            Stations[1].Name = "bbb";
+            InitializeBaseStation("Banana");
+            InitializeBaseStation("Apple");
 
-            for (int i = 0; i < 5; i++)
-            {
-                Drones[i].Id = Rand.Next(1000, 10000);
-                Drones[i].MaxWeight = (WeightCategories)Rand.Next(0, 3);
-                Drones[i].Status = (DroneStatuses)Rand.Next(0, 3);
-                DataSource.Config.DronesIndex++;
-            }
-            Drones[0].Model = "a";
-            Drones[2].Model = "b";
-            Drones[3].Model = "c";
-            Drones[4].Model = "d";
-            Drones[1].Model = "e";
+            InitializeDrones("Ab89ZX");
+            InitializeDrones("Ui65JH");
+            InitializeDrones("Gy70CW");
+            InitializeDrones("Qs98VM");
+            InitializeDrones("Aa44ZX");
 
-            for (int i = 0; i < 10; i++)
-            {
-                Customers[i].Id = Rand.Next(1000, 10000);
-                Customers[i].Latitude = Rand.Next(0, 1000000);
-                Customers[i].Longitude = Rand.Next(0, 1000000);
-                DataSource.Config.CustomersIndex++;
-            }
-            Customers[0].Name = "Ayelet";
-            Customers[1].Name = "Penina";
-            Customers[2].Name = "Yosi";
-            Customers[3].Name = "Avi";
-            Customers[4].Name = "Nomi";
-            Customers[5].Name = "Michal";
-            Customers[6].Name = "Daniel";
-            Customers[7].Name = "Chaya";
-            Customers[8].Name = "Chani";
-            Customers[9].Name = "Yakov";
+            InitializeCustomer("0511111111", "Ayelet");
+            InitializeCustomer("0522222222", "Penina");
+            InitializeCustomer("0533333333", "Yosi");
+            InitializeCustomer("0544444444", "Avi");
+            InitializeCustomer("0555555555", "Nomi");
+            InitializeCustomer("0566666666", "Michal");
+            InitializeCustomer("0577777777", "Daniel");
+            InitializeCustomer("0588888888", "Chaya");
+            InitializeCustomer("0599999999", "Chani");
+            InitializeCustomer("0500000000", "Yakov");
 
-            Customers[0].Phone = "0511111111";
-            Customers[1].Phone = "0522222222";
-            Customers[2].Phone = "0533333333";
-            Customers[3].Phone = "0544444444";
-            Customers[4].Phone = "0555555555";
-            Customers[5].Phone = "0566666666";
-            Customers[6].Phone = "0577777777";
-            Customers[7].Phone = "0588888888";
-            Customers[8].Phone = "0599999999";
-            Customers[9].Phone = "0500000000";
-
-            for (int i = 0; i < 10; i++)
-            {
-                Parcels[i].CreatParcel = new(0);
-                Parcels[i].Id = DataSource.Config.RunningParcelId++;
-                Parcels[i].Priority = (Priorities)Rand.Next(0, 3);
-                Parcels[i].SenderId = Rand.Next(1000, 10000);
-                Parcels[i].TargetId = Rand.Next(1000, 10000);
-                Parcels[i].Weight = (WeightCategories)Rand.Next(0, 3);
-                Parcels[i].DroneId = 0;
-                Parcels[i].Delivered = new(0);
-                Parcels[i].PickedUp = new(0);
-                Parcels[i].Scheduled = new(0);
-                DataSource.Config.ParcelsIndex++;
-            }
-            Parcels[0].CreatParcel = new(2021, 3, 2, 8, 30, 0);
-            Parcels[1].CreatParcel = new(2021, 3, 2, 9, 00, 0);
-            Parcels[2].CreatParcel = new(2021, 3, 2, 8, 30, 0);
-            Parcels[3].CreatParcel = new(2021, 3, 2, 6, 30, 0);
-            Parcels[4].CreatParcel = new(2021, 3, 2, 9, 30, 0);
-            Parcels[5].CreatParcel = new(2021, 3, 2, 4, 30, 0);
-            Parcels[6].CreatParcel = new(2021, 3, 2, 5, 30, 0);
-            Parcels[7].CreatParcel = new(2021, 3, 2, 8, 30, 0);
-            Parcels[8].CreatParcel = new(2021, 3, 2, 6, 30, 0);
-            Parcels[9].CreatParcel = new(2021, 3, 2, 1, 30, 0);
-
-            Parcels[0].Delivered = new(2021, 3, 5, 8, 30, 0);
-            Parcels[1].Delivered = new(2021, 6, 5, 9, 00, 0);
-            Parcels[2].Delivered = new(2021, 3, 5, 8, 30, 0);
-            Parcels[3].Delivered = new(2021, 3, 5, 9, 30, 0);
-            Parcels[4].Delivered = new(2021, 3, 5, 2, 30, 0);
-            Parcels[5].Delivered = new(2021, 3, 5, 13, 30, 0);
-            Parcels[6].Delivered = new(2021, 3, 5, 18, 30, 0);
-            Parcels[7].Delivered = new(2021, 3, 5, 21, 30, 0);
-            Parcels[8].Delivered = new(2021, 3, 5, 20, 30, 0);
-            Parcels[9].Delivered = new(2021, 3, 5, 23, 30, 0);
-
-            Parcels[0].PickedUp = new(2021, 3, 1, 8, 30, 0);
-            Parcels[1].PickedUp = new(2021, 6, 2, 9, 00, 0);
-            Parcels[2].PickedUp = new(2021, 3, 3, 8, 30, 0);
-            Parcels[3].PickedUp = new(2021, 3, 4, 8, 30, 0);
-            Parcels[4].PickedUp = new(2021, 3, 5, 8, 30, 0);
-            Parcels[5].PickedUp = new(2021, 3, 6, 8, 30, 0);
-            Parcels[6].PickedUp = new(2021, 3, 7, 8, 30, 0);
-            Parcels[7].PickedUp = new(2021, 3, 8, 8, 30, 0);
-            Parcels[8].PickedUp = new(2021, 3, 21, 8, 30, 0);
-            Parcels[9].PickedUp = new(2021, 3, 1, 8, 30, 0);
-
-            Parcels[0].Scheduled = new(2021, 3, 1, 10, 30, 0);
-            Parcels[1].Scheduled = new(2021, 6, 2, 10, 00, 0);
-            Parcels[2].Scheduled = new(2021, 3, 3, 10, 30, 0);
-            Parcels[3].Scheduled = new(2021, 3, 4, 10, 30, 0);
-            Parcels[4].Scheduled = new(2021, 3, 5, 10, 30, 0);
-            Parcels[5].Scheduled = new(2021, 3, 6, 10, 30, 0);
-            Parcels[6].Scheduled = new(2021, 3, 7, 10, 30, 0);
-            Parcels[7].Scheduled = new(2021, 3, 8, 10, 30, 0);
-            Parcels[8].Scheduled = new(2021, 3, 9, 10, 30, 0);
-            Parcels[9].Scheduled = new(2021, 3, 10, 10, 30, 0);
+            InitializeParcel(new(2021, 3, 5, 8, 30, 0), new(2021, 3, 1, 8, 32, 0), new(2021, 3, 1, 9, 30, 0), new(2021, 3, 2, 10, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 9, 30, 0), new(2021, 3, 1, 9, 32, 0), new(2021, 3, 1, 10, 30, 0), new(2021, 3, 2, 11, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 10, 30, 0), new(2021, 3, 1, 10, 32, 0), new(2021, 3, 1, 11, 30, 0), new(2021, 3, 2, 12, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 11, 30, 0), new(2021, 3, 1, 11, 32, 0), new(2021, 3, 1, 12, 30, 0), new(2021, 3, 2, 13, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 12, 30, 0), new(2021, 3, 1, 12, 32, 0), new(2021, 3, 1, 13, 30, 0), new(2021, 3, 2, 14, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 13, 30, 0), new(2021, 3, 1, 13, 32, 0), new(2021, 3, 1, 14, 30, 0), new(2021, 3, 2, 15, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 14, 30, 0), new(2021, 3, 1, 14, 32, 0), new(2021, 3, 1, 15, 30, 0), new(2021, 3, 2, 16, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 15, 30, 0), new(2021, 3, 1, 15, 32, 0), new(2021, 3, 1, 16, 30, 0), new(2021, 3, 2, 17, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 16, 30, 0), new(2021, 3, 1, 16, 32, 0), new(2021, 3, 1, 17, 30, 0), new(2021, 3, 2, 18, 30, 0));
+            InitializeParcel(new(2021, 3, 5, 17, 30, 0), new(2021, 3, 1, 17, 32, 0), new(2021, 3, 1, 18, 30, 0), new(2021, 3, 2, 19, 30, 0));
         }
     }
 }

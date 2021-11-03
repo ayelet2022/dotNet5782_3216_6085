@@ -28,11 +28,11 @@ namespace IDAL
             /// <summary>
             /// the pracent of battery
             /// </summary>
-            public double Battery { get; set; }
+           // public double Battery { get; set; }
             /// <summary>
             /// what status if the dron in(available\infix\delivering)
             /// </summary>
-            public DroneStatuses Status { get; set; }
+            //public DroneStatuses Status { get; set; }
             /// <summary>
             /// this funciot print all of the drones details
             /// </summary>
@@ -43,8 +43,8 @@ namespace IDAL
                 result += $"ID is {Id}, \n";
                 result += $"Model is {Model}, \n";
                 result += $"MaxWeight is {MaxWeight}, \n";
-                result += $"Status is {Status}, \n";
-                result += $"Battery is {Battery}, \n";
+                //result += $"Status is {Status}, \n";
+                //result += $"Battery is {Battery}, \n";
                 return result;
             }
         }
