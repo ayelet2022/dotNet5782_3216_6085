@@ -14,7 +14,7 @@ namespace DalObject
         /// </summary>
         public  void AddBaseStation(BaseStation addBaseStation)
             {
-            DataSource.Stations[DataSource.Config.StationsIndex++] = addBaseStation;
+            DataSource.Stations.Add(addBaseStation);
             }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace DalObject
         /// </summary>
         public void AddDrone(Drone addDrone)
             {
-               DataSource.Drones[DataSource.Config.DronesIndex++]=addDrone;
+               DataSource.Drones.Add(addDrone);
             }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace DalObject
         /// <param name="newCustomer">the new customer that the user entered in main and needs to be added to the arrey</param>
         public void AddCustomer(Customer newCustomer)
             { 
-                DataSource.Customers[DataSource.Config.CustomersIndex++]= newCustomer;
+                DataSource.Customers.Add(newCustomer);
             }
 
         /// <summary>
@@ -40,9 +40,8 @@ namespace DalObject
         /// <param name="newParcel">the new parce that the user entered in main and needs to be added to the arrey</param>
         public void AddParcel(Parcel newParcel)
             {
-                DataSource.Parcels[DataSource.Config.ParcelsIndex] = newParcel;
-                DataSource.Parcels[DataSource.Config.ParcelsIndex].Id = DataSource.Config.RunningParcelId++;
-                DataSource.Config.ParcelsIndex++;
+                newParcel.Id=DataSource.Config.RunningParcelId++;
+                DataSource.Parcels.Add(newParcel);
             }
 
         /// <summary>
@@ -111,8 +110,11 @@ namespace DalObject
                 int pareclIndex = 0;
                 while (DataSource.Parcels[pareclIndex].Id != parcelId)//search for the parcel that has the same id has the id that the user enterd
                     pareclIndex++;
-                DataSource.Parcels[pareclIndex].DroneId = droneId;
-                DataSource.Parcels[pareclIndex].Scheduled = DateTime.Now;
+                Parcel updateAParcel = DataSource.Parcels[pareclIndex];
+                updateAParcel.DroneId = droneId;
+                updateAParcel.Scheduled = DateTime.Now;
+                updateAParcel.PickedUp = DateTime.Now;
+                DataSource.Parcels[pareclIndex]=updateAParcel;
             }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace DalObject
                 DroneCharge updateADrone = new();
                 updateADrone.DroneId = dronesId;
                 updateADrone.StationId = idOfBaseStation;
-                DataSource.DroneCharges[DataSource.Config.DroneChargesIndex++] = updateADrone;
+                DataSource.DroneCharges.Add(updateADrone);
                 BaseStation updateAStation = DataSource.Stations[stationsIndex];
                 updateAStation.EmptyCharges--;
                 DataSource.Stations[stationsIndex]= updateAStation;
@@ -151,12 +153,13 @@ namespace DalObject
                 int droneChargesIndex = 0;
                 while (DataSource.DroneCharges[droneChargesIndex].DroneId != dronesId)//search for the drone charge that is chargine the drone that has the same id as the user enterd
                     droneChargesIndex++;
-                DataSource.DroneCharges[droneChargesIndex].DroneId = 0;//frees the charger
+                DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
                 int stationLocation = 0;
                 while (DataSource.Stations[stationLocation].Id != DataSource.DroneCharges[droneChargesIndex].StationId)//search for the base station that has the same id as the one in the chrger
                     stationLocation++;
-                DataSource.Stations[stationLocation].EmptyCharges++;
-                DataSource.DroneCharges[droneChargesIndex].StationId = 0;
+                BaseStation updateAStation = DataSource.Stations[stationLocation];
+                updateAStation.EmptyCharges--;
+                DataSource.Stations[stationLocation] = updateAStation;
             }
 
         /// <summary>
@@ -168,7 +171,9 @@ namespace DalObject
                 int parcelsIndex = 0;
                 while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd
                     parcelsIndex++;
-                DataSource.Parcels[parcelsIndex].PickedUp = DateTime.Now;
+                Parcel updateAParcel= DataSource.Parcels[parcelsIndex];
+                updateAParcel.PickedUp = DateTime.Now;
+                DataSource.Parcels[parcelsIndex]= updateAParcel;
             }
 
         /// <summary>
@@ -180,82 +185,60 @@ namespace DalObject
                 int parcelsIndex = 0;
                 while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd
                     parcelsIndex++;
-                DataSource.Parcels[parcelsIndex].Delivered = DateTime.Now;
-                DataSource.Parcels[parcelsIndex].DroneId = 0;
+                Parcel updateAParcel = DataSource.Parcels[parcelsIndex];
+                updateAParcel.Delivered = DateTime.Now;
+                updateAParcel.DroneId = 0;
+                DataSource.Parcels[parcelsIndex]= updateAParcel;
         }
 
         /// <summary>
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        public BaseStation[] PrintBaseStations()
+        public List<BaseStation> PrintBaseStations()
             {
-                BaseStation[] ActiveStations = new BaseStation[DataSource.Config.StationsIndex];
-                for (int i = 0; i < DataSource.Config.StationsIndex; i++)//to copy all of the base station to the new arrey
-                {
-                    ActiveStations[i]= DataSource.Stations[i];
-                }
-                return ActiveStations;
+                return DataSource.Stations;
             }
 
         /// <summary>
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        public Drone[] PrintDrones()
+        public List<Drone> PrintDrones()
         {
-            Drone[] ActiveDrones = new Drone[DataSource.Config.DronesIndex];
-            for (int i = 0; i < DataSource.Config.DronesIndex; i++)//to copy all of the drones to the new arrey
-            {
-                ActiveDrones[i] = DataSource.Drones[i];
-            }
-            return ActiveDrones;
+            return DataSource.Drones;
         }
 
         /// <summary>
         /// copyes the values of all the customer in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the customers</returns>
-        public Customer[] PrintCustomers()
+        public List<Customer> PrintCustomers()
         {
-            Customer[] ActiveCustomers = new Customer[DataSource.Config.CustomersIndex];
-            for (int i = 0; i < DataSource.Config.CustomersIndex; i++)//to copy all of the customers to the new arrey
-            {
-                ActiveCustomers[i]= DataSource.Customers[i];
-            }
-            return ActiveCustomers;
+            return DataSource.Customers;
         }
 
         /// <summary>
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        public Parcel[] PrintPercels()
+        public List<Parcel> PrintPercels()
         {
-            Parcel[] ActiveParcels = new Parcel[DataSource.Config.ParcelsIndex];
-            for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)//to copy all of the parceles to the new arrey
-            {
-                ActiveParcels[i]= DataSource.Parcels[i];
-            }
-            return ActiveParcels;
+            return DataSource.Parcels;
         }
 
         /// <summary>
         /// search for all the drones that are available and copy them to a new arrey  
         /// </summary>
         /// <returns>the new arrey that has all the drones that are availeble</returns>
-        public Parcel[] ParcelThatWerenNotPaired()
+        public List<Parcel>  ParcelThatWerenNotPaired()
             {
-                int count = 0;
-                for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)//counts how many available drones ther are
-                    if (DataSource.Parcels[i].DroneId == 0)
-                        count++;
-                Parcel[] Parcels = new Parcel[count];//makes a new arrey in the size of the available drones
-                for (int i = 0; i < DataSource.Config.ParcelsIndex; i++)//to copy all the available drones
-                    if (DataSource.Parcels[i].DroneId == 0)//if the dron is available copy his dalaies
-                    {
-                        Parcels[i]= DataSource.Parcels[i];
-                    }
+                List<Parcel>  Parcels = new ();
+                foreach (var itBS in DataSource.Parcels)
+                {
+                    if (itBS.DroneId == 0)
+                        Parcels.Add(itBS);
+                }
                 return Parcels;
             }
 
@@ -263,18 +246,14 @@ namespace DalObject
         /// search for tha base station that has available charges and copys them to a new arrey
         /// </summary>
         /// <returns>the new arrey that has all the base station that has free charges</returns>
-        public BaseStation[] BaseStationWithAvailableCharges()
+        public List<BaseStation> BaseStationWithAvailableCharges()
             {
-                int count = 0;
-                for (int i = 0; i < DataSource.Config.StationsIndex; i++)//checks all the base station for available charges
-                    if (DataSource.Stations[i].EmptyCharges > 0)//meens ther are enmpty charges
-                        count++;
-                BaseStation[] Stations = new BaseStation[count];//a new arrey in the size of the base station that have available charges
-                for (int i = 0; i < DataSource.Config.StationsIndex; i++)//checks all the base station for available charges
-                    if (DataSource.Stations[i].EmptyCharges > 0)//meens ther are enmpty charges so copy the base station
-                    {
-                       Stations[i] = DataSource.Stations[i];
-                    }
+                List<BaseStation> Stations = new();
+                foreach (var itBS in DataSource.Stations)
+                {
+                    if (itBS.EmptyCharges > 0)
+                        Stations.Add(itBS);
+                }
                 return Stations;
             }
     }

@@ -19,11 +19,6 @@ namespace DalObject
         /// </summary>
         internal class Config
         {
-            internal static int DronesIndex = 0;
-            internal static int StationsIndex = 0;
-            internal static int CustomersIndex = 0;
-            internal static int ParcelsIndex = 0;
-            internal static int DroneChargesIndex = 0;
             internal static int RunningParcelId = 1000;
         }
         static void InitializeBaseStation(string name)
@@ -32,11 +27,10 @@ namespace DalObject
             BaseStation newStation = new BaseStation();
             newStation.Id = Rand.Next(1000, 10000);
             newStation.Latitude = Rand.Next(0, 1000000);
-            newStation.Latitude = Rand.Next(0, 1000000);
+            newStation.Longitude = Rand.Next(0, 1000000);
             newStation.EmptyCharges = Rand.Next(0, 6);
             newStation.Name = name;
             Stations.Add(newStation);
-            DataSource.Config.StationsIndex++;
         }
         static void InitializeDrones(string name)
         {
@@ -46,7 +40,6 @@ namespace DalObject
             addDrone.MaxWeight = (WeightCategories)Rand.Next(0, 3);
             //addDrone.Status = (DroneStatuses)Rand.Next(0, 3);
             addDrone.Model = name;
-            DataSource.Config.DronesIndex++;
             Drones.Add(addDrone);
         }
         static void InitializeCustomer(string phone,string name)
@@ -58,7 +51,6 @@ namespace DalObject
             addCustomer.Longitude = Rand.Next(0, 1000000);
             addCustomer.Phone = phone;
             addCustomer.Name = name;
-            DataSource.Config.CustomersIndex++;
             Customers.Add(addCustomer);
         }
         static void InitializeParcel(DateTime timeCreatParcel,DateTime timeScheduled,DateTime timePickedUp,DateTime timeDelivered)
@@ -76,7 +68,6 @@ namespace DalObject
             addParcel.PickedUp = timePickedUp;
             addParcel.Scheduled = timeScheduled;
             addParcel.CreatParcel = timeCreatParcel;
-            DataSource.Config.ParcelsIndex++;
             Parcels.Add(addParcel);
         }
 
