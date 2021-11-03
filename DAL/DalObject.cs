@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DAL;
 using IDAL.DO;
 namespace DalObject
 {
@@ -13,9 +14,20 @@ namespace DalObject
         /// adds a new base station to the arrey
         /// </summary>
         public  void AddBaseStation(BaseStation addBaseStation)
+        {
+            try
             {
-            DataSource.Stations.Add(addBaseStation);
+                foreach (var itBS in DataSource.Stations)
+                    if (addBaseStation.Id == itBS.Id)
+                        throw new MyException("aye");
+                DataSource.Stations.Add(addBaseStation);
             }
+            catch (Exception)
+            {
+                
+            }
+           
+        }
 
         /// <summary>
         /// adds a new drone to the arrey
@@ -181,7 +193,7 @@ namespace DalObject
         /// </summary>
         /// <param name="newId">the id pf the parcel that was enterd by the user</param>
         public void ParcelToCustomer(int newId)
-            {
+        {
                 int parcelsIndex = 0;
                 while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd
                     parcelsIndex++;
@@ -196,9 +208,9 @@ namespace DalObject
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
         public List<BaseStation> PrintBaseStations()
-            {
-                return DataSource.Stations;
-            }
+        {
+            return DataSource.Stations;
+        }
 
         /// <summary>
         /// copyes the values of all the drones in order to print them
@@ -256,6 +268,12 @@ namespace DalObject
                 }
                 return Stations;
             }
+
+        public double[] AskForBattery()
+        {
+            return;
+        }
+
     }
 }
 
