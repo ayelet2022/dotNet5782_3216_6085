@@ -217,7 +217,7 @@ namespace ConsoleUI
                                 int DronesId1;
                                 int.TryParse(Console.ReadLine(), out DronesId1);//cin the drones id
                                 Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
-                                List<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
+                                IEnumerable<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
                                 //prints for the user the baseStations that have free charge stations
                                 foreach (var itBS in Stations)
                                     Console.WriteLine(itBS.ToString());                            
@@ -301,7 +301,7 @@ namespace ConsoleUI
                             //in case you want to print the whole baseStations
                             case PrintTheWholeListOfAnObject.PrintAllTheBaseStation:
                                 //creats a new list of baseStations and sends to a function that returns the list of the baseStations
-                                List<BaseStation> ActiveStations = dalObj.PrintBaseStations();
+                                IEnumerable<BaseStation> ActiveStations = dalObj.PrintBaseStations();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itBS in ActiveStations)
                                     Console.WriteLine(itBS.ToString());
@@ -309,7 +309,7 @@ namespace ConsoleUI
                             //in case you want to print the whole drones
                             case PrintTheWholeListOfAnObject.PrintAllTheDrone:
                                 //creats a new list of drones and sends to a function that returns the list of the drones
-                                List<Drone> ActiveDrones = dalObj.PrintDrones();
+                                IEnumerable<Drone> ActiveDrones = dalObj.PrintDrones();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itD in ActiveDrones)
                                     Console.WriteLine(itD.ToString());
@@ -317,7 +317,7 @@ namespace ConsoleUI
                             //in case you want to print the whole customers
                             case PrintTheWholeListOfAnObject.PrintAllTheCustomer:
                                 //creats a new list of customers and sends to a function that returns the list of the customers
-                                List<Customer> ActiveCustomers = dalObj.PrintCustomers();
+                                IEnumerable<Customer> ActiveCustomers = dalObj.PrintCustomers();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itC in ActiveCustomers)
                                     Console.WriteLine(itC.ToString());
@@ -325,7 +325,7 @@ namespace ConsoleUI
                             //in case you want to print the whole parcels
                             case PrintTheWholeListOfAnObject.PrintAllTheParcel:
                                 //creats a new list of parcels and sends to a function that returns the list of the parcels
-                                List<Parcel> ActiveParcels = dalObj.PrintPercels();
+                                IEnumerable<Parcel> ActiveParcels = dalObj.PrintPercels();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itP in ActiveParcels)
                                     Console.WriteLine(itP.ToString());
@@ -333,7 +333,7 @@ namespace ConsoleUI
                             //in case you want to print the parcels that were not paired to a drone.
                             case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                 //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
-                                List<Parcel> Parcels = dalObj.ParcelThatWerenNotPaired();
+                                IEnumerable<Parcel> Parcels = dalObj.ParcelThatWerenNotPaired();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itP in Parcels)
                                     Console.WriteLine(itP.ToString());
@@ -341,7 +341,7 @@ namespace ConsoleUI
                             //in case you want to print the baseStations with available chargers
                             case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                 //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
-                                List<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
+                                IEnumerable<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itS in Stations)
                                     Console.WriteLine(itS.ToString());
