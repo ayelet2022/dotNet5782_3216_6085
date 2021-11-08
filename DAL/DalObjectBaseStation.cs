@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using DAL;
 namespace DalObject
 {
     public partial class DalObject
@@ -13,15 +14,7 @@ namespace DalObject
         /// </summary>
         public void AddBaseStation(BaseStation addBaseStation)
         {
-            try
-            {
-                DataSource.Stations.Add(addBaseStation);
-            }
-            catch (Exception)
-            {
-
-            }
-
+            DataSource.Stations.Add(addBaseStation);
         }
 
         /// <summary>
@@ -42,16 +35,21 @@ namespace DalObject
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        public List<BaseStation> PrintBaseStations()
+        public IEnumerable<BaseStation> PrintBaseStations()
         {
-            return DataSource.Stations;
+            List<BaseStation> Stations = new List<BaseStation>();
+            foreach (var itBS in DataSource.Stations)
+            {
+                    Stations.Add(itBS);
+            }
+            return (IEnumerable<BaseStation>)Stations;
         }
 
         /// <summary>
         /// search for tha base station that has available charges and copys them to a new arrey
         /// </summary>
         /// <returns>the new arrey that has all the base station that has free charges</returns>
-        public List<BaseStation> BaseStationWithAvailableCharges()
+        public IEnumerable<BaseStation> BaseStationWithAvailableCharges()
         {
             List<BaseStation> Stations = new();
             foreach (var itBS in DataSource.Stations)
@@ -60,6 +58,17 @@ namespace DalObject
                     Stations.Add(itBS);
             }
             return Stations;
+        }
+        public int searchBaseStation(int id)
+        {
+            int index = 0;
+            foreach (var itBS in DataSource.Stations )
+            {
+                if(itBS.Id==id)
+                    return index;
+                index++;
+            }
+            return -1;
         }
 
     }
