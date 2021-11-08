@@ -6,11 +6,5 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class Exceptions
-    {
-       public string MyException()
-        {
-            return "double";
-        }
-    }
+    
 }
