@@ -7,7 +7,7 @@ using DalObject;
 using IDAL.DO;
 namespace IDAL
 {
-    interface IDal
+    public interface IDal
     {
         public double[] AskForBattery();
         public void AddBaseStation(BaseStation addBaseStation);
@@ -23,13 +23,15 @@ namespace IDAL
         public void FreeDroneFromBaseStation(int dronesId);
         public void PickUpParcel(int newId);
         public void ParcelToCustomer(int newId);
-        public List<BaseStation> PrintBaseStations();
-        public List<Drone> PrintDrones();
-        public List<Customer> PrintCustomers();
-        public List<Parcel> PrintPercels();
-        public List<Parcel> ParcelThatWerenNotPaired();
-        public List<BaseStation> BaseStationWithAvailableCharges();
-
-
+        public IEnumerable<BaseStation> PrintBaseStations();
+        public IEnumerable<Drone> PrintDrones();
+        public IEnumerable<Customer> PrintCustomers();
+        public IEnumerable<Parcel> PrintPercels();
+        public IEnumerable<Parcel> ParcelThatWerenNotPaired();
+        public IEnumerable<BaseStation> BaseStationWithAvailableCharges();
+        public int searchBaseStation(int id);
+        public int searchDrone(int id);
+        public int searchCustomer(int id);
+        public int searchParcel(int id);
     }
 }

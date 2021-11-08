@@ -30,9 +30,20 @@ namespace DalObject
             return (DataSource.Customers[customerIndex]);
         }
 
-        public List<Customer> PrintCustomers()
+        public IEnumerable<Customer> PrintCustomers()
         {
             return DataSource.Customers;
+        }
+        public int searchCustomer(int id)
+        {
+            int index = 0;
+            foreach (var itC in DataSource.Customers)
+            {
+                if (itC.Id == id)
+                    return index;
+                index++;
+            }
+            return -1;
         }
     }
 }

@@ -78,9 +78,21 @@ namespace DalObject
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        public List<Drone> PrintDrones()
+        public IEnumerable<Drone> PrintDrones()
         {
             return DataSource.Drones;
+        }
+
+        public int searchDrone(int id)
+        {
+            int index = 0;
+            foreach (var itD in DataSource.Stations)
+            {
+                if (itD.Id == id)
+                    return index;
+                index++;
+            }
+            return -1;
         }
 
     }

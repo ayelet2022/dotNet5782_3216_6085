@@ -83,7 +83,7 @@ namespace DalObject
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        public List<Parcel> PrintPercels()
+        public IEnumerable<Parcel> PrintPercels()
         {
             return DataSource.Parcels;
         }
@@ -92,7 +92,7 @@ namespace DalObject
         /// search for all the drones that are available and copy them to a new arrey  
         /// </summary>
         /// <returns>the new arrey that has all the drones that are availeble</returns>
-        public List<Parcel> ParcelThatWerenNotPaired()
+        public IEnumerable<Parcel> ParcelThatWerenNotPaired()
         {
             List<Parcel> Parcels = new();
             foreach (var itBS in DataSource.Parcels)
@@ -103,8 +103,16 @@ namespace DalObject
             return Parcels;
         }
 
-
-
-
+        public int searchParcel(int id)
+        {
+            int index = 0;
+            foreach (var itP in DataSource.Stations)
+            {
+                if (itP.Id == id)
+                    return index;
+                index++;
+            }
+            return -1;
+        }
     }
 }

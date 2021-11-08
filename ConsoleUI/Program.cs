@@ -1,5 +1,6 @@
 ﻿using System;
 using IDAL.DO;
+using DAL;
 using System.Collections.Generic;
 namespace ConsoleUI
 {
@@ -12,7 +13,7 @@ namespace ConsoleUI
     public enum PrintTheWholeListOfAnObject
     { PrintAllTheBaseStation = 1, PrintAllTheDrone, PrintAllTheCustomer, PrintAllTheParcel, printAllTheParcelsThatWerentPaired, PrintAllTheBaseStationWithAvailableCharges }
     class Program 
-    {
+    { 
         static DalObject.DalObject dalObj = new DalObject.DalObject();
         /// <summary>
         /// It runs the whole program to the user.
@@ -67,7 +68,16 @@ namespace ConsoleUI
                                 Console.Write("Enter amount of charge slots in new station : ");
                                 int.TryParse(Console.ReadLine(), out input);
                                 newStation.EmptyCharges = input;
-                                dalObj.AddBaseStation(newStation);
+                                try
+                                {
+                                    if (dalObj.searchBaseStation(newStation.Id) == -1)
+                                        dalObj.AddBaseStation(newStation);
+                                    else throw new MyException("Base station already exists.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
                                 break;
                             //a case to add a drone
                             case AddAnObject.AddADrone:
@@ -86,7 +96,16 @@ namespace ConsoleUI
                                 Console.Write("Enter battery: ");
                                 int.TryParse(Console.ReadLine(), out input);
                                 // newDrone.Battery = input;
-                                dalObj.AddDrone(newDrone);
+                                try
+                                {
+                                    if (dalObj.searchBaseStation(newDrone.Id) == -1)
+                                        dalObj.AddDrone(newDrone);
+                                    else throw new MyException("Drone already exists.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
                                 break;
                             //a case to add a customer and get the details from the user.
                             case AddAnObject.AddACustomer:
@@ -109,7 +128,16 @@ namespace ConsoleUI
                                 double longitude;
                                 double.TryParse(Console.ReadLine(), out longitude);//cin the longitude of the new customer
                                 newCustomer.Longitude = longitude;//updates the new customers longitude
-                                dalObj.AddCustomer(newCustomer);//sends to a function to add the customer.
+                                try
+                                {
+                                    if (dalObj.searchBaseStation(newCustomer.Id) == -1)
+                                        dalObj.AddCustomer(newCustomer);
+                                    else throw new MyException("Base station already exists.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
                                 break;
                             //a case to add a parcel and get the details from the user.
                             case AddAnObject.AddAParcel:
@@ -131,7 +159,16 @@ namespace ConsoleUI
                                 int proiority;
                                 int.TryParse(Console.ReadLine(), out proiority);//cin the priority of the new parcel
                                 newParcel.Priority = (Priorities)proiority;//updates the new parcels proiority
-                                dalObj.AddParcel(newParcel);//sends to a function to add the parcel
+                                try
+                                {
+                                    if (dalObj.searchBaseStation(newParcel.Id) == -1)
+                                        dalObj.AddParcel(newParcel);
+                                    else throw new MyException("Parcel already exists.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
                                 break;
                         }
                         break;
