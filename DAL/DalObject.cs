@@ -19,7 +19,7 @@ namespace DalObject
             {
                 foreach (var itBS in DataSource.Stations)
                     if (addBaseStation.Id == itBS.Id)
-                        throw new MyException("aye");
+                        //throw Exception. MyException("double");
                 DataSource.Stations.Add(addBaseStation);
             }
             catch (Exception)

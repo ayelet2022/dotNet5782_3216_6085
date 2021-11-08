@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class MyException
+    class Exceptions
     {
-        public MyException() : base() {}
-        public MyException(string message) : base(message) {}
-        public MyException(string message,Exception inner) : base(message, inner) {}
-        string doubleException()
+       public string MyException()
         {
             return "double";
         }
