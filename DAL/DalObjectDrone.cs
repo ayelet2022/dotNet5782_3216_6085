@@ -83,7 +83,5 @@ namespace DalObject
             return DataSource.Drones;
         }
 
-
-
     }
 }

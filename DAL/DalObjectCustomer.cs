@@ -30,10 +30,5 @@ namespace DalObject
             return (DataSource.Customers[customerIndex]);
 
         }
-
-
-
-
-
     }
 }
