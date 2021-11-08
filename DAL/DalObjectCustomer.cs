@@ -14,6 +14,8 @@ namespace DalObject
         /// <param name="newCustomer">the new customer that the user entered in main and needs to be added to the arrey</param>
         public void AddCustomer(Customer newCustomer)
         {
+            if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id))
+                throw new MyException("Customer already exists.");
             DataSource.Customers.Add(newCustomer);
         }
 
@@ -24,6 +26,8 @@ namespace DalObject
         /// <returns>resturn the customer that needs to be printed</returns>
         public Customer PrintCustomer(int idCustomer)
         {
+            if (DataSource.Customers.Exists(item => item.Id != idCustomer))
+                throw new MyException("Customer does not exists.");
             int customerIndex = 0;
             while (DataSource.Customers[customerIndex].Id != idCustomer)//search for the customer that has the same id has the id that the user enterd
                 customerIndex++;

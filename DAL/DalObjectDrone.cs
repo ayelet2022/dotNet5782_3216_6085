@@ -13,6 +13,8 @@ namespace DalObject
         /// </summary>
         public void AddDrone(Drone addDrone)
         {
+            if (DataSource.Drones.Exists(item => item.Id == addDrone.Id))
+                throw new MyException("Drone already exists.");
             DataSource.Drones.Add(addDrone);
         }
 
@@ -23,6 +25,8 @@ namespace DalObject
         /// <returns>resturn the drone that needs to be printed</returns>
         public Drone PrintDrone(int idDrone)
         {
+            if (DataSource.Drones.Exists(item => item.Id != idDrone))
+                throw new MyException("Drone does not exists.");
             int droneIndex = 0;
             while (DataSource.Drones[droneIndex].Id != idDrone)//search for the drone that has the same id has the id that the user enterd
                 droneIndex++;
@@ -36,6 +40,10 @@ namespace DalObject
         /// <param name="idOfBaseStation">the base station id that the user enterd</param>
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
+            if (DataSource.Drones.Exists(item => item.Id != dronesId))
+                throw new MyException("Drone does not exists.");
+            if (DataSource.Stations.Exists(item => item.Id != idOfBaseStation))
+                throw new MyException("Base Station does not exists.");
             int droneIndex = 0;
             while (DataSource.Drones[droneIndex].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
                 droneIndex++;
@@ -57,6 +65,8 @@ namespace DalObject
         /// <param name="dronesId">the drones id that the user enterd</param>
         public void FreeDroneFromBaseStation(int dronesId)
         {
+            if (DataSource.Drones.Exists(item => item.Id != dronesId))
+                throw new MyException("Drone does not exists.");
             int droneLocation = 0;
             while (DataSource.Drones[droneLocation].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
                 droneLocation++;
@@ -80,7 +90,12 @@ namespace DalObject
         /// <returns>the new arrey that has the the drones</returns>
         public IEnumerable<Drone> PrintDrones()
         {
-            return DataSource.Drones;
+            List<Drone> Drones = new List<Drone>();
+            foreach (var itD in DataSource.Drones)
+            {
+                Drones.Add(itD);
+            }
+            return (IEnumerable<Drone>)Drones;
         }
 
         public int searchDrone(int id)
