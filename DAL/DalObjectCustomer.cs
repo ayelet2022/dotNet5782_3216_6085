@@ -28,7 +28,11 @@ namespace DalObject
             while (DataSource.Customers[customerIndex].Id != idCustomer)//search for the customer that has the same id has the id that the user enterd
                 customerIndex++;
             return (DataSource.Customers[customerIndex]);
+        }
 
+        public List<Customer> PrintCustomers()
+        {
+            return DataSource.Customers;
         }
     }
 }

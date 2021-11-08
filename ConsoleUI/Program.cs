@@ -280,7 +280,7 @@ namespace ConsoleUI
                             //in case you want to print the whole customers
                             case PrintTheWholeListOfAnObject.PrintAllTheCustomer:
                                 //creats a new list of customers and sends to a function that returns the list of the customers
-                                List<Customer> ActiveCustomers = dalObj.PrintCustomer();
+                                List<Customer> ActiveCustomers = dalObj.PrintCustomers();
                                 //goes through the list and prints the info of each one.
                                 foreach (var itC in ActiveCustomers)
                                     Console.WriteLine(itC.ToString());
@@ -318,7 +318,6 @@ namespace ConsoleUI
                 Console.WriteLine("Enter 3 to print an object according to the id, ");
                 Console.WriteLine("Enter 4 to print the whole list of an object, ");
                 Console.WriteLine("Enter 5 to end the program, ");
-
                 MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the users choice.
             }
         }
