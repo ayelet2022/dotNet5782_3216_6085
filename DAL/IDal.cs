@@ -30,6 +30,5 @@ namespace IDAL
         public List<Parcel> ParcelThatWerenNotPaired();
         public List<BaseStation> BaseStationWithAvailableCharges();
 
-
     }
 }
