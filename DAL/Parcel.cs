@@ -41,9 +41,6 @@ namespace IDAL
             /// the time that a drone was peered to the parcel
             /// </summary>
             public DateTime Scheduled { get; set; }
-            /// <summary>
-            /// 
-            /// </summary>
             public DateTime PickedUp { get; set; }
             public DateTime Delivered { get; set; }
             public override string ToString()
