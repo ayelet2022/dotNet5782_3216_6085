@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public class DroneCharge
+    public class DroneInCharge
     {
-        public int DroneId { get; set; }
-        public int StationId { get; set; }
+        public int Id { get; set; }
+        public int Battery { get; set; }
         public override string ToString()
         {
             String result = "";
-            result += $"DroneId is {DroneId}, \n";
-            result += $"StationId is {StationId}, \n";
+            result += $"DroneId is {Id}, \n";
+            result += $"Battery is {Battery}, \n";
             return result;
         }
     }

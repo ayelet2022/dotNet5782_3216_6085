@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace IBL.BO
 {
-    public class Drone
+    class DroneList
     {
         /// <summary>
         /// the id of the drone
@@ -31,8 +32,8 @@ namespace IBL.BO
         /// this funciot print all of the drones details
         /// </summary>
         /// <returns></returns>the string that collect all the delaies and then prints it
-        public ParcelInTransfer parcelInTransfer { get; set; }
         public Location DroneLocation { get; set; }
+        public int NumOfParcelOnTheWay { get; set; }
         public override string ToString()
         {
             String result = "";
@@ -42,7 +43,7 @@ namespace IBL.BO
             result += $"Battery is {Battery}, \n";
             result += $"Status is {Status}, \n";
             result += $"Location is {DroneLocation},\n";
-            result += $"Parcel in transfer is {parcelInTransfer},\n";
+            result += $"NumOfParcelOnTheWay is {NumOfParcelOnTheWay},\n";
             return result;
         }
     }
