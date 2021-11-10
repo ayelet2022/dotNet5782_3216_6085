@@ -15,10 +15,6 @@ namespace BL
             IDal dalObject = new DalObject.DalObject();
             double[] power=dalObject.AskForBattery();
             double chargingRate=power[4];
-            foreach (var itD in dalObject.PrintDrones())
-            {
-                if(itD.)
-            }
             dalObject.PrintDrones();
         }
     }
