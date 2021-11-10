@@ -26,12 +26,12 @@ namespace IBL.BO
         /// <summary>
         /// what status if the dron in(available\infix\delivering)
         /// </summary>
-        public DroneStatuses Status { get; set; }
+        public DroneStatus Status { get; set; }
         /// <summary>
         /// this funciot print all of the drones details
         /// </summary>
         /// <returns></returns>the string that collect all the delaies and then prints it
-        public ParcelInTransfer parcelInTransfer { get; set; }
+        public ParcelInTransfer ParcelInTransfer { get; set; }
         public Location DroneLocation { get; set; }
         public override string ToString()
         {
@@ -42,7 +42,7 @@ namespace IBL.BO
             result += $"Battery is {Battery}, \n";
             result += $"Status is {Status}, \n";
             result += $"Location is {DroneLocation},\n";
-            result += $"Parcel in transfer is {parcelInTransfer},\n";
+            result += $"Parcel in transfer is {ParcelInTransfer},\n";
             return result;
         }
     }
