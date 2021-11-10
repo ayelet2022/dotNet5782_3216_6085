@@ -23,15 +23,15 @@ namespace IDAL
         public void FreeDroneFromBaseStation(int dronesId);
         public void PickUpParcel(int newId);
         public void ParcelToCustomer(int newId);
-        public IEnumerable<BaseStation> PrintBaseStations();
-        public IEnumerable<Drone> PrintDrones();
-        public IEnumerable<Customer> PrintCustomers();
-        public IEnumerable<Parcel> PrintPercels();
-        public IEnumerable<Parcel> ParcelThatWerenNotPaired();
-        public IEnumerable<BaseStation> BaseStationWithAvailableCharges();
+        List<BaseStation> PrintBaseStations();
+        List<Drone> PrintDrones();
+        List<Customer> GetCustomers();
+        List<Parcel> GetParcels();
+        List<Parcel> GetDroneCharge();
+        List<Parcel> ParcelThatWerenNotPaired();
+        List<BaseStation> BaseStationWithAvailableCharges();
         public int searchBaseStation(int id);
         public int searchDrone(int id);
         public int searchCustomer(int id);
-        public List<Parcel> GetParcel();
     }
 }

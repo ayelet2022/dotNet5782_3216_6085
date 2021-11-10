@@ -14,9 +14,11 @@ namespace DalObject
         /// <param name="newParcel">the new parce that the user entered in main and needs to be added to the arrey</param>
         public void AddParcel(Parcel newParcel)
         {
-            //if (DataSource.Parcels.Exists(item => item.Id != newParcel.Id))
-            //    throw new MyException("Parcel already exists.");
             newParcel.Id = DataSource.Config.RunningParcelId++;
+            newParcel.CreatParcel = DateTime.MinValue;
+            newParcel.Delivered = DateTime.MinValue;
+            newParcel.PickedUp = DateTime.MinValue;
+            newParcel.Scheduled = DateTime.MinValue;
             DataSource.Parcels.Add(newParcel);
         }
 
@@ -95,14 +97,14 @@ namespace DalObject
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        public IEnumerable<Parcel> PrintPercels()
+        public IEnumerable<Parcel> GetParcels()
         {
-            List<Parcel> Parcels = new List<Parcel>();
+            List<Parcel> Parcels = new();
             foreach (var itBS in DataSource.Parcels)
             {
                     Parcels.Add(itBS);
             }
-            return (IEnumerable<Parcel>)Parcels;
+            return Parcels;
         }
 
         /// <summary>
@@ -118,11 +120,6 @@ namespace DalObject
                     Parcels.Add(itBS);
             }
             return Parcels;
-        }
-
-        public List<Parcel> GetParcel()
-        {
-            return DataSource.Parcels;
         }
     }
 }

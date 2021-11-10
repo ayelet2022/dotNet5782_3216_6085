@@ -34,14 +34,14 @@ namespace DalObject
             return (DataSource.Customers[customerIndex]);
         }
 
-        public IEnumerable<Customer> PrintCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
-            List<Customer> Customers = new List<Customer>();
+            List<Customer> Customers = new ();
             foreach (var itC in DataSource.Customers)
             {
                 Customers.Add(itC);
             }
-            return (IEnumerable<Customer>)Customers;
+            return Customers;
         }
         public int searchCustomer(int id)
         {
