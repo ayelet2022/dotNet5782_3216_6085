@@ -11,16 +11,17 @@ namespace IBL.BO
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public Location CustomerLocation { get; set; }
+        public IEnumerable<ParcelsInCustomer> parcelsFromCustomers{ get; set; }
+        public IEnumerable<ParcelsInCustomer> parcelsToCustomers{ get; set; }
         public override string ToString()
         {
             String result = "";
             result += $"ID is {Id}, \n";
             result += $"Name is {Name}, \n";
             result += $"Phone is {Phone}, \n";
-            result += $"Phone is {Latitude}, \n";
-            result += $"longitude is {Longitude}, \n";
+            result += $"Latitude is {CustomerLocation.Latitude}, \n";
+            result += $"longitude is {CustomerLocation.Longitude}, \n";
             return result;
         }
     }
