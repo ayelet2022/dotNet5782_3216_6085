@@ -120,16 +120,9 @@ namespace DalObject
             return Parcels;
         }
 
-        public int searchParcel(int id)
+        public List<Parcel> GetParcel()
         {
-            int index = 0;
-            foreach (var itP in DataSource.Stations)
-            {
-                if (itP.Id == id)
-                    return index;
-                index++;
-            }
-            return -1;
+            return DataSource.Parcels;
         }
     }
 }

@@ -32,6 +32,6 @@ namespace IDAL
         public int searchBaseStation(int id);
         public int searchDrone(int id);
         public int searchCustomer(int id);
-        public int searchParcel(int id);
+        public List<Parcel> GetParcel();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class ParcelInTransfer
+    public class ParcelInTransfer
     {
         /// <summary>
         /// the parcel id
