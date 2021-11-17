@@ -21,7 +21,7 @@ namespace BL
                     throw new InvalidInputException("The drones model is incorrect");
                 if (idFirstStation < 1000 || idFirstStation > 9999)
                     throw new InvalidInputException("The id of the baseStation incorrect");
-                IDAL.DO.BaseStation baseStation = dal.PrintBaseStation(idFirstStation);
+                IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
                 drone.DroneLocation.Latitude = baseStation.Latitude;
@@ -60,7 +60,7 @@ namespace BL
                 returningDrone.ParcelInTransfer = default;
             else
             {
-                IDAL.DO.Parcel dalParcel = dal.PrintParcel(droneList.NumOfParcelOnTheWay);
+                IDAL.DO.Parcel dalParcel = dal.GetParcel(droneList.NumOfParcelOnTheWay);
                 ParcelInTransfer parcelInT = new();
                 Parcel blParcel = GetParcel(dalParcel.Id);
                 parcelInT.CopyPropertiesTo(blParcel);
