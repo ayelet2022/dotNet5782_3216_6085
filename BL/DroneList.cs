@@ -27,7 +27,7 @@ namespace IBL.BO
         /// <summary>
         /// what status if the dron in(available\infix\delivering)
         /// </summary>
-        public DroneStatuses Status { get; set; }
+        public DroneStatus Status { get; set; }
         /// <summary>
         /// this funciot print all of the drones details
         /// </summary>
