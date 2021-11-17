@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BL;
 using IBL.BO;
+
 namespace ConsoleUI_BL
 {
     public enum MainQuastions { AddAnObject = 1, UpdateAnObject, PrintAnObjectAccordingToTheId, PrintTheWholeListOfAnObject, EndTheProgram };
@@ -81,12 +82,8 @@ namespace ConsoleUI_BL
                                         int.TryParse(Console.ReadLine(), out input);
                                         newDrone.MaxWeight = (WeightCategories)input;
                                         Console.Write("Enter the station to put the drone in for first charging: ");
-                                        IEnumerable<BaseStation> Stations = BL.BL.dalObj.BaseStationWithAvailableCharges();
-                                        //prints for the user the baseStations that have free charge stations
-                                        foreach (var itBS in Stations)
-                                            Console.WriteLine(itBS.ToString());
                                         int.TryParse(Console.ReadLine(), out input);
-                                        dalObj.AddDrone(newDrone);
+                                        dalObj.AddDrone(newDrone, input);
                                         break;
                                     //a case to add a customer and get the details from the user.
                                     case AddAnObject.AddACustomer:

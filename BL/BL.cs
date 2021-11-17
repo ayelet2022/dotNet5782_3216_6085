@@ -1,70 +1,75 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDAL;
-using DalObject;
+
 namespace BL
 {
-    public partial class BL
+    public partial class BL : IBL.IBL
     {
+        IDal dal = new DalObject.DalObject();
         public BL()
         { 
-            IDal dalObject = new DalObject.DalObject();
-            double[] power=dalObject.AskForBattery();
+            double[] power=dal.AskForBattery();
             double chargingRate=power[4];
-            dalObject.PrintDrones();
+            dal.PrintDrones();
             List<Drone> Drones = new List<Drone>();
-            InitializeDroneList(Drones,dalObject);
+            InitializeDroneList(Drones);
         }
-        void InitializeDroneList(List<Drone>drones,IDal dalObj)
+        void InitializeDroneList(List<Drone>drones)
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             int i = 0;
-            foreach (var itD in dalObj.PrintDrones())
+            foreach (var itD in dal.PrintDrones())
             {
                 drones[i].Id = itD.Id;
                 drones[i].Model = itD.Model;
                 drones[i].MaxWeight = (WeightCategories)(int)itD.MaxWeight;
-
-                if (dalObj.GetParcels().Exists(item => item.DroneId == itD.Id))//a parcel was scheduled
+                try
                 {
-                    int parcelIndex = dalObj.GetParcels().FindIndex(item => item.DroneId == itD.Id);
-                    drones[i].ParcelInTransfer.Id = dalObj.GetParcels()[parcelIndex].Id;
-                    if (dalObj.GetParcels()[parcelIndex].Delivered == DateTime.MinValue)//a drone was scheduled but the parcel wasnt deliverd
-                    {
-                        drones[i].Status = (DroneStatus)2;//the drone in deliver
-                        if (dalObj.GetParcels()[parcelIndex].PickedUp == DateTime.MinValue)
-                        {
-                            //drones[i].DroneLocation.Latitude = 0;
-                        }
-                        else
-                        {
-                            int customerIndex= dalObj.GetCustomers().FindIndex(item => item.Id == dalObj.GetParcels()[parcelIndex].SenderId);
-                            drones[i].DroneLocation.Latitude = dalObj.GetCustomers()[customerIndex].Latitude;
-                            drones[i].DroneLocation.Longitude = dalObj.GetCustomers()[customerIndex].Longitude;
-                        }
-                        //drones[i].Battery =Rand.Next(0, 101);
-                    }
+                    IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == DateTime.MinValue); //a parcel was scheduled
+                }
+                    //int parcelIndex = dal.GetParcels().FindIndex(item => item.DroneId == itD.Id);
+                    //drones[i].ParcelInTransfer.Id = dal.GetParcels()[parcelIndex].Id;
+                    //if (dal.GetParcels()[parcelIndex].Delivered == DateTime.MinValue)//a drone was scheduled but the parcel wasnt deliverd
+                    //{
+                    //    drones[i].Status = (DroneStatus)2;//the drone in deliver
+                    //    if (dal.GetParcels()[parcelIndex].PickedUp == DateTime.MinValue)
+                    //    {
+                    //        //drones[i].DroneLocation.Latitude = 0;
+                    //    }
+                    //    else
+                    //    {
+                    //        int customerIndex= dal.GetCustomers().FindIndex(item => item.Id == dal.GetParcels()[parcelIndex].SenderId);
+                    //        drones[i].DroneLocation.Latitude = dal.GetCustomers()[customerIndex].Latitude;
+                    //        drones[i].DroneLocation.Longitude = dal.GetCustomers()[customerIndex].Longitude;
+                    //    }
+                    //    //drones[i].Battery =Rand.Next(0, 101);
+                    //}
+                catch (InvalidOperationException ex)
+                {
+                    // not found
                 }
                 //if the drone isnt scheduled
-                if (!dalObj.GetParcels().Exists(item => item.DroneId == itD.Id))
-                {
-                    drones[i].ParcelInTransfer.Id = 0;
-                    drones[i].Status = (DroneStatus)Rand.Next(0, 2);
-                }
-                //if the drone is in fix
-                if(dalObj.GetDroneCharge().Exists(item => item.DroneId == itD.Id))
-                {
-                    drones[i].Battery = Rand.Next(0, 21);
-                }
-                //if the drones isnt in fix and the drone wasnt sceduled
-                if(!dalObj.GetDroneCharge().Exists(item => item.DroneId == itD.Id)&& !dalObj.GetParcels().Exists(item => item.DroneId == itD.Id))
-                {
+                //if (!dal.GetParcels().Exists(item => item.DroneId == itD.Id))
+                //{
+                //    drones[i].ParcelInTransfer.Id = 0;
+                //    drones[i].Status = (DroneStatus)Rand.Next(0, 2);
+                //}
+                ////if the drone is in fix
+                //if(dal.GetDroneCharge().Exists(item => item.DroneId == itD.Id))
+                //{
+                //    drones[i].Battery = Rand.Next(0, 21);
+                //}
+                ////if the drones isnt in fix and the drone wasnt sceduled
+                //if(!dal.GetDroneCharge().Exists(item => item.DroneId == itD.Id)&& !dal.GetParcels().Exists(item => item.DroneId == itD.Id))
+                //{
                     
-                }
+                //}
                
             }
         }
