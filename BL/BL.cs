@@ -28,8 +28,8 @@ namespace BL
                 drones[i].Id = itD.Id;
                 drones[i].Model = itD.Model;
                 drones[i].MaxWeight = (WeightCategories)(int)itD.MaxWeight;
-
-                if (dalObj.GetParcels().Exists(item => item.DroneId == itD.Id))//a parcel was scheduled
+                List<IDAL.DO.Parcel> parcelList = dalObj.GetParcels();
+                if (parcelList.Exists(item => item.DroneId == itD.Id))//a parcel was scheduled
                 {
                     int parcelIndex = dalObj.GetParcels().FindIndex(item => item.DroneId == itD.Id);
                     drones[i].ParcelInTransfer.Id = dalObj.GetParcels()[parcelIndex].Id;
