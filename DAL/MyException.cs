@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 namespace IDAL.DO
 {
     [Serializable]
-    public class MyException:Exception
+    public class ExistsException : Exception
     {
-        public MyException() : base() {}
-        public MyException(string message) : base(message) {}
-        public MyException(string message,Exception inner) : base(message, inner) {}
+        public ExistsException() : base() {}
+        public ExistsException(string message) : base(message) {}
+        public ExistsException(string message,Exception inner) : base(message, inner) {}
     }
 }

@@ -11,7 +11,17 @@ namespace BL
     {
         public void AddBaseStation(BaseStation baseStation)
         {
-
+            try
+            {
+                if (baseStation.Id > 9999 || baseStation.Id < 1000)
+                    throw new InvalidInputException("The baseStations id is incorrect");
+                if(baseStation.Name == "\n")
+                    throw new InvalidInputException("The baseStations name in incorrect");
+            }
+            catch(IDAL.DO.ExistsException ex)
+            {
+                throw new FailedToAddException(ex.ToString(), ex);
+            }
         }
 
         public BaseStation PrintBaseStation(int idBaseStation)
