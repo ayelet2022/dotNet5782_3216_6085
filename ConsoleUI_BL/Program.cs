@@ -98,6 +98,12 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter Phone: ");
                                         string phone = Console.ReadLine();//cin the phone of the new customer
                                         newCustomer.Phone = phone;//updates the new customers phone
+                                        Console.WriteLine("Enter Longitude: ");
+                                        double.TryParse(Console.ReadLine(), out inputDouble);
+                                        newCustomer.CustomerLocation.Longitude = inputDouble;
+                                        Console.WriteLine("Enter Latitude: ");
+                                        double.TryParse(Console.ReadLine(), out inputDouble);
+                                        newCustomer.CustomerLocation.Latitude=inputDouble;
                                         obj.AddCustomer(newCustomer);
                                         break;
                                     //a case to add a parcel and get the details from the user.

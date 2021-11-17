@@ -282,7 +282,7 @@ namespace ConsoleUI
                                 //in case you want to print the whole customers
                                 case PrintTheWholeListOfAnObject.PrintAllTheCustomer:
                                     //creats a new list of customers and sends to a function that returns the list of the customers
-                                    IEnumerable<Customer> ActiveCustomers = dalObj.PrintCustomers();
+                                    IEnumerable<Customer> ActiveCustomers = dalObj.GetCustomers();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itC in ActiveCustomers)
                                         Console.WriteLine(itC.ToString());
@@ -290,7 +290,7 @@ namespace ConsoleUI
                                 //in case you want to print the whole parcels
                                 case PrintTheWholeListOfAnObject.PrintAllTheParcel:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels
-                                    IEnumerable<Parcel> ActiveParcels = dalObj.PrintPercels();
+                                    IEnumerable<Parcel> ActiveParcels = dalObj.GetParcels();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in ActiveParcels)
                                         Console.WriteLine(itP.ToString());

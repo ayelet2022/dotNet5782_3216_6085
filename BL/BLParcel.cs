@@ -10,7 +10,18 @@ namespace BL
     {
         public void AddParcel(Parcel parcel)
         {
-
+            if (parcel.Id < 100000000 || parcel.Id > 999999999)
+                throw new InvalidInputException("The parcel id is incorrect");
+            if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
+                throw new InvalidInputException("The parcel id is incorrect");
+            parcel.CreatParcel = DateTime.Now;
+            parcel.Delivered = DateTime.MinValue;
+            parcel.PickedUp = DateTime.MinValue;
+            parcel.Scheduled = DateTime.MinValue;
+            parcel.ParecelDrone = null;
+            IDAL.DO.Parcel newParcel = new();
+            newParcel.CopyPropertiesTo(newParcel);
+            dal.AddParcel(newParcel);
         }
 
         public Parcel PrintParcel(int idParcel)
