@@ -10,7 +10,23 @@ namespace BL
     {
         public void AddDrone(Drone drone,int idFirstStation)
         {
+            try
+            {
+                if (drone.Id < 100000 || drone.Id > 999999)
+                    throw new InvalidInputException("The drones id is incorrect");
+                if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
+                    throw new InvalidInputException("The drones weight is incorrect");
+                if (drone.Model.Length != 6)
+                    throw new InvalidInputException("The drones model is incorrect");
+                if (idFirstStation < 1000 || idFirstStation > 9999)
+                    throw new InvalidInputException("The id of the baseStation incorrect");
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Drone PrintDrone(int idDrone)
