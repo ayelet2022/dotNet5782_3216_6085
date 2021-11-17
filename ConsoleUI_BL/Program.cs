@@ -15,7 +15,7 @@ namespace ConsoleUI_BL
     { PrintAllTheBaseStation = 1, PrintAllTheDrone, PrintAllTheCustomer, PrintAllTheParcel, printAllTheParcelsThatWerentPaired, PrintAllTheBaseStationWithAvailableCharges }
     class Program
     {
-        //static IBL obgIBL = new BL();
+        static BL.BL obj = new BL.BL();
         static void Main(string[] args)
         {
             //It prints the options to the user.
@@ -70,12 +70,12 @@ namespace ConsoleUI_BL
                                         Console.Write("Enter amount of charge slots in new station : ");
                                         int.TryParse(Console.ReadLine(), out input);
                                         newStation.EmptyCharges = input;
-                                        BL.BL.AddBaseStation(newStation);
+                                        obj.AddBaseStation(newStation);
                                         break;
                                     //a case to add a drone
                                     case AddAnObject.AddADrone:
                                         Drone newDrone = new();
-                                        Console.Write("Enter Id (4 digits): ");
+                                        Console.Write("Enter Id (6 digits): ");
                                         int.TryParse(Console.ReadLine(), out input);
                                         newDrone.Id = input;
                                         Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2)");
@@ -83,7 +83,7 @@ namespace ConsoleUI_BL
                                         newDrone.MaxWeight = (WeightCategories)input;
                                         Console.Write("Enter the station to put the drone in for first charging: ");
                                         int.TryParse(Console.ReadLine(), out input);
-                                        dalObj.AddDrone(newDrone, input);
+                                        obj.AddDrone(newDrone, input);
                                         break;
                                     //a case to add a customer and get the details from the user.
                                     case AddAnObject.AddACustomer:
@@ -98,7 +98,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter Phone: ");
                                         string phone = Console.ReadLine();//cin the phone of the new customer
                                         newCustomer.Phone = phone;//updates the new customers phone
-                                        dalObj.AddCustomer(newCustomer);
+                                        obj.AddCustomer(newCustomer);
                                         break;
                                     //a case to add a parcel and get the details from the user.
                                     case AddAnObject.AddAParcel:
@@ -120,7 +120,7 @@ namespace ConsoleUI_BL
                                         int proiority;
                                         int.TryParse(Console.ReadLine(), out proiority);//cin the priority of the new parcel
                                         newParcel.Priority = (Priorities)proiority;//updates the new parcels proiority
-                                        dalObj.AddParcel(newParcel);
+                                        obj.AddParcel(newParcel);
                                         break;
                                 } 
                             break;
@@ -145,7 +145,7 @@ namespace ConsoleUI_BL
                                     int id;
                                     int.TryParse(Console.ReadLine(), out id);//cin the baseStations id from the user
                                                                              //sends to a function that finds the baseStation and prints the info
-                                    Console.WriteLine(dalObj.PrintBaseStation(id).ToString());
+                                    Console.WriteLine(obj.PrintBaseStation(id).ToString());
                                     break;
                                 //in case you want to print a drone
                                 case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
@@ -153,7 +153,7 @@ namespace ConsoleUI_BL
                                     int idDrone;
                                     int.TryParse(Console.ReadLine(), out idDrone);//cin the drones id from the user
                                                                                   //sends to a function that finds the drone and prints the info
-                                    Console.WriteLine(dalObj.PrintDrone(idDrone).ToString());
+                                    Console.WriteLine(obj.PrintDrone(idDrone).ToString());
                                     break;
                                 //in case you want to print a customer
                                 case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
@@ -161,7 +161,7 @@ namespace ConsoleUI_BL
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the customers id from the user
                                                                                      //sends to a function that finds the customer and prints the info
-                                    Console.WriteLine(dalObj.PrintCustomer(idCustomer).ToString());
+                                    Console.WriteLine(obj.PrintCustomer(idCustomer).ToString());
                                     break;
                                 //in case you want to print a parcel
                                 case PrintAnObjectAccordingToTheId.PresentAParcelAccordingToHisId:
@@ -169,7 +169,7 @@ namespace ConsoleUI_BL
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
                                                                                    //sends to a function that finds the parcel and prints the info
-                                    Console.WriteLine(dalObj.PrintParcel(idParcel).ToString());
+                                    Console.WriteLine(obj.PrintParcel(idParcel).ToString());
                                     break;
                             }
                             break;
@@ -191,7 +191,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the whole baseStations
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStation:
                                     //creats a new list of baseStations and sends to a function that returns the list of the baseStations
-                                    IEnumerable<BaseStation> ActiveStations = dalObj.PrintBaseStations();
+                                    IEnumerable<BaseStation> ActiveStations = obj.GetBaseStations();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itBS in ActiveStations)
                                         Console.WriteLine(itBS.ToString());
@@ -199,7 +199,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the whole drones
                                 case PrintTheWholeListOfAnObject.PrintAllTheDrone:
                                     //creats a new list of drones and sends to a function that returns the list of the drones
-                                    IEnumerable<Drone> ActiveDrones = dalObj.PrintDrones();
+                                    IEnumerable<Drone> ActiveDrones = obj.GetDrones();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itD in ActiveDrones)
                                         Console.WriteLine(itD.ToString());
@@ -207,7 +207,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the whole customers
                                 case PrintTheWholeListOfAnObject.PrintAllTheCustomer:
                                     //creats a new list of customers and sends to a function that returns the list of the customers
-                                    IEnumerable<Customer> ActiveCustomers = dalObj.GetCustomers();
+                                    IEnumerable<Customer> ActiveCustomers = obj.GetCustomers();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itC in ActiveCustomers)
                                         Console.WriteLine(itC.ToString());
@@ -215,7 +215,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the whole parcels
                                 case PrintTheWholeListOfAnObject.PrintAllTheParcel:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels
-                                    IEnumerable<Parcel> ActiveParcels = dalObj.PrintPercels();
+                                    IEnumerable<Parcel> ActiveParcels = obj.GetParcels();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in ActiveParcels)
                                         Console.WriteLine(itP.ToString());
@@ -223,7 +223,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the parcels that were not paired to a drone.
                                 case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
-                                    IEnumerable<Parcel> Parcels = dalObj.ParcelThatWerenNotPaired();
+                                    IEnumerable<Parcel> Parcels = obj.ParcelThatWerenNotPaired();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in Parcels)
                                         Console.WriteLine(itP.ToString());
@@ -231,7 +231,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the baseStations with available chargers
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                     //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
-                                    IEnumerable<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStation> Stations = obj.BaseStationWithAvailableCharges();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itS in Stations)
                                         Console.WriteLine(itS.ToString());

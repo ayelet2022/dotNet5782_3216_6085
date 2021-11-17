@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using IBL.BO;
 namespace BL
 {
-    class BLParcel
+    public partial class BL
     {
         public void AddParcel(Parcel parcel)
         {

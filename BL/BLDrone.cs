@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using IBL.BO;
 namespace BL
 {
-    class BLDrone
+    public partial class BL
     {
-        public void AddDrone(Drone drone)
+        public void AddDrone(Drone drone,int idFirstStation)
         {
 
         }

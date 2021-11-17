@@ -7,7 +7,7 @@ using IBL.BO;
 
 namespace BL
 {
-    class BLBaseStation
+    public partial class BL
     {
         public void AddBaseStation(BaseStation baseStation)
         {
@@ -24,7 +24,7 @@ namespace BL
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        public IEnumerable<BaseStation> PrintBaseStations()
+        public IEnumerable<BaseStation> GetBaseStations()
         {
             List<BaseStation> Stations = new List<BaseStation>();
             return (IEnumerable<BaseStation>)Stations;

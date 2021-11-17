@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    class BLDroneCharge
+    public partial class BL
     {
     }
 }
