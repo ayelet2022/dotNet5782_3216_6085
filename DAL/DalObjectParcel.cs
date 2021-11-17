@@ -27,10 +27,10 @@ namespace DalObject
         /// </summary>
         /// <param name="idParcel">the id(that was enterd by the user in main) of the parcel that the user wants to print</param> 
         /// <returns>the parcel that needs to be printed</returns>
-        public Parcel PrintParcel(int idParcel)
+        public Parcel GetParcel(int idParcel)
         {
             if (DataSource.Parcels.Exists(item => item.Id != idParcel))
-                    throw new MyException("Parcel does not exists.");
+                    throw new DoesNotExistException("Parcel does not exists.");
                 int parcelIndex = 0;
             while (DataSource.Parcels[parcelIndex].Id != idParcel)//search for the parcel that has the same id has the id that the user enterd
                 parcelIndex++;
@@ -47,9 +47,9 @@ namespace DalObject
         public void DronToAParcel(int droneId, int parcelId)
         {
             if (DataSource.Drones.Exists(item => item.Id != droneId))
-                throw new MyException("Drone does not exists.");
+                throw new DoesNotExistException("Drone does not exists.");
             if (DataSource.Parcels.Exists(item => item.Id != parcelId))
-                throw new MyException("Parcel does not exists.");
+                throw new DoesNotExistException("Parcel does not exists.");
             int pareclIndex = 0;
             while (DataSource.Parcels[pareclIndex].Id != parcelId)//search for the parcel that has the same id has the id that the user enterd
                 pareclIndex++;
@@ -67,7 +67,7 @@ namespace DalObject
         public void PickUpParcel(int newId)
         {
             if (DataSource.Parcels.Exists(item => item.Id != newId))
-                throw new MyException("Parcel does not exists.");
+                throw new DoesNotExistException("Parcel does not exists.");
             int parcelsIndex = 0;
             while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd
                 parcelsIndex++;
@@ -83,7 +83,7 @@ namespace DalObject
         public void ParcelToCustomer(int newId)
         {
             if (DataSource.Parcels.Exists(item => item.Id != newId))
-                throw new MyException("Parcel does not exists.");
+                throw new DoesNotExistException("Parcel does not exists.");
             int parcelsIndex = 0;
             while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd
                 parcelsIndex++;
@@ -111,7 +111,7 @@ namespace DalObject
         /// search for all the drones that are available and copy them to a new arrey  
         /// </summary>
         /// <returns>the new arrey that has all the drones that are availeble</returns>
-        public IEnumerable<Parcel> ParcelThatWerenNotPaired()
+        public IEnumerable<Parcel> GetParcelThatWerenNotPaired()
         {
             List<Parcel> Parcels = new();
             foreach (var itBS in DataSource.Parcels)

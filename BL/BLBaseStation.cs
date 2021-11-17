@@ -34,9 +34,20 @@ namespace BL
             }
         }
 
-        public BaseStation PrintBaseStation(int idBaseStation)
+        public BaseStation GetBaseStation(int idBaseStation)
         {
+            IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
             BaseStation station = new();
+            station.CopyPropertiesTo(dalStation);
+            station.BaseStationLocation.Latitude = dalStation.Latitude;
+            station.BaseStationLocation.Longitude = dalStation.Longitude;
+            int i = 0;
+            foreach (var item in dal.GetDroneCharge())
+            {
+                station.DronesInCharge[i].Id = item.DroneId;
+                Drone drone = GetDrone(item.DroneId);
+                station.DronesInCharge[i].Battery = drone.Battery;
+            }
             return station;
         }
 

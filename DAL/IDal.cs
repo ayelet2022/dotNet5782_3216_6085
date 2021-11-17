@@ -15,10 +15,10 @@ namespace IDAL
         public void AddCustomer(Customer newCustomer);
         public void AddParcel(Parcel newParcel);
         public void AddDroneCharge(DroneCharge droneCharge);
-        public BaseStation PrintBaseStation(int idBaseStation);
-        public Drone PrintDrone(int idDrone);
-        public Customer PrintCustomer(int idCustomer);
-        public Parcel PrintParcel(int idParcel);
+        public BaseStation GetBaseStation(int idBaseStation);
+        public Drone GetDrone(int idDrone);
+        public Customer GetCustomer(int idCustomer);
+        public Parcel GetParcel(int idParcel);
         public void DronToAParcel(int droneId, int parcelId);
         public void DronToCharger(int dronesId, int idOfBaseStation);
         public void FreeDroneFromBaseStation(int dronesId);
@@ -28,11 +28,8 @@ namespace IDAL
        IEnumerable<Drone> GetDrones();
        IEnumerable<Customer> GetCustomers();
        IEnumerable<Parcel> GetParcels();
-       IEnumerable<Parcel> GetDroneCharge();
-       IEnumerable<Parcel> ParcelThatWerenNotPaired();
-       IEnumerable<BaseStation> BaseStationWithAvailableCharges();
-        public int searchBaseStation(int id);
-        public int searchDrone(int id);
-        public int searchCustomer(int id);
+       IEnumerable<DroneCharge> GetDroneCharge();
+       IEnumerable<Parcel> GetParcelThatWerenNotPaired();
+       IEnumerable<BaseStation> GetBaseStationWithAvailableCharges();
     }
 }

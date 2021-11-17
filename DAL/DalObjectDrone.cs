@@ -23,7 +23,7 @@ namespace DalObject
         /// </summary>
         /// <param name="idDrone">the id(that was enterd by the user in main) of the dron that the user wants to print</param>
         /// <returns>resturn the drone that needs to be printed</returns>
-        public Drone PrintDrone(int idDrone)
+        public Drone GetDrone(int idDrone)
         {
             if (DataSource.Drones.Exists(item => item.Id != idDrone))
                 throw new DoesNotExistException("Drone does not exist.");
@@ -97,18 +97,5 @@ namespace DalObject
             }
             return Drones;
         }
-
-        public int searchDrone(int id)
-        {
-            int index = 0;
-            foreach (var itD in DataSource.Stations)
-            {
-                if (itD.Id == id)
-                    return index;
-                index++;
-            }
-            return -1;
-        }
-
     }
 }

@@ -24,10 +24,10 @@ namespace DalObject
         /// </summary>
         /// <param name="idCustomer">the id(that was enterd by the user in main) of the customer that the user wants to print</param>
         /// <returns>resturn the customer that needs to be printed</returns>
-        public Customer PrintCustomer(int idCustomer)
+        public Customer GetCustomer(int idCustomer)
         {
             if (DataSource.Customers.Exists(item => item.Id != idCustomer))
-                throw new ExistsException("Customer does not exists.");
+                throw new DoesNotExistException("Customer does not exists.");
             int customerIndex = 0;
             while (DataSource.Customers[customerIndex].Id != idCustomer)//search for the customer that has the same id has the id that the user enterd
                 customerIndex++;
@@ -42,17 +42,6 @@ namespace DalObject
                 Customers.Add(itC);
             }
             return Customers;
-        }
-        public int searchCustomer(int id)
-        {
-            int index = 0;
-            foreach (var itC in DataSource.Customers)
-            {
-                if (itC.Id == id)
-                    return index;
-                index++;
-            }
-            return -1;
         }
     }
 }
