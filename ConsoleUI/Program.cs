@@ -266,7 +266,7 @@ namespace ConsoleUI
                                 //in case you want to print the whole baseStations
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStation:
                                     //creats a new list of baseStations and sends to a function that returns the list of the baseStations
-                                    IEnumerable<BaseStation> ActiveStations = dalObj.PrintBaseStations();
+                                    IEnumerable<BaseStation> ActiveStations = dalObj.GetStations();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itBS in ActiveStations)
                                         Console.WriteLine(itBS.ToString());

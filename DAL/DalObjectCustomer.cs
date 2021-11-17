@@ -15,7 +15,7 @@ namespace DalObject
         public void AddCustomer(Customer newCustomer)
         {
             if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id))
-                throw new MyException("Customer already exists.");
+                throw new ExistsException("Customer already exists.");
             DataSource.Customers.Add(newCustomer);
         }
 
@@ -27,7 +27,7 @@ namespace DalObject
         public Customer PrintCustomer(int idCustomer)
         {
             if (DataSource.Customers.Exists(item => item.Id != idCustomer))
-                throw new MyException("Customer does not exists.");
+                throw new ExistsException("Customer does not exists.");
             int customerIndex = 0;
             while (DataSource.Customers[customerIndex].Id != idCustomer)//search for the customer that has the same id has the id that the user enterd
                 customerIndex++;

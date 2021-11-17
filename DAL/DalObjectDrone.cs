@@ -14,7 +14,7 @@ namespace DalObject
         public void AddDrone(Drone addDrone)
         {
             if (DataSource.Drones.Exists(item => item.Id == addDrone.Id))
-                throw new MyException("Drone already exists.");
+                throw new ExistsException("Drone already exists.");
             DataSource.Drones.Add(addDrone);
         }
 
@@ -26,7 +26,7 @@ namespace DalObject
         public Drone PrintDrone(int idDrone)
         {
             if (DataSource.Drones.Exists(item => item.Id != idDrone))
-                throw new MyException("Drone does not exists.");
+                throw new ExistsException("Drone does not exists.");
             int droneIndex = 0;
             while (DataSource.Drones[droneIndex].Id != idDrone)//search for the drone that has the same id has the id that the user enterd
                 droneIndex++;
@@ -41,9 +41,9 @@ namespace DalObject
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
             if (DataSource.Drones.Exists(item => item.Id != dronesId))
-                throw new MyException("Drone does not exists.");
+                throw new ExistsException("Drone does not exists.");
             if (DataSource.Stations.Exists(item => item.Id != idOfBaseStation))
-                throw new MyException("Base Station does not exists.");
+                throw new ExistsException("Base Station does not exists.");
             int droneIndex = 0;
             while (DataSource.Drones[droneIndex].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
                 droneIndex++;
@@ -66,7 +66,7 @@ namespace DalObject
         public void FreeDroneFromBaseStation(int dronesId)
         {
             if (DataSource.Drones.Exists(item => item.Id != dronesId))
-                throw new MyException("Drone does not exists.");
+                throw new ExistsException("Drone does not exists.");
             int droneLocation = 0;
             while (DataSource.Drones[droneLocation].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
                 droneLocation++;

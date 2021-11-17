@@ -26,7 +26,7 @@ namespace DalObject
         public BaseStation PrintBaseStation(int idBaseStation)
         {
             if (DataSource.Stations.Exists(item => item.Id != idBaseStation))
-                throw new MyException("Base station does not exists.");
+                throw new ExistsException("Base station does not exists.");
             int baseStationIndex = 0;
             while (DataSource.Stations[baseStationIndex].Id != idBaseStation)//search for the base station that has the same id has the id that the user enterd
                 baseStationIndex++;
@@ -38,7 +38,7 @@ namespace DalObject
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        public IEnumerable<BaseStation> PrintBaseStations()
+        public IEnumerable<BaseStation> GetStations()
         {
             List<BaseStation> Stations = new List<BaseStation>();
             foreach (var itBS in DataSource.Stations)

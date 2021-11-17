@@ -34,7 +34,7 @@ namespace ConsoleUI_BL
             try
             {
                 if ((int)choice < 1 || (int)choice > 5)
-                    throw new MyException("The input is incurrect");
+                    throw new InvalidInputException("The input is incurrect");
                 while (choice != MainQuastions.EndTheProgram)//goes till the user enters 5-end the program
                 {
                     switch (choice)

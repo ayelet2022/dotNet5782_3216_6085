@@ -23,6 +23,7 @@ namespace BL
                     throw new InvalidInputException("The baseStations Longitude is incorrect");
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException("The number of empty charges is incorrect");
+                baseStation.DronesInCharge = null;
                 IDAL.DO.BaseStation station = new();
                 baseStation.CopyPropertiesTo(station);
                 dal.AddBaseStation(station);
