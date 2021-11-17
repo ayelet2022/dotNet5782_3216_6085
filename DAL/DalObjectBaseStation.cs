@@ -14,7 +14,7 @@ namespace DalObject
         public void AddBaseStation(BaseStation addBaseStation)
         {
             if (DataSource.Stations.Exists(item => item.Id == addBaseStation.Id))
-                throw new MyException("Base station already exists.");
+                throw new ExistsException("Base station already exists.");
             DataSource.Stations.Add(addBaseStation);
         }
 

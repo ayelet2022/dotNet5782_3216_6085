@@ -7,10 +7,22 @@ using System.Threading.Tasks;
 namespace IBL.BO
 {
     [Serializable]
-    public class MyException : Exception
+    public class InvalidInputException : Exception
     {
-        public MyException() : base() { }
-        public MyException(string message) : base(message) { }
-        public MyException(string message, Exception inner) : base(message, inner) { }
+        public InvalidInputException() : base() { }
+        public InvalidInputException(string message) : base(message) { }
+        public InvalidInputException(string message, Exception inner) : base(message, inner) { }
+    }
+    public class NotFoundInputException : Exception
+    {
+        public NotFoundInputException() : base() { }
+        public NotFoundInputException(string message) : base(message) { }
+        public NotFoundInputException(string message, Exception inner) : base(message, inner) { }
+    }
+    public class FailedToAddException : Exception
+    {
+        public FailedToAddException() : base() { }
+        public FailedToAddException(string message) : base(message) { }
+        public FailedToAddException(string message, Exception inner) : base(message, inner) { }
     }
 }
