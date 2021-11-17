@@ -46,7 +46,7 @@ namespace BL
             {
                 station.DronesInCharge[i].Id = item.DroneId;
                 Drone drone = GetDrone(item.DroneId);
-                station.DronesInCharge[i].Battery = drone.Battery;
+                station.DronesInCharge[i++].Battery = drone.Battery;
             }
             return station;
         }
