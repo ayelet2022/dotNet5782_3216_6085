@@ -12,19 +12,22 @@ namespace BL
     public partial class BL : IBL.IBL
     {
         IDal dal = new DalObject.DalObject();
+        List<DroneList> Drones = new List<DroneList>();
         public BL()
         { 
             double[] power=dal.AskForBattery();
             double chargingRate=power[4];
-            dal.PrintDrones();
-            List<Drone> Drones = new List<Drone>();
+            dal.GetDrones();
             InitializeDroneList(Drones);
         }
-        void InitializeDroneList(List<Drone>drones)
+
+       
+        
+        void InitializeDroneList(List<DroneList>drones)
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             int i = 0;
-            foreach (var itD in dal.PrintDrones())
+            foreach (var itD in dal.GetDrones())
             {
                 drones[i].Id = itD.Id;
                 drones[i].Model = itD.Model;

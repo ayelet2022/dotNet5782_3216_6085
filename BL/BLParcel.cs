@@ -24,7 +24,7 @@ namespace BL
             dal.AddParcel(newParcel);
         }
 
-        public Parcel PrintParcel(int idParcel)
+        public Parcel GetParcel(int idParcel)
         {
             Parcel parcel = new();
             return parcel;

@@ -32,7 +32,7 @@ namespace BL
             }
         }
 
-        public Customer PrintCustomer(int idCustomer)
+        public Customer GetCustomer(int idCustomer)
         {
             Customer customer = new();
             return customer;

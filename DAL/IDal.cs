@@ -14,6 +14,7 @@ namespace IDAL
         public void AddDrone(Drone addDrone);
         public void AddCustomer(Customer newCustomer);
         public void AddParcel(Parcel newParcel);
+        public void AddDroneCharge(DroneCharge droneCharge);
         public BaseStation PrintBaseStation(int idBaseStation);
         public Drone PrintDrone(int idDrone);
         public Customer PrintCustomer(int idCustomer);
@@ -23,8 +24,8 @@ namespace IDAL
         public void FreeDroneFromBaseStation(int dronesId);
         public void PickUpParcel(int newId);
         public void ParcelToCustomer(int newId);
-       IEnumerable<BaseStation> PrintBaseStations();
-       IEnumerable<Drone> PrintDrones();
+       IEnumerable<BaseStation> GetBaseStations();
+       IEnumerable<Drone> GetDrones();
        IEnumerable<Customer> GetCustomers();
        IEnumerable<Parcel> GetParcels();
        IEnumerable<Parcel> GetDroneCharge();

@@ -12,4 +12,10 @@ namespace IDAL.DO
         public ExistsException(string message) : base(message) {}
         public ExistsException(string message,Exception inner) : base(message, inner) {}
     }
+    public class DoesNotExistException : Exception
+    {
+        public DoesNotExistException() : base() { }
+        public DoesNotExistException(string message) : base(message) { }
+        public DoesNotExistException(string message, Exception inner) : base(message, inner) { }
+    }
 }

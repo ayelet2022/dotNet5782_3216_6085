@@ -152,23 +152,23 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Enter the base station id (4 digits)\n");
                                     int id;
                                     int.TryParse(Console.ReadLine(), out id);//cin the baseStations id from the user
-                                                                             //sends to a function that finds the baseStation and prints the info
+                                    //sends to a function that finds the baseStation and prints the info
                                     Console.WriteLine(obj.PrintBaseStation(id).ToString());
                                     break;
                                 //in case you want to print a drone
                                 case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
-                                    Console.WriteLine("Enter the drone id (4 digits)\n");
+                                    Console.WriteLine("Enter the drone id (6 digits)\n");
                                     int idDrone;
                                     int.TryParse(Console.ReadLine(), out idDrone);//cin the drones id from the user
-                                                                                  //sends to a function that finds the drone and prints the info
+                                    //sends to a function that finds the drone and prints the info
                                     Console.WriteLine(obj.PrintDrone(idDrone).ToString());
                                     break;
                                 //in case you want to print a customer
                                 case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
-                                    Console.WriteLine("Enter the customer id (4 digits)\n");
+                                    Console.WriteLine("Enter the customer id (9 digits)\n");
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the customers id from the user
-                                                                                     //sends to a function that finds the customer and prints the info
+                                    //sends to a function that finds the customer and prints the info
                                     Console.WriteLine(obj.PrintCustomer(idCustomer).ToString());
                                     break;
                                 //in case you want to print a parcel
@@ -176,7 +176,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Enter the parcel id (4 digits)\n");
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
-                                                                                   //sends to a function that finds the parcel and prints the info
+                                    //sends to a function that finds the parcel and prints the info
                                     Console.WriteLine(obj.PrintParcel(idParcel).ToString());
                                     break;
                             }

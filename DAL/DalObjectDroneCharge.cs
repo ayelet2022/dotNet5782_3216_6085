@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using IDAL.DO;
 namespace DalObject
 {
-    partial class DalObjectDroneCharge
+    public partial class DalObject
     {
         public void AddDroneCharge(DroneCharge droneCharge)
         {
