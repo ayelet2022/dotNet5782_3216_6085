@@ -81,6 +81,8 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2)");
                                         int.TryParse(Console.ReadLine(), out input);
                                         newDrone.MaxWeight = (WeightCategories)input;
+                                        Console.Write("Enter the drones model: ");
+                                        newDrone.Model = Console.ReadLine();
                                         Console.Write("Enter the station to put the drone in for first charging: ");
                                         int.TryParse(Console.ReadLine(), out input);
                                         obj.AddDrone(newDrone, input);

@@ -31,8 +31,8 @@ namespace DalObject
             Random Rand = new Random(DateTime.Now.Millisecond);
             BaseStation newStation = new BaseStation();
             newStation.Id = Rand.Next(1000, 10000);
-            newStation.Latitude = Rand.Next(0, 1000000);
-            newStation.Longitude = Rand.Next(0, 1000000);
+            newStation.Latitude = Rand.Next(-90, 91);
+            newStation.Longitude = Rand.Next(-180, 181);
             newStation.EmptyCharges = Rand.Next(0, 6);
             newStation.Name = name;
             Stations.Add(newStation);
@@ -41,7 +41,7 @@ namespace DalObject
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             Drone addDrone = new Drone();
-            addDrone.Id = Rand.Next(1000, 10000);
+            addDrone.Id = Rand.Next(100000, 999999);
             addDrone.MaxWeight = (WeightCategories)Rand.Next(0, 3);
             //addDrone.Status = (DroneStatuses)Rand.Next(0, 3);
             addDrone.Model = name;
@@ -51,9 +51,9 @@ namespace DalObject
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             Customer addCustomer = new Customer();
-            addCustomer.Id = Rand.Next(1000, 10000);
-            addCustomer.Latitude = Rand.Next(0, 1000000);
-            addCustomer.Longitude = Rand.Next(0, 1000000);
+            addCustomer.Id = Rand.Next(100000000, 1000000000);
+            addCustomer.Latitude = Rand.Next(-90, 91);
+            addCustomer.Longitude = Rand.Next(-180, 181);
             addCustomer.Phone = phone;
             addCustomer.Name = name;
             Customers.Add(addCustomer);
