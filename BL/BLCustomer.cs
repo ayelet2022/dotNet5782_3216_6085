@@ -98,5 +98,12 @@ namespace BL
             }
             return Customers;
         }
+        public void UpdateCustomer(int id, string name, string phone)
+        {
+            if (phone.Length < 10)
+                throw new InvalidInputException($"The customer phone is incorrect");
+            dal.UpdateCustomer(id, name, phone);
+        }
     }
 }
+

@@ -31,5 +31,6 @@ namespace IDAL
        IEnumerable<DroneCharge> GetDroneCharge();
        IEnumerable<Parcel> GetParcelThatWerenNotPaired();
        IEnumerable<BaseStation> GetBaseStationWithAvailableCharges();
+        public void UpdateCustomer(int id, string name, string phone);
     }
 }

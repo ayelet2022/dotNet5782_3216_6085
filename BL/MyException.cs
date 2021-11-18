@@ -25,4 +25,10 @@ namespace IBL.BO
         public FailedToAddException(string message) : base(message) { }
         public FailedToAddException(string message, Exception inner) : base(message, inner) { }
     }
+    public class FailedFreeADroneFromeTheCharger : Exception
+    {
+        public FailedFreeADroneFromeTheCharger() : base() { }
+        public FailedFreeADroneFromeTheCharger(string message) : base(message) { }
+        public FailedFreeADroneFromeTheCharger(string message, Exception inner) : base(message, inner) { }
+    }
 }

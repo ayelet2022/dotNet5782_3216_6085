@@ -97,5 +97,16 @@ namespace BL
             }
             return listDrones;
         }
+        public void FreeDroneFromeCharger(int id,DateTime timeInCharger)
+        {
+
+            Drone drone = GetDrone(id);
+            if (drone.Status == (DroneStatus)1)
+            {
+                drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour+ (dal.AskForBattery()[4]/60) * timeInCharger.Minute+(dal.AskForBattery()[4]/360)*timeInCharger.Second;
+                drone.Status = (DroneStatus)0;//availble
+            }
+            throw new FailedFreeADroneFromeTheCharger($"Failed to free the Drone:{id} Frome The Charger");
+        }
     }
 }
