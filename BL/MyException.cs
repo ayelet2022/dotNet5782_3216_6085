@@ -25,4 +25,6 @@ namespace IBL.BO
         public FailedToAddException(string message) : base(message) { }
         public FailedToAddException(string message, Exception inner) : base(message, inner) { }
     }
+
+
 }

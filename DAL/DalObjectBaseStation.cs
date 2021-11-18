@@ -62,5 +62,24 @@ namespace DalObject
             }
             return Stations;
         }
+
+        public void UpdateStation(int id, string newName, int emptyCharges)
+        {
+            BaseStation baseStation = new();
+
+            int i = 0;
+            foreach (var item in DataSource.Stations)
+            {
+                if (item.Id == id)
+                {
+                    if (newName != "\n")
+                        baseStation.Name = newName;
+                    baseStation.EmptyCharges = emptyCharges;
+                    break;
+                }
+                i++;
+            }
+            DataSource.Stations[i] = baseStation;
+        }
     }
 }

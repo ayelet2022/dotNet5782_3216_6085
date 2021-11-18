@@ -85,7 +85,7 @@ namespace BL
             {
                 if (item.EmptyCharges != 0)
                 {
-                    blStations[i] = GetBaseStation(item.Id);
+                    blStations.Add(GetBaseStation(item.Id));
                     listStations[i].CopyPropertiesTo(blStations[i]);
                     listStations[i].FullChargingPositions = blStations[i].DronesInCharge.Count;
                     i++;
@@ -93,5 +93,13 @@ namespace BL
             }
             return listStations;
         }
+
+        public void UpdateStation(int id, string newName,int emptyCharges)
+        {
+            if (emptyCharges < 0)
+                throw new InvalidInputException("The number of empty charges is incorrect");
+            dal.UpdateStation(id, newName, emptyCharges);
+        }
+
     }
 }

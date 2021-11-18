@@ -90,12 +90,45 @@ namespace BL
             int i = 0;
             foreach (var item in dalDrones)
             {
-                blDrones[i] = GetDrone(item.Id);
+                blDrones.Add(GetDrone(item.Id));
                 listDrones[i].CopyPropertiesTo(blDrones[i]);
                 listDrones[i].NumOfParcelOnTheWay = blDrones[i].ParcelInTransfer.Id;
                 i++;
             }
             return listDrones;
+        }
+
+        public void UpdateDrone(int id, string newModel)
+        {
+            dal.UpdateDrone(id, newModel);
+        }
+
+        public void SendDroneToCharging(int id)
+        {
+            Drone blDrone = GetDrone(id);
+            IDAL.DO.BaseStation baseStation = FindMinDistance(blDrone);
+            BaseStation station = GetBaseStation(baseStation.Id);
+            if (blDrone.Status==(DroneStatus)0 && station.EmptyCharges!=0)
+            {
+
+            }
+        }
+
+        public IDAL.DO.BaseStation FindMinDistance(Drone drone)
+        {
+            IDAL.DO.BaseStation baseStation = new();
+            double minDistance = 0;
+            double distance = 0;
+            foreach (var item in dal.GetBaseStations())
+            {
+                distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
+                if (minDistance > distance)
+                {
+                    minDistance = distance;
+                    baseStation = item;
+                }
+            }
+            return baseStation;
         }
     }
 }

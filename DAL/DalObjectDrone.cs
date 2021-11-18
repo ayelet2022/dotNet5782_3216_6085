@@ -97,5 +97,22 @@ namespace DalObject
             }
             return Drones;
         }
+
+        public void UpdateDrone(int id, string newModel)
+        {   
+            int i = 0;
+            Drone drone = new();
+            foreach (var item in DataSource.Drones)
+            {
+                if (item.Id == id)
+                {
+                    drone = item;
+                    drone.Model = newModel;
+                    break;
+                }
+                i++;
+            }
+            DataSource.Drones[i] = drone;
+        }
     }
 }

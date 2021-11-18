@@ -235,7 +235,7 @@ namespace ConsoleUI
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the customers id from the user
                                                                                      //sends to a function that finds the customer and prints the info
-                                    Console.WriteLine(dalObj.PrintCustomer(idCustomer).ToString());
+                                    Console.WriteLine(dalObj.GetCustomer(idCustomer).ToString());
                                     break;
                                 //in case you want to print a parcel
                                 case PrintAnObjectAccordingToTheId.PresentAParcelAccordingToHisId:
@@ -243,7 +243,7 @@ namespace ConsoleUI
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
                                                                                    //sends to a function that finds the parcel and prints the info
-                                    Console.WriteLine(dalObj.PrintParcel(idParcel).ToString());
+                                    Console.WriteLine(dalObj.GetParcel(idParcel).ToString());
                                     break;
                             }
                             break;
@@ -266,7 +266,7 @@ namespace ConsoleUI
                                 //in case you want to print the whole baseStations
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStation:
                                     //creats a new list of baseStations and sends to a function that returns the list of the baseStations
-                                    IEnumerable<BaseStation> ActiveStations = dalObj.GetStations();
+                                    IEnumerable<BaseStation> ActiveStations = dalObj.GetBaseStations();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itBS in ActiveStations)
                                         Console.WriteLine(itBS.ToString());
@@ -274,7 +274,7 @@ namespace ConsoleUI
                                 //in case you want to print the whole drones
                                 case PrintTheWholeListOfAnObject.PrintAllTheDrone:
                                     //creats a new list of drones and sends to a function that returns the list of the drones
-                                    IEnumerable<Drone> ActiveDrones = dalObj.PrintDrones();
+                                    IEnumerable<Drone> ActiveDrones = dalObj.GetDrones();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itD in ActiveDrones)
                                         Console.WriteLine(itD.ToString());
@@ -298,7 +298,7 @@ namespace ConsoleUI
                                 //in case you want to print the parcels that were not paired to a drone.
                                 case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
-                                    IEnumerable<Parcel> Parcels = dalObj.ParcelThatWerenNotPaired();
+                                    IEnumerable<Parcel> Parcels = dalObj.GetParcelThatWerenNotPaired();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in Parcels)
                                         Console.WriteLine(itP.ToString());
@@ -306,7 +306,7 @@ namespace ConsoleUI
                                 //in case you want to print the baseStations with available chargers
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                     //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
-                                    IEnumerable<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStationWithAvailableCharges();
                                     //goes through the list and prints the info of each one.
                                     foreach (var itS in Stations)
                                         Console.WriteLine(itS.ToString());
