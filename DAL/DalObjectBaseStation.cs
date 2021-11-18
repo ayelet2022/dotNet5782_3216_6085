@@ -45,7 +45,7 @@ namespace DalObject
             {
                     Stations.Add(itBS);
             }
-            return (IEnumerable<BaseStation>)Stations;
+            return Stations;
         }
 
         /// <summary>

@@ -39,8 +39,8 @@ namespace BL
             IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
             BaseStation station = new();
             station.CopyPropertiesTo(dalStation);
-            station.BaseStationLocation.Latitude = dalStation.Latitude;
-            station.BaseStationLocation.Longitude = dalStation.Longitude;
+            //station.BaseStationLocation.Latitude = dalStation.Latitude;
+            //station.BaseStationLocation.Longitude = dalStation.Longitude;
             int i = 0;
             foreach (var item in dal.GetDroneCharge())
             {
@@ -55,20 +55,43 @@ namespace BL
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        public IEnumerable<BaseStation> GetBaseStations()
+        public IEnumerable<BaseStationList> GetBaseStations()
         {
-            List<BaseStation> Stations = new List<BaseStation>();
-            return (IEnumerable<BaseStation>)Stations;
+            List<BaseStationList> listStations = new();
+            List<BaseStation> blStations = new();
+            IEnumerable<IDAL.DO.BaseStation> dalStations = dal.GetBaseStations();
+            int i = 0;
+            foreach (var item in dalStations)
+            {
+                blStations[i] = GetBaseStation(item.Id);
+                listStations[i].CopyPropertiesTo(blStations[i]);
+                listStations[i].FullChargingPositions = blStations[i].DronesInCharge.Count;
+                i++;
+            }
+            return listStations;
         }
 
         /// <summary>
         /// search for tha base station that has available charges and copys them to a new arrey
         /// </summary>
         /// <returns>the new arrey that has all the base station that has free charges</returns>
-        public IEnumerable<BaseStation> BaseStationWithAvailableCharges()
+        public IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges()
         {
-            List<BaseStation> Stations = new();
-            return Stations;
+            List<BaseStationList> listStations = new();
+            List<BaseStation> blStations = new();
+            IEnumerable<IDAL.DO.BaseStation> dalStations = dal.GetBaseStations();
+            int i = 0;
+            foreach (var item in dalStations)
+            {
+                if (item.EmptyCharges != 0)
+                {
+                    blStations[i] = GetBaseStation(item.Id);
+                    listStations[i].CopyPropertiesTo(blStations[i]);
+                    listStations[i].FullChargingPositions = blStations[i].DronesInCharge.Count;
+                    i++;
+                }
+            }
+            return listStations;
         }
     }
 }

@@ -82,10 +82,20 @@ namespace BL
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        public IEnumerable<Drone> GetDrones()
+        public IEnumerable<DroneList> GetDrones()
         {
-            List<Drone> Drones = new List<Drone>();
-            return Drones;
+            List<Drone> blDrones = new List<Drone>();
+            List<DroneList> listDrones = new List<DroneList>();
+            IEnumerable<IDAL.DO.Drone> dalDrones = dal.GetDrones();
+            int i = 0;
+            foreach (var item in dalDrones)
+            {
+                blDrones[i] = GetDrone(item.Id);
+                listDrones[i].CopyPropertiesTo(blDrones[i]);
+                listDrones[i].NumOfParcelOnTheWay = blDrones[i].ParcelInTransfer.Id;
+                i++;
+            }
+            return listDrones;
         }
     }
 }

@@ -6,8 +6,7 @@ using System.Reflection;
 namespace IBL.BO
 {
     public static class DeepCopy
-    {
-        
+    { 
         public static void CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())

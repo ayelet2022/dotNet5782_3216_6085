@@ -182,7 +182,7 @@ namespace ConsoleUI
                                     int DronesId1;
                                     int.TryParse(Console.ReadLine(), out DronesId1);//cin the drones id
                                     Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
-                                    IEnumerable<BaseStation> Stations = dalObj.BaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStationWithAvailableCharges();
                                     //prints for the user the baseStations that have free charge stations
                                     foreach (var itBS in Stations)
                                         Console.WriteLine(itBS.ToString());
@@ -219,7 +219,7 @@ namespace ConsoleUI
                                     int id;
                                     int.TryParse(Console.ReadLine(), out id);//cin the baseStations id from the user
                                                                              //sends to a function that finds the baseStation and prints the info
-                                    Console.WriteLine(dalObj.PrintBaseStation(id).ToString());
+                                    Console.WriteLine(dalObj.GetBaseStation(id).ToString());
                                     break;
                                 //in case you want to print a drone
                                 case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
@@ -227,7 +227,7 @@ namespace ConsoleUI
                                     int idDrone;
                                     int.TryParse(Console.ReadLine(), out idDrone);//cin the drones id from the user
                                                                                   //sends to a function that finds the drone and prints the info
-                                    Console.WriteLine(dalObj.PrintDrone(idDrone).ToString());
+                                    Console.WriteLine(dalObj.GetDrone(idDrone).ToString());
                                     break;
                                 //in case you want to print a customer
                                 case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
