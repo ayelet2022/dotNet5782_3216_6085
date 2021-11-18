@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class DroneList
+    public class DroneList
     {
         /// <summary>
         /// the id of the drone
