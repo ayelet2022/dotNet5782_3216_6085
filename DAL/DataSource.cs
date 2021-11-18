@@ -24,7 +24,7 @@ namespace DalObject
            internal static double MediumWeight;
            internal static double Heavy;
            internal static int RunningParcelId = 1000;
-           internal static double ChargingRate=0.5;
+            internal static double ChargingRate = 0.5;
         }
         static void InitializeBaseStation(string name)
         {
