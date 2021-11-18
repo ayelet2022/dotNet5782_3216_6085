@@ -58,15 +58,14 @@ namespace BL
         public IEnumerable<BaseStationList> GetBaseStations()
         {
             List<BaseStationList> listStations = new();
-            List<BaseStation> blStations = new();
-            IEnumerable<IDAL.DO.BaseStation> dalStations = dal.GetBaseStations();
-            int i = 0;
-            foreach (var item in dalStations)
+            BaseStationList baseStationList = new();
+            BaseStation blStations = new();
+            foreach (var item in dal.GetBaseStations())
             {
-                blStations[i] = GetBaseStation(item.Id);
-                listStations[i].CopyPropertiesTo(blStations[i]);
-                listStations[i].FullChargingPositions = blStations[i].DronesInCharge.Count;
-                i++;
+                blStations = GetBaseStation(item.Id);
+                blStations.CopyPropertiesTo(baseStationList);
+                baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                listStations.Add(baseStationList);
             }
             return listStations;
         }
