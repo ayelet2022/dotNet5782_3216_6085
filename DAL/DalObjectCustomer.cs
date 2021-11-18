@@ -43,5 +43,24 @@ namespace DalObject
             }
             return Customers;
         }
+        public void UpdateCustomer(int id,string name,string phone)
+        {
+            int i = 0;
+            Customer customer = new();
+            foreach (var item in DataSource.Customers)
+            {
+                if (item.Id == id)
+                {
+                    customer = item;
+                    if (name != "\n")
+                        customer.Name = name;
+                    if (phone != "\n")
+                        customer.Phone = phone;
+                    break;
+                }
+                i++;
+            }
+            DataSource.Customers[i] = customer;
+        }
     }
 }

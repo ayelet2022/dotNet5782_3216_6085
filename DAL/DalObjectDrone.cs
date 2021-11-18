@@ -49,7 +49,7 @@ namespace DalObject
                 droneIndex++;
             int stationsIndex = 0;
             while (DataSource.Stations[stationsIndex].Id != idOfBaseStation)//search for the base station that has the same id has the id that the user enterd
-                stationsIndex++;
+                stationsIndex++;                
             DroneCharge updateADrone = new();
             updateADrone.DroneId = dronesId;
             updateADrone.StationId = idOfBaseStation;

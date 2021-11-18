@@ -67,7 +67,7 @@ namespace BL
         /// search for all the drones that are available and copy them to a new arrey  
         /// </summary>
         /// <returns>the new arrey that has all the drones that are availeble</returns>
-        public IEnumerable<ParcelList> ParcelThatWerenNotPaired()
+        public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
         {
             ParcelList parcel = new();
             List<ParcelList> Parcels = new();
@@ -84,6 +84,32 @@ namespace BL
                 }
             }
             return Parcels;
+        }
+        public void PickUpParcel(int id)
+        {
+            Drone blDrone = GetDrone(id);
+            if (blDrone.ParcelInTransfer != default && blDrone.ParcelInTransfer.StatusParcel == false)
+            {
+                //
+                blDrone.DroneLocation = blDrone.ParcelInTransfer.PickUpLocation;
+                dal.PickUpParcel(blDrone.ParcelInTransfer.Id);
+            }
+            else
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel");
+        }
+        public void DeliverParcel(int id)
+        {
+            Drone blDrone = GetDrone(id);
+            if (blDrone.ParcelInTransfer.StatusParcel == true)
+            {
+                //
+                blDrone.DroneLocation = blDrone.ParcelInTransfer.DelieveredLocation;
+                blDrone.Status = (DroneStatus)0;
+                dal.ParcelToCustomer(blDrone.ParcelInTransfer.Id);
+            }
+            else
+                throw new FailedToDelieverParcelException("couldn't deliever the parcel");
+
         }
     }
 }

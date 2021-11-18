@@ -25,6 +25,28 @@ namespace IBL.BO
         public FailedToAddException(string message) : base(message) { }
         public FailedToAddException(string message, Exception inner) : base(message, inner) { }
     }
-
-
+    public class FailedFreeADroneFromeTheChargerException : Exception
+    {
+        public FailedFreeADroneFromeTheChargerException() : base() { }
+        public FailedFreeADroneFromeTheChargerException(string message) : base(message) { }
+        public FailedFreeADroneFromeTheChargerException(string message, Exception inner) : base(message, inner) { }
+    }
+    public class FailedToChargeDroneException : Exception
+    {
+        public FailedToChargeDroneException() : base() { }
+        public FailedToChargeDroneException(string message) : base(message) { }
+        public FailedToChargeDroneException(string message, Exception inner) : base(message, inner) { }
+    }
+    public class FailedToPickUpParcelException : Exception
+    {
+        public FailedToPickUpParcelException() : base() { }
+        public FailedToPickUpParcelException(string message) : base(message) { }
+        public FailedToPickUpParcelException(string message, Exception inner) : base(message, inner) { }
+    }
+    public class FailedToDelieverParcelException : Exception
+    {
+        public FailedToDelieverParcelException() : base() { }
+        public FailedToDelieverParcelException(string message) : base(message) { }
+        public FailedToDelieverParcelException(string message, Exception inner) : base(message, inner) { }
+    }
 }

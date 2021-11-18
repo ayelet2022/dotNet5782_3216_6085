@@ -107,11 +107,19 @@ namespace BL
         {
             Drone blDrone = GetDrone(id);
             IDAL.DO.BaseStation baseStation = FindMinDistance(blDrone);
+            while (baseStation.EmptyCharges==0)
+                baseStation = FindMinDistance(blDrone);
             BaseStation station = GetBaseStation(baseStation.Id);
-            if (blDrone.Status==(DroneStatus)0 && station.EmptyCharges!=0)
+            double distance = Distance.Haversine
+            (station.BaseStationLocation.Latitude, station.BaseStationLocation.Longitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
+            if (blDrone.Status == (DroneStatus)0 && )
             {
-
+                //
+                blDrone.DroneLocation = station.BaseStationLocation;
+                blDrone.Status = (DroneStatus)1;
+                dal.DronToCharger(blDrone.Id, station.Id);
             }
+            else throw new FailedToChargeDroneException("couldn't charge the drone.");
         }
 
         public IDAL.DO.BaseStation FindMinDistance(Drone drone)
@@ -129,6 +137,17 @@ namespace BL
                 }
             }
             return baseStation;
+        }
+        public void FreeDroneFromeCharger(int id,DateTime timeInCharger)
+        {
+
+            Drone drone = GetDrone(id);
+            if (drone.Status == (DroneStatus)1)
+            {
+                drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour+ (dal.AskForBattery()[4]/60) * timeInCharger.Minute+(dal.AskForBattery()[4]/360)*timeInCharger.Second);
+                drone.Status = (DroneStatus)0;//availble
+            }
+            throw new FailedFreeADroneFromeTheChargerException($"Failed to free the Drone:{id} Frome The Charger");
         }
     }
 }
