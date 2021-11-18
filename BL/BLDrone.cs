@@ -84,22 +84,12 @@ namespace BL
         /// <returns>the new arrey that has the the drones</returns>
         public IEnumerable<DroneList> GetDrones()
         {
-            List<Drone> blDrones = new List<Drone>();
-            List<DroneList> listDrones = new List<DroneList>();
-            IEnumerable<IDAL.DO.Drone> dalDrones = dal.GetDrones();
-            int i = 0;
-            foreach (var item in dalDrones)
-            {
-                blDrones.Add(GetDrone(item.Id));
-                listDrones[i].CopyPropertiesTo(blDrones[i]);
-                listDrones[i].NumOfParcelOnTheWay = blDrones[i].ParcelInTransfer.Id;
-                i++;
-            }
-            return listDrones;
+            return Drones;
         }
 
         public void UpdateDrone(int id, string newModel)
         {
+            dal.GetDrones().First(item => item.Id == id);
             dal.UpdateDrone(id, newModel);
         }
 
@@ -119,7 +109,8 @@ namespace BL
                 blDrone.Status = (DroneStatus)1;
                 dal.DronToCharger(blDrone.Id, station.Id);
             }
-            else throw new FailedToChargeDroneException("couldn't charge the drone.");
+            else 
+                throw new FailedToChargeDroneException("couldn't charge the drone.");
         }
 
         public IDAL.DO.BaseStation FindMinDistance(Drone drone)

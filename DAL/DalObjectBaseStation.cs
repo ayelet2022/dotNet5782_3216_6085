@@ -66,8 +66,7 @@ namespace DalObject
         public void UpdateStation(int id, string newName, int emptyCharges)
         {
             BaseStation baseStation = new();
-
-            int i = 0;
+            int index = 0;
             foreach (var item in DataSource.Stations)
             {
                 if (item.Id == id)
@@ -77,9 +76,9 @@ namespace DalObject
                     baseStation.EmptyCharges = emptyCharges;
                     break;
                 }
-                i++;
+                index++;
             }
-            DataSource.Stations[i] = baseStation;
+            DataSource.Stations[index] = baseStation;
         }
     }
 }
