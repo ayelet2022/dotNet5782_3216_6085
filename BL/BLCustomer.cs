@@ -34,13 +34,68 @@ namespace BL
 
         public Customer GetCustomer(int idCustomer)
         {
-            Customer customer = new();
+            IDAL.DO.Customer dalCustomer = dal.GetCustomers().First(item => item.Id == idCustomer);
+            Customer customer = new();//the customer to returne
+            customer.CopyPropertiesTo(dalCustomer);//only puts:id,name,phone,location
+            foreach (var item in dal.GetParcels())//checks all the parcels in dal
+            {
+                //check if the parcel is from this customer or to this customer
+                if (item.SenderId == idCustomer|| item.TargetId == idCustomer)
+                {
+                    ParcelInCustomer parcelFromCustomer = new();
+                    parcelFromCustomer.CopyPropertiesTo(item);//only copies:id,weight,priority
+                    if (item.Delivered != DateTime.MinValue)//meens the parcel was deliverd
+                        parcelFromCustomer.Status = (ParcelStatus)3;//the parcel was deliverd
+                    else//meens the parcel is pickedup/scheduled/created
+                    {
+                        if (item.PickedUp != DateTime.MinValue)//meens the parcel was picked up by the drone
+                            parcelFromCustomer.Status = (ParcelStatus)2;//the parcel was pickedup by the drone
+                        else//meens the parcel is scheduled/created
+                        {
+                            if (item.Scheduled != DateTime.MinValue)//meens the parcel was scheduled
+                                parcelFromCustomer.Status = (ParcelStatus)1;//the parcel was scheduled
+                            else//meens the parcel is created
+                                parcelFromCustomer.Status = (ParcelStatus)0;//the parcel was created
+                        }
+                    }
+                    parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
+                    parcelFromCustomer.SenderOrRecepter.CustomerName = customer.Name;
+                    if(item.SenderId == idCustomer)//meens the parcel is from the customer
+                        customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
+                    if(item.TargetId == idCustomer)//meens the parcel to the customer
+                        customer.ParcelsToCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
+                }
+            }
             return customer;
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerList> GetCustomers()
         {
-            List<Customer> Customers = new();
+            CustomerList customer = new();
+            List<CustomerList> Customers = new();//the customer list that we whant to returne
+            foreach (var item in dal.GetCustomers())
+            {
+                customer.CopyPropertiesTo(item);//copy only:id,name,phone
+                foreach (var item1 in dal.GetParcels())
+                {
+                    if (item1.SenderId == item.Id)//meens the customer send the parcel
+                    {
+                        if (item1.Delivered != DateTime.MinValue)//meens the parcel was deliverd
+                            customer.ParcelsSentAndDel++;
+                        else//meens the parcel was not deliverd
+                            customer.ParcelsSentAndNotDel++;
+                    }
+                    if (item1.TargetId == item.Id)//meens the customer has a parcel on the way/deliverd to him
+                    {
+                        if (item1.Delivered != DateTime.MinValue)//meens the parcel was deliverd to the customer
+                            customer.ParcelsResepted++;
+                        else//check if the parcel is on the way
+                            if (item1.PickedUp != DateTime.MinValue)//meens the parcel is on the way
+                                customer.ParcelsOnTheWay++;
+                    }
+                }
+                Customers.Add(customer);
+            }
             return Customers;
         }
     }

@@ -8,7 +8,7 @@ namespace ConsoleUI_BL
     public enum MainQuastions { AddAnObject = 1, UpdateAnObject, PrintAnObjectAccordingToTheId, PrintTheWholeListOfAnObject, EndTheProgram };
     public enum AddAnObject { AddABaseStation = 1, AddADrone, AddACustomer, AddAParcel };
     public enum UpdateAnObject
-    { DronToAParcel = 1, PickupAPercelFromTheDron, DeliverAPercelToACustomer, SendADronToAChargeStation, FreeADronFromACharge };
+    { updataADrone = 1, updataABaseStation, updataACustomer, SendADronToACharger, FreeADronFromACharger,ScheduledAParcelToADrone,PickupAParcelByADrone, };
     public enum PrintAnObjectAccordingToTheId
     { PresentAStationAccordingToHisId = 1, PresentADroneAccordingToHisId, PesentACustomerAccordingToHisId, PresentAParcelAccordingToHisId };
     public enum PrintTheWholeListOfAnObject
@@ -133,6 +133,34 @@ namespace ConsoleUI_BL
                                 } 
                             break;
                         case MainQuastions.UpdateAnObject:
+                            print1 = "";
+                            print1 += $"Enter what would you like to add:\n";
+                            print1 += $"Enter 1 to update a drone.\n";
+                            print1 += $"Enter 2 to update a base station .\n";
+                            print1 += $"Enter 3 to update a customer.\n";
+                            print1 += $"Enter 4 to send a drone to a charger.\n";
+                            print1 += $"Enter 5 to release a drone from a charger.\n";
+                            print1 += $"Enter 6 to scheduled a drone to a parcel.\n";
+                            print1 += $"Enter 7 to pickup a parcel by a drone.\n";
+                            print1 += $"Enter 8 to deliver a parcel by a drone.\n";
+                            Console.WriteLine(print1);
+                            UpdateAnObject Choiceupdate;
+                            UpdateAnObject.TryParse(Console.ReadLine(), out Choiceupdate);//cin the useres choice
+                            switch (Choiceupdate)
+                            {
+                                case UpdateAnObject.DronToAParcel:
+                                    break;
+                                case UpdateAnObject.PickupAPercelFromTheDron:
+                                    break;
+                                case UpdateAnObject.DeliverAPercelToACustomer:
+                                    break;
+                                case UpdateAnObject.SendADronToAChargeStation:
+                                    break;
+                                case UpdateAnObject.FreeADronFromACharge:
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case MainQuastions.PrintAnObjectAccordingToTheId:
                             //It prints the prints options to the user.

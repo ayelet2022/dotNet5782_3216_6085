@@ -11,9 +11,9 @@ namespace BL
         public void AddParcel(Parcel parcel)
         {
             if (parcel.Id < 100000000 || parcel.Id > 999999999)
-                throw new InvalidInputException("The parcel id is incorrect");
+                throw new InvalidInputException($"The parcel id:{parcel.Id} is incorrect");
             if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
-                throw new InvalidInputException("The parcel id is incorrect");
+                throw new InvalidInputException($"The parcel id:{parcel.Id} is incorrect");
             parcel.CreatParcel = DateTime.Now;
             parcel.Delivered = DateTime.MinValue;
             parcel.PickedUp = DateTime.MinValue;
@@ -26,7 +26,20 @@ namespace BL
 
         public Parcel GetParcel(int idParcel)
         {
-            Parcel parcel = new();
+            IDAL.DO.Parcel dalParcel = dal.GetParcels().First(item => item.Id == idParcel);
+            Parcel parcel = new();//the parcel to returne
+            parcel.CopyPropertiesTo(dalParcel);
+            Customer sender = GetCustomer(dalParcel.SenderId);
+            parcel.Sender.CopyPropertiesTo(sender);
+            Customer recepter = GetCustomer(dalParcel.TargetId);
+            parcel.Recepter.CopyPropertiesTo(recepter);
+            if (dalParcel.DroneId == 0)//if ther is no drone scheduled to the paecel
+                parcel.ParecelDrone = default;
+            else//ther is a drone
+            {
+                Drone droneInParcel = GetDrone(dalParcel.DroneId);
+                parcel.ParecelDrone.CopyPropertiesTo(droneInParcel);
+            }
             return parcel;
         }
 
@@ -34,9 +47,19 @@ namespace BL
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<ParcelList> GetParcels()
         {
-            List<Parcel> Parcels = new();
+            ParcelList parcel = new();
+            List<ParcelList> Parcels = new();
+            foreach (var item in dal.GetParcels())
+            {
+                parcel.CopyPropertiesTo(item);//copy only:id,weight,priority
+                //findes the name of the customer that send the parcel
+                parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                //findes the name of the customer that is recepting the parcel
+                parcel.RecepterName=dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                Parcels.Add(parcel);
+            }
             return Parcels;
         }
 
@@ -44,9 +67,22 @@ namespace BL
         /// search for all the drones that are available and copy them to a new arrey  
         /// </summary>
         /// <returns>the new arrey that has all the drones that are availeble</returns>
-        public IEnumerable<Parcel> ParcelThatWerenNotPaired()
+        public IEnumerable<ParcelList> ParcelThatWerenNotPaired()
         {
-            List<Parcel> Parcels = new();
+            ParcelList parcel = new();
+            List<ParcelList> Parcels = new();
+            foreach (var item in dal.GetParcels())
+            {
+                if(item.Scheduled==DateTime.MinValue)
+                {
+                    parcel.CopyPropertiesTo(item);//copy only:id,weight,priority
+                                                  //findes the name of the customer that send the parcel
+                    parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                    //findes the name of the customer that is recepting the parcel
+                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                    Parcels.Add(parcel);
+                }
+            }
             return Parcels;
         }
     }

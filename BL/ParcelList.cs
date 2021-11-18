@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class ParcelList
+   public class ParcelList
     {
         /// <summary>
         /// the parcel id
