@@ -35,7 +35,7 @@ namespace BL
                 dal.AddDrone(drone1);
                 dal.AddDroneCharge(droneCharge);
                 DroneList droneList = new();
-                droneList.CopyPropertiesTo(drone);
+                drone.CopyPropertiesTo(droneList);
                 droneList.NumOfParcelOnTheWay = 0;
                 Drones.Add(droneList);
             }
@@ -101,7 +101,7 @@ namespace BL
                 double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
                 if (blDrone.Status == (DroneStatus)0 && blDrone.Battery > distance * dal.AskForBattery()[0])
                 {
-                    //
+                    blDrone.Battery -= (int)(distance * dal.AskForBattery()[0]);
                     blDrone.DroneLocation.Longitude = baseStation.Longitude;
                     blDrone.DroneLocation.Latitude = baseStation.Latitude;
                     blDrone.Status = (DroneStatus)1;
