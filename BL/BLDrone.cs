@@ -72,8 +72,7 @@ namespace BL
                     parcelInT.StatusParcel = false;
                 else
                     parcelInT.StatusParcel = true;
-                returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine
-                (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
+                returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine(blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
             }
             return returningDrone;
         }
@@ -96,37 +95,45 @@ namespace BL
         public void SendDroneToCharging(int id)
         {
             Drone blDrone = GetDrone(id);
-            IDAL.DO.BaseStation baseStation = FindMinDistance(blDrone);
-            while (baseStation.EmptyCharges==0)
-                baseStation = FindMinDistance(blDrone);
-            BaseStation station = GetBaseStation(baseStation.Id);
-            double distance = Distance.Haversine
-            (station.BaseStationLocation.Latitude, station.BaseStationLocation.Longitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
-            if (blDrone.Status == (DroneStatus)0 && )
+            try 
             {
-                //
-                blDrone.DroneLocation = station.BaseStationLocation;
-                blDrone.Status = (DroneStatus)1;
-                dal.DronToCharger(blDrone.Id, station.Id);
+                IDAL.DO.BaseStation baseStation = FindMinDistanceDtoS(blDrone);
+                double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
+                if (blDrone.Status == (DroneStatus)0 && blDrone.Battery > distance * dal.AskForBattery()[0])
+                {
+                    //
+                    blDrone.DroneLocation.Longitude = baseStation.Longitude;
+                    blDrone.DroneLocation.Latitude = baseStation.Latitude;
+                    blDrone.Status = (DroneStatus)1;
+                    dal.DronToCharger(blDrone.Id, baseStation.Id);
+                }
+                else
+                    throw new FailedToChargeDroneException();
             }
-            else 
+            catch (Exception ex)
+            {
                 throw new FailedToChargeDroneException("couldn't charge the drone.");
+            }    
         }
 
-        public IDAL.DO.BaseStation FindMinDistance(Drone drone)
+        public IDAL.DO.BaseStation FindMinDistanceDtoS(Drone drone)
         {
             IDAL.DO.BaseStation baseStation = new();
+            bool flag = false;
             double minDistance = 0;
             double distance = 0;
             foreach (var item in dal.GetBaseStations())
             {
                 distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
-                if (minDistance > distance)
+                if (minDistance > distance && item.EmptyCharges != 0)
                 {
                     minDistance = distance;
                     baseStation = item;
+                    flag= true;
                 }
             }
+            if (flag == false)
+                throw new FailedToChargeDroneException();
             return baseStation;
         }
         public void FreeDroneFromeCharger(int id,DateTime timeInCharger)
@@ -136,7 +143,7 @@ namespace BL
             int stationId;
             if (drone.Status == (DroneStatus)1)
             {
-                drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour+ (dal.AskForBattery()[4]/60) * timeInCharger.Minute+(dal.AskForBattery()[4]/360)*timeInCharger.Second);
+                drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour+ (dal.AskForBattery()[4] / 60) * timeInCharger.Minute+(dal.AskForBattery()[4]/360)*timeInCharger.Second);
                 drone.Status = (DroneStatus)0;//availble
                 foreach (var item in dal.GetDroneCharge())
                 {
