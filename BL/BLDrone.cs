@@ -133,10 +133,17 @@ namespace BL
         {
 
             Drone drone = GetDrone(id);
+            int stationId;
             if (drone.Status == (DroneStatus)1)
             {
                 drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour+ (dal.AskForBattery()[4]/60) * timeInCharger.Minute+(dal.AskForBattery()[4]/360)*timeInCharger.Second);
                 drone.Status = (DroneStatus)0;//availble
+                foreach (var item in dal.GetDroneCharge())
+                {
+                    if (item.DroneId == id)
+                        stationId = item.StationId;
+                }
+
             }
             throw new FailedFreeADroneFromeTheChargerException($"Failed to free the Drone:{id} Frome The Charger");
         }

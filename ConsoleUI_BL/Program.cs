@@ -148,15 +148,19 @@ namespace ConsoleUI_BL
                             UpdateAnObject.TryParse(Console.ReadLine(), out Choiceupdate);//cin the useres choice
                             switch (Choiceupdate)
                             {
-                                case UpdateAnObject.DronToAParcel:
+                                case UpdateAnObject.updataADrone:
                                     break;
-                                case UpdateAnObject.PickupAPercelFromTheDron:
+                                case UpdateAnObject.updataABaseStation:
                                     break;
-                                case UpdateAnObject.DeliverAPercelToACustomer:
+                                case UpdateAnObject.updataACustomer:
                                     break;
-                                case UpdateAnObject.SendADronToAChargeStation:
+                                case UpdateAnObject.SendADronToACharger:
                                     break;
-                                case UpdateAnObject.FreeADronFromACharge:
+                                case UpdateAnObject.FreeADronFromACharger:
+                                    break;
+                                case UpdateAnObject.ScheduledAParcelToADrone:
+                                    break;
+                                case UpdateAnObject.PickupAParcelByADrone:
                                     break;
                                 default:
                                     break;
