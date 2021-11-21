@@ -23,7 +23,7 @@ namespace BL
                 if (customer.CustomerLocation.Latitude < -90 || customer.CustomerLocation.Latitude > 90)
                     throw new InvalidInputException("The customer Latitude is incorrect");
                 IDAL.DO.Customer newCustomer = new();
-                newCustomer.CopyPropertiesTo(newCustomer);
+                customer.CopyPropertiesTo(newCustomer);
                 dal.AddCustomer(newCustomer);
             }
             catch (IDAL.DO.ExistsException ex)

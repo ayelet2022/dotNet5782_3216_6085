@@ -20,7 +20,7 @@ namespace BL
             parcel.Scheduled = DateTime.MinValue;
             parcel.ParecelDrone = null;
             IDAL.DO.Parcel newParcel = new();
-            newParcel.CopyPropertiesTo(newParcel);
+            parcel.CopyPropertiesTo(newParcel);
             dal.AddParcel(newParcel);
         }
 
@@ -88,9 +88,11 @@ namespace BL
         public void PickUpParcel(int id)
         {
             Drone blDrone = GetDrone(id);
+            Customer customerS = GetCustomer(blDrone.ParcelInTransfer.Sender.Id);
+            double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
             if (blDrone.ParcelInTransfer != default && blDrone.ParcelInTransfer.StatusParcel == false)
             {
-                //
+                blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
                 blDrone.DroneLocation = blDrone.ParcelInTransfer.PickUpLocation;
                 dal.PickUpParcel(blDrone.ParcelInTransfer.Id);
             }
@@ -100,9 +102,11 @@ namespace BL
         public void DeliverParcel(int id)
         {
             Drone blDrone = GetDrone(id);
+            Customer customerR = GetCustomer(blDrone.ParcelInTransfer.Recepter.Id);
+            double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
             if (blDrone.ParcelInTransfer.StatusParcel == true)
             {
-                //
+                blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
                 blDrone.DroneLocation = blDrone.ParcelInTransfer.DelieveredLocation;
                 blDrone.Status = (DroneStatus)0;
                 dal.ParcelToCustomer(blDrone.ParcelInTransfer.Id);
