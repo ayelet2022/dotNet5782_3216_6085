@@ -121,7 +121,7 @@ namespace DalObject
             Drone drone = new();
             foreach (var item in DataSource.Drones)
             {
-                if (item.Id == id)
+                if (item.Id == droneId)
                 {
                     drone = item;
                     drone. = newModel;

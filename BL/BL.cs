@@ -51,7 +51,7 @@ namespace BL
                     Customer customerR = GetCustomer(parcel.TargetId);
                     double minBattery = 0;
                     double disStoR = Distance.Haversine(customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
-                    double disRtoBS = Distance.Haversine(customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistance(customerR).Latitude);
+                    double disRtoBS = Distance.Haversine(customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistanceOfCToBS(customerR).Latitude);
                     if (parcel.PickedUp == DateTime.MinValue)
                     {
                         drone.DroneLocation.Latitude = FindMinDistanceCtoS(customerS).Latitude;
@@ -79,7 +79,7 @@ namespace BL
                     else
                     {
                         Drone blDrone = GetDrone(drone.Id);
-                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceDtoS(blDrone).Longitude, FindMinDistanceDtoS(blDrone).Latitude);
+                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(blDrone).Longitude, FindMinDistanceOfDToBS(blDrone).Latitude);
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);
                     }
                     drones.Add(drone);

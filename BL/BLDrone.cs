@@ -97,7 +97,7 @@ namespace BL
             Drone blDrone = GetDrone(id);
             try 
             {
-                IDAL.DO.BaseStation baseStation = FindMinDistanceDtoS(blDrone);
+                IDAL.DO.BaseStation baseStation = FindMinDistanceOfDToBS(blDrone);
                 double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
                 if (blDrone.Status == (DroneStatus)0 && blDrone.Battery > distance * dal.AskForBattery()[0])
                 {
