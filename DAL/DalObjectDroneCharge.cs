@@ -23,5 +23,19 @@ namespace DalObject
             }
             return DronesCharge;
         }
+        public void DeleteDroneFromeCharger(int droneId)
+        {
+            int i = 0;
+            foreach (var item in DataSource.DroneCharges)
+            {
+                if (item.DroneId == droneId)
+                    break;
+                i++;
+            }
+            DroneCharge dron=new();
+            dron.DroneId = 0;
+            dron.StationId = 0;
+            DataSource.DroneCharges[i] = dron;
+        }
     }
 }

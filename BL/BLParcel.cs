@@ -109,7 +109,6 @@ namespace BL
             }
             else
                 throw new FailedToDelieverParcelException("couldn't deliever the parcel");
-
         }
     }
 }
