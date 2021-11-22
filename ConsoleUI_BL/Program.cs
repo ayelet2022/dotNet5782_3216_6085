@@ -60,7 +60,6 @@ namespace ConsoleUI_BL
                                         newStation.Id = input;
                                         Console.Write("Enter name: ");
                                         newStation.Name = Console.ReadLine();
-                                        newStation.Name = Console.ReadLine();
                                         Console.Write("Enter longitude: ");
                                         double.TryParse(Console.ReadLine(), out inputDouble);
                                         newStation.BaseStationLocation.Longitude = inputDouble;
