@@ -89,8 +89,8 @@ namespace BL
                         drone.DroneLocation = new();
                         drone.DroneLocation.Longitude = dal.GetCustomer(customerId[customerI]).Longitude;
                         drone.DroneLocation.Latitude = dal.GetCustomer(customerId[customerI]).Latitude;
-                        Drone blDrone = GetDrone(itD.Id);
-                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(blDrone).Longitude, FindMinDistanceOfDToBS(blDrone).Latitude);
+                        double disDtoS = Distance.Haversine
+                            (drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude).Longitude, FindMinDistanceOfDToBS(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude).Latitude);
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);
                     }
                     drones.Add(drone);

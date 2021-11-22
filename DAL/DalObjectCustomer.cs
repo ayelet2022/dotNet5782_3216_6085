@@ -26,7 +26,7 @@ namespace DalObject
         /// <returns>resturn the customer that needs to be printed</returns>
         public Customer GetCustomer(int idCustomer)
         {
-            if (DataSource.Customers.Exists(item => item.Id != idCustomer))
+            if (!DataSource.Customers.Exists(item => item.Id == idCustomer))
                 throw new DoesNotExistException("Customer does not exists.");
             int customerIndex = 0;
             while (DataSource.Customers[customerIndex].Id != idCustomer)//search for the customer that has the same id has the id that the user enterd
