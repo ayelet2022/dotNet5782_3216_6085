@@ -52,8 +52,8 @@ namespace DalObject
             Random Rand = new Random(DateTime.Now.Millisecond);
             Customer addCustomer = new Customer();
             addCustomer.Id = Rand.Next(100000000, 1000000000);
-            addCustomer.Latitude = Rand.Next(-90, 91);
-            addCustomer.Longitude = Rand.Next(-180, 181);
+            addCustomer.Latitude = Rand.Next(30, 33);
+            addCustomer.Longitude = Rand.Next(34, 37);
             addCustomer.Phone = phone;
             addCustomer.Name = name;
             Customers.Add(addCustomer);
@@ -65,8 +65,10 @@ namespace DalObject
             addParcel.CreatParcel = new(0);
             addParcel.Id = DataSource.Config.RunningParcelId++;
             addParcel.Priority = (Priorities)Rand.Next(0, 3);
-            addParcel.SenderId = Rand.Next(1000, 10000);
-            addParcel.TargetId = Rand.Next(1000, 10000);
+            int senderId = Rand.Next(0, Customers.Count);
+            addParcel.SenderId = Customers[senderId].Id;
+            int targetId = Rand.Next(0, Customers.Count);
+            addParcel.TargetId = Customers[targetId].Id;
             addParcel.Weight = (WeightCategories)Rand.Next(0, 3);
             addParcel.DroneId = 0;
             addParcel.Delivered = timeDelivered;
