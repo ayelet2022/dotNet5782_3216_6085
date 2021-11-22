@@ -21,18 +21,18 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //It prints the options to the user.
-            string print="";
-            print+=$"Enter 1 to add an object.\n";
-            print+=$"Enter 2 to update an object.\n";
-            print+=$"Enter 3 to print an object according to the id.\n";
-            print+=$"Enter 4 to print the whole list of an object.\n";
-            print+=$"Enter 5 to end the program.\n";
+            string print = "";
+            print += $"Enter 1 to add an object.\n";
+            print += $"Enter 2 to update an object.\n";
+            print += $"Enter 3 to print an object according to the id.\n";
+            print += $"Enter 4 to print the whole list of an object.\n";
+            print += $"Enter 5 to end the program.\n";
             Console.WriteLine(print);
             MainQuastions choice;
             int input = 0;
-            double inputDouble=0;
+            double inputDouble = 0;
             MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
-            try 
+            try
             {
                 while (choice != MainQuastions.EndTheProgram)//goes till the user enters 5-end the program
                 {
@@ -314,19 +314,19 @@ namespace ConsoleUI
                             }
                             break;
                     }
-                    //It prints the options to the user.
-                    Console.WriteLine("Enter 1 to add an object,");
-                    Console.WriteLine("Enter 2 to update an object, ");
-                    Console.WriteLine("Enter 3 to print an object according to the id, ");
-                    Console.WriteLine("Enter 4 to print the whole list of an object, ");
-                    Console.WriteLine("Enter 5 to end the program, ");
-                    MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the users choice.
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            //It prints the options to the user.
+            Console.WriteLine("Enter 1 to add an object,");
+            Console.WriteLine("Enter 2 to update an object, ");
+            Console.WriteLine("Enter 3 to print an object according to the id, ");
+            Console.WriteLine("Enter 4 to print the whole list of an object, ");
+            Console.WriteLine("Enter 5 to end the program, ");
+            MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the users choice.
         }
     }
 }

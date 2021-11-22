@@ -203,22 +203,7 @@ namespace BL
             }
             return baseStation;
         }
-        public IDAL.DO.BaseStation FindMinDistanceOfCToBS(Customer customer)
-        {
-            IDAL.DO.BaseStation baseStation = new();
-            double minDistance = 0;
-            double distance = 0;
-            foreach (var item in dal.GetBaseStations())
-            {
-                distance = Distance.Haversine(item.Latitude, item.Longitude, customer.CustomerLocation.Latitude, customer.CustomerLocation.Longitude);
-                if (minDistance==0 || minDistance > distance)
-                {
-                    minDistance = distance;
-                    baseStation = item;
-                }
-            }
-            return baseStation;
-        }
+
         public void FreeDroneFromeCharger(int id,DateTime timeInCharger)
         {
             try
@@ -261,7 +246,7 @@ namespace BL
                     Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
                     Customer senderOfItem = GetCustomer(item.SenderId);
                     Customer resepterOfItem = GetCustomer(item.TargetId);
-                    BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem).Id);
+                    BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
                     double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
                     double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
                     double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
@@ -305,9 +290,6 @@ namespace BL
         {
             return Distance.Haversine(customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude, station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
         }
-        public double DisSenderToResever(Customer sender, Customer resever)
-        {
-            return Distance.Haversine(sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
-        }
+        
     }
 }

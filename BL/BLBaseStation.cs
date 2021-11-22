@@ -28,7 +28,7 @@ namespace BL
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
-                IDAL.DO.BaseStation station = new();
+                IDAL.DO.BaseStation station=new IDAL.DO.BaseStation();
                 baseStation.CopyPropertiesTo(station);
                 dal.AddBaseStation(station);
             }
@@ -83,15 +83,19 @@ namespace BL
         {
             try
             {
-                List<BaseStationList> listStations = new();
+                List<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
                 BaseStation blStations = new();
                 foreach (var item in dal.GetBaseStations())
                 {
                     blStations = GetBaseStation(item.Id);
                     blStations.CopyPropertiesTo(baseStationList);
-                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                    if (blStations.DronesInCharge == null)
+                        baseStationList.FullChargingPositions = 0;
+                    else
+                        baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
                     listStations.Add(baseStationList);
+                    baseStationList = new();
                 }
                 return listStations;
             }
@@ -150,6 +154,13 @@ namespace BL
                 throw new InvalidInputException("The input does not exist.\n", ex);
             }
         }
-
+        public void copyB(BaseStation station,IDAL.DO.BaseStation Stationnew)
+        {
+            Stationnew.Id = station.Id;
+            Stationnew.EmptyCharges = station.EmptyCharges;
+            Stationnew.Latitude = station.BaseStationLocation.Latitude;
+            Stationnew.Longitude = station.BaseStationLocation.Longitude;
+            Stationnew.Name = station.Name;
+        }
     }
 }

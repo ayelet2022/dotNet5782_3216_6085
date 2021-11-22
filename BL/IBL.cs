@@ -14,8 +14,7 @@ namespace IBL
         double DisDronToBS(Customer customer, BaseStation station);
         double DisDronToCustomer(Drone drone, Customer customer);
         double DisSenderToResever(Customer sender, Customer resever);
-        IDAL.DO.BaseStation FindMinDistanceCtoS(Customer customer);
-        IDAL.DO.BaseStation FindMinDistanceOfCToBS(Customer customer);
+        IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude);
         IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone);
         void FreeDroneFromeCharger(int id, DateTime timeInCharger);
         BaseStation GetBaseStation(int idBaseStation);
@@ -34,5 +33,6 @@ namespace IBL
         void UpdateCustomer(int id, string name, string phone);
         void UpdateDrone(int id, string newModel);
         void UpdateStation(int id, string newName, int emptyCharges);
+        public void copyB(BaseStation station, IDAL.DO.BaseStation Stationnew);
     }
 }

@@ -115,6 +115,7 @@ namespace BL
                     }
                 }
                 Customers.Add(customer);
+                customer = new();
             }
             return Customers;
         }
@@ -137,6 +138,26 @@ namespace BL
             {
                 throw new FailToUpdateException(ex.ToString(), ex);
             }
+        }
+        public double DisSenderToResever(Customer sender, Customer resever)
+        {
+            return Distance.Haversine(sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
+        }
+        public IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude)
+        {
+            IDAL.DO.BaseStation baseStation = new();
+            double minDistance = 0;
+            double distance = 0;
+            foreach (var item in dal.GetBaseStations())
+            {
+                distance = Distance.Haversine(item.Latitude, item.Longitude,latitude,longitude);
+                if (minDistance == 0 || minDistance > distance)
+                {
+                    minDistance = distance;
+                    baseStation = item;
+                }
+            }
+            return baseStation;
         }
     }
 }
