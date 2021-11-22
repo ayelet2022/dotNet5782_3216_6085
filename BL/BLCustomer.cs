@@ -59,7 +59,7 @@ namespace BL
                         }
                     }
                     parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
-                    parcelFromCustomer.SenderOrRecepter.CustomerName = customer.Name;
+                    parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
                     if(item.SenderId == idCustomer)//meens the parcel is from the customer
                         customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                     if(item.TargetId == idCustomer)//meens the parcel to the customer

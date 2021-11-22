@@ -17,7 +17,7 @@ namespace IBL.BO
             String result = "";
             result += $"ID is {Id}, \n";
             result += $"Name is {Name}, \n";
-            result += $"EmptyChargingPositions is {EmptyChargingPositions}, \n";
+            result += $"EmptyChargingPositions is {EmptyCharges}, \n";
             result += $"FullChargingPositions is {FullChargingPositions},\n";
             return result;
         }
