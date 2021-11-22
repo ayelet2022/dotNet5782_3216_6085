@@ -149,18 +149,60 @@ namespace ConsoleUI_BL
                             switch (Choiceupdate)
                             {
                                 case UpdateAnObject.updataADrone:
+                                    int droneId;
+                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    Console.WriteLine("Enter drones name: ");
+                                    string droneName;
+                                    droneName=Console.ReadLine();
+                                    obj.UpdateDrone(droneId,droneName);
                                     break;
                                 case UpdateAnObject.updataABaseStation:
+                                    int stationId;
+                                    Console.WriteLine("Enter station id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out stationId);
+                                    Console.WriteLine("Enter station name: ");
+                                    string stationName;
+                                    stationName = Console.ReadLine();
+                                    int emptyChargers;
+                                    Console.WriteLine("Enter emughnt of empty chargers: ");
+                                    int.TryParse(Console.ReadLine(), out emptyChargers);
+                                    obj.UpdateStation(stationId,stationName,emptyChargers);
                                     break;
                                 case UpdateAnObject.updataACustomer:
+                                    int customerId;
+                                    Console.WriteLine("Enter customer id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out customerId);
+                                    Console.WriteLine("Enter customer name: ");
+                                    string customerName;
+                                    customerName = Console.ReadLine();
+                                    string phone;
+                                    Console.WriteLine("Enter emughnt of empty chargers: ");
+                                    phone = Console.ReadLine();
+                                    obj.UpdateCustomer(customerId,customerName, phone);
                                     break;
                                 case UpdateAnObject.SendADronToACharger:
+                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    obj.SendDroneToCharging(droneId);
                                     break;
                                 case UpdateAnObject.FreeADronFromACharger:
+                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    DateTime timeOfCharging;
+                                    Console.WriteLine("Enter how long was the drone charging");
+                                    DateTime.TryParse(Console.ReadLine(), out timeOfCharging);
+                                    obj.FreeDroneFromeCharger(droneId, timeOfCharging);
                                     break;
                                 case UpdateAnObject.ScheduledAParcelToADrone:
+                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    obj.ScheduledAParcelToADrone(droneId);
                                     break;
                                 case UpdateAnObject.PickupAParcelByADrone:
+                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    obj.PickUpParcel(droneId);
                                     break;
                                 default:
                                     break;

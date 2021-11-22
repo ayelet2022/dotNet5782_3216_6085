@@ -49,4 +49,10 @@ namespace IBL.BO
         public FailedToDelieverParcelException(string message) : base(message) { }
         public FailedToDelieverParcelException(string message, Exception inner) : base(message, inner) { }
     }
+    public class FailedToScheduledAParcelToADroneException : Exception
+    {
+        public FailedToScheduledAParcelToADroneException() : base() { }
+        public FailedToScheduledAParcelToADroneException(string message) : base(message) { }
+        public FailedToScheduledAParcelToADroneException(string message, Exception inner) : base(message, inner) { }
+    }
 }

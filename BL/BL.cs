@@ -79,7 +79,7 @@ namespace BL
                     else
                     {
                         Drone blDrone = GetDrone(drone.Id);
-                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceDtoS(blDrone).Longitude, FindMinDistanceDtoS(blDrone).Latitude);
+                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(blDrone).Longitude, FindMinDistanceOfDToBS(blDrone).Latitude);
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);
                     }
                     drones.Add(drone);

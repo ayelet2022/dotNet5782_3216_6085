@@ -114,5 +114,22 @@ namespace DalObject
             }
             DataSource.Drones[i] = drone;
         }
+
+        public void UpdateDronToInDelevery(int droneId)
+        {
+            int i = 0;
+            Drone drone = new();
+            foreach (var item in DataSource.Drones)
+            {
+                if (item.Id == droneId)
+                {
+                    drone = item;
+                    drone. = newModel;
+                    break;
+                }
+                i++;
+            }
+            DataSource.Drones[i] = drone;
+        }
     }
 }
