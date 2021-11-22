@@ -15,6 +15,7 @@ namespace BL
         /// <param name="baseStation">the new base station that we want to add</param>
         public void AddBaseStation(BaseStation baseStation)
         {
+            
             try
             {
                 if (baseStation.Id > 9999 || baseStation.Id < 1000)
@@ -28,8 +29,13 @@ namespace BL
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
-                IDAL.DO.BaseStation station=new IDAL.DO.BaseStation();
-                baseStation.CopyPropertiesTo(station);
+                //station.Id = baseStation.Id;
+                //station.EmptyCharges = baseStation.EmptyCharges;
+                //station.Latitude = baseStation.BaseStationLocation.Latitude;
+                //station.Longitude = baseStation.BaseStationLocation.Longitude;
+                //station.Name = baseStation.Name;
+                IDAL.DO.BaseStation station = new();
+                baseStation.CopyPropertiesTo1(station);
                 dal.AddBaseStation(station);
             }
             catch (IDAL.DO.ExistsException ex)
@@ -48,7 +54,7 @@ namespace BL
             try
             {
                 IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
-                BaseStation station = new();
+                BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
                 //station.BaseStationLocation.Latitude = dalStation.Latitude;
                 //station.BaseStationLocation.Longitude = dalStation.Longitude;
