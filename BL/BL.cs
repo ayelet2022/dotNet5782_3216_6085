@@ -72,8 +72,11 @@ namespace BL
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
                     if (drone.Status == (DroneStatus)1)
                     {
-                        //BaseStation station=Rand.Next(dal.GetBaseStations())
-                        //drone.DroneLocation =
+                        List<IDAL.DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
+                        int stationI = Rand.Next(0, baseStationL.Count);
+                        drone.DroneLocation = new();
+                        drone.DroneLocation.Longitude = baseStationL[stationI].Longitude;
+                        drone.DroneLocation.Latitude = baseStationL[stationI].Latitude;
                         drone.Battery = Rand.Next(0, 21);
                     }
                     else
