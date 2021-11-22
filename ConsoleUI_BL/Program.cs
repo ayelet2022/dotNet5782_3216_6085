@@ -31,15 +31,15 @@ namespace ConsoleUI_BL
             double inputDouble = 0;
             Location location = new();
             MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
-            try
+            do
             {
                 if ((int)choice < 1 || (int)choice > 5)
                     throw new InvalidInputException("The input is incurrect");
-                while (choice != MainQuastions.EndTheProgram)//goes till the user enters 5-end the program
+                try
                 {
                     switch (choice)
                     {
-                        case MainQuastions.AddAnObject: 
+                        case MainQuastions.AddAnObject:
                             //It prints the add options to the user.
                             string print1 = "";
                             print1 += $"Enter what would you like to add:\n";
@@ -50,87 +50,87 @@ namespace ConsoleUI_BL
                             Console.WriteLine(print1);
                             AddAnObject ChoiceAdd;
                             AddAnObject.TryParse(Console.ReadLine(), out ChoiceAdd);//cin the useres choice
-                                switch (ChoiceAdd)
-                                {
-                                    //a case to add a baseStation
-                                    case AddAnObject.AddABaseStation:
-                                        BaseStation newStation = new();
-                                        Console.Write("Enter Id (4 digits): ");
-                                        int.TryParse(Console.ReadLine(), out input);
-                                        newStation.Id = input;
-                                        Console.Write("Enter name: ");
-                                        newStation.Name = Console.ReadLine();
-                                        Console.Write("Enter longitude: ");
-                                        double.TryParse(Console.ReadLine(), out inputDouble);
-                                        newStation.BaseStationLocation = new();
-                                        newStation.BaseStationLocation.Longitude = inputDouble;
-                                        Console.Write("Enter Latitude: ");
-                                        double.TryParse(Console.ReadLine(), out inputDouble);
-                                        newStation.BaseStationLocation.Latitude = inputDouble;
-                                        Console.Write("Enter amount of charge slots in new station : ");
-                                        int.TryParse(Console.ReadLine(), out input);
-                                        newStation.EmptyCharges = input;
-                                        obj.AddBaseStation(newStation);
-                                        break;
-                                    //a case to add a drone
-                                    case AddAnObject.AddADrone:
-                                        Drone newDrone = new();
-                                        Console.Write("Enter Id (6 digits): ");
-                                        int.TryParse(Console.ReadLine(), out input);
-                                        newDrone.Id = input;
-                                        Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2)");
-                                        int.TryParse(Console.ReadLine(), out input);
-                                        newDrone.MaxWeight = (WeightCategories)input;
-                                        Console.Write("Enter the drones model: ");
-                                        newDrone.Model = Console.ReadLine();
-                                        Console.Write("Enter the station to put the drone in for first charging: ");
-                                        int.TryParse(Console.ReadLine(), out input);
-                                        obj.AddDrone(newDrone, input);
-                                        break;
-                                    //a case to add a customer and get the details from the user.
-                                    case AddAnObject.AddACustomer:
-                                        Customer newCustomer = new Customer();//creats a new customer.
-                                        Console.WriteLine("Enter Id (9 digits): ");
-                                        int idCustomer;
-                                        int.TryParse(Console.ReadLine(), out idCustomer);//cin the id of the new customer
-                                        newCustomer.Id = idCustomer;//updates the new customers id
-                                        Console.WriteLine("Enter Name: ");
-                                        string name = Console.ReadLine();//cin the name of the new customer
-                                        newCustomer.Name = name;//updates the new customers name
-                                        Console.WriteLine("Enter Phone: ");
-                                        string phone = Console.ReadLine();//cin the phone of the new customer
-                                        newCustomer.Phone = phone;//updates the new customers phone
-                                        Console.WriteLine("Enter Longitude: ");
-                                        double.TryParse(Console.ReadLine(), out inputDouble);
-                                        newCustomer.CustomerLocation.Longitude = inputDouble;
-                                        Console.WriteLine("Enter Latitude: ");
-                                        double.TryParse(Console.ReadLine(), out inputDouble);
-                                        newCustomer.CustomerLocation.Latitude=inputDouble;
-                                        obj.AddCustomer(newCustomer);
-                                        break;
-                                    //a case to add a parcel and get the details from the user.
-                                    case AddAnObject.AddAParcel:
-                                        Parcel newParcel = new Parcel();
-                                        newParcel.Id = 0;//updates the new parcels id(it will change in the function)
-                                        Console.WriteLine("Enter Sender id (4 digits): ");
-                                        int senderId;
-                                        int.TryParse(Console.ReadLine(), out senderId);//cin the sender id of the new parcel
-                                        newParcel.Sender.Id = senderId;//updates the new parcels sender id
-                                        Console.WriteLine("Enter Target id (4 digits): ");
-                                        int targetId;
-                                        int.TryParse(Console.ReadLine(), out targetId);//cin the target id of the new parcel
-                                        newParcel.Recepter.Id = targetId;//updates the new parcels target id
-                                        Console.WriteLine("Enter Weight (light=0/inbetween=1/heavy=2): ");
-                                        int weight;
-                                        int.TryParse(Console.ReadLine(), out weight);//cin the weight of the new parcel
-                                        newParcel.Weight = (WeightCategories)weight;//updates the new parcels weight
-                                        Console.WriteLine("Enter Priority (regular=0/fast=1/urgent=2): ");
-                                        int proiority;
-                                        int.TryParse(Console.ReadLine(), out proiority);//cin the priority of the new parcel
-                                        newParcel.Priority = (Priorities)proiority;//updates the new parcels proiority
-                                        obj.AddParcel(newParcel);
-                                        break;
-                                } 
+                            switch (ChoiceAdd)
+                            {
+                                //a case to add a baseStation
+                                case AddAnObject.AddABaseStation:
+                                    BaseStation newStation = new();
+                                    Console.Write("Enter Id (4 digits): ");
+                                    int.TryParse(Console.ReadLine(), out input);
+                                    newStation.Id = input;
+                                    Console.Write("Enter name: ");
+                                    newStation.Name = Console.ReadLine();
+                                    Console.Write("Enter longitude: ");
+                                    double.TryParse(Console.ReadLine(), out inputDouble);
+                                    newStation.BaseStationLocation = new();
+                                    newStation.BaseStationLocation.Longitude = inputDouble;
+                                    Console.Write("Enter Latitude: ");
+                                    double.TryParse(Console.ReadLine(), out inputDouble);
+                                    newStation.BaseStationLocation.Latitude = inputDouble;
+                                    Console.Write("Enter amount of charge slots in new station : ");
+                                    int.TryParse(Console.ReadLine(), out input);
+                                    newStation.EmptyCharges = input;
+                                    obj.AddBaseStation(newStation);
+                                    break;
+                                //a case to add a drone
+                                case AddAnObject.AddADrone:
+                                    Drone newDrone = new();
+                                    Console.Write("Enter Id (6 digits): ");
+                                    int.TryParse(Console.ReadLine(), out input);
+                                    newDrone.Id = input;
+                                    Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2)");
+                                    int.TryParse(Console.ReadLine(), out input);
+                                    newDrone.MaxWeight = (WeightCategories)input;
+                                    Console.Write("Enter the drones model: ");
+                                    newDrone.Model = Console.ReadLine();
+                                    Console.Write("Enter the station to put the drone in for first charging: ");
+                                    int.TryParse(Console.ReadLine(), out input);
+                                    obj.AddDrone(newDrone, input);
+                                    break;
+                                //a case to add a customer and get the details from the user.
+                                case AddAnObject.AddACustomer:
+                                    Customer newCustomer = new Customer();//creats a new customer.
+                                    Console.WriteLine("Enter Id (9 digits): ");
+                                    int idCustomer;
+                                    int.TryParse(Console.ReadLine(), out idCustomer);//cin the id of the new customer
+                                    newCustomer.Id = idCustomer;//updates the new customers id
+                                    Console.WriteLine("Enter Name: ");
+                                    string name = Console.ReadLine();//cin the name of the new customer
+                                    newCustomer.Name = name;//updates the new customers name
+                                    Console.WriteLine("Enter Phone: ");
+                                    string phone = Console.ReadLine();//cin the phone of the new customer
+                                    newCustomer.Phone = phone;//updates the new customers phone
+                                    Console.WriteLine("Enter Longitude: ");
+                                    double.TryParse(Console.ReadLine(), out inputDouble);
+                                    newCustomer.CustomerLocation.Longitude = inputDouble;
+                                    Console.WriteLine("Enter Latitude: ");
+                                    double.TryParse(Console.ReadLine(), out inputDouble);
+                                    newCustomer.CustomerLocation.Latitude = inputDouble;
+                                    obj.AddCustomer(newCustomer);
+                                    break;
+                                //a case to add a parcel and get the details from the user.
+                                case AddAnObject.AddAParcel:
+                                    Parcel newParcel = new Parcel();
+                                    newParcel.Id = 0;//updates the new parcels id(it will change in the function)
+                                    Console.WriteLine("Enter Sender id (4 digits): ");
+                                    int senderId;
+                                    int.TryParse(Console.ReadLine(), out senderId);//cin the sender id of the new parcel
+                                    newParcel.Sender.Id = senderId;//updates the new parcels sender id
+                                    Console.WriteLine("Enter Target id (4 digits): ");
+                                    int targetId;
+                                    int.TryParse(Console.ReadLine(), out targetId);//cin the target id of the new parcel
+                                    newParcel.Recepter.Id = targetId;//updates the new parcels target id
+                                    Console.WriteLine("Enter Weight (light=0/inbetween=1/heavy=2): ");
+                                    int weight;
+                                    int.TryParse(Console.ReadLine(), out weight);//cin the weight of the new parcel
+                                    newParcel.Weight = (WeightCategories)weight;//updates the new parcels weight
+                                    Console.WriteLine("Enter Priority (regular=0/fast=1/urgent=2): ");
+                                    int proiority;
+                                    int.TryParse(Console.ReadLine(), out proiority);//cin the priority of the new parcel
+                                    newParcel.Priority = (Priorities)proiority;//updates the new parcels proiority
+                                    obj.AddParcel(newParcel);
+                                    break;
+                            }
                             break;
                         case MainQuastions.UpdateAnObject:
                             print1 = "";
@@ -154,8 +154,8 @@ namespace ConsoleUI_BL
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     Console.WriteLine("Enter drones name: ");
                                     string droneName;
-                                    droneName=Console.ReadLine();
-                                    obj.UpdateDrone(droneId,droneName);
+                                    droneName = Console.ReadLine();
+                                    obj.UpdateDrone(droneId, droneName);
                                     break;
                                 case UpdateAnObject.updataABaseStation:
                                     int stationId;
@@ -167,7 +167,7 @@ namespace ConsoleUI_BL
                                     int emptyChargers;
                                     Console.WriteLine("Enter emughnt of empty chargers: ");
                                     int.TryParse(Console.ReadLine(), out emptyChargers);
-                                    obj.UpdateStation(stationId,stationName,emptyChargers);
+                                    obj.UpdateStation(stationId, stationName, emptyChargers);
                                     break;
                                 case UpdateAnObject.updataACustomer:
                                     int customerId;
@@ -179,7 +179,7 @@ namespace ConsoleUI_BL
                                     string phone;
                                     Console.WriteLine("Enter emughnt of empty chargers: ");
                                     phone = Console.ReadLine();
-                                    obj.UpdateCustomer(customerId,customerName, phone);
+                                    obj.UpdateCustomer(customerId, customerName, phone);
                                     break;
                                 case UpdateAnObject.SendADronToACharger:
                                     Console.WriteLine("Enter drones id (4 digits): ");
@@ -321,12 +321,14 @@ namespace ConsoleUI_BL
                             }
                             break;
                     }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            while (choice != MainQuastions.EndTheProgram);//goes till the user enters 5-end the program
         }
     }
 }
