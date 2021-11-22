@@ -33,15 +33,18 @@ namespace BL
                 dalParcel.CopyPropertiesTo(parcel);
                 Customer sender = new();
                 sender = GetCustomer(dalParcel.SenderId);
+                parcel.Sender = new();
                 sender.CopyPropertiesTo(parcel.Sender);
                 Customer recepter = new();
                 recepter = GetCustomer(dalParcel.TargetId);
+                parcel.Recepter = new();
                 recepter.CopyPropertiesTo(parcel.Recepter);
                 if (dalParcel.DroneId == 0)//if ther is no drone scheduled to the paecel
                     parcel.ParecelDrone = default;
                 else//ther is a drone
                 {
                     Drone droneInParcel = GetDrone(dalParcel.DroneId);
+                    parcel.ParecelDrone = new();
                     droneInParcel.CopyPropertiesTo(parcel.ParecelDrone);
                 }
                 return parcel;
@@ -102,8 +105,9 @@ namespace BL
                         //findes the name of the customer that send the parcel
                         parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
                         //findes the name of the customer that is recepting the parcel
-                        parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                        parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
                         Parcels.Add(parcel);
+                        parcel = new();
                     }
                 }
                 return Parcels;

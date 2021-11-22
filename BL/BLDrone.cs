@@ -53,10 +53,10 @@ namespace BL
         {
             try
             {
-                DroneList droneList = default;
+                DroneList droneList = new();
                 droneList = Drones.Find(item => item.Id == idDrone);
                 if (droneList == null)
-                throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
+                    throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
                 Drone returningDrone = new();
                 droneList.CopyPropertiesTo(returningDrone);
                 if (droneList.NumOfParcelOnTheWay == 0)

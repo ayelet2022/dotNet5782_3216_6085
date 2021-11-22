@@ -134,7 +134,7 @@ namespace ConsoleUI_BL
                             break;
                         case MainQuastions.UpdateAnObject:
                             print1 = "";
-                            print1 += $"Enter what would you like to add:\n";
+                            print1 += $"Enter what would you like to update:\n";
                             print1 += $"Enter 1 to update a drone.\n";
                             print1 += $"Enter 2 to update a base station .\n";
                             print1 += $"Enter 3 to update a customer.\n";

@@ -122,8 +122,12 @@ namespace BL
                     {
                         blStations = GetBaseStation(item.Id);
                         blStations.CopyPropertiesTo(baseStationList);
-                        baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                        if (blStations.DronesInCharge == null)
+                            baseStationList.FullChargingPositions = 0;
+                        else
+                            baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
                         listStations.Add(baseStationList);
+                        baseStationList = new();
                     }
                 }
                 return listStations;

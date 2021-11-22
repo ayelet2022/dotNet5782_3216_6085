@@ -13,16 +13,15 @@ namespace BL
     {
         IDal dal = new DalObject.DalObject();
         List<DroneList> Drones = new List<DroneList>();
+        static Random Rand = new Random();
         public BL()
         {
             double[] power = dal.AskForBattery();
             double chargingRate = power[4];
-            dal.GetDrones();
             InitializeDroneList(Drones);
         }
         void InitializeDroneList(List<DroneList> drones)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             DroneList drone = new();
             foreach (var itD in dal.GetDrones())
             {
@@ -37,7 +36,9 @@ namespace BL
                     double customerRLongitude = dal.GetCustomer(parcel.TargetId).Longitude;
                     double minBattery = 0;
                     double disStoR = Distance.Haversine(customerSLongitude, customerSLatitude, customerRLongitude, customerRLatitude);
-                    double disRtoBS = Distance.Haversine(customerRLongitude, customerRLatitude, FindMinDistanceOfCToBS(customerRLatitude,customerRLongitude).Longitude, FindMinDistanceOfCToBS(customerRLatitude, customerRLongitude).Latitude);
+                    double disRtoBS = Distance.Haversine
+                        (customerRLongitude, customerRLatitude, FindMinDistanceOfCToBS(customerRLatitude,customerRLongitude).Longitude, FindMinDistanceOfCToBS(customerRLatitude, customerRLongitude).Latitude);
+                    drone.DroneLocation = new();
                     if (parcel.PickedUp == DateTime.MinValue)
                     {
                         drone.DroneLocation.Latitude = FindMinDistanceOfCToBS(customerSLatitude, customerSLongitude).Latitude;
@@ -53,6 +54,8 @@ namespace BL
                     }
                     drone.Battery = Rand.Next((int)minBattery, 101);
                     drones.Add(drone);
+                    drone = new();
+
                 }
                 catch (InvalidOperationException)
                 {
@@ -78,6 +81,7 @@ namespace BL
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);
                     }
                     drones.Add(drone);
+                    drone = new();
                 }
             }
         }
