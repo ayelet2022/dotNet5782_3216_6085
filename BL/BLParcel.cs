@@ -26,21 +26,32 @@ namespace BL
 
         public Parcel GetParcel(int idParcel)
         {
-            IDAL.DO.Parcel dalParcel = dal.GetParcels().First(item => item.Id == idParcel);
-            Parcel parcel = new();//the parcel to returne
-            parcel.CopyPropertiesTo(dalParcel);
-            Customer sender = GetCustomer(dalParcel.SenderId);
-            parcel.Sender.CopyPropertiesTo(sender);
-            Customer recepter = GetCustomer(dalParcel.TargetId);
-            parcel.Recepter.CopyPropertiesTo(recepter);
-            if (dalParcel.DroneId == 0)//if ther is no drone scheduled to the paecel
-                parcel.ParecelDrone = default;
-            else//ther is a drone
+            try
             {
-                Drone droneInParcel = GetDrone(dalParcel.DroneId);
-                parcel.ParecelDrone.CopyPropertiesTo(droneInParcel);
+                IDAL.DO.Parcel dalParcel = dal.GetParcels().First(item => item.Id == idParcel);
+                Parcel parcel = new();//the parcel to returne
+                dalParcel.CopyPropertiesTo(parcel);
+                Customer sender = GetCustomer(dalParcel.SenderId);
+                sender.CopyPropertiesTo(parcel.Sender);
+                Customer recepter = GetCustomer(dalParcel.TargetId);
+                recepter.CopyPropertiesTo(parcel.Recepter);
+                if (dalParcel.DroneId == 0)//if ther is no drone scheduled to the paecel
+                    parcel.ParecelDrone = default;
+                else//ther is a drone
+                {
+                    Drone droneInParcel = GetDrone(dalParcel.DroneId);
+                    droneInParcel.CopyPropertiesTo(parcel.ParecelDrone);
+                }
+                return parcel;
             }
-            return parcel;
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
+            }
+            catch(InvalidInputException ex)
+            {
+                throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
+            }
         }
 
         /// <summary>
@@ -49,18 +60,25 @@ namespace BL
         /// <returns>the new arrey that has the the parceles</returns>
         public IEnumerable<ParcelList> GetParcels()
         {
-            ParcelList parcel = new();
-            List<ParcelList> Parcels = new();
-            foreach (var item in dal.GetParcels())
+            try
             {
-                parcel.CopyPropertiesTo(item);//copy only:id,weight,priority
-                //findes the name of the customer that send the parcel
-                parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                //findes the name of the customer that is recepting the parcel
-                parcel.RecepterName=dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                Parcels.Add(parcel);
+                ParcelList parcel = new();
+                List<ParcelList> Parcels = new();
+                foreach (var item in dal.GetParcels())
+                {
+                    item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
+                                                  //findes the name of the customer that send the parcel
+                    parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                    //findes the name of the customer that is recepting the parcel
+                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                    Parcels.Add(parcel);
+                }
+                return Parcels;
             }
-            return Parcels;
+            catch(InvalidOperationException ex)
+            {
+                throw new InvalidInputException("The input does not exist.\n", ex);
+            }
         }
 
         /// <summary>
@@ -69,50 +87,87 @@ namespace BL
         /// <returns>the new arrey that has all the drones that are availeble</returns>
         public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
         {
-            ParcelList parcel = new();
-            List<ParcelList> Parcels = new();
-            foreach (var item in dal.GetParcels())
+            try
             {
-                if(item.Scheduled==DateTime.MinValue)
+                ParcelList parcel = new();
+                List<ParcelList> Parcels = new();
+                foreach (var item in dal.GetParcels())
                 {
-                    parcel.CopyPropertiesTo(item);//copy only:id,weight,priority
-                                                  //findes the name of the customer that send the parcel
-                    parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                    //findes the name of the customer that is recepting the parcel
-                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                    Parcels.Add(parcel);
+                    if (item.Scheduled == DateTime.MinValue)
+                    {
+                        item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
+                        //findes the name of the customer that send the parcel
+                        parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                        //findes the name of the customer that is recepting the parcel
+                        parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                        Parcels.Add(parcel);
+                    }
                 }
+                return Parcels;
             }
-            return Parcels;
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidInputException("The SenderName/RecepterName does not exist.\n", ex);
+            }
         }
         public void PickUpParcel(int id)
         {
-            Drone blDrone = GetDrone(id);
-            Customer customerS = GetCustomer(blDrone.ParcelInTransfer.Sender.Id);
-            double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
-            if (blDrone.ParcelInTransfer != default && blDrone.ParcelInTransfer.StatusParcel == false)
+            try
             {
-                blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
-                blDrone.DroneLocation = blDrone.ParcelInTransfer.PickUpLocation;
-                dal.PickUpParcel(blDrone.ParcelInTransfer.Id);
+                Drone blDrone = GetDrone(id);
+                Customer customerS = GetCustomer(blDrone.ParcelInTransfer.Sender.Id);
+                double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
+                if (blDrone.ParcelInTransfer != default && blDrone.ParcelInTransfer.StatusParcel == false)
+                {
+                    blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
+                    blDrone.DroneLocation = blDrone.ParcelInTransfer.PickUpLocation;
+                    dal.PickUpParcel(blDrone.ParcelInTransfer.Id);
+                }
+                else
+                    throw new FailedToPickUpParcelException("couldn't pick up the parcel");
             }
-            else
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel");
+            catch(FailedToPickUpParcelException ex)
+            {
+                throw new FailedToPickUpParcelException(ex.ToString(), ex);
+            }
+            catch(NotFoundInputException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
+            catch(IDAL.DO.DoesNotExistException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
         }
         public void DeliverParcel(int id)
         {
-            Drone blDrone = GetDrone(id);
-            Customer customerR = GetCustomer(blDrone.ParcelInTransfer.Recepter.Id);
-            double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
-            if (blDrone.ParcelInTransfer.StatusParcel == true)
+            try
             {
-                blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
-                blDrone.DroneLocation = blDrone.ParcelInTransfer.DelieveredLocation;
-                blDrone.Status = (DroneStatus)0;
-                dal.ParcelToCustomer(blDrone.ParcelInTransfer.Id);
+                Drone blDrone = GetDrone(id);
+                Customer customerR = GetCustomer(blDrone.ParcelInTransfer.Recepter.Id);
+                double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
+                if (blDrone.ParcelInTransfer.StatusParcel == true)
+                {
+                    blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
+                    blDrone.DroneLocation = blDrone.ParcelInTransfer.DelieveredLocation;
+                    blDrone.Status = (DroneStatus)0;
+                    dal.ParcelToCustomer(blDrone.ParcelInTransfer.Id);
+                }
+                else
+                    throw new FailedToDelieverParcelException("couldn't deliever the parcel");
             }
-            else
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel");
+            catch (FailedToDelieverParcelException ex)
+            {
+                throw new FailedToDelieverParcelException(ex.ToString(), ex);
+            }
+            catch (NotFoundInputException ex)
+            {
+                throw new FailedToDelieverParcelException("couldn't deliever the parcel", ex);
+            }
+            catch (IDAL.DO.DoesNotExistException ex)
+            {
+                throw new FailedToDelieverParcelException("couldn't deliever the parcel", ex);
+            }
         }
     }
 }

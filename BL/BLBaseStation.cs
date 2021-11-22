@@ -36,19 +36,34 @@ namespace BL
 
         public BaseStation GetBaseStation(int idBaseStation)
         {
-            IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
-            BaseStation station = new();
-            station.CopyPropertiesTo(dalStation);
-            //station.BaseStationLocation.Latitude = dalStation.Latitude;
-            //station.BaseStationLocation.Longitude = dalStation.Longitude;
-            int i = 0;
-            foreach (var item in dal.GetDroneCharge())
+            try
             {
-                station.DronesInCharge[i].Id = item.DroneId;
-                Drone drone = GetDrone(item.DroneId);
-                station.DronesInCharge[i++].Battery = drone.Battery;
+                IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
+                BaseStation station = new();
+                dalStation.CopyPropertiesTo(station);
+                //station.BaseStationLocation.Latitude = dalStation.Latitude;
+                //station.BaseStationLocation.Longitude = dalStation.Longitude;
+                int i = 0;
+                foreach (var item in dal.GetDroneCharge())
+                {
+                    station.DronesInCharge[i].Id = item.DroneId;
+                    Drone drone = GetDrone(item.DroneId);
+                    station.DronesInCharge[i++].Battery = drone.Battery;
+                }
+                return station;
             }
-            return station;
+            catch (NotFoundInputException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
+            catch (IDAL.DO.DoesNotExistException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidInputException("The input does not exist.\n", ex);
+            }
         }
 
         /// <summary>
@@ -57,17 +72,24 @@ namespace BL
         /// <returns>the new arrey that has the the base stations</returns>
         public IEnumerable<BaseStationList> GetBaseStations()
         {
-            List<BaseStationList> listStations = new();
-            BaseStationList baseStationList = new();
-            BaseStation blStations = new();
-            foreach (var item in dal.GetBaseStations())
+            try
             {
-                blStations = GetBaseStation(item.Id);
-                blStations.CopyPropertiesTo(baseStationList);
-                baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
-                listStations.Add(baseStationList);
+                List<BaseStationList> listStations = new();
+                BaseStationList baseStationList = new();
+                BaseStation blStations = new();
+                foreach (var item in dal.GetBaseStations())
+                {
+                    blStations = GetBaseStation(item.Id);
+                    blStations.CopyPropertiesTo(baseStationList);
+                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                    listStations.Add(baseStationList);
+                }
+                return listStations;
             }
-            return listStations;
+            catch (NotFoundInputException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
         }
 
         /// <summary>
@@ -76,28 +98,42 @@ namespace BL
         /// <returns>the new arrey that has all the base station that has free charges</returns>
         public IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges()
         {
-            List<BaseStationList> listStations = new();
-            BaseStationList baseStationList = new();
-            BaseStation blStations = new();
-            foreach (var item in dal.GetBaseStations())
+            try
             {
-                if (item.EmptyCharges != 0)
+                List<BaseStationList> listStations = new();
+                BaseStationList baseStationList = new();
+                BaseStation blStations = new();
+                foreach (var item in dal.GetBaseStations())
                 {
-                    blStations = GetBaseStation(item.Id);
-                    blStations.CopyPropertiesTo(baseStationList);
-                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
-                    listStations.Add(baseStationList);
+                    if (item.EmptyCharges != 0)
+                    {
+                        blStations = GetBaseStation(item.Id);
+                        blStations.CopyPropertiesTo(baseStationList);
+                        baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                        listStations.Add(baseStationList);
+                    }
                 }
+                return listStations;
             }
-            return listStations;
+            catch (NotFoundInputException ex)
+            {
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+            }
         }
 
         public void UpdateStation(int id, string newName,int emptyCharges)
         {
-            if (emptyCharges < 0)
-                throw new InvalidInputException("The number of empty charges is incorrect");
-            dal.GetBaseStations().First(item => item.Id == id);
-            dal.UpdateStation(id, newName, emptyCharges);
+            try
+            {
+                if (emptyCharges < 0)
+                    throw new InvalidInputException("The number of empty charges is incorrect");
+                dal.GetBaseStations().First(item => item.Id == id);
+                dal.UpdateStation(id, newName, emptyCharges);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidInputException("The input does not exist.\n", ex);
+            }
         }
 
     }
