@@ -40,9 +40,9 @@ namespace DalObject
         /// <param name="idOfBaseStation">the base station id that the user enterd</param>
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
-            if (DataSource.Drones.Exists(item => item.Id != dronesId))
+            if (!DataSource.Drones.Exists(item => item.Id == dronesId))
                 throw new DoesNotExistException("Drone does not exists.");
-            if (DataSource.Stations.Exists(item => item.Id != idOfBaseStation))
+            if (!DataSource.Stations.Exists(item => item.Id == idOfBaseStation))
                 throw new DoesNotExistException("Base Station does not exists.");
             int droneIndex = 0;
             while (DataSource.Drones[droneIndex].Id != dronesId)//search for the drone that has the same id has the id that the user enterd

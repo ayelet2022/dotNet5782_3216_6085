@@ -53,9 +53,9 @@ namespace BL
         {
             try
             {
-                DroneList droneList = new();
-            droneList = Drones.Find(item => item.Id == idDrone);
-            if (droneList == default)
+                DroneList droneList = default;
+                droneList = Drones.Find(item => item.Id == idDrone);
+                if (droneList == null)
                 throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
                 Drone returningDrone = new();
                 droneList.CopyPropertiesTo(returningDrone);
@@ -180,6 +180,22 @@ namespace BL
             {
                 distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
                 if (minDistance==0||minDistance > distance)
+                {
+                    minDistance = distance;
+                    baseStation = item;
+                }
+            }
+            return baseStation;
+        }
+        public IDAL.DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
+        {
+            IDAL.DO.BaseStation baseStation = new();
+            double minDistance = 0;
+            double distance = 0;
+            foreach (var item in dal.GetBaseStations())
+            {
+                distance = Distance.Haversine(item.Latitude, item.Longitude, latitude, longitude);
+                if (minDistance == 0 || minDistance > distance)
                 {
                     minDistance = distance;
                     baseStation = item;
