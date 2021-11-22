@@ -14,6 +14,7 @@ namespace DalObject
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<Parcel> Parcels = new List<Parcel>();
         internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
+        static Random Rand = new Random();
         /// <summary>
         /// restarting the indexes
         /// </summary>
@@ -28,7 +29,6 @@ namespace DalObject
         }
         static void InitializeBaseStation(string name)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             BaseStation newStation = new BaseStation();
             newStation.Id = Rand.Next(1000, 10000);
             newStation.Latitude = Rand.Next(-90, 91);
@@ -39,17 +39,14 @@ namespace DalObject
         }
         static void InitializeDrones(string name)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             Drone addDrone = new Drone();
             addDrone.Id = Rand.Next(100000, 999999);
             addDrone.MaxWeight = (WeightCategories)Rand.Next(0, 3);
-            //addDrone.Status = (DroneStatuses)Rand.Next(0, 3);
             addDrone.Model = name;
             Drones.Add(addDrone);
         }
         static void InitializeCustomer(string phone,string name)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             Customer addCustomer = new Customer();
             addCustomer.Id = Rand.Next(100000000, 1000000000);
             addCustomer.Latitude = Rand.Next(30, 33);
@@ -60,7 +57,6 @@ namespace DalObject
         }
         static void InitializeParcel(int droneId,DateTime timeCreatParcel,DateTime timeScheduled,DateTime timePickedUp,DateTime timeDelivered)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
             Parcel addParcel = new Parcel();
             addParcel.CreatParcel = new(0);
             addParcel.Id = DataSource.Config.RunningParcelId++;

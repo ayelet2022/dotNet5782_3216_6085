@@ -70,7 +70,7 @@ namespace BL
                                                   //findes the name of the customer that send the parcel
                     parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
                     //findes the name of the customer that is recepting the parcel
-                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
                     Parcels.Add(parcel);
                     parcel = new();
                 }
