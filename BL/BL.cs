@@ -51,7 +51,7 @@ namespace BL
                     Customer customerR = GetCustomer(parcel.TargetId);
                     double minBattery = 0;
                     double disStoR = Distance.Haversine(customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
-                    double disRtoBS = Distance.Haversine(customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistance(customerR).Latitude);
+                    double disRtoBS = Distance.Haversine(customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistanceCtoS(customerR).Latitude);
                     if (parcel.PickedUp == DateTime.MinValue)
                     {
                         drone.DroneLocation.Latitude = FindMinDistanceCtoS(customerS).Latitude;
