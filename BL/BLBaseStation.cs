@@ -140,10 +140,10 @@ namespace BL
         {
             try
             {
-                if (emptyCharges < 0)
+                if (charges < 0)
                     throw new InvalidInputException("The number of empty charges is incorrect");
                 dal.GetBaseStations().First(item => item.Id == id);
-                dal.UpdateStation(id, newName, emptyCharges);
+                dal.UpdateStation(id, newName, charges);
             }
             catch (InvalidOperationException ex)
             {
