@@ -47,21 +47,24 @@ namespace BL
                 {
                     IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == DateTime.MinValue); //a parcel was scheduled
                     drone.Status = (DroneStatus)2;//the drone in deliver
-                    Customer customerS = GetCustomer(parcel.SenderId);
-                    Customer customerR = GetCustomer(parcel.TargetId);
+                    double customerSLatitude = dal.GetCustomer(parcel.SenderId).Latitude;
+                    double customerSLongitude = dal.GetCustomer(parcel.SenderId).Longitude;
+                    double customerRLatitude = dal.GetCustomer(parcel.TargetId).Latitude;
+                    double customerRLongitude = dal.GetCustomer(parcel.TargetId).Longitude;
                     double minBattery = 0;
-                    double disStoR = Distance.Haversine(customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
-                    double disRtoBS = Distance.Haversine(customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistanceCtoS(customerR).Latitude);
+                    double disStoR = Distance.Haversine(customerSLongitude, customerSLatitude, customerRLongitude, customerRLatitude);
+                    double disRtoBS = Distance.Haversine(customerRLongitude, customerRLatitude, FindMinDistanceCtoS(customerR).Longitude, FindMinDistanceCtoS(customerR).Latitude);
                     if (parcel.PickedUp == DateTime.MinValue)
                     {
-                        drone.DroneLocation.Latitude = FindMinDistanceCtoS(customerS).Latitude;
+                        drone.DroneLocation.Latitude = FindMinDistanceOfCToBS(customerS).Latitude;
                         drone.DroneLocation.Longitude = FindMinDistanceCtoS(customerS).Longitude;
-                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
+                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customerSLongitude, customerSLatitude);
                         minBattery = (disDtoS + disRtoBS) * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
                     }
                     else
                     {
-                        drone.DroneLocation = customerS.CustomerLocation;
+                        drone.DroneLocation.Latitude = customerSLatitude;
+                        drone.DroneLocation.Longitude = customerSLatitude;
                         minBattery = disRtoBS * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
                     }
                     drone.Battery = Rand.Next((int)minBattery, 101);
