@@ -58,7 +58,7 @@ namespace DalObject
             addCustomer.Name = name;
             Customers.Add(addCustomer);
         }
-        static void InitializeParcel(DateTime timeCreatParcel,DateTime timeScheduled,DateTime timePickedUp,DateTime timeDelivered)
+        static void InitializeParcel(int droneId,DateTime timeCreatParcel,DateTime timeScheduled,DateTime timePickedUp,DateTime timeDelivered)
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             Parcel addParcel = new Parcel();
@@ -70,7 +70,7 @@ namespace DalObject
             int targetId = Rand.Next(0, Customers.Count);
             addParcel.TargetId = Customers[targetId].Id;
             addParcel.Weight = (WeightCategories)Rand.Next(0, 3);
-            addParcel.DroneId = 0;
+            addParcel.DroneId = droneId;
             addParcel.Delivered = timeDelivered;
             addParcel.PickedUp = timePickedUp;
             addParcel.Scheduled = timeScheduled;
@@ -103,16 +103,16 @@ namespace DalObject
             InitializeCustomer("0599999999", "Chani");
             InitializeCustomer("0500000000", "Yakov");
 
-            InitializeParcel(new(2021, 3, 5, 8, 30, 0), new(2021, 3, 1, 8, 32, 0), new(2021, 3, 1, 9, 30, 0), new(2021, 3, 2, 10, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 9, 30, 0), new(2021, 3, 1, 9, 32, 0), new(2021, 3, 1, 10, 30, 0), new(2021, 3, 2, 11, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 10, 30, 0), new(2021, 3, 1, 10, 32, 0), new(2021, 3, 1, 11, 30, 0), new(2021, 3, 2, 12, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 11, 30, 0), new(2021, 3, 1, 11, 32, 0), new(2021, 3, 1, 12, 30, 0), new(2021, 3, 2, 13, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 12, 30, 0), new(2021, 3, 1, 12, 32, 0), new(2021, 3, 1, 13, 30, 0), new(2021, 3, 2, 14, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 13, 30, 0), new(2021, 3, 1, 13, 32, 0), new(2021, 3, 1, 14, 30, 0), new(2021, 3, 2, 15, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 14, 30, 0), new(2021, 3, 1, 14, 32, 0), new(2021, 3, 1, 15, 30, 0), new(2021, 3, 2, 16, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 15, 30, 0), new(2021, 3, 1, 15, 32, 0), new(2021, 3, 1, 16, 30, 0), new(2021, 3, 2, 17, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 16, 30, 0), new(2021, 3, 1, 16, 32, 0), new(2021, 3, 1, 17, 30, 0), new(2021, 3, 2, 18, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 17, 30, 0), new(2021, 3, 1, 17, 32, 0), new(2021, 3, 1, 18, 30, 0), new(2021, 3, 2, 19, 30, 0));
+            InitializeParcel(Drones[0].Id,new(2021, 3, 5, 8, 30, 0), new(2021, 3, 1, 8, 32, 0), new(2021, 3, 1, 9, 30, 0), new(2021, 3, 2, 10, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 9, 30, 0), new(2021, 3, 1, 9, 32, 0), new(2021, 3, 1, 10, 30, 0), new(2021, 3, 2, 11, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 10, 30, 0), new(2021, 3, 1, 10, 32, 0), new(2021, 3, 1, 11, 30, 0), new(2021, 3, 2, 12, 30, 0));
+            InitializeParcel(Drones[2].Id, new(2021, 3, 5, 11, 30, 0), new(2021, 3, 1, 11, 32, 0), new(2021, 3, 1, 12, 30, 0), new(2021, 3, 2, 13, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 12, 30, 0), new(2021, 3, 1, 12, 32, 0), new(2021, 3, 1, 13, 30, 0), new(2021, 3, 2, 14, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 13, 30, 0), new(2021, 3, 1, 13, 32, 0), new(2021, 3, 1, 14, 30, 0), new(2021, 3, 2, 15, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 14, 30, 0), new(2021, 3, 1, 14, 32, 0), new(2021, 3, 1, 15, 30, 0), new(2021, 3, 2, 16, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 15, 30, 0), new(2021, 3, 1, 15, 32, 0), new(2021, 3, 1, 16, 30, 0), new(2021, 3, 2, 17, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 16, 30, 0), new(2021, 3, 1, 16, 32, 0), new(2021, 3, 1, 17, 30, 0), new(2021, 3, 2, 18, 30, 0));
+            InitializeParcel(0,new(2021, 3, 5, 17, 30, 0), new(2021, 3, 1, 17, 32, 0), new(2021, 3, 1, 18, 30, 0), new(2021, 3, 2, 19, 30, 0));
         }
     }
 }

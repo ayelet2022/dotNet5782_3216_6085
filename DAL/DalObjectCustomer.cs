@@ -65,7 +65,7 @@ namespace DalObject
 
         public IEnumerable<int> GetCustomersRe()
         {
-            List<int> customersList= new List<int>(); ;
+            List<int> customersList= new List<int>();
             foreach (var item in DataSource.Parcels)
             {
                 if (item.Delivered != DateTime.MinValue)
