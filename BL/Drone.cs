@@ -31,8 +31,9 @@ namespace IBL.BO
         /// this funciot print all of the drones details
         /// </summary>
         /// <returns></returns>the string that collect all the delaies and then prints it
-        public ParcelInTransfer ParcelInTransfer { get; set; }
         public Location DroneLocation { get; set; }
+
+        public ParcelInTransfer ParcelInTransfer { get; set; }
         public override string ToString()
         {
             String result = "";

@@ -28,7 +28,7 @@ namespace BL
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
-                IDAL.DO.BaseStation station=new IDAL.DO.BaseStation();
+                IDAL.DO.BaseStation station=new();
                 baseStation.CopyPropertiesTo(station);
                 dal.AddBaseStation(station);
             }
