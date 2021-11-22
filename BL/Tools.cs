@@ -38,11 +38,5 @@ namespace IBL.BO
                 to.Add(t);
             }
         }
-        public static object CopyPropertiesToNew<S>(this S from, Type type)
-        {
-            object to = Activator.CreateInstance(type); // new object of Type
-            from.CopyPropertiesTo(to);
-            return to;
-        }
     }
 }

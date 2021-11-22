@@ -18,15 +18,15 @@ namespace BL
             try
             {
                 if (baseStation.Id > 9999 || baseStation.Id < 1000)
-                    throw new InvalidInputException($"The baseStations id:{baseStation.Id} is incorrect");
+                    throw new InvalidInputException($"The baseStations id:{baseStation.Id} is incorrect.\n");
                 if(baseStation.Name == "\n")
-                    throw new InvalidInputException($"The baseStations name:{baseStation.Name} is incorrect");
+                    throw new InvalidInputException($"The baseStations name:{baseStation.Name} is incorrect.\n");
                 if (baseStation.BaseStationLocation.Latitude < -90 || baseStation.BaseStationLocation.Latitude > 90)
-                    throw new InvalidInputException($"The baseStations Latitude:{baseStation.BaseStationLocation.Latitude} is incorrect");
+                    throw new InvalidInputException($"The baseStations Latitude:{baseStation.BaseStationLocation.Latitude} is incorrect.\n");
                 if (baseStation.BaseStationLocation.Longitude < -180 || baseStation.BaseStationLocation.Longitude > 180)
-                    throw new InvalidInputException($"The baseStations Longitude:{baseStation.BaseStationLocation.Longitude} is incorrect");
+                    throw new InvalidInputException($"The baseStations Longitude:{baseStation.BaseStationLocation.Longitude} is incorrect.\n");
                 if (baseStation.EmptyCharges < 0)
-                    throw new InvalidInputException($"The number of empty charges is incorrect");
+                    throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
                 IDAL.DO.BaseStation station = new();
                 baseStation.CopyPropertiesTo(station);
@@ -63,11 +63,11 @@ namespace BL
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel.\n", ex);
             }
             catch (IDAL.DO.DoesNotExistException ex)
             {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel.\n", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -97,7 +97,7 @@ namespace BL
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
+                throw new FailedToPickUpParcelException("couldn't pick up the parcel.\n", ex);
             }
         }
 
@@ -141,7 +141,7 @@ namespace BL
             try
             {
                 if (charges < 0)
-                    throw new InvalidInputException("The number of empty charges is incorrect");
+                    throw new InvalidInputException("The number of empty charges is incorrect.\n");
                 dal.GetBaseStations().First(item => item.Id == id);
                 dal.UpdateStation(id, newName, charges);
             }
