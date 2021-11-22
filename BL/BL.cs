@@ -67,7 +67,7 @@ namespace BL
                     drone.Battery = Rand.Next((int)minBattery, 101);
                     drones.Add(drone);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
                     if (drone.Status == (DroneStatus)1)
@@ -81,6 +81,11 @@ namespace BL
                     }
                     else
                     {
+                        List<int> customerId = dal.GetCustomersRe().ToList();
+                        int customerI = Rand.Next(0,customerId.Count);
+                        drone.DroneLocation = new();
+                        drone.DroneLocation.Longitude = dal.GetCustomer(customerId[customerI]).Longitude;
+                        drone.DroneLocation.Latitude = dal.GetCustomer(customerId[customerI]).Latitude;
                         Drone blDrone = GetDrone(drone.Id);
                         double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(blDrone).Longitude, FindMinDistanceOfDToBS(blDrone).Latitude);
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);

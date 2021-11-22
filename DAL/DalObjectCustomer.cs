@@ -62,5 +62,16 @@ namespace DalObject
             }
             DataSource.Customers[i] = customer;
         }
+
+        public IEnumerable<int> GetCustomersRe()
+        {
+            List<int> customersList=new();
+            foreach (var item in DataSource.Parcels)
+            {
+                if (item.Delivered != DateTime.MinValue)
+                    customersList.Add(item.TargetId);
+            }
+            return customersList;
+        }
     }
 }

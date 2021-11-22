@@ -15,9 +15,9 @@ namespace ConsoleUI_BL
     { PrintAllTheBaseStation = 1, PrintAllTheDrone, PrintAllTheCustomer, PrintAllTheParcel, printAllTheParcelsThatWerentPaired, PrintAllTheBaseStationWithAvailableCharges }
     class Program
     {
-        static BL.BL obj = new BL.BL();
         static void Main(string[] args)
         {
+            BL.BL obj = new BL.BL();
             //It prints the options to the user.
             string print = "";
             print += $"Enter 1 to add an object.\n";
