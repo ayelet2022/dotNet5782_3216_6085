@@ -10,7 +10,7 @@ namespace IBL.BO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int EmptyChargingPositions { get; set; }
+        public int EmptyCharges { get; set; }
         public int FullChargingPositions { get; set; }
         public override string ToString()
         {

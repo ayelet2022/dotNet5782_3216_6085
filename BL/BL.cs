@@ -36,7 +36,7 @@ namespace BL
             }
             return baseStation;
         }
-        void InitializeDroneList(List<DroneList>drones)
+        void InitializeDroneList(List<DroneList> drones)
         {
             Random Rand = new Random(DateTime.Now.Millisecond);
             DroneList drone = new();
@@ -70,7 +70,7 @@ namespace BL
                 catch (InvalidOperationException ex)
                 {
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
-                    if(drone.Status==(DroneStatus)1)
+                    if (drone.Status == (DroneStatus)1)
                     {
                         //BaseStation station=Rand.Next(dal.GetBaseStations())
                         //drone.DroneLocation =
