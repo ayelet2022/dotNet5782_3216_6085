@@ -9,6 +9,10 @@ namespace BL
 {
     public partial class BL
     {
+        /// <summary>
+        /// adds a new base station to the list
+        /// </summary>
+        /// <param name="baseStation">the new base station that we want to add</param>
         public void AddBaseStation(BaseStation baseStation)
         {
             try
@@ -34,6 +38,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// returens the besa station that has the id that was enterd 
+        /// </summary>
+        /// <param name="idBaseStation">the id of the base station that we want to retirne</param>
+        /// <returns>the base station that has the same id</returns>
         public BaseStation GetBaseStation(int idBaseStation)
         {
             try
@@ -67,9 +76,9 @@ namespace BL
         }
 
         /// <summary>
-        /// copyes the values of al the base stations in order to print them
+        /// returens the all base station list
         /// </summary>
-        /// <returns>the new arrey that has the the base stations</returns>
+        /// <returns>the all base station list</returns>
         public IEnumerable<BaseStationList> GetBaseStations()
         {
             try
@@ -93,9 +102,9 @@ namespace BL
         }
 
         /// <summary>
-        /// search for tha base station that has available charges and copys them to a new arrey
+        /// search for tha base station that has available charges and copys them to a new list
         /// </summary>
-        /// <returns>the new arrey that has all the base station that has free charges</returns>
+        /// <returns>the new list that has all the base station that has free charges</returns>
         public IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges()
         {
             try
@@ -121,7 +130,13 @@ namespace BL
             }
         }
 
-        public void UpdateStation(int id, string newName,int emptyCharges)
+        /// <summary>
+        /// update the base station that has the id that was enterd
+        /// </summary>
+        /// <param name="id">the id of the base station that we want to update</param>
+        /// <param name="newName">the new name to the base station </param>
+        /// <param name="emptyCharges">the new emount of empty chargers in the base station</param>
+        public void UpdateStation(int id, string newName,int charges)
         {
             try
             {

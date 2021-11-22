@@ -55,4 +55,10 @@ namespace IBL.BO
         public FailedToScheduledAParcelToADroneException(string message) : base(message) { }
         public FailedToScheduledAParcelToADroneException(string message, Exception inner) : base(message, inner) { }
     }
+    public class FailToUpdateException : Exception
+    {
+        public FailToUpdateException() : base() { }
+        public FailToUpdateException(string message) : base(message) { }
+        public FailToUpdateException(string message, Exception inner) : base(message, inner) { }
+    }
 }
