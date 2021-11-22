@@ -18,21 +18,21 @@ namespace ConsoleUI_BL
         static void Main(string[] args)
         {
             BL.BL obj = new BL.BL();
-            //It prints the options to the user.
-            string print = "";
-            print += $"Enter 1 to add an object.\n";
-            print += $"Enter 2 to update an object.\n";
-            print += $"Enter 3 to print an object according to the id.\n";
-            print += $"Enter 4 to print the whole list of an object.\n";
-            print += $"Enter 5 to end the program.\n";
-            Console.WriteLine(print);
             MainQuastions choice;
-            int input = 0;
-            double inputDouble = 0;
-            Location location = new();
-            MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
+            //It prints the options to the user.
             do
             {
+                string print = "";
+                print += $"Enter 1 to add an object.\n";
+                print += $"Enter 2 to update an object.\n";
+                print += $"Enter 3 to print an object according to the id.\n";
+                print += $"Enter 4 to print the whole list of an object.\n";
+                print += $"Enter 5 to end the program.\n";
+                Console.WriteLine(print);
+                int input = 0;
+                double inputDouble = 0;
+                Location location = new();
+                MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
                 if ((int)choice < 1 || (int)choice > 5)
                     throw new InvalidInputException("The input is incurrect");
                 try
@@ -251,7 +251,7 @@ namespace ConsoleUI_BL
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
                                     //sends to a function that finds the parcel and prints the info
-                                    Console.WriteLine(obj.GetParcel(idParcel).ToString());
+                                    Console.WriteLine((obj.GetParcel(idParcel)).ToString());
                                     break;
                             }
                             break;
@@ -321,7 +321,6 @@ namespace ConsoleUI_BL
                             }
                             break;
                     }
-
                 }
                 catch (Exception ex)
                 {

@@ -69,8 +69,11 @@ namespace BL
                                     parcelFromCustomer.Status = (ParcelStatus)0;//the parcel was created
                             }
                         }
+                        parcelFromCustomer.SenderOrRecepter = new();
                         parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
                         parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
+                        customer.ParcelsFromCustomers = new();
+                        customer.ParcelsToCustomers = new();
                         if (item.SenderId == idCustomer)//meens the parcel is from the customer
                             customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                         if (item.TargetId == idCustomer)//meens the parcel to the customer

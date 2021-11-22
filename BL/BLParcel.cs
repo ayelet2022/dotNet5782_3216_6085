@@ -31,9 +31,11 @@ namespace BL
                 IDAL.DO.Parcel dalParcel = dal.GetParcels().First(item => item.Id == idParcel);
                 Parcel parcel = new();//the parcel to returne
                 dalParcel.CopyPropertiesTo(parcel);
-                Customer sender = GetCustomer(dalParcel.SenderId);
+                Customer sender = new();
+                sender = GetCustomer(dalParcel.SenderId);
                 sender.CopyPropertiesTo(parcel.Sender);
-                Customer recepter = GetCustomer(dalParcel.TargetId);
+                Customer recepter = new();
+                recepter = GetCustomer(dalParcel.TargetId);
                 recepter.CopyPropertiesTo(parcel.Recepter);
                 if (dalParcel.DroneId == 0)//if ther is no drone scheduled to the paecel
                     parcel.ParecelDrone = default;
