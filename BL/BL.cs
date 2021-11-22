@@ -14,15 +14,23 @@ namespace BL
         IDal dal = new DalObject.DalObject();
         List<DroneList> Drones = new List<DroneList>();
         static Random Rand = new Random();
+        /// <summary>
+        /// the contractor of BL
+        /// </summary>
         public BL()
         {
             double[] power = dal.AskForBattery();
             double chargingRate = power[4];
             InitializeDroneList(Drones);
         }
+        /// <summary>
+        /// the builder if list
+        /// </summary>
+        /// <param name="drones">the list we whant to build</param>
         void InitializeDroneList(List<DroneList> drones)
         {
             DroneList drone = new();
+            //to copy all the drones frome the list
             foreach (var itD in dal.GetDrones())
             {
                 itD.CopyPropertiesTo(drone);
@@ -35,21 +43,33 @@ namespace BL
                     double customerRLatitude = dal.GetCustomer(parcel.TargetId).Latitude;
                     double customerRLongitude = dal.GetCustomer(parcel.TargetId).Longitude;
                     double minBattery = 0;
+                    //the distance from the sender to the resever
                     double disStoR = Distance.Haversine(customerSLongitude, customerSLatitude, customerRLongitude, customerRLatitude);
+                    //the distatnce from the resever of the parcel to the closest base station to him
                     double disRtoBS = Distance.Haversine
                         (customerRLongitude, customerRLatitude, FindMinDistanceOfCToBS(customerRLatitude,customerRLongitude).Longitude, FindMinDistanceOfCToBS(customerRLatitude, customerRLongitude).Latitude);
                     drone.DroneLocation = new();
-                    if (parcel.PickedUp == DateTime.MinValue)
+                    if (parcel.PickedUp == DateTime.MinValue)//meens the parcel wasnt picked up by the drone
                     {
+                        //fineds the closest base station to the customer that sends the paecel and copys the location
                         drone.DroneLocation.Latitude = FindMinDistanceOfCToBS(customerSLatitude, customerSLongitude).Latitude;
                         drone.DroneLocation.Longitude = FindMinDistanceOfCToBS(customerSLatitude, customerSLongitude).Longitude;
-                        double disDtoS = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customerSLongitude, customerSLatitude);
+                        //the ditance in km frome the dron lication to the customer that suppos to riseve the parcel
+                        double disDtoS = Distance.Haversine
+                            (drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customerSLongitude, customerSLatitude);
+                        //culclate how much battery does the drone needs in order to do the delivery
+                        //culcilate the km that the drone does without a parcel*how much battery it takes+
+                        //culcilate the km that the drone does with a parcel*how much battery it takes
                         minBattery = (disDtoS + disRtoBS) * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
                     }
-                    else
+                    else//meens the parcel was piched up
                     {
+                        //copys the location of  the customer that sends the paecel
                         drone.DroneLocation.Latitude = customerSLatitude;
                         drone.DroneLocation.Longitude = customerSLatitude;
+                        //culclate how much battery does the drone needs in order to do the delivery
+                        //culcilate the km that the drone does without a parcel*how much battery it takes+
+                        //culcilate the km that the drone does with a parcel*how much battery it takes
                         minBattery = disRtoBS * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
                     }
                     drone.Battery = Rand.Next((int)minBattery, 101);
@@ -57,6 +77,7 @@ namespace BL
                     drone = new();
 
                 }
+                //meens thar are no parcels schedulde to the drone
                 catch (InvalidOperationException)
                 {
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
