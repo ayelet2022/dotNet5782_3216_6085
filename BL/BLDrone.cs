@@ -19,13 +19,13 @@ namespace BL
             try
             {
                 if (drone.Id < 100000 || drone.Id > 999999)
-                    throw new InvalidInputException("The drones id is incorrect");
+                    throw new InvalidInputException($"The drones id:{drone.Id} is incorrect");
                 if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
-                    throw new InvalidInputException("The drones weight is incorrect");
+                    throw new InvalidInputException($"The drones weight:{drone.MaxWeight} is incorrect");
                 if (drone.Model.Length != 6)
-                    throw new InvalidInputException("The drones model is incorrect.\n");
+                    throw new InvalidInputException($"The drones model{drone.Model} is incorrect.\n");
                 if (idFirstStation < 1000 || idFirstStation > 9999)
-                    throw new InvalidInputException("The id of the baseStation incorrect.\n");
+                    throw new InvalidInputException($"The id{idFirstStation} of the baseStation incorrect.\n");
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
@@ -57,12 +57,19 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// returne the drone that has the same id as what wes enterd
+        /// </summary>
+        /// <param name="idDrone">the id of the drone we want to returne</param>
+        /// <returns>the drone that has the same id</returns>
         public Drone GetDrone(int idDrone)
         {
             try
             {
                 DroneList droneList = new();
+                //searching for the drone that has the same id
                 droneList = Drones.Find(item => item.Id == idDrone);
+                //meens ther is no drone with that id
                 if (droneList == null)
                     throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
                 Drone returningDrone = new();
@@ -85,7 +92,9 @@ namespace BL
                         parcelInT.StatusParcel = false;
                     else
                         parcelInT.StatusParcel = true;
-                    returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine(blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
+                    //the distatnce between the sender of the parcel to the resever
+                    returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine
+                        (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
                 }
                 return returningDrone;
             }
@@ -104,11 +113,18 @@ namespace BL
             return Drones;
         }
 
+        /// <summary>
+        /// updates the drone that has the same id that was enterd
+        /// </summary>
+        /// <param name="id">the id of the drone we want to update</param>
+        /// <param name="newModel">the new model of the drone</param>
         public void UpdateDrone(int id, string newModel)
         {
             try
             {
+                //search if ther is such a dron with that id 
                 dal.GetDrones().First(item => item.Id == id);
+                //to update the drone in the drone list
                 dal.UpdateDrone(id, newModel);
             }
             catch (InvalidOperationException ex)
@@ -131,13 +147,15 @@ namespace BL
                 baseStation = FindMinDistanceOfDToBSWithEempChar(blDrone);
                 //fined the distance frome a drone to a base station
                 double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
+                //if the status is avilable or if the battery of the drone will last for him to get to the station in order to charge
                 if (blDrone.Status == (DroneStatus)0 && blDrone.Battery > distance * dal.AskForBattery()[0])
                 {
+                    //to reduse from the battery the battery that he lost on the way to the station
                     blDrone.Battery -= (int)(distance * dal.AskForBattery()[0]);
                     blDrone.DroneLocation.Longitude = baseStation.Longitude;
                     blDrone.DroneLocation.Latitude = baseStation.Latitude;
-                    blDrone.Status = (DroneStatus)1;
-                    dal.DronToCharger(blDrone.Id, baseStation.Id);
+                    blDrone.Status = (DroneStatus)1;//in fix
+                    dal.DronToCharger(blDrone.Id, baseStation.Id);//to add to the list of the drones that are charging
                 }
                 else
                     throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.");
@@ -156,15 +174,23 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// fineds the closest station to drone that has empty charger
+        /// </summary>
+        /// <param name="drone">the drone that we want to find the station for</param>
+        /// <returns>the closest base station to drone that has an empty charger</returns>
         public IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(Drone drone)
         {
             IDAL.DO.BaseStation baseStation = new();
             bool flag = false;
             double minDistance = 0;
             double distance = 0;
+            //to fo over all the station
             foreach (var item in dal.GetBaseStations())
             {
+                //the distance between the drone and this station
                 distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
+                //check if the distance of this station is less then the one before
                 if (minDistance == 0 || (minDistance > distance && item.EmptyCharges != 0))
                 {
                     minDistance = distance;
@@ -172,6 +198,7 @@ namespace BL
                     flag = true;
                 }
             }
+            //meens there are no station that has empty chargers
             if (flag == false)
                 throw new FailedToChargeDroneException();
             return baseStation;
@@ -186,9 +213,12 @@ namespace BL
             IDAL.DO.BaseStation baseStation = new();
             double minDistance =0;
             double distance = 0;
+            //to fo over all the station
             foreach (var item in dal.GetBaseStations())
             {
+                //the distance between the drone and this station
                 distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
+                //check if the distance of this station is less then the one before
                 if (minDistance==0||minDistance > distance)
                 {
                     minDistance = distance;
@@ -197,14 +227,23 @@ namespace BL
             }
             return baseStation;
         }
+        /// <summary>
+        /// fineds the closest base station to drone
+        /// </summary>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <returns></returns>
         public IDAL.DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
         {
             IDAL.DO.BaseStation baseStation = new();
             double minDistance = 0;
             double distance = 0;
+            //to fo over all the station
             foreach (var item in dal.GetBaseStations())
             {
+                //the distance between the drone and this station
                 distance = Distance.Haversine(item.Latitude, item.Longitude, latitude, longitude);
+                //check if the distance of this station is less then the one before
                 if (minDistance == 0 || minDistance > distance)
                 {
                     minDistance = distance;
@@ -214,6 +253,11 @@ namespace BL
             return baseStation;
         }
 
+        /// <summary>
+        /// to free a drone from a charger
+        /// </summary>
+        /// <param name="id">the id of the  drone we want to free</param>
+        /// <param name="timeInCharger">how long was the drone charging</param>
         public void FreeDroneFromeCharger(int id,DateTime timeInCharger)
         {
             try
@@ -222,9 +266,11 @@ namespace BL
                 int stationId = 0;
                 if (drone.Status == (DroneStatus)1)
                 {
+                    //calculate how much battery the drone have now after charging
                     drone.Battery = (int)(dal.AskForBattery()[4] * timeInCharger.Hour + (dal.AskForBattery()[4] / 60) * timeInCharger.Minute + (dal.AskForBattery()[4] / 360) * timeInCharger.Second);
                     drone.Status = (DroneStatus)0;//availble
-                    foreach (var item in dal.GetDroneCharge())//fineds the base station id where the drone is charging
+                    //fineds the base station id where the drone is charging
+                    foreach (var item in dal.GetDroneCharge())
                     {
                         if (item.DroneId == id)
                         {
@@ -233,17 +279,22 @@ namespace BL
                         }
                     }
                     GetBaseStation(stationId).EmptyCharges++;
+                    //to delet the drone from the list of the drones that are charging
                     dal.DeleteDroneFromeCharger(stationId);
                 }
                 else
-                    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger");
+                    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.");
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger", ex);
+                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.",ex);
             }
         }
 
+        /// <summary>
+        /// to paire a parcel to the drone that has the same id as what was enterd
+        /// </summary>
+        /// <param name="droneId">the drone we want to paire a parcel to</param>
         public void ScheduledAParcelToADrone(int droneId)
         {
             try
@@ -251,6 +302,7 @@ namespace BL
                 Drone drone = GetDrone(droneId);
                 Parcel parcel = new();
                 bool flag = false;
+                //to go over all the parcels
                 foreach (var item in dal.GetParcels())
                 {
                     Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
@@ -263,9 +315,12 @@ namespace BL
                     double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
                     //culcilates how much batery will leght in the drone after he get to the parcel to delever the parcel and if he needs to get also to a base station 
                     int battery = drone.Battery - ((int)(disDroneToSenderI * dal.AskForBattery()[(int)item.Weight + 1]) + (int)(disSenderToResepter * dal.AskForBattery()[(int)item.Weight + 1]) + (int)(disReseverToBS * dal.AskForBattery()[(int)item.Weight + 1]));
-                    if ((int)item.Priority > (int)parcel.Priority && battery > 0)
+                    //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is ok
+                    if ((int)item.Priority > (int)parcel.Priority && battery > 0&&(int)item.Weight<=(int)drone.MaxWeight)
+                        //if the wight of this parcel is heavier then the on before
                         if ((int)item.Weight > (int)parcel.Weight)
                         {
+                            //the distatnce of this parcel his smaller then the distance of the parcel before
                             if (disDroneToSenderI < disDroneToSenderP)
                             {
                                 parcel = GetParcel(item.Id);
@@ -273,6 +328,7 @@ namespace BL
                             }
                         }
                 }
+                //meens if found a parcel
                 if (flag == true)
                 {
                     Drones.Find(item => item.Id == drone.Id).Status = (DroneStatus)2;//update the drone to be in delivery
@@ -292,10 +348,22 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// returne the distance between a drone and a customer
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public double DisDronToCustomer(Drone drone,Customer customer)
         {
             return Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
         }
+        /// <summary>
+        /// returne the distance between a drone and a base station
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="station"></param>
+        /// <returns></returns>
         public double DisDronToBS(Customer customer, BaseStation station)
         {
             return Distance.Haversine(customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude, station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
