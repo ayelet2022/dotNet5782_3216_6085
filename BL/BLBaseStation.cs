@@ -29,16 +29,12 @@ namespace BL
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
-                //station.Id = baseStation.Id;
-                //station.EmptyCharges = baseStation.EmptyCharges;
-                //station.Latitude = baseStation.BaseStationLocation.Latitude;
-                //station.Longitude = baseStation.BaseStationLocation.Longitude;
-                //station.Name = baseStation.Name;
                 IDAL.DO.BaseStation station = new();
                 object obj = station;
                 baseStation.CopyPropertiesTo(obj);
                 station = (IDAL.DO.BaseStation)obj;
-
+                station.Longitude = baseStation.BaseStationLocation.Longitude;
+                station.Latitude = baseStation.BaseStationLocation.Latitude;
                 dal.AddBaseStation(station);
             }
             catch (IDAL.DO.ExistsException ex)
@@ -59,8 +55,9 @@ namespace BL
                 IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
                 BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
-                //station.BaseStationLocation.Latitude = dalStation.Latitude;
-                //station.BaseStationLocation.Longitude = dalStation.Longitude;
+                station.BaseStationLocation = new();
+                station.BaseStationLocation.Latitude = dalStation.Latitude;
+                station.BaseStationLocation.Longitude = dalStation.Longitude;
                 int i = 0;
                 foreach (var item in dal.GetDroneCharge())
                 {

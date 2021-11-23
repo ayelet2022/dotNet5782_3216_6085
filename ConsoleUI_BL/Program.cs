@@ -102,6 +102,7 @@ namespace ConsoleUI_BL
                                     newCustomer.Phone = phone;//updates the new customers phone
                                     Console.WriteLine("Enter Longitude: ");
                                     double.TryParse(Console.ReadLine(), out inputDouble);
+                                    newCustomer.CustomerLocation = new();
                                     newCustomer.CustomerLocation.Longitude = inputDouble;
                                     Console.WriteLine("Enter Latitude: ");
                                     double.TryParse(Console.ReadLine(), out inputDouble);

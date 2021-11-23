@@ -20,8 +20,8 @@ namespace IBL.BO
             result += $"ID is {Id}, \n";
             result += $"Name is {Name}, \n";
             result += $"Phone is {Phone}, \n";
-            result += $"Latitude is {CustomerLocation.Latitude}, \n";
-            result += $"longitude is {CustomerLocation.Longitude}, \n";
+            result += $"Customer Location is {CustomerLocation}, \n";
+            //result += $"longitude is {CustomerLocation.Longitude}, \n";
             return result;
         }
     }

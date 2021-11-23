@@ -30,7 +30,8 @@ namespace BL
                 object obj = newCustomer;
                 customer.CopyPropertiesTo(obj);
                 newCustomer = (IDAL.DO.Customer)obj;
-                customer.CopyPropertiesTo(newCustomer);
+                newCustomer.Longitude = customer.CustomerLocation.Longitude;
+                newCustomer.Latitude = customer.CustomerLocation.Latitude;
                 dal.AddCustomer(newCustomer);
             }
             catch (IDAL.DO.ExistsException ex)
@@ -51,6 +52,9 @@ namespace BL
                 IDAL.DO.Customer dalCustomer = dal.GetCustomers().First(item => item.Id == idCustomer);
                 Customer customer = new();//the customer to returne
                 dalCustomer.CopyPropertiesTo(customer);//only puts:id,name,phone,location
+                customer.CustomerLocation = new();
+                customer.CustomerLocation.Latitude = dalCustomer.Latitude;
+                customer.CustomerLocation.Longitude = dalCustomer.Longitude;
                 foreach (var item in dal.GetParcels())//checks all the parcels in dal
                 {
                     //check if the parcel is from this customer or to this customer

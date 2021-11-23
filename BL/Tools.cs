@@ -7,7 +7,7 @@ namespace IBL.BO
 {
     public static class DeepCopy
     {
-      
+
         public static void CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
@@ -22,18 +22,19 @@ namespace IBL.BO
                 {
                     propTo.SetValue(to, value);
                 }
-             }
-
-       
-        public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)
-            where T : new()
-        {
-            foreach (S s in from)
-            {
-                T t = new T();
-                s.CopyPropertiesTo(t);
-                to.Add(t);
             }
+
+
+            //public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)
+            //    where T : new()
+            //{
+            //    foreach (S s in from)
+            //    {
+            //        T t = new T();
+            //        s.CopyPropertiesTo(t);
+            //        to.Add(t);
+            //    }
+            //}
         }
     }
 }
