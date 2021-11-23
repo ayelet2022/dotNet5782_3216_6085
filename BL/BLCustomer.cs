@@ -11,7 +11,7 @@ namespace BL
         /// <summary>
         /// adds a new customer to the list of customers
         /// </summary>
-        /// <param name="customer"></param>
+        /// <param name="customer">the new customer we want to add</param>
         public void AddCustomer(Customer customer)
         {
             try
@@ -22,9 +22,9 @@ namespace BL
                     throw new InvalidInputException("The customer name is incorrect");
                 if (customer.Phone.Length != 10)
                     throw new InvalidInputException("The customer phone is incorrect");
-                if (customer.CustomerLocation.Longitude < -180 || customer.CustomerLocation.Longitude > 180)
+                if (customer.CustomerLocation.Longitude < 34 || customer.CustomerLocation.Longitude > 37)
                     throw new InvalidInputException("The customer Longitude is incorrect");
-                if (customer.CustomerLocation.Latitude < -90 || customer.CustomerLocation.Latitude > 90)
+                if (customer.CustomerLocation.Latitude < 30 || customer.CustomerLocation.Latitude > 33)
                     throw new InvalidInputException("The customer Latitude is incorrect");
                 IDAL.DO.Customer newCustomer = new();
                 object obj = newCustomer;
@@ -149,18 +149,34 @@ namespace BL
                 throw new FailToUpdateException(ex.ToString(), ex);
             }
         }
+        /// <summary>
+        /// returne the distance between the sender of the parcel to the resever of the parcel
+        /// </summary>
+        /// <param name="sender">the customer that send the parcel</param>
+        /// <param name="resever">the customer that suppsed to resev the parcel</param>
+        /// <returns></returns>
         public double DisSenderToResever(Customer sender, Customer resever)
         {
-            return Distance.Haversine(sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
+            return Distance.Haversine
+                (sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
         }
+        /// <summary>
+        /// fineds the closest base station to the customer
+        /// </summary>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns>the closest base station</returns>
         public IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude)
         {
             IDAL.DO.BaseStation baseStation = new();
             double minDistance = 0;
             double distance = 0;
+            //to go over all the station and check wich one is the closest
             foreach (var item in dal.GetBaseStations())
             {
+                //the distatce between the customer to the base station
                 distance = Distance.Haversine(item.Latitude, item.Longitude,latitude,longitude);
+                //if the distance of this station in smaller then the one before
                 if (minDistance == 0 || minDistance > distance)
                 {
                     minDistance = distance;
