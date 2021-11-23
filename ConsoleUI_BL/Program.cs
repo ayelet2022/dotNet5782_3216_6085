@@ -33,10 +33,10 @@ namespace ConsoleUI_BL
                 double inputDouble = 0;
                 Location location = new();
                 MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
-                if ((int)choice < 1 || (int)choice > 5)
-                    throw new InvalidInputException("The input is incurrect");
                 try
                 {
+                    if ((int)choice < 1 || (int)choice > 5)
+                        throw new InvalidInputException("The input is incurrect");
                     switch (choice)
                     {
                         case MainQuastions.AddAnObject:

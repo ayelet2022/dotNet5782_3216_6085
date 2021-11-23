@@ -86,15 +86,16 @@ namespace BL
                     blParcel.CopyPropertiesTo(parcelInT);
                     Customer blSenderCustomer = GetCustomer(blParcel.Sender.Id);
                     Customer blRecepterCustomer = GetCustomer(blParcel.Recepter.Id);
-                    returningDrone.ParcelInTransfer.PickUpLocation = blSenderCustomer.CustomerLocation;
-                    returningDrone.ParcelInTransfer.DelieveredLocation = blRecepterCustomer.CustomerLocation;
+                    parcelInT.PickUpLocation = blSenderCustomer.CustomerLocation;
+                    parcelInT.DelieveredLocation = blRecepterCustomer.CustomerLocation;
                     if (blParcel.PickedUp == DateTime.MinValue)
-                        returningDrone.ParcelInTransfer.StatusParcel = false;
+                        parcelInT.StatusParcel = false;
                     else
-                        returningDrone.ParcelInTransfer.StatusParcel = true;
+                        parcelInT.StatusParcel = true;
                     //the distatnce between the sender of the parcel to the resever
-                    returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine
+                    parcelInT.TransportDistance = Distance.Haversine
                         (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
+                    returningDrone.ParcelInTransfer = parcelInT;
                 }
                 return returningDrone;
             }

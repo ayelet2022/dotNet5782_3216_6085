@@ -56,9 +56,10 @@ namespace BL
                     parcel.ParecelDrone = default;
                 else//ther is a drone
                 {
-                    Drone droneInParcel = GetDrone(dalParcel.DroneId);
+                    DroneList droneInParcel = Drones.First(item => item.Id == dalParcel.DroneId);
                     parcel.ParecelDrone = new();
                     droneInParcel.CopyPropertiesTo(parcel.ParecelDrone);
+                    parcel.ParecelDrone.DroneLocation = droneInParcel.DroneLocation;
                 }
                 return parcel;
             }
