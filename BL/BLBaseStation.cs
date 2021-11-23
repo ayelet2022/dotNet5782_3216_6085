@@ -21,9 +21,9 @@ namespace BL
                     throw new InvalidInputException($"The baseStations id:{baseStation.Id} is incorrect.\n");
                 if(baseStation.Name == "\n")
                     throw new InvalidInputException($"The baseStations name:{baseStation.Name} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Latitude < 31.7082 || baseStation.BaseStationLocation.Latitude > 32.1027879)
+                if (baseStation.BaseStationLocation.Latitude < 30 || baseStation.BaseStationLocation.Latitude > 33)
                     throw new InvalidInputException($"The baseStations Latitude:{baseStation.BaseStationLocation.Latitude} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Longitude < 34.75948 || baseStation.BaseStationLocation.Longitude > 35.2642)
+                if (baseStation.BaseStationLocation.Longitude < 33 || baseStation.BaseStationLocation.Longitude > 37)
                     throw new InvalidInputException($"The baseStations Longitude:{baseStation.BaseStationLocation.Longitude} is incorrect.\n");
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
