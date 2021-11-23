@@ -144,7 +144,7 @@ namespace BL
                 dal.GetCustomer(id);//fineds the customer with the id
                 dal.UpdateCustomer(id, name, phone);//to update the customr
             }
-            catch (IDAL.DO.ExistsException ex)//meens ther is no customer with the id that was enterd
+            catch (IDAL.DO.DoesNotExistException ex)//meens ther is no customer with the id that was enterd
             {
                 throw new FailToUpdateException(ex.ToString(), ex);
             }
