@@ -21,10 +21,10 @@ namespace BL
                 if (customer.Name == "\n")
                     throw new InvalidInputException("The customer name is incorrect");
                 if (customer.Phone.Length != 10)
-                    throw new InvalidInputException("The customer phone is incorrect");
-                if (customer.CustomerLocation.Longitude < 34 || customer.CustomerLocation.Longitude > 37)
+                    throw new InvalidInputException("The customer phone is incorrect");              
+                if (customer.CustomerLocation.Longitude < 31.7082 || customer.CustomerLocation.Longitude > 32.1027879)
                     throw new InvalidInputException("The customer Longitude is incorrect");
-                if (customer.CustomerLocation.Latitude < 30 || customer.CustomerLocation.Latitude > 33)
+                if (customer.CustomerLocation.Latitude < 34.75948 || customer.CustomerLocation.Latitude > 35.2642)
                     throw new InvalidInputException("The customer Latitude is incorrect");
                 IDAL.DO.Customer newCustomer = new();
                 object obj = newCustomer;
