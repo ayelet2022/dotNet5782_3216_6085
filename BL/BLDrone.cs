@@ -141,21 +141,22 @@ namespace BL
         {
             try
             {
-                Drone blDrone;
+                DroneList droneList = Drones.First(item => item.Id == id);
+                IDAL.DO.Drone dalDrone = dal.GetDrones().First(item => item.Id == id);
                 IDAL.DO.BaseStation baseStation = new();
-                blDrone = GetDrone(id);
-                baseStation = FindMinDistanceOfDToBSWithEempChar(blDrone);
+                //blDrone = GetDrone(id);
+                baseStation = FindMinDistanceOfDToBSWithEempChar(droneList);
                 //fined the distance frome a drone to a base station
-                double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, blDrone.DroneLocation.Latitude, blDrone.DroneLocation.Longitude);
+                double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, droneList.DroneLocation.Latitude, droneList.DroneLocation.Longitude);
                 //if the status is avilable or if the battery of the drone will last for him to get to the station in order to charge
-                if (blDrone.Status == (DroneStatus)0 && blDrone.Battery > distance * dal.AskForBattery()[0])
+                if (droneList.Status == (DroneStatus)0 && droneList.Battery > distance * dal.AskForBattery()[0])
                 {
                     //to reduse from the battery the battery that he lost on the way to the station
-                    blDrone.Battery -= (int)(distance * dal.AskForBattery()[0]);
-                    blDrone.DroneLocation.Longitude = baseStation.Longitude;
-                    blDrone.DroneLocation.Latitude = baseStation.Latitude;
-                    blDrone.Status = (DroneStatus)1;//in fix
-                    dal.DronToCharger(blDrone.Id, baseStation.Id);//to add to the list of the drones that are charging
+                    droneList.Battery -= (int)(distance * dal.AskForBattery()[0]);
+                    droneList.DroneLocation.Longitude = baseStation.Longitude;
+                    droneList.DroneLocation.Latitude = baseStation.Latitude;
+                    droneList.Status = (DroneStatus)1;//in fix
+                    dal.DronToCharger(droneList.Id, baseStation.Id);//to add to the list of the drones that are charging
                 }
                 else
                     throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.");
@@ -179,7 +180,7 @@ namespace BL
         /// </summary>
         /// <param name="drone">the drone that we want to find the station for</param>
         /// <returns>the closest base station to drone that has an empty charger</returns>
-        public IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(Drone drone)
+        public IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
         {
             IDAL.DO.BaseStation baseStation = new();
             bool flag = false;
