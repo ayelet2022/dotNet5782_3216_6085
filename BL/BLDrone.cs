@@ -89,9 +89,9 @@ namespace BL
                     returningDrone.ParcelInTransfer.PickUpLocation = blSenderCustomer.CustomerLocation;
                     returningDrone.ParcelInTransfer.DelieveredLocation = blRecepterCustomer.CustomerLocation;
                     if (blParcel.PickedUp == DateTime.MinValue)
-                        parcelInT.StatusParcel = false;
+                        returningDrone.ParcelInTransfer.StatusParcel = false;
                     else
-                        parcelInT.StatusParcel = true;
+                        returningDrone.ParcelInTransfer.StatusParcel = true;
                     //the distatnce between the sender of the parcel to the resever
                     returningDrone.ParcelInTransfer.TransportDistance = Distance.Haversine
                         (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
