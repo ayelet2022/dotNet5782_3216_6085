@@ -281,9 +281,9 @@ namespace BL
                             break;
                         }
                     }
-                    GetBaseStation(stationId).EmptyCharges++;
                     //to delet the drone from the list of the drones that are charging
-                    dal.DeleteDroneFromeCharger(stationId);
+                    dal.FreeDroneFromBaseStation(drone.Id);
+                   
                 }
                 else
                     throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");

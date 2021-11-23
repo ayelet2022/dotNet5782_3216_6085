@@ -70,8 +70,6 @@ namespace DalObject
             int droneLocation = 0;
             while (DataSource.Drones[droneLocation].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
                 droneLocation++;
-            //DataSource.Drones[droneLocation].Battery = 100;
-            //DataSource.Drones[droneLocation].Status = (DroneStatuses)0;//availabel
             int droneChargesIndex = 0;
             while (DataSource.DroneCharges[droneChargesIndex].DroneId != dronesId)//search for the drone charge that is chargine the drone that has the same id as the user enterd
                 droneChargesIndex++;
@@ -80,7 +78,7 @@ namespace DalObject
             while (DataSource.Stations[stationLocation].Id != DataSource.DroneCharges[droneChargesIndex].StationId)//search for the base station that has the same id as the one in the chrger
                 stationLocation++;
             BaseStation updateAStation = DataSource.Stations[stationLocation];
-            updateAStation.EmptyCharges--;
+            updateAStation.EmptyCharges++;
             DataSource.Stations[stationLocation] = updateAStation;
         }
 
