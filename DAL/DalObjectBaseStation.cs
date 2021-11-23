@@ -25,7 +25,7 @@ namespace DalObject
         /// <returns>resturn the base station that needs to be printed</returns>
         public BaseStation GetBaseStation(int idBaseStation)
         {
-            if (DataSource.Stations.Exists(item => item.Id != idBaseStation))
+            if (!DataSource.Stations.Exists(item => item.Id == idBaseStation))
                 throw new DoesNotExistException("Base station does not exists.");
             int baseStationIndex = 0;
             while (DataSource.Stations[baseStationIndex].Id != idBaseStation)//search for the base station that has the same id has the id that the user enterd

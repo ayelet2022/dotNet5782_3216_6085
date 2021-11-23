@@ -23,14 +23,12 @@ namespace BL
                 if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
                     throw new InvalidInputException("The drones weight is incorrect");
                 if (drone.Model.Length != 6)
-                    throw new InvalidInputException("The drones model is incorrect");
+                    throw new InvalidInputException("The drones model is incorrect.\n");
                 if (idFirstStation < 1000 || idFirstStation > 9999)
-                    throw new InvalidInputException("The id of the baseStation incorrect");
+                    throw new InvalidInputException("The id of the baseStation incorrect.\n");
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
-                drone.DroneLocation.Latitude = baseStation.Latitude;
-                drone.DroneLocation.Longitude = baseStation.Longitude;
                 drone.ParcelInTransfer = default;
                 IDAL.DO.DroneCharge droneCharge = new();
                 droneCharge.DroneId = drone.Id;
@@ -44,6 +42,9 @@ namespace BL
                 DroneList droneList = new();
                 drone.CopyPropertiesTo(droneList);
                 droneList.NumOfParcelOnTheWay = 0;
+                droneList.DroneLocation = new();
+                droneList.DroneLocation.Latitude = baseStation.Latitude;
+                droneList.DroneLocation.Longitude = baseStation.Longitude;
                 Drones.Add(droneList);
             }
             catch(InvalidInputException ex)
@@ -66,6 +67,8 @@ namespace BL
                     throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
                 Drone returningDrone = new();
                 droneList.CopyPropertiesTo(returningDrone);
+                returningDrone.DroneLocation = new();
+                returningDrone.DroneLocation = droneList.DroneLocation;
                 if (droneList.NumOfParcelOnTheWay == 0)
                     returningDrone.ParcelInTransfer = default;
                 else

@@ -17,11 +17,10 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is {Id}, \n";
-            result += $"Name is {Name}, \n";
-            result += $"Phone is {Phone}, \n";
-            result += $"Customer Location is {CustomerLocation}, \n";
-            //result += $"longitude is {CustomerLocation.Longitude}, \n";
+            result += $"ID:{Id}.\n";
+            result += $"Name:{Name}.\n";
+            result += $"Phone:{Phone}.\n";
+            result += $"Location:\n{CustomerLocation}.\n";
             return result;
         }
     }
