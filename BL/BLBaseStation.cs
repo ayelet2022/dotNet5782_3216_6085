@@ -15,16 +15,15 @@ namespace BL
         /// <param name="baseStation">the new base station that we want to add</param>
         public void AddBaseStation(BaseStation baseStation)
         {
-            
             try
             {
                 if (baseStation.Id > 9999 || baseStation.Id < 1000)
                     throw new InvalidInputException($"The baseStations id:{baseStation.Id} is incorrect.\n");
                 if(baseStation.Name == "\n")
                     throw new InvalidInputException($"The baseStations name:{baseStation.Name} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Latitude < 30 || baseStation.BaseStationLocation.Latitude > 33)
+                if (baseStation.BaseStationLocation.Latitude < 31.7082 || baseStation.BaseStationLocation.Latitude > 32.1027879)
                     throw new InvalidInputException($"The baseStations Latitude:{baseStation.BaseStationLocation.Latitude} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Longitude < 34 || baseStation.BaseStationLocation.Longitude > 37)
+                if (baseStation.BaseStationLocation.Longitude < 34.75948 || baseStation.BaseStationLocation.Longitude > 35.2642)
                     throw new InvalidInputException($"The baseStations Longitude:{baseStation.BaseStationLocation.Longitude} is incorrect.\n");
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
