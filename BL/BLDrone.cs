@@ -262,7 +262,8 @@ namespace BL
         {
             try
             {
-                Drone drone = GetDrone(id);
+                DroneList drone = Drones.First(item=>item.Id==id);
+                Drones.Remove(drone);
                 int stationId = 0;
                 if (drone.Status == (DroneStatus)1)
                 {
@@ -282,7 +283,7 @@ namespace BL
                     }
                     //to delet the drone from the list of the drones that are charging
                     dal.FreeDroneFromBaseStation(drone.Id);
-                   
+                    Drones.Add(drone);
                 }
                 else
                     throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
