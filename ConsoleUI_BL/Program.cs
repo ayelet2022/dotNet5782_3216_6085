@@ -34,7 +34,7 @@ namespace ConsoleUI_BL
                 Location location = new();
                 MainQuastions.TryParse(Console.ReadLine(), out choice);//cin the useres choice
                 if ((int)choice < 1 || (int)choice > 5)
-                    throw new InvalidInputException("The input is incurrect");
+                    throw new InvalidInputException("The input is incurrect.\n");
                 try
                 {
                     switch (choice)
@@ -67,7 +67,7 @@ namespace ConsoleUI_BL
                                     Console.Write("Enter Latitude: ");
                                     double.TryParse(Console.ReadLine(), out inputDouble);
                                     newStation.BaseStationLocation.Latitude = inputDouble;
-                                    Console.Write("Enter amount of charge slots in new station : ");
+                                    Console.Write("Enter amount of charge slots in new station: ");
                                     int.TryParse(Console.ReadLine(), out input);
                                     newStation.EmptyCharges = input;
                                     obj.AddBaseStation(newStation);
@@ -198,12 +198,12 @@ namespace ConsoleUI_BL
                                     obj.FreeDroneFromeCharger(droneId, timeOfCharging);
                                     break;
                                 case UpdateAnObject.ScheduledAParcelToADrone:
-                                    Console.WriteLine("Enter drones id (4 digits):\n");
+                                    Console.WriteLine("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.ScheduledAParcelToADrone(droneId);
                                     break;
                                 case UpdateAnObject.PickupAParcelByADrone:
-                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    Console.WriteLine("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.PickUpParcel(droneId);
                                     break;
@@ -234,7 +234,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a drone
                                 case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
-                                    Console.WriteLine("Enter the drone id (6 digits)\n");
+                                    Console.WriteLine("Enter the drone id (6 digits): ");
                                     int idDrone;
                                     int.TryParse(Console.ReadLine(), out idDrone);//cin the drones id from the user
                                     //sends to a function that finds the drone and prints the info
@@ -242,7 +242,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a customer
                                 case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
-                                    Console.WriteLine("Enter the customer id (9 digits)\n");
+                                    Console.WriteLine("Enter the customer id (9 digits): ");
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the customers id from the user
                                     //sends to a function that finds the customer and prints the info
@@ -250,7 +250,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a parcel
                                 case PrintAnObjectAccordingToTheId.PresentAParcelAccordingToHisId:
-                                    Console.WriteLine("Enter the parcel id (4 digits)\n");
+                                    Console.WriteLine("Enter the parcel id (4 digits): ");
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
                                     //sends to a function that finds the parcel and prints the info
