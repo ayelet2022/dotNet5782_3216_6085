@@ -8,9 +8,14 @@ namespace BL
 {
     public partial class BL
     {
+        /// <summary>
+        /// adds a new drone to the list
+        /// </summary>
+        /// <param name="drone">the drone to add</param>
+        /// <param name="idFirstStation">the id of the first station that the drone is in</param>
         public void AddDrone(Drone drone,int idFirstStation)
         {
-            Random Rand = new Random(DateTime.Now.Millisecond);
+            Random Rand = new Random();
             try
             {
                 if (drone.Id < 100000 || drone.Id > 999999)
@@ -31,7 +36,9 @@ namespace BL
                 droneCharge.DroneId = drone.Id;
                 droneCharge.StationId = baseStation.Id;
                 IDAL.DO.Drone drone1 = new();
-                drone.CopyPropertiesTo(drone1);
+                object obj = drone1;
+                drone.CopyPropertiesTo(obj);
+                drone1 = (IDAL.DO.Drone)obj;
                 dal.AddDrone(drone1);
                 dal.AddDroneCharge(droneCharge);
                 DroneList droneList = new();

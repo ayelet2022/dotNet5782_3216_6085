@@ -22,23 +22,19 @@ namespace BL
                     throw new InvalidInputException($"The baseStations id:{baseStation.Id} is incorrect.\n");
                 if(baseStation.Name == "\n")
                     throw new InvalidInputException($"The baseStations name:{baseStation.Name} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Latitude < -90 || baseStation.BaseStationLocation.Latitude > 90)
+                if (baseStation.BaseStationLocation.Latitude < 30 || baseStation.BaseStationLocation.Latitude > 33)
                     throw new InvalidInputException($"The baseStations Latitude:{baseStation.BaseStationLocation.Latitude} is incorrect.\n");
-                if (baseStation.BaseStationLocation.Longitude < -180 || baseStation.BaseStationLocation.Longitude > 180)
+                if (baseStation.BaseStationLocation.Longitude < 34 || baseStation.BaseStationLocation.Longitude > 37)
                     throw new InvalidInputException($"The baseStations Longitude:{baseStation.BaseStationLocation.Longitude} is incorrect.\n");
                 if (baseStation.EmptyCharges < 0)
                     throw new InvalidInputException($"The number of empty charges is incorrect.\n");
                 baseStation.DronesInCharge = null;
-                //station.Id = baseStation.Id;
-                //station.EmptyCharges = baseStation.EmptyCharges;
-                //station.Latitude = baseStation.BaseStationLocation.Latitude;
-                //station.Longitude = baseStation.BaseStationLocation.Longitude;
-                //station.Name = baseStation.Name;
                 IDAL.DO.BaseStation station = new();
                 object obj = station;
                 baseStation.CopyPropertiesTo(obj);
                 station = (IDAL.DO.BaseStation)obj;
-
+                station.Latitude = baseStation.BaseStationLocation.Latitude;
+                station.Longitude = baseStation.BaseStationLocation.Longitude;
                 dal.AddBaseStation(station);
             }
             catch (IDAL.DO.ExistsException ex)
@@ -56,12 +52,14 @@ namespace BL
         {
             try
             {
+                //search for the first base station in the list that has the same id
                 IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
                 BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
-                //station.BaseStationLocation.Latitude = dalStation.Latitude;
-                //station.BaseStationLocation.Longitude = dalStation.Longitude;
+                station.BaseStationLocation.Latitude = dalStation.Latitude;
+                station.BaseStationLocation.Longitude = dalStation.Longitude;
                 int i = 0;
+                //to go over all the drones that are in charger
                 foreach (var item in dal.GetDroneCharge())
                 {
                     station.DronesInCharge[i].Id = item.DroneId;
@@ -95,13 +93,15 @@ namespace BL
                 List<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
                 BaseStation blStations = new();
+                //to copy all the station from the station list
                 foreach (var item in dal.GetBaseStations())
                 {
                     blStations = GetBaseStation(item.Id);
                     blStations.CopyPropertiesTo(baseStationList);
+                    //meens ther are no drones that are charging in the base station
                     if (blStations.DronesInCharge == null)
                         baseStationList.FullChargingPositions = 0;
-                    else
+                    else//meens thar are drones that are charging in the base station
                         baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
                     listStations.Add(baseStationList);
                     baseStationList = new();
@@ -125,15 +125,18 @@ namespace BL
                 List<BaseStationList> listStations = new();
                 BaseStationList baseStationList = new();
                 BaseStation blStations = new();
+                //to go over all of the base station list and copy only the onece that have avilable chargers
                 foreach (var item in dal.GetBaseStations())
                 {
+                    //meens there are empty chargers
                     if (item.EmptyCharges != 0)
                     {
                         blStations = GetBaseStation(item.Id);
                         blStations.CopyPropertiesTo(baseStationList);
+                        //meens there are no drones charging in the station
                         if (blStations.DronesInCharge == null)
                             baseStationList.FullChargingPositions = 0;
-                        else
+                        else//meens thare are drones that charging
                             baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
                         listStations.Add(baseStationList);
                         baseStationList = new();
@@ -157,23 +160,18 @@ namespace BL
         {
             try
             {
+                //checks if the input of chargers in in the limit
                 if (charges < 0)
                     throw new InvalidInputException("The number of empty charges is incorrect.\n");
+                //checks if ther is such a station
                 dal.GetBaseStations().First(item => item.Id == id);
                 dal.UpdateStation(id, newName, charges);
             }
+            //meens there is no station with such an id
             catch (InvalidOperationException ex)
             {
                 throw new InvalidInputException("The input does not exist.\n", ex);
             }
-        }
-        public void copyB(BaseStation station,IDAL.DO.BaseStation Stationnew)
-        {
-            Stationnew.Id = station.Id;
-            Stationnew.EmptyCharges = station.EmptyCharges;
-            Stationnew.Latitude = station.BaseStationLocation.Latitude;
-            Stationnew.Longitude = station.BaseStationLocation.Longitude;
-            Stationnew.Name = station.Name;
         }
     }
 }

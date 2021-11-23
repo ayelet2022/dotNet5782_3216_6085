@@ -33,6 +33,5 @@ namespace IBL
         void UpdateCustomer(int id, string name, string phone);
         void UpdateDrone(int id, string newModel);
         void UpdateStation(int id, string newName, int emptyCharges);
-        public void copyB(BaseStation station, IDAL.DO.BaseStation Stationnew);
     }
 }
