@@ -113,13 +113,15 @@ namespace ConsoleUI_BL
                                 case AddAnObject.AddAParcel:
                                     Parcel newParcel = new Parcel();
                                     newParcel.Id = 0;//updates the new parcels id(it will change in the function)
-                                    Console.WriteLine("Enter Sender id (4 digits): ");
+                                    Console.WriteLine("Enter Sender id (9 digits): ");
                                     int senderId;
                                     int.TryParse(Console.ReadLine(), out senderId);//cin the sender id of the new parcel
+                                    newParcel.Sender = new();
                                     newParcel.Sender.Id = senderId;//updates the new parcels sender id
-                                    Console.WriteLine("Enter Target id (4 digits): ");
+                                    Console.WriteLine("Enter Target id (9 digits): ");
                                     int targetId;
                                     int.TryParse(Console.ReadLine(), out targetId);//cin the target id of the new parcel
+                                    newParcel.Recepter = new();
                                     newParcel.Recepter.Id = targetId;//updates the new parcels target id
                                     Console.WriteLine("Enter Weight (light=0/inbetween=1/heavy=2): ");
                                     int weight;
