@@ -56,16 +56,19 @@ namespace BL
                 IDAL.DO.BaseStation dalStation = dal.GetBaseStations().First(item => item.Id == idBaseStation);
                 BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
+                station.DronesInCharge = new();
+                DroneInCharge droneInCharge = new();
                 station.BaseStationLocation = new();
                 station.BaseStationLocation.Latitude = dalStation.Latitude;
                 station.BaseStationLocation.Longitude = dalStation.Longitude;
-                int i = 0;
                 //to go over all the drones that are in charger
                 foreach (var item in dal.GetDroneCharge())
                 {
-                    station.DronesInCharge[i].Id = item.DroneId;
                     Drone drone = GetDrone(item.DroneId);
-                    station.DronesInCharge[i++].Battery = drone.Battery;
+                    droneInCharge.Id = item.DroneId;
+                    droneInCharge.Battery = drone.Battery;
+                    station.DronesInCharge.Add(droneInCharge);
+                    droneInCharge = new();
                 }
                 return station;
             }

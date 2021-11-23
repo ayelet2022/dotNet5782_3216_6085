@@ -16,7 +16,7 @@ namespace IBL
         double DisSenderToResever(Customer sender, Customer resever);
         IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude);
         IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone);
-        void FreeDroneFromeCharger(int id, DateTime timeInCharger);
+        void FreeDroneFromeCharger(int id, double timeInCharger);
         BaseStation GetBaseStation(int idBaseStation);
         IEnumerable<BaseStationList> GetBaseStations();
         IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges();

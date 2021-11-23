@@ -20,12 +20,12 @@ namespace DalObject
         /// </summary>
         internal class Config
         {
-            internal static double Available = 0.001;
-            internal static double Light = 0.01;
-            internal static double MediumWeight = 0.02;
-            internal static double Heavy = 0.04;
+            internal static double Available = 0.1;
+            internal static double Light = 1;
+            internal static double MediumWeight = 2;
+            internal static double Heavy = 4;
             internal static int RunningParcelId = 1000;
-            internal static double ChargingRate = 0.5;
+            internal static double ChargingRate =50;
         }
         static void InitializeBaseStation(string name)
         {

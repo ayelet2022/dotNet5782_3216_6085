@@ -8,12 +8,16 @@ namespace BL
 {
     public partial class BL
     {
+        /// <summary>
+        /// adds a new parcel to the list of parcels
+        /// </summary>
+        /// <param name="parcel">the new parcel we want to add</param>
         public void AddParcel(Parcel parcel)
         {
             if (parcel.Recepter.Id < 100000000 || parcel.Recepter.Id > 999999999)
-                throw new InvalidInputException($"The parcel recepters id:{parcel.Id} is incorrect");
+                throw new InvalidInputException($"The parcel recepters id:{parcel.Id} is incorrect.\n");
             if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
-                throw new InvalidInputException($"The parcel senders id:{parcel.Id} is incorrect");
+                throw new InvalidInputException($"The parcel senders id:{parcel.Id} is incorrect.\n");
             parcel.CreatParcel = DateTime.Now;
             parcel.Delivered = DateTime.MinValue;
             parcel.PickedUp = DateTime.MinValue;
@@ -28,6 +32,11 @@ namespace BL
             dal.AddParcel(newParcel);
         }
 
+        /// <summary>
+        /// returnes the parcel that has the same id has wat was enterd
+        /// </summary>
+        /// <param name="idParcel">the id of the parcel we want to reurne</param>
+        /// <returns>the parcel that has the same id that enterd</returns>
         public Parcel GetParcel(int idParcel)
         {
             try
@@ -57,7 +66,7 @@ namespace BL
             {
                 throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
             }
-            catch(InvalidInputException ex)
+            catch (InvalidInputException ex)
             {
                 throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
             }
@@ -85,7 +94,7 @@ namespace BL
                 }
                 return Parcels;
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 throw new InvalidInputException("The input does not exist.\n", ex);
             }
@@ -121,64 +130,7 @@ namespace BL
                 throw new InvalidInputException("The SenderName/RecepterName does not exist.\n", ex);
             }
         }
-        public void PickUpParcel(int id)
-        {
-            try
-            {
-                Drone blDrone = GetDrone(id);
-                Customer customerS = GetCustomer(blDrone.ParcelInTransfer.Sender.Id);
-                double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
-                if (blDrone.ParcelInTransfer != default && blDrone.ParcelInTransfer.StatusParcel == false)
-                {
-                    blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
-                    blDrone.DroneLocation = blDrone.ParcelInTransfer.PickUpLocation;
-                    dal.PickUpParcel(blDrone.ParcelInTransfer.Id);
-                }
-                else
-                    throw new FailedToPickUpParcelException("couldn't pick up the parcel");
-            }
-            catch(FailedToPickUpParcelException ex)
-            {
-                throw new FailedToPickUpParcelException(ex.ToString(), ex);
-            }
-            catch(NotFoundInputException ex)
-            {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
-            }
-            catch(IDAL.DO.DoesNotExistException ex)
-            {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel", ex);
-            }
-        }
-        public void DeliverParcel(int id)
-        {
-            try
-            {
-                Drone blDrone = GetDrone(id);
-                Customer customerR = GetCustomer(blDrone.ParcelInTransfer.Recepter.Id);
-                double dis = Distance.Haversine(blDrone.DroneLocation.Longitude, blDrone.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
-                if (blDrone.ParcelInTransfer.StatusParcel == true)
-                {
-                    blDrone.Battery -= (int)(dis * dal.AskForBattery()[(int)(blDrone.ParcelInTransfer.Weight) + 1]);
-                    blDrone.DroneLocation = blDrone.ParcelInTransfer.DelieveredLocation;
-                    blDrone.Status = (DroneStatus)0;
-                    dal.ParcelToCustomer(blDrone.ParcelInTransfer.Id);
-                }
-                else
-                    throw new FailedToDelieverParcelException("couldn't deliever the parcel");
-            }
-            catch (FailedToDelieverParcelException ex)
-            {
-                throw new FailedToDelieverParcelException(ex.ToString(), ex);
-            }
-            catch (NotFoundInputException ex)
-            {
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel", ex);
-            }
-            catch (IDAL.DO.DoesNotExistException ex)
-            {
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel", ex);
-            }
-        }
     }
 }
+        
+        

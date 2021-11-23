@@ -185,20 +185,20 @@ namespace ConsoleUI_BL
                                     obj.UpdateCustomer(customerId, customerName, phone);
                                     break;
                                 case UpdateAnObject.SendADronToACharger:
-                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    Console.WriteLine("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.SendDroneToCharging(droneId);
                                     break;
                                 case UpdateAnObject.FreeADronFromACharger:
-                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    Console.WriteLine("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
-                                    DateTime timeOfCharging;
-                                    Console.WriteLine("Enter how long was the drone charging");
-                                    DateTime.TryParse(Console.ReadLine(), out timeOfCharging);
+                                    double timeOfCharging;
+                                    Console.WriteLine("Enter how long was the drone charging(in minutes): ");
+                                    double.TryParse(Console.ReadLine(), out timeOfCharging);
                                     obj.FreeDroneFromeCharger(droneId, timeOfCharging);
                                     break;
                                 case UpdateAnObject.ScheduledAParcelToADrone:
-                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    Console.WriteLine("Enter drones id (4 digits):\n");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.ScheduledAParcelToADrone(droneId);
                                     break;
