@@ -12,7 +12,7 @@ namespace IBL
         void AddParcel(Parcel parcel);
         void DeliverParcel(int id);
         double DisDronToBS(Customer customer, BaseStation station);
-        double DisDronToCustomer(Drone drone, Customer customer);
+        double DisDronToCustomer(DroneList drone, Customer customer);
         double DisSenderToResever(Customer sender, Customer resever);
         IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude);
         IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone);
@@ -33,5 +33,7 @@ namespace IBL
         void UpdateCustomer(int id, string name, string phone);
         void UpdateDrone(int id, string newModel);
         void UpdateStation(int id, string newName, int emptyCharges);
+        public int UseOfBattery(IDAL.DO.Parcel parcel, DroneList drone);
+
     }
 }

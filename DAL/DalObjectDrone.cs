@@ -65,7 +65,7 @@ namespace DalObject
         /// <param name="dronesId">the drones id that the user enterd</param>
         public void FreeDroneFromBaseStation(int dronesId)
         {
-            if (DataSource.Drones.Exists(item => item.Id != dronesId))
+            if (!DataSource.Drones.Exists(item => item.Id == dronesId))
                 throw new DoesNotExistException("Drone does not exists.");
             int droneLocation = 0;
             while (DataSource.Drones[droneLocation].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
@@ -73,13 +73,13 @@ namespace DalObject
             int droneChargesIndex = 0;
             while (DataSource.DroneCharges[droneChargesIndex].DroneId != dronesId)//search for the drone charge that is chargine the drone that has the same id as the user enterd
                 droneChargesIndex++;
-            DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
             int stationLocation = 0;
             while (DataSource.Stations[stationLocation].Id != DataSource.DroneCharges[droneChargesIndex].StationId)//search for the base station that has the same id as the one in the chrger
                 stationLocation++;
             BaseStation updateAStation = DataSource.Stations[stationLocation];
             updateAStation.EmptyCharges++;
             DataSource.Stations[stationLocation] = updateAStation;
+            DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
         }
 
         /// <summary>

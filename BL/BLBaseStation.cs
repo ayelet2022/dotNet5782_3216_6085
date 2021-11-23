@@ -73,15 +73,11 @@ namespace BL
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel.\n", ex);
-            }
-            catch (IDAL.DO.DoesNotExistException ex)
-            {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel.\n", ex);
+                throw new NotFoundInputException("The input does not exist.\n", ex);
             }
             catch (InvalidOperationException ex)
             {
-                throw new InvalidInputException("The input does not exist.\n", ex);
+                throw new NotFoundInputException("The input does not exist.\n", ex);
             }
         }
 
