@@ -54,7 +54,6 @@ namespace ConsoleUI_BL
                                 AddAnObject.TryParse(Console.ReadLine(), out choiceAdd);//cin the useres choice
                                 if((int)choiceAdd < 1 || (int)choiceAdd > 5)
                                     Console.WriteLine("The input is incurrect.\n");
-                               
                             }
                             while ((int)choiceAdd< 1 || (int)choiceAdd> 5);
                             switch (choiceAdd)
