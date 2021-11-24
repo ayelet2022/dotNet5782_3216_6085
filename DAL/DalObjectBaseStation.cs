@@ -26,7 +26,7 @@ namespace DalObject
         {
             List<BaseStation> Stations = new List<BaseStation>();
             foreach (var itBS in DataSource.Stations)
-                    Stations.Add(itBS);
+                Stations.Add(itBS);
             return Stations;
         }
         public IEnumerable<BaseStation> GetBaseStationWithAvailableCharges()
@@ -47,6 +47,16 @@ namespace DalObject
                 baseStation.Name = newName;
             baseStation.EmptyCharges = emptyCharges;
             DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
+        }
+
+        public void addChargeToBS(BaseStation baseStation)
+        {
+            //search for the base station that has the same id has the id that the user enterd
+            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == baseStation.Id);
+            if (baseStationIndex == -1)
+                throw new DoesNotExistException($"Base station id: {baseStation.Id} does not exists.");
+            baseStation.EmptyCharges--;
+            DataSource.Stations[baseStationIndex] = baseStation;
         }
     }
 }

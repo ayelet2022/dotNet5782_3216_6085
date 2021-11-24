@@ -18,9 +18,12 @@ namespace IBL.BO
             String result = "";
             result += $"ID: {Id}.\n";
             result += $"Name: {Name}.\n";
-            result += $"Location: {BaseStationLocation}\n";
+            result += $"Location:\n{BaseStationLocation}";
             result += $"EmptyCharges: {EmptyCharges}.\n";
-            result += $"Drones in charge: {DronesInCharge}\n";
+            foreach (var item in DronesInCharge)
+            {
+                result += $"Drone in charge:\n{item}";
+            }
             return result;
         }
     }

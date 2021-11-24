@@ -91,7 +91,7 @@ namespace BL
 
         public IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges()
         {
-                List<BaseStationList> listStations = default;
+                List<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
                 BaseStation blStations = new();
                 //to go over all of the base station list and copy only the onece that have avilable chargers
@@ -135,5 +135,7 @@ namespace BL
                 throw new InvalidInputException($"The number of empty charges: {charges} is incorrect, the base station: {id} was not updated.\n", ex);
             }
         }
+
+        
     }
 }

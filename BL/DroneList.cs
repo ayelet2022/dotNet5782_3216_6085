@@ -42,8 +42,8 @@ namespace IBL.BO
             result += $"MaxWeight: {MaxWeight}.\n";
             result += $"Battery: { Battery}.\n";
             result += $"Status: {Status}.\n";
-            result += $"Location: \n{DroneLocation}\n";
-            result += $"Emount of parcel on the way: {NumOfParcelOnTheWay}.\n";
+            result += $"Location: \n{DroneLocation}";
+            result += $"Id of the parcel on the way: {NumOfParcelOnTheWay}.\n";
             return result;
         }
     }

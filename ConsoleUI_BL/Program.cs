@@ -296,10 +296,10 @@ namespace ConsoleUI_BL
                                 print += $"Enter 6 to print all the base station with available charges\n";
                                 Console.WriteLine(print);
                                 PrintTheWholeListOfAnObject.TryParse(Console.ReadLine(), out PrintChoice);//cin the useres choice
-                                if ((int)PrintChoice < 1 || (int)PrintChoice > 4)
+                                if ((int)PrintChoice < 1 || (int)PrintChoice > 6)
                                     Console.WriteLine("The input is incurrect.\n");
                             }
-                            while ((int)PrintChoice < 1 || (int)PrintChoice > 4);
+                            while ((int)PrintChoice < 1 || (int)PrintChoice > 6);
                             switch (PrintChoice)
                             {
                                 //in case you want to print the whole baseStations
@@ -338,6 +338,8 @@ namespace ConsoleUI_BL
                                 case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
                                     IEnumerable<ParcelList> Parcels = obj.GetParcelThatWerenNotPaired();
+                                    if(Parcels==null)
+                                        Console.WriteLine("There are no parcels that were not paired to a drone.\n");
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in Parcels)
                                         Console.WriteLine(itP.ToString());
@@ -346,6 +348,8 @@ namespace ConsoleUI_BL
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                     //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
                                     IEnumerable<BaseStationList> Stations = obj.GetBaseStationWithAvailableCharges();
+                                    if (Stations == null)
+                                        Console.WriteLine("There are base station with available chargers.\n");
                                     //goes through the list and prints the info of each one.
                                     foreach (var itS in Stations)
                                         Console.WriteLine(itS.ToString());

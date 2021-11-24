@@ -22,6 +22,7 @@ namespace BL
             try
             {
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
+                dal.addChargeToBS(baseStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
                 drone.ParcelInTransfer = default;
@@ -45,6 +46,10 @@ namespace BL
             catch(IDAL.DO.ExistsException ex)
             {
                 throw new FailedToAddException($"The drones id: {drone.Id} already exists.\n", ex);
+            }
+            catch(IDAL.DO.DoesNotExistException ex)
+            {
+                throw new FailedToAddException($"Drone id: {drone.Id} does not exist.\n", ex);
             }
         }
 
