@@ -105,7 +105,7 @@ namespace BL
             }
             catch(InvalidOperationException ex)
             {
-                throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
+                throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n", ex);
             }
             catch (IDAL.DO.DoesNotExistException ex)
             {
@@ -211,7 +211,7 @@ namespace BL
             }
             catch(FailedFreeADroneFromeTheChargerException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
+                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n", ex);
             }
             catch (NotFoundInputException ex)
             {
@@ -375,7 +375,7 @@ namespace BL
         /// </summary>
         /// <param name="drone">the drone that we want to find the station for</param>
         /// <returns>the closest base station to drone that has an empty charger</returns>
-        public IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
+        private IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
         {
             IDAL.DO.BaseStation baseStation = new();
             bool foundParcel = false;
@@ -404,7 +404,7 @@ namespace BL
         /// </summary>
         /// <param name="drone">the drone that we are searching for the closest station to him</param>
         /// <returns>the closest base station to the drone</returns>
-        public IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone)
+        private IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone)
         {
             IDAL.DO.BaseStation baseStation = new();
             double minDistance = 0;
@@ -429,7 +429,7 @@ namespace BL
         /// <param name="longitude"></param>
         /// <param name="latitude"></param>
         /// <returns></returns>
-        public IDAL.DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
+        private IDAL.DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
         {
             IDAL.DO.BaseStation baseStation = new();
             double minDistance = 0;
@@ -454,7 +454,7 @@ namespace BL
         /// <param name="drone"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public double DisDronToCustomer(DroneList drone, Customer customer)
+        private double DisDronToCustomer(DroneList drone, Customer customer)
         {
             return Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
         }
@@ -464,11 +464,11 @@ namespace BL
         /// <param name="customer"></param>
         /// <param name="station"></param>
         /// <returns></returns>
-        public double DisDronToBS(Customer customer, BaseStation station)
+        private double DisDronToBS(Customer customer, BaseStation station)
         {
             return Distance.Haversine(customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude, station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
         }
-        public int UseOfBattery(IDAL.DO.Parcel parcel,DroneList drone)
+        private int UseOfBattery(IDAL.DO.Parcel parcel,DroneList drone)
         {
             Customer senderOfParcel = GetCustomer(parcel.SenderId);
             Customer resepterOfParcel = GetCustomer(parcel.TargetId);

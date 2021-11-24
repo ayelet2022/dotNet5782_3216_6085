@@ -18,4 +18,10 @@ namespace IDAL.DO
         public DoesNotExistException(string message) : base(message) { }
         public DoesNotExistException(string message, Exception inner) : base(message, inner) { }
     }
+    public class NotFoundInputException : Exception
+    {
+        public NotFoundInputException() : base() { }
+        public NotFoundInputException(string message) : base(message) { }
+        public NotFoundInputException(string message, Exception inner) : base(message, inner) { }
+    }
 }

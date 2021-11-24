@@ -8,126 +8,70 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        /// <summary>
-        /// adds a new drone to the arrey
-        /// </summary>
         public void AddDrone(Drone addDrone)
         {
             if (DataSource.Drones.Exists(item => item.Id == addDrone.Id))
-                throw new ExistsException("Drone already exists.");
+                throw new ExistsException($"Drone id: {addDrone.Id} already exists.");
             DataSource.Drones.Add(addDrone);
         }
-
-        /// <summary>
-        ///  search for the drone in the arrey thet has the same id as the user enterd and returnes it
-        /// </summary>
-        /// <param name="idDrone">the id(that was enterd by the user in main) of the dron that the user wants to print</param>
-        /// <returns>resturn the drone that needs to be printed</returns>
         public Drone GetDrone(int idDrone)
         {
-            if (DataSource.Drones.Exists(item => item.Id != idDrone))
-                throw new DoesNotExistException("Drone does not exist.");
-            int droneIndex = 0;
-            while (DataSource.Drones[droneIndex].Id != idDrone)//search for the drone that has the same id has the id that the user enterd
-                droneIndex++;
+            //search for the drone that has the same id has the id that the user enterd
+            int droneIndex = DataSource.Drones.FindIndex(item => item.Id == idDrone);
+            if (droneIndex == -1)
+                throw new DoesNotExistException($"Drone id: {idDrone} does not exist.");
             return DataSource.Drones[droneIndex];
         }
-
-        /// <summary>
-        /// update the drone that has the same id as the user enterd to charge in the base station that has the id that the user enterd
-        /// </summary>
-        /// <param name="dronesId">the drones id that the user enterd</param>
-        /// <param name="idOfBaseStation">the base station id that the user enterd</param>
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
-            if (!DataSource.Drones.Exists(item => item.Id == dronesId))
-                throw new DoesNotExistException("Drone does not exists.");
-            if (!DataSource.Stations.Exists(item => item.Id == idOfBaseStation))
-                throw new DoesNotExistException("Base Station does not exists.");
-            int droneIndex = 0;
-            while (DataSource.Drones[droneIndex].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
-                droneIndex++;
-            int stationsIndex = 0;
-            while (DataSource.Stations[stationsIndex].Id != idOfBaseStation)//search for the base station that has the same id has the id that the user enterd
-                stationsIndex++;                
+            //search for the drone that has the same id has the id that the user enterd
+            int droneIndex = DataSource.Drones.FindIndex(item => item.Id == dronesId);
+            if (droneIndex == -1)
+                throw new DoesNotExistException($"Drone id: {dronesId} does not exist.");
+            //search for the base station that has the same id has the id that the user enterd
+            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == idOfBaseStation);
+            if (baseStationIndex == -1)
+                throw new DoesNotExistException($"Base station id: {idOfBaseStation} does not exists.");               
             DroneCharge updateADrone = new();
             updateADrone.DroneId = dronesId;
             updateADrone.StationId = idOfBaseStation;
             DataSource.DroneCharges.Add(updateADrone);
-            BaseStation updateAStation = DataSource.Stations[stationsIndex];
+            BaseStation updateAStation = DataSource.Stations[baseStationIndex];
             updateAStation.EmptyCharges--;
-            DataSource.Stations[stationsIndex] = updateAStation;
+            DataSource.Stations[baseStationIndex] = updateAStation;
         }
-
-        /// <summary>
-        /// free the drone-that has the same id that the user enterd from the charger that he was cherging from in the base station
-        /// </summary>
-        /// <param name="dronesId">the drones id that the user enterd</param>
         public void FreeDroneFromBaseStation(int dronesId)
         {
-            if (!DataSource.Drones.Exists(item => item.Id == dronesId))
-                throw new DoesNotExistException("Drone does not exists.");
-            int droneLocation = 0;
-            while (DataSource.Drones[droneLocation].Id != dronesId)//search for the drone that has the same id has the id that the user enterd
-                droneLocation++;
-            int droneChargesIndex = 0;
-            while (DataSource.DroneCharges[droneChargesIndex].DroneId != dronesId)//search for the drone charge that is chargine the drone that has the same id as the user enterd
-                droneChargesIndex++;
-            int stationLocation = 0;
-            while (DataSource.Stations[stationLocation].Id != DataSource.DroneCharges[droneChargesIndex].StationId)//search for the base station that has the same id as the one in the chrger
-                stationLocation++;
-            BaseStation updateAStation = DataSource.Stations[stationLocation];
+            //search for the drone that has the same id has the id that the user enterd
+            int droneIndex = DataSource.Drones.FindIndex(item => item.Id == dronesId);
+            if (droneIndex == -1)
+                throw new DoesNotExistException($"Drone id: {dronesId} does not exist.");
+            int droneChargesIndex = DataSource.DroneCharges.FindIndex(item => item.DroneId == dronesId);
+            if (droneChargesIndex == -1)
+                throw new NotFoundInputException($"Drone id: {dronesId} isn't charging.");
+            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == DataSource.DroneCharges[droneChargesIndex].StationId);
+            if (baseStationIndex == -1)
+                throw new DoesNotExistException($"Base station id: {baseStationIndex} does not exists.");
+            BaseStation updateAStation = DataSource.Stations[baseStationIndex];
             updateAStation.EmptyCharges++;
-            DataSource.Stations[stationLocation] = updateAStation;
+            DataSource.Stations[baseStationIndex] = updateAStation;
             DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
         }
-
-        /// <summary>
-        /// copyes the values of all the drones in order to print them
-        /// </summary>
-        /// <returns>the new arrey that has the the drones</returns>
         public IEnumerable<Drone> GetDrones()
         {
             List<Drone> Drones = new List<Drone>();
             foreach (var itD in DataSource.Drones)
-            {
                 Drones.Add(itD);
-            }
             return Drones;
         }
-
         public void UpdateDrone(int id, string newModel)
         {   
-            int i = 0;
-            Drone drone = new();
-            foreach (var item in DataSource.Drones)
-            {
-                if (item.Id == id)
-                {
-                    drone = item;
-                    drone.Model = newModel;
-                    break;
-                }
-                i++;
-            }
-            DataSource.Drones[i] = drone;
+            int droneIndex = DataSource.Drones.FindIndex(item => item.Id == id);
+            if (droneIndex == -1)
+                throw new DoesNotExistException($"Drone id: {id} does not exist.");
+            Drone drone = DataSource.Drones[droneIndex];
+            drone.Model = newModel;
+            DataSource.Drones[droneIndex] = drone;
         }
-
-        //public void UpdateDronToInDelevery(int droneId)
-        //{
-        //    int i = 0;
-        //    Drone drone = new();
-        //    foreach (var item in DataSource.Drones)
-        //    {
-        //        if (item.Id == droneId)
-        //        {
-        //            drone = item;
-        //            drone.Model = item.Model;
-        //            break;
-        //        }
-        //        i++;
-        //    }
-        //    DataSource.Drones[i] = drone;
-        //}
     }
 }
