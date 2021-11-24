@@ -21,6 +21,10 @@ namespace IBL.BO
             result += $"Name: {Name}.\n";
             result += $"Phone: {Phone}.\n";
             result += $"Location: \n{CustomerLocation}\n";
+            foreach (var item in ParcelsFromCustomers)
+                result += $"Parcel from customer:\n{item}";
+            foreach (var item in ParcelsToCustomers)
+                result += $"Parcel to customer:\n{item}";
             return result;
         }
     }

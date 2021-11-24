@@ -54,11 +54,14 @@ namespace BL
                 //to go over all the drones that are in charger
                 foreach (var item in dal.GetDroneCharge())
                 {
-                    Drone drone = GetDrone(item.DroneId);
-                    droneInCharge.Id = item.DroneId;
-                    droneInCharge.Battery = drone.Battery;
-                    station.DronesInCharge.Add(droneInCharge);
-                    droneInCharge = new();
+                    if (item.StationId == idBaseStation)
+                    {
+                        Drone drone = GetDrone(item.DroneId);
+                        droneInCharge.Id = item.DroneId;
+                        droneInCharge.Battery = drone.Battery;
+                        station.DronesInCharge.Add(droneInCharge);
+                        droneInCharge = new();
+                    }
                 }
                 return station;
             }
