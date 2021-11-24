@@ -406,11 +406,18 @@ namespace BL
         {
             return Distance.Haversine(customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude, station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
         }
+        /// <summary>
+        /// calculate how much battery did the drone used in the delivery of parcel
+        /// </summary>
+        /// <param name="parcel">the parcel that the drone is delivering</param>
+        /// <param name="drone">the drone that  we are calulating the battery for </param>
+        /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
         private int UseOfBattery(IDAL.DO.Parcel parcel,DroneList drone)
         {
             Customer senderOfParcel = GetCustomer(parcel.SenderId);
             Customer resepterOfParcel = GetCustomer(parcel.TargetId);
             BaseStation baseStationToCharge = new();
+            //the closest base station to the resever of the parcel
             baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfParcel.CustomerLocation.Latitude, resepterOfParcel.CustomerLocation.Longitude).Id);
             double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
             double disReseverToBS = DisDronToBS(resepterOfParcel, baseStationToCharge);
