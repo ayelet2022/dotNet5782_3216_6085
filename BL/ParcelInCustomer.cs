@@ -13,5 +13,18 @@ namespace IBL.BO
         public Priorities Priority { get; set; }
         public ParcelStatus Status { get; set; }
         public CustomerInParcel SenderOrRecepter { get; set; }
+        public override string ToString()
+        {
+            String result = "";
+            result += $"ID: {Id}.\n";
+            result += $"Weight: {Weight}.\n";
+            result += $"Priority: {Priority}.\n";
+            result += $"Status: {Status}.\n";
+            if(Status==ParcelStatus.delivery)
+                result += $"Resepter: \n{SenderOrRecepter}\n";
+            else
+                result += $"Sender: \n{SenderOrRecepter}\n";
+            return result;
+        }
     }
 }

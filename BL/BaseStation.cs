@@ -16,11 +16,11 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}.\n";
-            result += $"Name is: {Name}.\n";
-            result += $"Location is: {BaseStationLocation}\n";
-            result += $"EmptyCharges is: {EmptyCharges}.\n";
-            result += $"Drones in charge are: {DronesInCharge}\n";
+            result += $"ID: {Id}.\n";
+            result += $"Name: {Name}.\n";
+            result += $"Location: {BaseStationLocation}\n";
+            result += $"EmptyCharges: {EmptyCharges}.\n";
+            result += $"Drones in charge: {DronesInCharge}\n";
             return result;
         }
     }

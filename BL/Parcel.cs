@@ -36,15 +36,15 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is: {Id}.\n";
-            result += $"Sender: \n{Sender}.\n";
-            result += $"Recepter: \n{Recepter}.\n";
-            result += $"Weight is: {Weight}.\n";
-            result += $"Priority is: {Priority}.\n";
-            result += $"Requested is: {CreatParcel}.\n";
-            result += $"Scheduled is: {Scheduled}.\n";
-            result += $"PickedUp is: {PickedUp}.\n";
-            result += $"Delivered is: {Delivered}.\n";
+            result += $"ID: {Id}.\n";
+            result += $"Sender: \n{Sender}\n";
+            result += $"Recepter: \n{Recepter}\n";
+            result += $"Weight: {Weight}.\n";
+            result += $"Priority: {Priority}.\n";
+            result += $"Requested: {CreatParcel}.\n";
+            result += $"Scheduled: {Scheduled}.\n";
+            result += $"PickedUp: {PickedUp}.\n";
+            result += $"Delivered: {Delivered}.\n";
             return result;
         }
     }

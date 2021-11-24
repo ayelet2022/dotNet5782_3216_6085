@@ -20,7 +20,7 @@ namespace IBL.BO
             result += $"ID: {Id}.\n";
             result += $"Name: {Name}.\n";
             result += $"Phone: {Phone}.\n";
-            result += $"Location: \n{CustomerLocation}.\n";
+            result += $"Location: \n{CustomerLocation}\n";
             return result;
         }
     }
