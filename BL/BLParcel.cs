@@ -11,9 +11,9 @@ namespace BL
         public void AddParcel(Parcel parcel)
         {
             if (parcel.Recepter.Id < 100000000 || parcel.Recepter.Id > 999999999)
-                throw new InvalidInputException($"The parcel recepters id:{parcel.Id} is incorrect.\n");
+                throw new InvalidInputException($"The parcel recepters id: {parcel.Id} is incorrect.\n");
             if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
-                throw new InvalidInputException($"The parcel senders id:{parcel.Id} is incorrect.\n");
+                throw new InvalidInputException($"The parcel senders id: {parcel.Id} is incorrect.\n");
             parcel.CreatParcel = DateTime.Now;
             parcel.Delivered = DateTime.MinValue;
             parcel.PickedUp = DateTime.MinValue;
@@ -27,6 +27,7 @@ namespace BL
             newParcel.TargetId = parcel.Recepter.Id;
             dal.AddParcel(newParcel);
         }
+
         public Parcel GetParcel(int idParcel)
         {
             try
@@ -55,65 +56,45 @@ namespace BL
             }
             catch (InvalidOperationException ex)
             {
-                throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
-            }
-            catch (NotFoundInputException ex)
-            {
-                throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
+                throw new InvalidInputException($"The parcel id: {idParcel} was not found.\n", ex);
             }
         }
 
-
         public IEnumerable<ParcelList> GetParcels()
         {
-            try
+            ParcelList parcel = new();
+            List<ParcelList> Parcels = new();
+            foreach (var item in dal.GetParcels())
             {
-                ParcelList parcel = new();
-                List<ParcelList> Parcels = new();
-                foreach (var item in dal.GetParcels())
+                item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
+                                              //findes the name of the customer that send the parcel
+                parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
+                //findes the name of the customer that is recepting the parcel
+                parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
+                Parcels.Add(parcel);
+                parcel = new();
+            }
+            return Parcels;
+        }
+
+        public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
+        {
+            ParcelList parcel = new();
+            List<ParcelList> Parcels = new();
+            foreach (var item in dal.GetParcels())
+            {
+                if (item.Scheduled == DateTime.MinValue)
                 {
                     item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
-                                                  //findes the name of the customer that send the parcel
+                    //findes the name of the customer that send the parcel
                     parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
                     //findes the name of the customer that is recepting the parcel
                     parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
                     Parcels.Add(parcel);
                     parcel = new();
                 }
-                return Parcels;
             }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidInputException("The input does not exist.\n", ex);
-            }
-        }
-
-
-        public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
-        {
-            try
-            {
-                ParcelList parcel = new();
-                List<ParcelList> Parcels = new();
-                foreach (var item in dal.GetParcels())
-                {
-                    if (item.Scheduled == DateTime.MinValue)
-                    {
-                        item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
-                        //findes the name of the customer that send the parcel
-                        parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                        //findes the name of the customer that is recepting the parcel
-                        parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
-                        Parcels.Add(parcel);
-                        parcel = new();
-                    }
-                }
-                return Parcels;
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidInputException("The SenderName/RecepterName does not exist.\n", ex);
-            }
+            return Parcels;
         }
     }
 }

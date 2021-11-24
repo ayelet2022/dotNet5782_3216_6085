@@ -36,21 +36,28 @@ namespace ConsoleUI_BL
                 try
                 {
                     if ((int)choice < 1 || (int)choice > 5)
-                        throw new InvalidInputException("The input is incurrect");
+                        throw new InvalidInputException("The input is incurrect.\n");
                     switch (choice)
                     {
                         case MainQuastions.AddAnObject:
                             //It prints the add options to the user.
-                            string print1 = "";
-                            print1 += $"Enter what would you like to add:\n";
-                            print1 += $"Enter 1 to add a base station.\n";
-                            print1 += $"Enter 2 to add a drone.\n";
-                            print1 += $"Enter 3 to add a customer.\n";
-                            print1 += $"Enter 4 to add a parcel.\n";
-                            Console.WriteLine(print1);
-                            AddAnObject ChoiceAdd;
-                            AddAnObject.TryParse(Console.ReadLine(), out ChoiceAdd);//cin the useres choice
-                            switch (ChoiceAdd)
+                            AddAnObject choiceAdd=new();
+                            do
+                            {
+                                print = null;
+                                print += $"Enter what would you like to add:\n";
+                                print += $"Enter 1 to add a base station.\n";
+                                print += $"Enter 2 to add a drone.\n";
+                                print += $"Enter 3 to add a customer.\n";
+                                print += $"Enter 4 to add a parcel.\n";
+                                Console.WriteLine(print);
+                                AddAnObject.TryParse(Console.ReadLine(), out choiceAdd);//cin the useres choice
+                                if((int)choiceAdd < 1 || (int)choiceAdd > 5)
+                                    Console.WriteLine("The input is incurrect.\n");
+                               
+                            }
+                            while ((int)choiceAdd< 1 || (int)choiceAdd> 5);
+                            switch (choiceAdd)
                             {
                                 //a case to add a baseStation
                                 case AddAnObject.AddABaseStation:
@@ -78,7 +85,7 @@ namespace ConsoleUI_BL
                                     Console.Write("Enter Id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out input);
                                     newDrone.Id = input;
-                                    Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2)");
+                                    Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2): ");
                                     int.TryParse(Console.ReadLine(), out input);
                                     newDrone.MaxWeight = (WeightCategories)input;
                                     Console.Write("Enter the drones model: ");
@@ -136,19 +143,25 @@ namespace ConsoleUI_BL
                             }
                             break;
                         case MainQuastions.UpdateAnObject:
-                            print1 = "";
-                            print1 += $"Enter what would you like to update:\n";
-                            print1 += $"Enter 1 to update a drone.\n";
-                            print1 += $"Enter 2 to update a base station .\n";
-                            print1 += $"Enter 3 to update a customer.\n";
-                            print1 += $"Enter 4 to send a drone to a charger.\n";
-                            print1 += $"Enter 5 to release a drone from a charger.\n";
-                            print1 += $"Enter 6 to scheduled a drone to a parcel.\n";
-                            print1 += $"Enter 7 to pickup a parcel by a drone.\n";
-                            print1 += $"Enter 8 to deliver a parcel by a drone.\n";
-                            Console.WriteLine(print1);
                             UpdateAnObject Choiceupdate;
-                            UpdateAnObject.TryParse(Console.ReadLine(), out Choiceupdate);//cin the useres choice
+                            do
+                            {
+                                print = null;
+                                print += $"Enter what would you like to update:\n";
+                                print += $"Enter 1 to update a drone.\n";
+                                print += $"Enter 2 to update a base station .\n";
+                                print += $"Enter 3 to update a customer.\n";
+                                print += $"Enter 4 to send a drone to a charger.\n";
+                                print += $"Enter 5 to release a drone from a charger.\n";
+                                print += $"Enter 6 to scheduled a drone to a parcel.\n";
+                                print += $"Enter 7 to pickup a parcel by a drone.\n";
+                                print += $"Enter 8 to deliver a parcel by a drone.\n";
+                                Console.WriteLine(print);
+                                UpdateAnObject.TryParse(Console.ReadLine(), out Choiceupdate);//cin the useres choice
+                                if ((int)Choiceupdate < 1 || (int)Choiceupdate > 8)
+                                    Console.WriteLine("The input is incurrect.\n");
+                            }
+                            while ((int)Choiceupdate < 1 || (int)Choiceupdate > 8);
                             switch (Choiceupdate)
                             {
                                 case UpdateAnObject.updataADrone:
@@ -218,15 +231,21 @@ namespace ConsoleUI_BL
                             break;
                         case MainQuastions.PrintAnObjectAccordingToTheId:
                             //It prints the prints options to the user.
-                            String print3 = "";
-                            print3 += $"Enter what would you like to print\n";
-                            print3 += $"1 to present a station according to his id.\n";
-                            print3 += $"2 to present a drone according to his id.\n";
-                            print3 += $"3 to present a customer according to his id.\n";
-                            print3 += $"4 to present a parcel according to his id.\n";
-                            Console.WriteLine(print3);
                             PrintAnObjectAccordingToTheId choiceAccorIdPrint;
-                            PrintAnObjectAccordingToTheId.TryParse(Console.ReadLine(), out choiceAccorIdPrint);//cin the useres choice
+                            do
+                            {
+                                print = null;
+                                print += $"Enter what would you like to print\n";
+                                print += $"1 to present a station according to his id.\n";
+                                print += $"2 to present a drone according to his id.\n";
+                                print += $"3 to present a customer according to his id.\n";
+                                print += $"4 to present a parcel according to his id.\n";
+                                Console.WriteLine(print);
+                                PrintAnObjectAccordingToTheId.TryParse(Console.ReadLine(), out choiceAccorIdPrint);//cin the useres choice
+                                if ((int)choiceAccorIdPrint < 1 || (int)choiceAccorIdPrint > 4)
+                                    Console.WriteLine("The input is incurrect.\n");
+                            }
+                            while ((int)choiceAccorIdPrint < 1 || (int)choiceAccorIdPrint > 4);
                             switch (choiceAccorIdPrint)
                             {
                                 //in case you want to print a baseStation
@@ -265,17 +284,23 @@ namespace ConsoleUI_BL
                             break;
                         case MainQuastions.PrintTheWholeListOfAnObject:
                             //It prints the prints options to the user.
-                            string print4 = "";
-                            print4 += $"What list would you like to print ?\n";
-                            print4 += $"Enter 1 to print all the base stations\n";
-                            print4 += $"Enter 2 to print all the drone\n";
-                            print4 += $"Enter 3 to print all the customer\n";
-                            print4 += $"Enter 4 to print all the parcel\n";
-                            print4 += $"Enter 5 to print all the parcels that weren't paired\n";
-                            print4 += $"Enter 6 to print all the base station with available charges\n";
-                            Console.WriteLine(print4);
                             PrintTheWholeListOfAnObject PrintChoice;
-                            PrintTheWholeListOfAnObject.TryParse(Console.ReadLine(), out PrintChoice);//cin the useres choice
+                            do
+                            {
+                                print =null;
+                                print += $"What list would you like to print:\n";
+                                print += $"Enter 1 to print all the base stations\n";
+                                print += $"Enter 2 to print all the drone\n";
+                                print += $"Enter 3 to print all the customer\n";
+                                print += $"Enter 4 to print all the parcel\n";
+                                print += $"Enter 5 to print all the parcels that weren't paired\n";
+                                print += $"Enter 6 to print all the base station with available charges\n";
+                                Console.WriteLine(print);
+                                PrintTheWholeListOfAnObject.TryParse(Console.ReadLine(), out PrintChoice);//cin the useres choice
+                                if ((int)PrintChoice < 1 || (int)PrintChoice > 4)
+                                    Console.WriteLine("The input is incurrect.\n");
+                            }
+                            while ((int)PrintChoice < 1 || (int)PrintChoice > 4);
                             switch (PrintChoice)
                             {
                                 //in case you want to print the whole baseStations

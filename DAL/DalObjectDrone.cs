@@ -60,6 +60,7 @@ namespace DalObject
         public IEnumerable<Drone> GetDrones()
         {
             List<Drone> Drones = new List<Drone>();
+            //to copy all the drones from list
             foreach (var itD in DataSource.Drones)
                 Drones.Add(itD);
             return Drones;
@@ -67,11 +68,12 @@ namespace DalObject
         public void UpdateDrone(int id, string newModel)
         {   
             int droneIndex = DataSource.Drones.FindIndex(item => item.Id == id);
+            //checks if the drone was found
             if (droneIndex == -1)
                 throw new DoesNotExistException($"Drone id: {id} does not exist.");
             Drone drone = DataSource.Drones[droneIndex];
             drone.Model = newModel;
-            DataSource.Drones[droneIndex] = drone;
+            DataSource.Drones[droneIndex] = drone;//to change the drone in the drone list
         }
     }
 }

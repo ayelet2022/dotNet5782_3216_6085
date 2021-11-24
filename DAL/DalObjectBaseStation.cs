@@ -46,7 +46,7 @@ namespace DalObject
             if (newName != "\n")
                 baseStation.Name = newName;
             baseStation.EmptyCharges = emptyCharges;
-            DataSource.Stations[baseStationIndex] = baseStation;
+            DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
         }
     }
 }

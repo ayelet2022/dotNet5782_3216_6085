@@ -35,6 +35,12 @@ namespace IBL
         /// </summary>
         /// <param name="id">the is of the drone that deliverd the parcel</param>
         void DeliverParcel(int id);
+
+        /// <summary>
+        /// to free the drone from the charger
+        /// </summary>
+        /// <param name="id">the drone we want to free from the charger</param>
+        /// <param name="timeInCharger">how long was the drone charging for</param>
         void FreeDroneFromeCharger(int id, double timeInCharger);
 
         /// <summary>

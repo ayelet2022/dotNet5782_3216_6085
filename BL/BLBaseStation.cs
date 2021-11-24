@@ -13,7 +13,7 @@ namespace BL
         {
             if (baseStation.Id > 9999 || baseStation.Id < 1000)
                 throw new InvalidInputException($"The baseStations id: {baseStation.Id} is incorrect, the base station was not added.\n");
-            if(baseStation.Name == "\n")
+            if(baseStation.Name == "")
                 throw new InvalidInputException($"The baseStations name: {baseStation.Name} is incorrect, the base station was not added.\n");
             if (baseStation.BaseStationLocation.Latitude < 30 || baseStation.BaseStationLocation.Latitude > 33)
                 throw new InvalidInputException($"The baseStations Latitude: {baseStation.BaseStationLocation.Latitude} is incorrect, the base station was not added.\n");

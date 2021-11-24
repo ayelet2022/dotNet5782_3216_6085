@@ -33,19 +33,22 @@ namespace DalObject
         {
             int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id);
             Customer customer = DataSource.Customers[customerIndex];
+            //meens we want to update the name 
             if (name != "\n")
                 customer.Name = name;
+            //meens we want to update the phone
             if (phone != "\n")
                 customer.Phone = phone;
-            DataSource.Customers[customerIndex] = customer;
+            DataSource.Customers[customerIndex] = customer;//to change the customer in the list of customers
         }
         public IEnumerable<int> GetCustomersRe()
         {
             List<int> customersList= new List<int>();
+            //to go over all the list of parcels
             foreach (var item in DataSource.Parcels)
             {
-                if (item.Delivered != DateTime.MinValue)
-                    customersList.Add(item.TargetId);
+                if (item.Delivered != DateTime.MinValue)//meens the parcel was deliverd
+                    customersList.Add(item.TargetId);//adds the customer that reseved the parcel
             }
             return customersList;
         }
