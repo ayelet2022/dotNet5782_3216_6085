@@ -14,13 +14,15 @@ namespace BL
         IDal dal = new DalObject.DalObject();
         List<DroneList> Drones = new List<DroneList>();
         static Random Rand = new Random();
+        double chargingRate;
+        double[] power;
         /// <summary>
         /// the contractor of BL
         /// </summary>
         public BL()
         {
-            double[] power = dal.AskForBattery();
-            double chargingRate = power[4];
+            power = dal.AskForBattery();
+            chargingRate = power[4]; 
             InitializeDroneList(Drones);
         }
         /// <summary>
@@ -37,7 +39,7 @@ namespace BL
                 try
                 {
                     IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == DateTime.MinValue); //a parcel was scheduled
-                    drone.Status = (DroneStatus)2;//the drone in deliver
+                    drone.Status = DroneStatus.delivery;//the drone in deliver
                     double customerSLatitude = dal.GetCustomer(parcel.SenderId).Latitude;
                     double customerSLongitude = dal.GetCustomer(parcel.SenderId).Longitude;
                     double customerRLatitude = dal.GetCustomer(parcel.TargetId).Latitude;
@@ -60,7 +62,7 @@ namespace BL
                         //culclate how much battery does the drone needs in order to do the delivery
                         //culcilate the km that the drone does without a parcel*how much battery it takes+
                         //culcilate the km that the drone does with a parcel*how much battery it takes
-                        minBattery = (disDtoS + disRtoBS) * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
+                        minBattery = (disDtoS + disRtoBS) * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)parcel.Weight + 1];
                     }
                     else//meens the parcel was piched up
                     {
@@ -70,7 +72,7 @@ namespace BL
                         //culclate how much battery does the drone needs in order to do the delivery
                         //culcilate the km that the drone does without a parcel*how much battery it takes+
                         //culcilate the km that the drone does with a parcel*how much battery it takes
-                        minBattery = disRtoBS * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)(parcel.Weight) + 1];
+                        minBattery = disRtoBS * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)parcel.Weight + 1];
                     }
                     drone.Battery = Rand.Next((int)minBattery, 101);
                     drones.Add(drone);
@@ -81,7 +83,7 @@ namespace BL
                 catch (InvalidOperationException)
                 {
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
-                    if (drone.Status == (DroneStatus)1)
+                    if (drone.Status == DroneStatus.inFix)
                     {
                         List<IDAL.DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
                         int stationI = Rand.Next(0, baseStationL.Count);
@@ -93,7 +95,7 @@ namespace BL
                     else
                     {
                         List<int> customerId = dal.GetCustomersRe().ToList();
-                        int customerI = Rand.Next(0,customerId.Count);
+                        int customerI = Rand.Next(0, customerId.Count);
                         drone.DroneLocation = new();
                         drone.DroneLocation.Longitude = dal.GetCustomer(customerId[customerI]).Longitude;
                         drone.DroneLocation.Latitude = dal.GetCustomer(customerId[customerI]).Latitude;

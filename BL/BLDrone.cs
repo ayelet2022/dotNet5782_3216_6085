@@ -129,7 +129,7 @@ namespace BL
                 //fined the distance frome a drone to a base station
                 double distance = Distance.Haversine(baseStation.Longitude, baseStation.Latitude, droneList.DroneLocation.Latitude, droneList.DroneLocation.Longitude);
                 //if the status is avilable or if the battery of the drone will last for him to get to the station in order to charge
-                if (droneList.Status == (DroneStatus)0 && droneList.Battery > distance * dal.AskForBattery()[0])
+                if (droneList.Status == DroneStatus.available && droneList.Battery > distance * dal.AskForBattery()[0])
                 {
                     //to reduse from the battery the battery that he lost on the way to the station
                     droneList.Battery -= (int)(distance * dal.AskForBattery()[0]);
@@ -156,13 +156,13 @@ namespace BL
             try
             {
                 DroneList drone = Drones.First(item => item.Id == id);
-                if (drone.Status == (DroneStatus)1)
+                if (drone.Status == DroneStatus.inFix)
                 {
                     //calculate how much battery the drone have now after charging
                     drone.Battery += (int)(dal.AskForBattery()[4] * timeInCharger / 60 + (dal.AskForBattery()[4] / 60) * timeInCharger % 60);
                     if (drone.Battery > 100)
                         drone.Battery = 100;
-                    drone.Status = (DroneStatus)0;//availble
+                    drone.Status = DroneStatus.available;//availble
                     //to delet the drone from the list of the drones that are charging
                     dal.FreeDroneFromBaseStation(drone.Id);
                 }
@@ -184,7 +184,7 @@ namespace BL
             try
             {
                 DroneList drone = Drones.First(item=>item.Id==droneId);
-                if (drone.Status == (DroneStatus)2)//meens the drone is in delivery
+                if (drone.Status == DroneStatus.delivery)//meens the drone is in delivery
                     throw new FailedToScheduledAParcelToADroneException();
                 Parcel parcel = default;
                 bool foundParcel = false;
@@ -224,7 +224,7 @@ namespace BL
                 //meens if found a parcel
                 if (foundParcel == true)
                 {
-                    Drones.Find(item => item.Id == drone.Id).Status = (DroneStatus)2;//update the drone to be in delivery
+                    Drones.Find(item => item.Id == drone.Id).Status = DroneStatus.delivery;//update the drone to be in delivery
                     dal.DronToAParcel(droneId, parcel.Id);
                     drone.NumOfParcelOnTheWay = parcel.Id;
                 }
@@ -257,7 +257,7 @@ namespace BL
                 if (droneList.NumOfParcelOnTheWay!=0 && drone.ParcelInTransfer.StatusParcel == false)
                 {
                     //to reduse frome the battery that the drone lost because of the way
-                    droneList.Battery -= (int)(dis * dal.AskForBattery()[(int)(drone.ParcelInTransfer.Weight) + 1]);
+                    droneList.Battery -= (int)(dis * dal.AskForBattery()[(int)drone.ParcelInTransfer.Weight + 1]);
                     droneList.DroneLocation = drone.ParcelInTransfer.PickUpLocation;
                     dal.PickUpParcel(drone.ParcelInTransfer.Id);
                 }
@@ -291,7 +291,7 @@ namespace BL
                     //reduse the battery that the drone used on the way to deliver the parcel
                     droneList.Battery -= (int)(dis * dal.AskForBattery()[(int)(drone.ParcelInTransfer.Weight) + 1]);
                     droneList.DroneLocation = drone.ParcelInTransfer.DelieveredLocation;
-                    droneList.Status = (DroneStatus)0;//the drone is avilable
+                    droneList.Status = DroneStatus.available;//the drone is avilable
                     dal.ParcelToCustomer(drone.ParcelInTransfer.Id);
                     droneList.NumOfParcelOnTheWay = 0;
                 }
@@ -337,30 +337,7 @@ namespace BL
                 throw new FailedToChargeDroneException();
             return baseStation;
         }
-        /// <summary>
-        /// findes the closest base station to the drone
-        /// </summary>
-        /// <param name="drone">the drone that we are searching for the closest station to him</param>
-        /// <returns>the closest base station to the drone</returns>
-        private IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone)
-        {
-            IDAL.DO.BaseStation baseStation = new();
-            double minDistance = 0;
-            double distance = 0;
-            //to fo over all the station
-            foreach (var item in dal.GetBaseStations())
-            {
-                //the distance between the drone and this station
-                distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
-                //check if the distance of this station is less then the one before
-                if (minDistance == 0 || minDistance > distance)
-                {
-                    minDistance = distance;
-                    baseStation = item;
-                }
-            }
-            return baseStation;
-        }
+
         /// <summary>
         /// fineds the closest base station to drone
         /// </summary>
