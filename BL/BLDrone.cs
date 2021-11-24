@@ -13,14 +13,12 @@ namespace BL
             Random Rand = new Random();
             if (drone.Id < 100000 || drone.Id > 999999)
                 throw new InvalidInputException($"The drones id: {drone.Id} is incorrect, the drone was not added.\n");
-            if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
+            if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 2)
                 throw new InvalidInputException($"The drones weight: {drone.MaxWeight} is incorrect, the drone was not added.\n");
-            if (drone.Model.Length != 6)
+            if (drone.Model == "")
                 throw new InvalidInputException($"The drones model: {drone.Model} is incorrect, the drone was not added.\n");
             if (idFirstStation < 1000 || idFirstStation > 9999)
                 throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
-            try
-            {
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
@@ -41,11 +39,6 @@ namespace BL
                 droneList.DroneLocation.Latitude = baseStation.Latitude;
                 droneList.DroneLocation.Longitude = baseStation.Longitude;
                 Drones.Add(droneList);
-            }
-            catch (FailedToAddException ex)
-            {
-                throw new FailedToAddException($"The dron: {drone.Id} already exist.\n", ex);
-            }
         }
 
         public Drone GetDrone(int idDrone)
@@ -145,10 +138,10 @@ namespace BL
             {
                 throw new FailedToChargeDroneException($"The drone: {id} was not found, the drone is not charging.\n", ex);
             }
-            catch (FailedToChargeDroneException ex)
-            {
-                throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n", ex);
-            }
+            //catch (FailedToChargeDroneException ex)
+            //{
+            //    throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n", ex);
+            //}
         }
 
         public void FreeDroneFromeCharger(int id, double timeInCharger)
@@ -167,16 +160,20 @@ namespace BL
                     dal.FreeDroneFromBaseStation(drone.Id);
                 }
                 else
-                    throw new FailedFreeADroneFromeTheChargerException();
+                    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n");
             }
-            catch(FailedFreeADroneFromeTheChargerException ex)
+            catch(InvalidOperationException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n",ex);
+                throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone: {id} was not freed The Charger.\n", ex);
             }
-            catch (NotFoundInputException ex)
-            {
-                throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone:{id} was not freed The Charger.\n", ex);
-            }
+            //catch(FailedFreeADroneFromeTheChargerException ex)
+            //{
+            //    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n",ex);
+            //}
+            //catch (NotFoundInputException ex)
+            //{
+            //    throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone:{id} was not freed The Charger.\n", ex);
+            //}
         }
 
         public void ScheduledAParcelToADrone(int droneId)
