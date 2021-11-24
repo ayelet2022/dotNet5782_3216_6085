@@ -31,31 +31,6 @@ namespace IBL
         /// </summary>
         /// <param name="id">the is of the drone that deliverd the parcel</param>
         void DeliverParcel(int id);
-        double DisDronToBS(Customer customer, BaseStation station);
-        double DisDronToCustomer(DroneList drone, Customer customer);
-
-        /// <summary>
-        /// returne the distance between the sender of the parcel to the resever of the parcel
-        /// </summary>
-        /// <param name="sender">the customer that send the parcel</param>
-        /// <param name="resever">the customer that suppsed to resev the parcel</param>
-        /// <returns></returns>
-        double DisSenderToResever(Customer sender, Customer resever);
-
-        /// <summary>
-        /// fineds the closest base station to the customer
-        /// </summary>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <returns>the closest base station</returns>
-        IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude);
-        IDAL.DO.BaseStation FindMinDistanceOfDToBS(Drone drone);
-
-        /// <summary>
-        /// to free a drone from a charger
-        /// </summary>
-        /// <param name="id">the id of the  drone we want to free</param>
-        /// <param name="timeInCharger">how long was the drone charging</param>
         void FreeDroneFromeCharger(int id, double timeInCharger);
 
         /// <summary>
@@ -146,7 +121,6 @@ namespace IBL
         /// <param name="newName">the new name to the base station </param>
         /// <param name="emptyCharges">the new emount of empty chargers in the base station</param>
         void UpdateStation(int id, string newName, int emptyCharges);
-        public int UseOfBattery(IDAL.DO.Parcel parcel, DroneList drone);
 
     }
 }
