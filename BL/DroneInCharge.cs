@@ -13,8 +13,8 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"DroneId is {Id}, \n";
-            result += $"Battery is {Battery}, \n";
+            result += $"DroneId is: {Id}.\n";
+            result += $"Battery is: {Battery}.\n";
             return result;
         }
     }

@@ -26,11 +26,11 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is {Id}, \n";
-            result += $"Sender {SenderName}, \n";
-            result += $"Recepter {RecepterName}, \n";
-            result += $"Weight is {Weight}, \n";
-            result += $"Priority is {Priority}, \n";
+            result += $"ID is: {Id}.\n";
+            result += $"Sender: {SenderName}.\n";
+            result += $"Recepter: {RecepterName}.\n";
+            result += $"Weight is: {Weight}.\n";
+            result += $"Priority is: {Priority}.\n";
             return result;
         }
     }

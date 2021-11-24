@@ -18,13 +18,13 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID:{Id}.\n";
-            result += $"Name:{Name}.\n";
-            result += $"Phone:{Phone}.\n";
-            result += $"Parcels that were Sent And Deleverd:{ParcelsSentAndDel}.\n";
-            result += $"Parcels that were Sent And wasnt deleverd:{ParcelsSentAndNotDel}.\n";
-            result += $"Parcels that were deleverd:{ParcelsResepted}.\n";
-            result += $"Parcels that are on the way:{ParcelsOnTheWay}.\n";
+            result += $"ID: {Id}.\n";
+            result += $"Name: {Name}.\n";
+            result += $"Phone: {Phone}.\n";
+            result += $"Emount of parcels that were Sent And Deleverd: {ParcelsSentAndDel}.\n";
+            result += $"Emount of parcels that were Sent And wasnt deleverd: {ParcelsSentAndNotDel}.\n";
+            result += $"Emount of parcels that were deleverd: {ParcelsResepted}.\n";
+            result += $"Emount of parcels that are on the way: {ParcelsOnTheWay}.\n";
             return result;
         }
     }

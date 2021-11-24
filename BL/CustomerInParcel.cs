@@ -13,8 +13,8 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID:{Id}.\n";
-            result += $"Name:{Name}.\n";
+            result += $"ID: {Id}.\n";
+            result += $"Name: {Name}.\n";
             return result;
         }
     }

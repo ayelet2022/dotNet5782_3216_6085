@@ -8,24 +8,19 @@ namespace BL
 {
     public partial class BL
     {
-        /// <summary>
-        /// adds a new drone to the list
-        /// </summary>
-        /// <param name="drone">the drone to add</param>
-        /// <param name="idFirstStation">the id of the first station that the drone is in</param>
         public void AddDrone(Drone drone, int idFirstStation)
         {
             Random Rand = new Random();
+            if (drone.Id < 100000 || drone.Id > 999999)
+                throw new InvalidInputException($"The drones id: {drone.Id} is incorrect, the drone was not added.\n");
+            if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
+                throw new InvalidInputException($"The drones weight: {drone.MaxWeight} is incorrect, the drone was not added.\n");
+            if (drone.Model.Length != 6)
+                throw new InvalidInputException($"The drones model: {drone.Model} is incorrect, the drone was not added.\n");
+            if (idFirstStation < 1000 || idFirstStation > 9999)
+                throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
             try
             {
-                if (drone.Id < 100000 || drone.Id > 999999)
-                    throw new InvalidInputException($"The drones id:{drone.Id} is incorrect");
-                if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 3)
-                    throw new InvalidInputException($"The drones weight:{drone.MaxWeight} is incorrect");
-                if (drone.Model.Length != 6)
-                    throw new InvalidInputException($"The drones model{drone.Model} is incorrect.\n");
-                if (idFirstStation < 1000 || idFirstStation > 9999)
-                    throw new InvalidInputException($"The id{idFirstStation} of the baseStation incorrect.\n");
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
@@ -47,21 +42,12 @@ namespace BL
                 droneList.DroneLocation.Longitude = baseStation.Longitude;
                 Drones.Add(droneList);
             }
-            catch (InvalidInputException ex)
-            {
-                throw new InvalidInputException(ex.ToString(), ex);
-            }
             catch (FailedToAddException ex)
             {
-                throw new FailedToAddException($"A dron with the id:{drone.Id} already exist.", ex);
+                throw new FailedToAddException($"The dron: {drone.Id} already exist.\n", ex);
             }
         }
 
-        /// <summary>
-        /// returne the drone that has the same id as what wes enterd
-        /// </summary>
-        /// <param name="idDrone">the id of the drone we want to returne</param>
-        /// <returns>the drone that has the same id</returns>
         public Drone GetDrone(int idDrone)
         {
             try
@@ -105,28 +91,15 @@ namespace BL
             }
             catch(InvalidOperationException ex)
             {
-                throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
-            }
-            catch (IDAL.DO.DoesNotExistException ex)
-            {
-                throw new NotFoundInputException(ex.ToString(), ex);
+                throw new NotFoundInputException($"The drone: {idDrone} was not found.\n",ex);
             }
         }
 
-        /// <summary>
-        /// copyes the values of all the drones in order to print them
-        /// </summary>
-        /// <returns>the new arrey that has the the drones</returns>
         public IEnumerable<DroneList> GetDrones()
         {
             return Drones;
         }
 
-        /// <summary>
-        /// updates the drone that has the same id that was enterd
-        /// </summary>
-        /// <param name="id">the id of the drone we want to update</param>
-        /// <param name="newModel">the new model of the drone</param>
         public void UpdateDrone(int id, string newModel)
         {
             try
@@ -140,14 +113,10 @@ namespace BL
             }
             catch (InvalidOperationException ex)
             {
-                throw new FailToUpdateException($"Couldn't update a drone with the id:{id} because it was not found", ex);
+                throw new FailToUpdateException($"The drone: {id} was not found, the drone was not updated.\n", ex);
             }
         }
 
-        /// <summary>
-        /// sends the drone with the id that was enterd to a charger
-        /// </summary>
-        /// <param name="id">the id of the drone that we want to send to charging</param>
         public void SendDroneToCharging(int id)
         {
             try
@@ -170,27 +139,18 @@ namespace BL
                     dal.DronToCharger(droneList.Id, baseStation.Id);//to add to the list of the drones that are charging
                 }
                 else
-                    throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.");
+                    throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n");
             }
-            catch (IDAL.DO.DoesNotExistException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new FailedToChargeDroneException($"couldn't charge the drone:{id} because the drone:{id} does not exist .", ex);
+                throw new FailedToChargeDroneException($"The drone: {id} was not found, the drone is not charging.\n", ex);
             }
             catch (FailedToChargeDroneException ex)
             {
-                throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.", ex);
-            }
-            catch (NotFoundInputException ex)
-            {
-                throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.", ex);
+                throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n", ex);
             }
         }
 
-        /// <summary>
-        /// to free a drone from a charger
-        /// </summary>
-        /// <param name="id">the id of the  drone we want to free</param>
-        /// <param name="timeInCharger">how long was the drone charging</param>
         public void FreeDroneFromeCharger(int id, double timeInCharger)
         {
             try
@@ -207,67 +167,58 @@ namespace BL
                     dal.FreeDroneFromBaseStation(drone.Id);
                 }
                 else
-                    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
+                    throw new FailedFreeADroneFromeTheChargerException();
             }
             catch(FailedFreeADroneFromeTheChargerException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
+                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n",ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n", ex);
+                throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone:{id} was not freed The Charger.\n", ex);
             }
         }
 
-        /// <summary>
-        /// to paire a parcel to the drone that has the same id as what was enterd
-        /// </summary>
-        /// <param name="droneId">the drone we want to paire a parcel to</param>
         public void ScheduledAParcelToADrone(int droneId)
         {
             try
             {
-                DroneList drone = Drones.First(item => item.Id == droneId);
                 DroneList drone = Drones.First(item=>item.Id==droneId);
                 if (drone.Status == (DroneStatus)2)//meens the drone is in delivery
-                    throw new FailedToScheduledAParcelToADroneException($"Failed sceduled a parcel to drone:{droneId}\n");
-                int droneIndex = Drones.FindIndex(item => item.Id == droneId);
+                    throw new FailedToScheduledAParcelToADroneException();
                 Parcel parcel = default;
                 bool foundParcel = false;
                 int battery = 0;
                 //to go over all the parcels
-                foreach (var item in dal.GetParcels())
+                foreach (var item in dal.GetParcelThatWerenNotPaired())
                 {
-                    if (item.Scheduled == DateTime.MinValue)
+                    if ((parcel == default || foundParcel == false))
                     {
-                        if ((parcel == default || foundParcel == false))
-                        {
-                            parcel = GetParcel(item.Id);
-                            battery = UseOfBattery(item, drone);
-                            if (battery > 0 && parcel.Weight <= drone.MaxWeight)
-                                foundParcel = true;
-                        }
-                        if (foundParcel == true)
-                        {
-                            battery = UseOfBattery(item, drone);
-                            Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
-                            Customer senderOfItem = GetCustomer(item.SenderId);
-                            Customer resepterOfItem = GetCustomer(item.TargetId);
-                            BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
-                            double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
-                            double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
-                            double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
-                            double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
-                            //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
-                            if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
-                                //the distatnce of this parcel his smaller then the distance of the parcel before
-                                if (foundParcel == false)
-                                    if (disDroneToSenderI < disDroneToSenderP)
-                                    {
-                                        parcel = GetParcel(item.Id);
-                                        foundParcel = true;
-                                    }
-                        }
+                        parcel = GetParcel(item.Id);
+                        battery = UseOfBattery(item, drone);
+                        if (battery > 0 && parcel.Weight <= drone.MaxWeight)
+                            foundParcel = true;
+                    }
+                    if (foundParcel == true)
+                    {
+                        battery = UseOfBattery(item, drone);
+                        Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
+                        Customer senderOfItem = GetCustomer(item.SenderId);
+                        Customer resepterOfItem = GetCustomer(item.TargetId);
+                        BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
+                        double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
+                        double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
+                        double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
+                        double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
+                        //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
+                        if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
+                            //the distatnce of this parcel his smaller then the distance of the parcel before
+                            if (foundParcel == false)
+                                if (disDroneToSenderI < disDroneToSenderP)
+                                {
+                                    parcel = GetParcel(item.Id);
+                                    foundParcel = true;
+                                }
                     }
                 }
                 //meens if found a parcel
@@ -278,26 +229,18 @@ namespace BL
                     drone.NumOfParcelOnTheWay = parcel.Id;
                 }
                 else
-                    throw new FailedToScheduledAParcelToADroneException($"Failed sceduled a parcel to drone:{droneId}\n");
+                    throw new FailedToScheduledAParcelToADroneException();
             }
             catch (FailedToScheduledAParcelToADroneException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed sceduled a parcel to drone:{droneId}.\n", ex);
-            }
-            catch (NotFoundInputException ex)
-            {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed sceduled a parcel to drone:{droneId}.\n", ex);
+                throw new FailedFreeADroneFromeTheChargerException($"Failed to sceduled a parcel to drone:{droneId}.\n", ex);
             }
             catch (InvalidOperationException ex)
             {
-                throw new FailedToScheduledAParcelToADroneException($"Failed sceduled a parcel to drone:{droneId}.\n", ex);
-
+                throw new FailedToScheduledAParcelToADroneException($"The Drone: {droneId} was not found, a parcel was not scheduled to the drone: {droneId}.\n", ex);
             }
         }
-        /// <summary>
-        /// a drone piched up a parcel
-        /// </summary>
-        /// <param name="id">the id of the drone that picked up the parcel</param>
+
         public void PickUpParcel(int id)
         {
             try
@@ -305,7 +248,7 @@ namespace BL
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
                 if (drone.ParcelInTransfer == null)
-                    throw new FailedToPickUpParcelException("couldn't pick up the parcel\n");
+                    throw new FailedToPickUpParcelException();
                 Customer customerS = new();
                 customerS = GetCustomer(drone.ParcelInTransfer.Sender.Id);
                 //the distance between the drone to the customer that send the parcel
@@ -319,25 +262,18 @@ namespace BL
                     dal.PickUpParcel(drone.ParcelInTransfer.Id);
                 }
                 else
-                    throw new FailedToPickUpParcelException("couldn't pick up the parcel\n");
+                    throw new FailedToPickUpParcelException();
             }
             catch (FailedToPickUpParcelException ex)
             {
-                throw new FailedToPickUpParcelException(ex.ToString(), ex);
+                throw new FailedToPickUpParcelException($"The drone: {id} could not pick up a parcel ", ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel\n", ex);
-            }
-            catch (IDAL.DO.DoesNotExistException ex)
-            {
-                throw new FailedToPickUpParcelException("couldn't pick up the parcel\n", ex);
+                throw new FailedToPickUpParcelException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
             }
         }
-        /// <summary>
-        /// a drone deliverd a parcel
-        /// </summary>
-        /// <param name="id">the is of the drone that deliverd the parcel</param>
+
         public void DeliverParcel(int id)
         {
             try
@@ -345,7 +281,7 @@ namespace BL
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
                 if (drone.ParcelInTransfer == null)
-                    throw new FailedToDelieverParcelException("couldn't deliever the parcel\n");
+                    throw new FailedToDelieverParcelException();
                 Customer customerR = GetCustomer(drone.ParcelInTransfer.Recepter.Id);
                 //the distance between the drone and the customer that reseved the parcel
                 double dis = Distance.Haversine(droneList.DroneLocation.Longitude, droneList.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
@@ -357,23 +293,21 @@ namespace BL
                     droneList.DroneLocation = drone.ParcelInTransfer.DelieveredLocation;
                     droneList.Status = (DroneStatus)0;//the drone is avilable
                     dal.ParcelToCustomer(drone.ParcelInTransfer.Id);
+                    droneList.NumOfParcelOnTheWay = 0;
                 }
                 else
-                    throw new FailedToDelieverParcelException("couldn't deliever the parcel\n");
+                    throw new FailedToDelieverParcelException();
             }
             catch (FailedToDelieverParcelException ex)
             {
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel\n", ex);
+                throw new FailedToDelieverParcelException($"The drone: {id} could not deliever the parcel.\n", ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel\n", ex);
-            }
-            catch (IDAL.DO.DoesNotExistException ex)
-            {
-                throw new FailedToDelieverParcelException("couldn't deliever the parcel\n", ex);
+                throw new FailedToDelieverParcelException($"The drone: {id} was not found, the drone: {id} could not deliever the parcel.\n", ex);
             }
         }
+
         /// <summary>
         /// fineds the closest station to drone that has empty charger
         /// </summary>

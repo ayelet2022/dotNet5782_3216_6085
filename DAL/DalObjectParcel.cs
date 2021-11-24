@@ -81,7 +81,7 @@ namespace DalObject
         /// <param name="newId">the id pf the parcel that was enterd by the user</param>
         public void ParcelToCustomer(int newId)
         {
-            if (DataSource.Parcels.Exists(item => item.Id != newId))
+            if (!DataSource.Parcels.Exists(item => item.Id == newId))
                 throw new DoesNotExistException("Parcel does not exists.");
             int parcelsIndex = 0;
             while (DataSource.Parcels[parcelsIndex].Id != newId)//search for the parcel that has the same id has the id that the user enterd

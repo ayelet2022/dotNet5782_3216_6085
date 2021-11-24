@@ -13,8 +13,8 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"Latitude is {Latitude}, \n";
-            result += $"longitude is {Longitude}, \n";
+            result += $"Latitude is: {Latitude}.\n";
+            result += $"longitude is: {Longitude}.\n";
             return result;
         }
     }

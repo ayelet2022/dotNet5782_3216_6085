@@ -8,24 +8,20 @@ namespace BL
 {
     public partial class BL
     {
-        /// <summary>
-        /// adds a new customer to the list of customers
-        /// </summary>
-        /// <param name="customer">the new customer we want to add</param>
         public void AddCustomer(Customer customer)
         {
+           if (customer.Id < 100000000 || customer.Id > 999999999)
+               throw new InvalidInputException($"The customer id: {customer.Id} is incorrect, the customer wasn't added.\n");
+           if (customer.Name == "\n")
+               throw new InvalidInputException($"The customer name is incorrect, the customer wasn't added.\n");
+           if (customer.Phone.Length != 10)
+               throw new InvalidInputException($"The customer phone: {customer.Phone} is incorrect, the customer wasn't added.\n");              
+           if (customer.CustomerLocation.Longitude < 34|| customer.CustomerLocation.Longitude > 37)
+               throw new InvalidInputException($"The customer Longitude: {customer.CustomerLocation.Longitude} is incorrect, the customer wasn't added.\n");
+           if (customer.CustomerLocation.Latitude <30 || customer.CustomerLocation.Latitude > 33)
+               throw new InvalidInputException($"The customer Latitude: {customer.CustomerLocation.Latitude} is incorrect, the customer wasn't added.\n");
             try
             {
-                if (customer.Id < 100000000 || customer.Id > 999999999)
-                    throw new InvalidInputException("The customer id is incorrect");
-                if (customer.Name == "\n")
-                    throw new InvalidInputException("The customer name is incorrect");
-                if (customer.Phone.Length != 10)
-                    throw new InvalidInputException("The customer phone is incorrect");              
-                if (customer.CustomerLocation.Longitude < 34|| customer.CustomerLocation.Longitude > 37)
-                    throw new InvalidInputException("The customer Longitude is incorrect");
-                if (customer.CustomerLocation.Latitude <30 || customer.CustomerLocation.Latitude > 33)
-                    throw new InvalidInputException("The customer Latitude is incorrect");
                 IDAL.DO.Customer newCustomer = new();
                 object obj = newCustomer;
                 customer.CopyPropertiesTo(obj);
@@ -36,15 +32,10 @@ namespace BL
             }
             catch (IDAL.DO.ExistsException ex)
             {
-                throw new FailedToAddException(ex.ToString(), ex);
+                throw new FailedToAddException($"The customer: {customer.Id} already exists.", ex);
             }
         }
 
-        /// <summary>
-        /// returne the customer with the id that was enterd
-        /// </summary>
-        /// <param name="idCustomer">the id of the customer we want to returne</param>
-        /// <returns>the customer with the id</returns>
         public Customer GetCustomer(int idCustomer)
         {
             try
@@ -91,14 +82,10 @@ namespace BL
             }
             catch (InvalidOperationException ex)
             {
-                throw new NotFoundInputException($"A customer with the id:{idCustomer} was not found", ex);
+                throw new NotFoundInputException($"The customer: {idCustomer} was not found.\n", ex);
             }
         }
 
-        /// <summary>
-        /// returne the all list of the customers
-        /// </summary>
-        /// <returns>the new list of the customers</returns>
         public IEnumerable<CustomerList> GetCustomers()
         {
             CustomerList customer = new();
@@ -129,43 +116,32 @@ namespace BL
             }
             return Customers;
         }
-        /// <summary>
-        /// updates the customer with the id that was enterd
-        /// </summary>
-        /// <param name="id">the id of the customet we want to update</param>
-        /// <param name="name">the new name to the customer</param>
-        /// <param name="phone">the new phone to the customer</param>
+       
         public void UpdateCustomer(int id, string name, string phone)
         {
             try
             {
-                if (phone!="\n" && phone.Length < 10)//meens the phone is incurrect
-                    throw new InvalidInputException($"The customer phone{phone} is incorrect");
                 dal.GetCustomer(id);//fineds the customer with the id
+                if (phone!="\n" && phone.Length < 10)//meens the phone is incurrect
+                    throw new InvalidInputException($"The customer phone: {phone} is incorrect");
                 dal.UpdateCustomer(id, name, phone);//to update the customr
             }
-            catch (IDAL.DO.DoesNotExistException ex)//meens ther is no customer with the id that was enterd
+            catch (NotFoundInputException ex)
             {
-                throw new FailToUpdateException(ex.ToString(), ex);
+                throw new FailToUpdateException($"The customer: {id} wasn't found, the customer wasn't updated.\n", ex);
+            }
+            catch (InvalidInputException ex)
+            {
+                throw new FailToUpdateException($"The phone: {phone} is incorrect, the customer: {id} wasn't updated.\n", ex);
             }
         }
-        /// <summary>
-        /// returne the distance between the sender of the parcel to the resever of the parcel
-        /// </summary>
-        /// <param name="sender">the customer that send the parcel</param>
-        /// <param name="resever">the customer that suppsed to resev the parcel</param>
-        /// <returns></returns>
+
         public double DisSenderToResever(Customer sender, Customer resever)
         {
             return Distance.Haversine
                 (sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
         }
-        /// <summary>
-        /// fineds the closest base station to the customer
-        /// </summary>
-        /// <param name="latitude"></param>
-        /// <param name="longitude"></param>
-        /// <returns>the closest base station</returns>
+
         public IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude)
         {
             IDAL.DO.BaseStation baseStation = new();

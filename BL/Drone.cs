@@ -37,13 +37,13 @@ namespace IBL.BO
         public override string ToString()
         {
             String result = "";
-            result += $"ID is {Id}, \n";
-            result += $"Model is {Model}, \n";
-            result += $"MaxWeight is {MaxWeight}, \n";
-            result += $"Battery is {Battery}, \n";
-            result += $"Status is {Status}, \n";
-            result += $"Location is {DroneLocation},\n";
-            result += $"Parcel in transfer is {ParcelInTransfer},\n";
+            result += $"ID is: {Id}.\n";
+            result += $"Model is: {Model}.\n";
+            result += $"MaxWeight is: {MaxWeight}.\n";
+            result += $"Battery is: {Battery}.\n";
+            result += $"Status is: {Status}.\n";
+            result += $"Location is: \n{DroneLocation}.\n";
+            result += $"Parcel in transfer is: \n{ParcelInTransfer}.\n";
             return result;
         }
     }

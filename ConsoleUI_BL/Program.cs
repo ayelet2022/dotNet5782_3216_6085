@@ -8,7 +8,7 @@ namespace ConsoleUI_BL
     public enum MainQuastions { AddAnObject = 1, UpdateAnObject, PrintAnObjectAccordingToTheId, PrintTheWholeListOfAnObject, EndTheProgram };
     public enum AddAnObject { AddABaseStation = 1, AddADrone, AddACustomer, AddAParcel };
     public enum UpdateAnObject
-    { updataADrone = 1, updataABaseStation, updataACustomer, SendADronToACharger, FreeADronFromACharger,ScheduledAParcelToADrone,PickupAParcelByADrone, };
+    { updataADrone = 1, updataABaseStation, updataACustomer, SendADronToACharger, FreeADronFromACharger,ScheduledAParcelToADrone,PickupAParcelByADrone,DroneDeliverParcel };
     public enum PrintAnObjectAccordingToTheId
     { PresentAStationAccordingToHisId = 1, PresentADroneAccordingToHisId, PesentACustomerAccordingToHisId, PresentAParcelAccordingToHisId };
     public enum PrintTheWholeListOfAnObject
@@ -174,13 +174,13 @@ namespace ConsoleUI_BL
                                     break;
                                 case UpdateAnObject.updataACustomer:
                                     int customerId;
-                                    Console.WriteLine("Enter customer id (4 digits): ");
+                                    Console.WriteLine("Enter customer id (9 digits): ");
                                     int.TryParse(Console.ReadLine(), out customerId);
-                                    Console.WriteLine("Enter customer name: ");
+                                    Console.WriteLine("Enter customer new name: ");
                                     string customerName;
                                     customerName = Console.ReadLine();
                                     string phone;
-                                    Console.WriteLine("Enter emughnt of empty chargers: ");
+                                    Console.WriteLine("Enter customer new phone: ");
                                     phone = Console.ReadLine();
                                     obj.UpdateCustomer(customerId, customerName, phone);
                                     break;
@@ -206,6 +206,11 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.PickUpParcel(droneId);
+                                    break;
+                                case UpdateAnObject.DroneDeliverParcel:
+                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    int.TryParse(Console.ReadLine(), out droneId);
+                                    obj.DeliverParcel(droneId);
                                     break;
                                 default:
                                     break;
