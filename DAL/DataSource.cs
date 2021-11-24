@@ -55,23 +55,62 @@ namespace DalObject
             addCustomer.Name = name;
             Customers.Add(addCustomer);
         }
-        static void InitializeParcel(DateTime timeCreatParcel)
+        static void InitializeParcel()
         {
-            Parcel addParcel = new Parcel();
-            addParcel.CreatParcel = new(0);
-            addParcel.Id = DataSource.Config.RunningParcelId++;
-            addParcel.Priority = (Priorities)Rand.Next(0, 3);
-            int senderId = Rand.Next(0, Customers.Count);
-            addParcel.SenderId = Customers[senderId].Id;
-            int targetId = Rand.Next(0, Customers.Count);
-            addParcel.TargetId = Customers[targetId].Id;
-            addParcel.Weight = (WeightCategories)Rand.Next(0, 3);
-            addParcel.DroneId = 0;
-            addParcel.Delivered = DateTime.MinValue;
-            addParcel.PickedUp = DateTime.MinValue;
-            addParcel.Scheduled = DateTime.MinValue;
-            addParcel.CreatParcel = timeCreatParcel;
-            Parcels.Add(addParcel);
+            for (int index = 0; index < 10; index++)//Updating 10 parcels
+            {
+                Parcel newParcel = new();
+                newParcel.Id = Config.RunningParcelId++;//Updating the ID number of the package
+                newParcel.SenderId = Customers[Rand.Next(10)].Id;//Updating the ID number of the sender
+                newParcel.DroneId = 0;//Updating the ID number of the drone
+                do
+                {
+                    newParcel.TargetId = Customers[Rand.Next(10)].Id;
+                }
+                while (newParcel.SenderId == newParcel.TargetId);
+
+                newParcel.Weight = (WeightCategories)Rand.Next(1, 4);//Updating the weight
+                newParcel.Priority = (Priorities)Rand.Next(1, 4);//Updating the urgency of the shipment
+                //Putting a Random date and time
+                newParcel.CreatParcel = new DateTime(2021, Rand.Next(1, 13), Rand.Next(1, 29),
+                    Rand.Next(24), Rand.Next(60), Rand.Next(60));
+                int status = Rand.Next(100);
+                int drone = -1;
+                if (status >= 10)
+                {
+                    //Scheduling a time to deliver parcel
+                    newParcel.Scheduled = newParcel.CreatParcel +
+                        new TimeSpan(Rand.Next(5), Rand.Next(60), Rand.Next(60));
+                    if (status >= 15)
+                    {
+                        //Time drone came to deliver parcel
+                        newParcel.PickedUp = newParcel.Scheduled +
+                            new TimeSpan(0, Rand.Next(1, 60), Rand.Next(60));
+                        if (status >= 20)
+                        {
+                            //Time customer recieved parcel
+                            newParcel.Delivered = newParcel.PickedUp +
+                                new TimeSpan(0, Rand.Next(1, 60), Rand.Next(60));
+                            do
+                            {
+                                drone = Rand.Next(5);
+                                newParcel.DroneId = Drones[drone].Id;
+                            }
+                            while (Drones[drone].MaxWeight < newParcel.Weight);
+                        }
+                    }
+                    if (drone == -1)
+                    {
+                        do
+                        {
+                            drone = Rand.Next(5);
+                            newParcel.DroneId = Drones[drone].Id;
+                        }
+                        while (Drones[drone].MaxWeight > newParcel.Weight);
+                    }
+                }
+                Parcels.Add(newParcel);
+            }
         }
 
         /// <summary>
@@ -99,16 +138,8 @@ namespace DalObject
             InitializeCustomer("0599999999", "Chani");
             InitializeCustomer("0500000000", "Yakov");
 
-            InitializeParcel(new(2021, 3, 5, 8, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 9, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 10, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 11, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 12, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 13, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 14, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 15, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 16, 30, 0));
-            InitializeParcel(new(2021, 3, 5, 17, 30, 0));
+            InitializeParcel();
+
         }
     }
 }
