@@ -22,8 +22,8 @@ namespace ConsoleUI_BL
             //It prints the options to the user.
             do
             {
-                string print = "";
-                print += $"Enter 1 to add an object.\n";
+                string print="";
+                print += $"\nEnter 1 to add an object.\n";
                 print += $"Enter 2 to update an object.\n";
                 print += $"Enter 3 to print an object according to the id.\n";
                 print += $"Enter 4 to print the whole list of an object.\n";
@@ -45,7 +45,7 @@ namespace ConsoleUI_BL
                             do
                             {
                                 print = null;
-                                print += $"Enter what would you like to add:\n";
+                                print += $"\nEnter what would you like to add:\n";
                                 print += $"Enter 1 to add a base station.\n";
                                 print += $"Enter 2 to add a drone.\n";
                                 print += $"Enter 3 to add a customer.\n";
@@ -84,7 +84,7 @@ namespace ConsoleUI_BL
                                     Console.Write("Enter Id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out input);
                                     newDrone.Id = input;
-                                    Console.WriteLine("Enter weight (light=0/inbetween=1/heavy=2): ");
+                                    Console.Write("Enter weight (light=0/inbetween=1/heavy=2): ");
                                     int.TryParse(Console.ReadLine(), out input);
                                     newDrone.MaxWeight = (WeightCategories)input;
                                     Console.Write("Enter the drones model: ");
@@ -96,21 +96,21 @@ namespace ConsoleUI_BL
                                 //a case to add a customer and get the details from the user.
                                 case AddAnObject.AddACustomer:
                                     Customer newCustomer = new Customer();//creats a new customer.
-                                    Console.WriteLine("Enter Id (9 digits): ");
+                                    Console.Write("Enter Id (9 digits): ");
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the id of the new customer
                                     newCustomer.Id = idCustomer;//updates the new customers id
-                                    Console.WriteLine("Enter Name: ");
+                                    Console.Write("Enter Name: ");
                                     string name = Console.ReadLine();//cin the name of the new customer
                                     newCustomer.Name = name;//updates the new customers name
-                                    Console.WriteLine("Enter Phone: ");
+                                    Console.Write("Enter Phone: ");
                                     string phone = Console.ReadLine();//cin the phone of the new customer
                                     newCustomer.Phone = phone;//updates the new customers phone
-                                    Console.WriteLine("Enter Longitude: ");
+                                    Console.Write("Enter Longitude: ");
                                     double.TryParse(Console.ReadLine(), out inputDouble);
                                     newCustomer.CustomerLocation = new();
                                     newCustomer.CustomerLocation.Longitude = inputDouble;
-                                    Console.WriteLine("Enter Latitude: ");
+                                    Console.Write("Enter Latitude: ");
                                     double.TryParse(Console.ReadLine(), out inputDouble);
                                     newCustomer.CustomerLocation.Latitude = inputDouble;
                                     obj.AddCustomer(newCustomer);
@@ -119,21 +119,21 @@ namespace ConsoleUI_BL
                                 case AddAnObject.AddAParcel:
                                     Parcel newParcel = new Parcel();
                                     newParcel.Id = 0;//updates the new parcels id(it will change in the function)
-                                    Console.WriteLine("Enter Sender id (9 digits): ");
+                                    Console.Write("Enter Sender id (9 digits): ");
                                     int senderId;
                                     int.TryParse(Console.ReadLine(), out senderId);//cin the sender id of the new parcel
                                     newParcel.Sender = new();
                                     newParcel.Sender.Id = senderId;//updates the new parcels sender id
-                                    Console.WriteLine("Enter Target id (9 digits): ");
+                                    Console.Write("Enter Target id (9 digits): ");
                                     int targetId;
                                     int.TryParse(Console.ReadLine(), out targetId);//cin the target id of the new parcel
                                     newParcel.Recepter = new();
                                     newParcel.Recepter.Id = targetId;//updates the new parcels target id
-                                    Console.WriteLine("Enter Weight (light=0/inbetween=1/heavy=2): ");
+                                    Console.Write("Enter Weight (light=0/inbetween=1/heavy=2): ");
                                     int weight;
                                     int.TryParse(Console.ReadLine(), out weight);//cin the weight of the new parcel
                                     newParcel.Weight = (WeightCategories)weight;//updates the new parcels weight
-                                    Console.WriteLine("Enter Priority (regular=0/fast=1/urgent=2): ");
+                                    Console.Write("Enter Priority (regular=0/fast=1/urgent=2): ");
                                     int proiority;
                                     int.TryParse(Console.ReadLine(), out proiority);//cin the priority of the new parcel
                                     newParcel.Priority = (Priorities)proiority;//updates the new parcels proiority
@@ -146,7 +146,7 @@ namespace ConsoleUI_BL
                             do
                             {
                                 print = null;
-                                print += $"Enter what would you like to update:\n";
+                                print += $"\nEnter what would you like to update:\n";
                                 print += $"Enter 1 to update a drone.\n";
                                 print += $"Enter 2 to update a base station .\n";
                                 print += $"Enter 3 to update a customer.\n";
@@ -158,69 +158,69 @@ namespace ConsoleUI_BL
                                 Console.WriteLine(print);
                                 UpdateAnObject.TryParse(Console.ReadLine(), out Choiceupdate);//cin the useres choice
                                 if ((int)Choiceupdate < 1 || (int)Choiceupdate > 8)
-                                    Console.WriteLine("The input is incurrect.\n");
+                                    Console.Write("The input is incurrect.\n");
                             }
                             while ((int)Choiceupdate < 1 || (int)Choiceupdate > 8);
                             switch (Choiceupdate)
                             {
                                 case UpdateAnObject.updataADrone:
                                     int droneId;
-                                    Console.WriteLine("Enter drones id (4 digits): ");
+                                    Console.Write("Enter drones id (4 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
-                                    Console.WriteLine("Enter drones name: ");
+                                    Console.Write("Enter drones name: ");
                                     string droneName;
                                     droneName = Console.ReadLine();
                                     obj.UpdateDrone(droneId, droneName);
                                     break;
                                 case UpdateAnObject.updataABaseStation:
                                     int stationId;
-                                    Console.WriteLine("Enter station id (4 digits): ");
+                                    Console.Write("Enter station id (4 digits): ");
                                     int.TryParse(Console.ReadLine(), out stationId);
-                                    Console.WriteLine("Enter station name: ");
+                                    Console.Write("Enter station name: ");
                                     string stationName;
                                     stationName = Console.ReadLine();
                                     int emptyChargers;
-                                    Console.WriteLine("Enter emughnt of empty chargers: ");
+                                    Console.Write("Enter emughnt of empty chargers: ");
                                     int.TryParse(Console.ReadLine(), out emptyChargers);
                                     obj.UpdateStation(stationId, stationName, emptyChargers);
                                     break;
                                 case UpdateAnObject.updataACustomer:
                                     int customerId;
-                                    Console.WriteLine("Enter customer id (9 digits): ");
+                                    Console.Write("Enter customer id (9 digits): ");
                                     int.TryParse(Console.ReadLine(), out customerId);
-                                    Console.WriteLine("Enter customer new name: ");
+                                    Console.Write("Enter customer new name: ");
                                     string customerName;
                                     customerName = Console.ReadLine();
                                     string phone;
-                                    Console.WriteLine("Enter customer new phone: ");
+                                    Console.Write("Enter customer new phone: ");
                                     phone = Console.ReadLine();
                                     obj.UpdateCustomer(customerId, customerName, phone);
                                     break;
                                 case UpdateAnObject.SendADronToACharger:
-                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.SendDroneToCharging(droneId);
                                     break;
                                 case UpdateAnObject.FreeADronFromACharger:
-                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     double timeOfCharging;
-                                    Console.WriteLine("Enter how long was the drone charging(in minutes): ");
+                                    Console.Write("Enter how long was the drone charging(in minutes): ");
                                     double.TryParse(Console.ReadLine(), out timeOfCharging);
                                     obj.FreeDroneFromeCharger(droneId, timeOfCharging);
                                     break;
                                 case UpdateAnObject.ScheduledAParcelToADrone:
-                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.ScheduledAParcelToADrone(droneId);
                                     break;
                                 case UpdateAnObject.PickupAParcelByADrone:
-                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.PickUpParcel(droneId);
                                     break;
                                 case UpdateAnObject.DroneDeliverParcel:
-                                    Console.WriteLine("Enter drones id (6 digits): ");
+                                    Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
                                     obj.DeliverParcel(droneId);
                                     break;
@@ -234,7 +234,7 @@ namespace ConsoleUI_BL
                             do
                             {
                                 print = null;
-                                print += $"Enter what would you like to print\n";
+                                print += $"\nEnter what would you like to print\n";
                                 print += $"1 to present a station according to his id.\n";
                                 print += $"2 to present a drone according to his id.\n";
                                 print += $"3 to present a customer according to his id.\n";
@@ -249,7 +249,7 @@ namespace ConsoleUI_BL
                             {
                                 //in case you want to print a baseStation
                                 case PrintAnObjectAccordingToTheId.PresentAStationAccordingToHisId:
-                                    Console.WriteLine("Enter the base station id (4 digits)\n");
+                                    Console.Write("Enter the base station id (4 digits): ");
                                     int id;
                                     int.TryParse(Console.ReadLine(), out id);//cin the baseStations id from the user
                                     //sends to a function that finds the baseStation and prints the info
@@ -257,7 +257,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a drone
                                 case PrintAnObjectAccordingToTheId.PresentADroneAccordingToHisId:
-                                    Console.WriteLine("Enter the drone id (6 digits): ");
+                                    Console.Write("Enter the drone id (6 digits): ");
                                     int idDrone;
                                     int.TryParse(Console.ReadLine(), out idDrone);//cin the drones id from the user
                                     //sends to a function that finds the drone and prints the info
@@ -265,7 +265,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a customer
                                 case PrintAnObjectAccordingToTheId.PesentACustomerAccordingToHisId:
-                                    Console.WriteLine("Enter the customer id (9 digits): ");
+                                    Console.Write("Enter the customer id (9 digits): ");
                                     int idCustomer;
                                     int.TryParse(Console.ReadLine(), out idCustomer);//cin the customers id from the user
                                     //sends to a function that finds the customer and prints the info
@@ -273,7 +273,7 @@ namespace ConsoleUI_BL
                                     break;
                                 //in case you want to print a parcel
                                 case PrintAnObjectAccordingToTheId.PresentAParcelAccordingToHisId:
-                                    Console.WriteLine("Enter the parcel id (4 digits): ");
+                                    Console.Write("Enter the parcel id (4 digits): ");
                                     int idParcel;
                                     int.TryParse(Console.ReadLine(), out idParcel);//cin the parcels id from the user
                                     //sends to a function that finds the parcel and prints the info
@@ -287,7 +287,7 @@ namespace ConsoleUI_BL
                             do
                             {
                                 print =null;
-                                print += $"What list would you like to print:\n";
+                                print += $"\nWhat list would you like to print:\n";
                                 print += $"Enter 1 to print all the base stations\n";
                                 print += $"Enter 2 to print all the drone\n";
                                 print += $"Enter 3 to print all the customer\n";
