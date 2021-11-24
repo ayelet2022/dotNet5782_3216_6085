@@ -24,6 +24,10 @@ namespace IBL
         /// <param name="drone">the drone to add</param>
         /// <param name="idFirstStation">the id of the first station that the drone is in</param>
         void AddDrone(Drone drone, int idFirstStation);
+        /// <summary>
+        /// adds a new parcel to the list of parcels
+        /// </summary>
+        /// <param name="parcel">the new parcel we want to add</param>
         void AddParcel(Parcel parcel);
 
         /// <summary>
@@ -77,8 +81,21 @@ namespace IBL
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
         IEnumerable<DroneList> GetDrones();
+        /// <summary>
+        /// returnes the parcel that has the same id has wat was enterd
+        /// </summary>
+        /// <param name="idParcel">the id of the parcel we want to reurne</param>
+        /// <returns>the parcel that has the same id that enterd</returns>
         Parcel GetParcel(int idParcel);
+        /// <summary>
+        /// copyes the values of all the parcel in order to print them
+        /// </summary>
+        /// <returns>the new arrey that has the the parceles</returns>
         IEnumerable<ParcelList> GetParcels();
+        /// <summary>
+        /// search for all the drones that are available and copy them to a new arrey  
+        /// </summary>
+        /// <returns>the new arrey that has all the drones that are availeble</returns>
         IEnumerable<ParcelList> GetParcelThatWerenNotPaired();
 
         /// <summary>

@@ -8,10 +8,6 @@ namespace BL
 {
     public partial class BL
     {
-        /// <summary>
-        /// adds a new parcel to the list of parcels
-        /// </summary>
-        /// <param name="parcel">the new parcel we want to add</param>
         public void AddParcel(Parcel parcel)
         {
             if (parcel.Recepter.Id < 100000000 || parcel.Recepter.Id > 999999999)
@@ -31,12 +27,6 @@ namespace BL
             newParcel.TargetId = parcel.Recepter.Id;
             dal.AddParcel(newParcel);
         }
-
-        /// <summary>
-        /// returnes the parcel that has the same id has wat was enterd
-        /// </summary>
-        /// <param name="idParcel">the id of the parcel we want to reurne</param>
-        /// <returns>the parcel that has the same id that enterd</returns>
         public Parcel GetParcel(int idParcel)
         {
             try
@@ -67,16 +57,13 @@ namespace BL
             {
                 throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
             }
-            catch (InvalidInputException ex)
+            catch (NotFoundInputException ex)
             {
                 throw new InvalidInputException($"The input id: {idParcel} does not exist.\n", ex);
             }
         }
 
-        /// <summary>
-        /// copyes the values of all the parcel in order to print them
-        /// </summary>
-        /// <returns>the new arrey that has the the parceles</returns>
+
         public IEnumerable<ParcelList> GetParcels()
         {
             try
@@ -101,10 +88,7 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// search for all the drones that are available and copy them to a new arrey  
-        /// </summary>
-        /// <returns>the new arrey that has all the drones that are availeble</returns>
+
         public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
         {
             try
