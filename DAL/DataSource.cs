@@ -37,11 +37,11 @@ namespace DalObject
             newStation.Name = name;
             Stations.Add(newStation);
         }
-        static void InitializeDrones(string name)
+        static void InitializeDrones(string name, int weight)
         {
             Drone addDrone = new Drone();
             addDrone.Id = Rand.Next(100000, 999999);
-            addDrone.MaxWeight = (WeightCategories)Rand.Next(0, 3);
+            addDrone.MaxWeight = (WeightCategories)weight;
             addDrone.Model = name;
             Drones.Add(addDrone);
         }
@@ -69,8 +69,8 @@ namespace DalObject
                 }
                 while (newParcel.SenderId == newParcel.TargetId);
 
-                newParcel.Weight = (WeightCategories)Rand.Next(1, 4);//Updating the weight
-                newParcel.Priority = (Priorities)Rand.Next(1, 4);//Updating the urgency of the shipment
+                newParcel.Weight = (WeightCategories)Rand.Next(0,3);//Updating the weight
+                newParcel.Priority = (Priorities)Rand.Next(0,3);//Updating the urgency of the shipment
                 //Putting a Random date and time
                 newParcel.CreatParcel = new DateTime(2021, Rand.Next(1, 13), Rand.Next(1, 29),
                     Rand.Next(24), Rand.Next(60), Rand.Next(60));
@@ -121,11 +121,11 @@ namespace DalObject
             InitializeBaseStation("Banana");
             InitializeBaseStation("Apple");
 
-            InitializeDrones("Ab89ZX");
-            InitializeDrones("Ui65JH");
-            InitializeDrones("Gy70CW");
-            InitializeDrones("Qs98VM");
-            InitializeDrones("Aa44ZX");
+            InitializeDrones("Ab89ZX", 2);
+            InitializeDrones("Ui65JH", 2);
+            InitializeDrones("Gy70CW", 2);
+            InitializeDrones("Qs98VM", 1);
+            InitializeDrones("Aa44ZX", 0);
 
             InitializeCustomer("0511111111", "Ayelet");
             InitializeCustomer("0522222222", "Penina");
