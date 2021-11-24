@@ -358,6 +358,18 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine(ex.Message);
                 }
+                catch (FailedToAddException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (NotFoundInputException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (FailToUpdateException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             while (choice != MainQuastions.EndTheProgram);//goes till the user enters 5-end the program
         }
