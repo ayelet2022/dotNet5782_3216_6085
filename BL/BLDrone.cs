@@ -19,6 +19,8 @@ namespace BL
                 throw new InvalidInputException($"The drones model: {drone.Model} is incorrect, the drone was not added.\n");
             if (idFirstStation < 1000 || idFirstStation > 9999)
                 throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
+            try
+            {
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
@@ -39,6 +41,11 @@ namespace BL
                 droneList.DroneLocation.Latitude = baseStation.Latitude;
                 droneList.DroneLocation.Longitude = baseStation.Longitude;
                 Drones.Add(droneList);
+            }
+            catch(IDAL.DO.ExistsException ex)
+            {
+                throw new FailedToAddException($"The drones id: {drone.Id} already exists.\n", ex);
+            }
         }
 
         public Drone GetDrone(int idDrone)
@@ -132,16 +139,16 @@ namespace BL
                     dal.DronToCharger(droneList.Id, baseStation.Id);//to add to the list of the drones that are charging
                 }
                 else
-                    throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n");
+                    throw new FailToUpdateException($"Didn't send the drone: {id} to charging.\n");
             }
             catch (InvalidOperationException ex)
             {
-                throw new FailedToChargeDroneException($"The drone: {id} was not found, the drone is not charging.\n", ex);
+                throw new FailToUpdateException($"The drone: {id} was not found, didn't send the drone: {id} to charging..\n", ex);
             }
-            //catch (FailedToChargeDroneException ex)
-            //{
-            //    throw new FailedToChargeDroneException($"The drone: {id} is not charging.\n", ex);
-            //}
+            catch (FailToUpdateException ex)
+            {
+                throw new FailToUpdateException($"The drone: {id} is not charging.\n", ex);
+            }
         }
 
         public void FreeDroneFromeCharger(int id, double timeInCharger)
@@ -160,20 +167,20 @@ namespace BL
                     dal.FreeDroneFromBaseStation(drone.Id);
                 }
                 else
-                    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n");
+                    throw new FailToUpdateException($"Failed to free the drone: {id} from The Charger.\n");
             }
             catch(InvalidOperationException ex)
             {
-                throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone: {id} was not freed The Charger.\n", ex);
+                throw new FailToUpdateException($"The drone: {id} was not found, the drone: {id} was not freed from Charger.\n", ex);
             }
-            //catch(FailedFreeADroneFromeTheChargerException ex)
-            //{
-            //    throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone: {id} Frome The Charger.\n",ex);
-            //}
-            //catch (NotFoundInputException ex)
-            //{
-            //    throw new FailedFreeADroneFromeTheChargerException($"The drone: {id} was not found, the drone:{id} was not freed The Charger.\n", ex);
-            //}
+            catch (FailToUpdateException ex)
+            {
+                throw new FailToUpdateException($"Failed to free the drone: {id} Frome The Charger.\n", ex);
+            }
+            catch (IDAL.DO.NotFoundInputException ex)
+            {
+                throw new FailToUpdateException($"The drone: {id} is not charging.\n", ex);
+            }
         }
 
         public void ScheduledAParcelToADrone(int droneId)
@@ -182,7 +189,7 @@ namespace BL
             {
                 DroneList drone = Drones.First(item=>item.Id==droneId);
                 if (drone.Status == DroneStatus.delivery)//meens the drone is in delivery
-                    throw new FailedToScheduledAParcelToADroneException();
+                    throw new FailedToScheduledAParcelToADroneException($"Failed to sceduled a parcel to drone:{droneId}.\n");
                 Parcel parcel = default;
                 bool foundParcel = false;
                 int battery = 0;
@@ -226,15 +233,15 @@ namespace BL
                     drone.NumOfParcelOnTheWay = parcel.Id;
                 }
                 else
-                    throw new FailedToScheduledAParcelToADroneException();
-            }
-            catch (FailedToScheduledAParcelToADroneException ex)
-            {
-                throw new FailedFreeADroneFromeTheChargerException($"Failed to sceduled a parcel to drone:{droneId}.\n", ex);
+                    throw new FailToUpdateException($"Failed to sceduled a parcel to drone:{droneId}.\n");
             }
             catch (InvalidOperationException ex)
             {
-                throw new FailedToScheduledAParcelToADroneException($"The Drone: {droneId} was not found, a parcel was not scheduled to the drone: {droneId}.\n", ex);
+                throw new FailToUpdateException($"The Drone: {droneId} was not found, a parcel was not scheduled to the drone: {droneId}.\n", ex);
+            }
+            catch (FailToUpdateException ex)
+            {
+                throw new FailToUpdateException($"Failed to sceduled a parcel to drone:{droneId}.\n", ex);
             }
         }
 
@@ -245,7 +252,7 @@ namespace BL
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
                 if (drone.ParcelInTransfer == null)
-                    throw new FailedToPickUpParcelException();
+                    throw new FailToUpdateException($"The drone: {id} could not pick up a parcel. \n");
                 Customer customerS = new();
                 customerS = GetCustomer(drone.ParcelInTransfer.Sender.Id);
                 //the distance between the drone to the customer that send the parcel
@@ -259,26 +266,31 @@ namespace BL
                     dal.PickUpParcel(drone.ParcelInTransfer.Id);
                 }
                 else
-                    throw new FailedToPickUpParcelException();
+                    throw new FailToUpdateException($"The drone: {id} could not pick up a parcel ");
             }
-            catch (FailedToPickUpParcelException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new FailedToPickUpParcelException($"The drone: {id} could not pick up a parcel ", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not pick up the parcel\n", ex);
+            }
+            catch (FailToUpdateException ex)
+            {
+                throw new FailToUpdateException($"The drone: {id} could not pick up a parcel.\n", ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToPickUpParcelException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
             }
         }
 
         public void DeliverParcel(int id)
         {
+
             try
             {
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
                 if (drone.ParcelInTransfer == null)
-                    throw new FailedToDelieverParcelException();
+                    throw new FailToUpdateException($"The drone: {id} could not deliever the parcel.\n");
                 Customer customerR = GetCustomer(drone.ParcelInTransfer.Recepter.Id);
                 //the distance between the drone and the customer that reseved the parcel
                 double dis = Distance.Haversine(droneList.DroneLocation.Longitude, droneList.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
@@ -293,16 +305,21 @@ namespace BL
                     droneList.NumOfParcelOnTheWay = 0;
                 }
                 else
-                    throw new FailedToDelieverParcelException();
+                    throw new FailToUpdateException($"The drone: {id} could not deliever the parcel.\n");
             }
-            catch (FailedToDelieverParcelException ex)
+            catch (InvalidOperationException ex)
             {
-                throw new FailedToDelieverParcelException($"The drone: {id} could not deliever the parcel.\n", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not pick up the parcel\n", ex);
+            }
+            catch (FailToUpdateException ex)
+            {
+                throw new FailToUpdateException($"The drone: {id} could not pick up a parcel ", ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailedToDelieverParcelException($"The drone: {id} was not found, the drone: {id} could not deliever the parcel.\n", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
             }
+
         }
 
         /// <summary>

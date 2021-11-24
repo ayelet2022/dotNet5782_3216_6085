@@ -20,7 +20,7 @@ namespace DalObject
         public Parcel GetParcel(int idParcel)
         {
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Customers.FindIndex(item => item.Id == idParcel);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == idParcel);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
             return DataSource.Parcels[parcelIndex];
@@ -32,7 +32,7 @@ namespace DalObject
             if (droneIndex == -1)
                 throw new DoesNotExistException($"Drone id: {droneId} does not exist.");
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Customers.FindIndex(item => item.Id == parcelId);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == parcelId);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { parcelId } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
@@ -43,7 +43,7 @@ namespace DalObject
         public void PickUpParcel(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Customers.FindIndex(item => item.Id == id);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { id } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
@@ -53,7 +53,7 @@ namespace DalObject
         public void ParcelToCustomer(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Customers.FindIndex(item => item.Id == id);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { id } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
