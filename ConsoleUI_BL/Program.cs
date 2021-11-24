@@ -355,7 +355,7 @@ namespace ConsoleUI_BL
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidInputException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
