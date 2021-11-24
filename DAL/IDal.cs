@@ -177,7 +177,6 @@ namespace IDAL
         /// update the charging positions of the base station 
         /// </summary>
         /// <param name="baseStation">the base station we want to update</param>
-        public void addChargeToBS(BaseStation baseStation);
 
     }
 }

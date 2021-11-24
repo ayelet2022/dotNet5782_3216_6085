@@ -22,19 +22,14 @@ namespace BL
             try
             {
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
-                //dal.addChargeToBS(baseStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
                 drone.ParcelInTransfer = default;
-                //IDAL.DO.DroneCharge droneCharge = new();
-                //droneCharge.DroneId = drone.Id;
-                //droneCharge.StationId = baseStation.Id;
                 IDAL.DO.Drone drone1 = new();
                 object obj = drone1;
                 drone.CopyPropertiesTo(obj);
                 drone1 = (IDAL.DO.Drone)obj;
                 dal.AddDrone(drone1);
-                //dal.AddDroneCharge(droneCharge);
                 DroneList droneList = new();
                 drone.CopyPropertiesTo(droneList);
                 droneList.NumOfParcelOnTheWay = 0;
@@ -42,7 +37,7 @@ namespace BL
                 droneList.DroneLocation.Latitude = baseStation.Latitude;
                 droneList.DroneLocation.Longitude = baseStation.Longitude;
                 Drones.Add(droneList);
-                dal.DronToCharger(drone1.Id, idFirstStation);
+                dal.DronToCharger(drone.Id, idFirstStation);
             }
             catch(IDAL.DO.ExistsException ex)
             {
