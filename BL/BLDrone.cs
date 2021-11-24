@@ -222,6 +222,8 @@ namespace BL
             try
             {
                 DroneList drone = Drones.First(item=>item.Id==droneId);
+                if (drone.Status == (DroneStatus)2)//meens the drone is in delivery
+                    throw new FailedToScheduledAParcelToADroneException($"Failed sceduled a parcel to drone:{droneId}\n");
                 int droneIndex = Drones.FindIndex(item => item.Id == droneId);
                 Parcel parcel = default;
                 bool foundParcel = false;
