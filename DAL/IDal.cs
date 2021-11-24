@@ -36,7 +36,6 @@ namespace IDAL
         public void UpdateStation(int id, string newName, int emptyCharges);
         //public void DeleteDroneFromeCharger(int droneId);
         //public void UpdateDronToInDelevery(int droneId);
-        public void UpdateParcelsScheduled(int parcelId, int droneId);
         public IEnumerable<int> GetCustomersRe();
 
     }

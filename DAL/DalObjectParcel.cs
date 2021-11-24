@@ -56,7 +56,6 @@ namespace DalObject
             Parcel updateAParcel = DataSource.Parcels[pareclIndex];
             updateAParcel.DroneId = droneId;
             updateAParcel.Scheduled = DateTime.Now;
-            updateAParcel.PickedUp = DateTime.Now;
             DataSource.Parcels[pareclIndex] = updateAParcel;
         }
 
@@ -120,23 +119,6 @@ namespace DalObject
                     Parcels.Add(itBS);
             }
             return Parcels;
-        }
-        public void UpdateParcelsScheduled(int parcelId,int droneId)
-        {
-            Parcel parcel = new();
-            int i = 0;
-            foreach (var item in DataSource.Parcels)
-            {
-                if (item.Id == parcelId)
-                {
-                    parcel = item;
-                    parcel.DroneId = droneId;
-                    parcel.Scheduled = DateTime.Now;
-                    break;
-                }
-                i++;
-            }
-            DataSource.Parcels[i] = parcel;
         }
     }
 }
