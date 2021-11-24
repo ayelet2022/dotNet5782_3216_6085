@@ -54,17 +54,17 @@ namespace BL
                         ParcelInCustomer parcelFromCustomer = new();
                         item.CopyPropertiesTo(parcelFromCustomer);//only copies:id,weight,priority
                         if (item.Delivered != DateTime.MinValue)//meens the parcel was deliverd
-                            parcelFromCustomer.Status = (ParcelStatus)3;//the parcel was deliverd
+                            parcelFromCustomer.Status = ParcelStatus.delivery;//the parcel was deliverd
                         else//meens the parcel is pickedup/scheduled/created
                         {
                             if (item.PickedUp != DateTime.MinValue)//meens the parcel was picked up by the drone
-                                parcelFromCustomer.Status = (ParcelStatus)2;//the parcel was pickedup by the drone
+                                parcelFromCustomer.Status = ParcelStatus.pickup;//the parcel was pickedup by the drone
                             else//meens the parcel is scheduled/created
                             {
                                 if (item.Scheduled != DateTime.MinValue)//meens the parcel was scheduled
-                                    parcelFromCustomer.Status = (ParcelStatus)1;//the parcel was scheduled
+                                    parcelFromCustomer.Status = ParcelStatus.schedul;//the parcel was scheduled
                                 else//meens the parcel is created
-                                    parcelFromCustomer.Status = (ParcelStatus)0;//the parcel was created
+                                    parcelFromCustomer.Status = ParcelStatus.creat;//the parcel was created
                             }
                         }
                         parcelFromCustomer.SenderOrRecepter = new();
