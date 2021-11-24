@@ -99,7 +99,7 @@ namespace DalObject
             InitializeCustomer("0599999999", "Chani");
             InitializeCustomer("0500000000", "Yakov");
 
-            InitializeParcel(Drones[0].Id,new(2021, 3, 5, 8, 30, 0), new(2021, 3, 1, 8, 32, 0), new(2021, 3, 1, 9, 30, 0), DateTime.MinValue);
+            InitializeParcel(0, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
             InitializeParcel(0,new(2021, 3, 5, 9, 30, 0), new(2021, 3, 1, 9, 32, 0), new(2021, 3, 1, 10, 30, 0), new(2021, 3, 2, 11, 30, 0));
             InitializeParcel(0,new(2021, 3, 5, 10, 30, 0), new(2021, 3, 1, 10, 32, 0), new(2021, 3, 1, 11, 30, 0), new(2021, 3, 2, 12, 30, 0));
             InitializeParcel(Drones[2].Id, new(2021, 3, 5, 11, 30, 0), new(2021, 3, 1, 11, 32, 0), new(2021, 3, 1, 12, 30, 0), DateTime.MinValue);

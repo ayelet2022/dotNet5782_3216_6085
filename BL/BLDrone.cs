@@ -68,10 +68,8 @@ namespace BL
             {
                 DroneList droneList = new();
                 //searching for the drone that has the same id
-                droneList = Drones.Find(item => item.Id == idDrone);
+                droneList = Drones.First(item => item.Id == idDrone);
                 //meens ther is no drone with that id
-                if (droneList == null)
-                    throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
                 Drone returningDrone = new();
                 droneList.CopyPropertiesTo(returningDrone);
                 returningDrone.DroneLocation = new();
@@ -86,6 +84,12 @@ namespace BL
                     blParcel.CopyPropertiesTo(parcelInT);
                     Customer blSenderCustomer = GetCustomer(blParcel.Sender.Id);
                     Customer blRecepterCustomer = GetCustomer(blParcel.Recepter.Id);
+                    parcelInT.Sender = new();
+                    parcelInT.Recepter = new();
+                    parcelInT.Sender.Id = blSenderCustomer.Id;
+                    parcelInT.Sender.Name = blSenderCustomer.Name;
+                    parcelInT.Recepter.Id = blRecepterCustomer.Id;
+                    parcelInT.Recepter.Name = blRecepterCustomer.Name;
                     parcelInT.PickUpLocation = blSenderCustomer.CustomerLocation;
                     parcelInT.DelieveredLocation = blRecepterCustomer.CustomerLocation;
                     if (blParcel.PickedUp == DateTime.MinValue)
@@ -94,10 +98,14 @@ namespace BL
                         parcelInT.StatusParcel = true;
                     //the distatnce between the sender of the parcel to the resever
                     parcelInT.TransportDistance = Distance.Haversine
-                        (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
+                     (blSenderCustomer.CustomerLocation.Latitude, blSenderCustomer.CustomerLocation.Longitude, blRecepterCustomer.CustomerLocation.Latitude, blRecepterCustomer.CustomerLocation.Longitude);
                     returningDrone.ParcelInTransfer = parcelInT;
                 }
                 return returningDrone;
+            }
+            catch(InvalidOperationException ex)
+            {
+                throw new NotFoundInputException($"The input id: {idDrone} does not exist.\n");
             }
             catch (IDAL.DO.DoesNotExistException ex)
             {
@@ -124,10 +132,8 @@ namespace BL
             try
             {
                 //search if ther is such a dron with that id 
-                DroneList drone=Drones.First(item => item.Id == id);
-                Drones.Remove(drone);
+                DroneList drone = Drones.First(item => item.Id == id);
                 drone.Model = newModel;
-                Drones.Add(drone);
                 dal.GetDrones().First(item => item.Id == id);
                 //to update the drone in the drone list
                 dal.UpdateDrone(id, newModel);
@@ -147,7 +153,6 @@ namespace BL
             try
             {
                 DroneList droneList = Drones.First(item => item.Id == id);
-                Drones.Remove(droneList);
                 IDAL.DO.Drone dalDrone = dal.GetDrones().First(item => item.Id == id);
                 IDAL.DO.BaseStation baseStation = new();
                 //droneList = GetDrone(id);
@@ -163,7 +168,6 @@ namespace BL
                     droneList.DroneLocation.Latitude = baseStation.Latitude;
                     droneList.Status = (DroneStatus)1;//in fix
                     dal.DronToCharger(droneList.Id, baseStation.Id);//to add to the list of the drones that are charging
-                    Drones.Add(droneList);
                 }
                 else
                     throw new FailedToChargeDroneException($"couldn't charge the drone:{id}.");
@@ -191,21 +195,23 @@ namespace BL
         {
             try
             {
-                DroneList drone = Drones.First(item=>item.Id==id);
-                Drones.Remove(drone);
+                DroneList drone = Drones.First(item => item.Id == id);
                 if (drone.Status == (DroneStatus)1)
                 {
                     //calculate how much battery the drone have now after charging
-                    drone.Battery+= (int)(dal.AskForBattery()[4] * timeInCharger/60 + (dal.AskForBattery()[4] / 60) * timeInCharger%60);
+                    drone.Battery += (int)(dal.AskForBattery()[4] * timeInCharger / 60 + (dal.AskForBattery()[4] / 60) * timeInCharger % 60);
                     if (drone.Battery > 100)
                         drone.Battery = 100;
                     drone.Status = (DroneStatus)0;//availble
                     //to delet the drone from the list of the drones that are charging
                     dal.FreeDroneFromBaseStation(drone.Id);
-                    Drones.Add(drone);
                 }
                 else
                     throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
+            }
+            catch(FailedFreeADroneFromeTheChargerException ex)
+            {
+                throw new FailedFreeADroneFromeTheChargerException($"Failed to free the drone:{id} Frome The Charger.\n");
             }
             catch (NotFoundInputException ex)
             {
@@ -221,50 +227,51 @@ namespace BL
         {
             try
             {
-                DroneList drone = Drones.First(item=>item.Id==droneId);
-                int droneIndex = Drones.FindIndex(item => item.Id == droneId);
+                DroneList drone = Drones.First(item => item.Id == droneId);
                 Parcel parcel = default;
                 bool foundParcel = false;
                 int battery = 0;
                 //to go over all the parcels
                 foreach (var item in dal.GetParcels())
                 {
-                    if (parcel == default||foundParcel==false)
+                    if (item.Scheduled == DateTime.MinValue)
                     {
-                        parcel = GetParcel(item.Id);
-                        battery = UseOfBattery(item, drone);
-                        if (battery > 0 && parcel.Weight <= drone.MaxWeight)
-                            foundParcel = true;
-                    }
-                    if (foundParcel == true)
-                    {
-                        battery = UseOfBattery(item, drone);
-                        Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
-                        Customer senderOfItem = GetCustomer(item.SenderId);
-                        Customer resepterOfItem = GetCustomer(item.TargetId);
-                        BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
-                        double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
-                        double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
-                        double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
-                        double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
-                        //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
-                        if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
-                            //the distatnce of this parcel his smaller then the distance of the parcel before
-                            if (foundParcel == false)
-                                if (disDroneToSenderI < disDroneToSenderP)
-                                {
-                                    parcel = GetParcel(item.Id);
-                                    foundParcel = true;
-                                }
+                        if ((parcel == default || foundParcel == false))
+                        {
+                            parcel = GetParcel(item.Id);
+                            battery = UseOfBattery(item, drone);
+                            if (battery > 0 && parcel.Weight <= drone.MaxWeight)
+                                foundParcel = true;
+                        }
+                        if (foundParcel == true)
+                        {
+                            battery = UseOfBattery(item, drone);
+                            Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
+                            Customer senderOfItem = GetCustomer(item.SenderId);
+                            Customer resepterOfItem = GetCustomer(item.TargetId);
+                            BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
+                            double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
+                            double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
+                            double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
+                            double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
+                            //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
+                            if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
+                                //the distatnce of this parcel his smaller then the distance of the parcel before
+                                if (foundParcel == false)
+                                    if (disDroneToSenderI < disDroneToSenderP)
+                                    {
+                                        parcel = GetParcel(item.Id);
+                                        foundParcel = true;
+                                    }
+                        }
                     }
                 }
                 //meens if found a parcel
                 if (foundParcel == true)
                 {
                     Drones.Find(item => item.Id == drone.Id).Status = (DroneStatus)2;//update the drone to be in delivery
-                    dal.UpdateParcelsScheduled(parcel.Id, droneId);
+                    dal.DronToAParcel(droneId, parcel.Id);
                     drone.NumOfParcelOnTheWay = parcel.Id;
-                    Drones[droneIndex] = drone;
                 }
                 else
                     throw new FailedToScheduledAParcelToADroneException($"Failed sceduled a parcel to drone:{droneId}\n");
@@ -283,7 +290,6 @@ namespace BL
 
             }
         }
-
         /// <summary>
         /// a drone piched up a parcel
         /// </summary>
@@ -294,8 +300,10 @@ namespace BL
             {
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
-                Drones.Remove(droneList);
-                Customer customerS = GetCustomer(drone.ParcelInTransfer.Sender.Id);
+                if (drone.ParcelInTransfer == null)
+                    throw new FailedToPickUpParcelException("couldn't pick up the parcel\n");
+                Customer customerS = new();
+                customerS = GetCustomer(drone.ParcelInTransfer.Sender.Id);
                 //the distance between the drone to the customer that send the parcel
                 double dis = Distance.Haversine(droneList.DroneLocation.Longitude, droneList.DroneLocation.Latitude, customerS.CustomerLocation.Longitude, customerS.CustomerLocation.Latitude);
                 //if there is no such drone and that ther are no parcels that the drone is in the middle of delivering 
@@ -305,7 +313,6 @@ namespace BL
                     droneList.Battery -= (int)(dis * dal.AskForBattery()[(int)(drone.ParcelInTransfer.Weight) + 1]);
                     droneList.DroneLocation = drone.ParcelInTransfer.PickUpLocation;
                     dal.PickUpParcel(drone.ParcelInTransfer.Id);
-                    Drones.Add(droneList);
                 }
                 else
                     throw new FailedToPickUpParcelException("couldn't pick up the parcel\n");
@@ -333,7 +340,8 @@ namespace BL
             {
                 Drone drone = GetDrone(id);
                 DroneList droneList = Drones.First(item => item.Id == id);
-                Drones.Remove(droneList);
+                if (drone.ParcelInTransfer == null)
+                    throw new FailedToDelieverParcelException("couldn't deliever the parcel\n");
                 Customer customerR = GetCustomer(drone.ParcelInTransfer.Recepter.Id);
                 //the distance between the drone and the customer that reseved the parcel
                 double dis = Distance.Haversine(droneList.DroneLocation.Longitude, droneList.DroneLocation.Latitude, customerR.CustomerLocation.Longitude, customerR.CustomerLocation.Latitude);
@@ -345,14 +353,13 @@ namespace BL
                     droneList.DroneLocation = drone.ParcelInTransfer.DelieveredLocation;
                     droneList.Status = (DroneStatus)0;//the drone is avilable
                     dal.ParcelToCustomer(drone.ParcelInTransfer.Id);
-                    Drones.Add(droneList);
                 }
                 else
                     throw new FailedToDelieverParcelException("couldn't deliever the parcel\n");
             }
             catch (FailedToDelieverParcelException ex)
             {
-                throw new FailedToDelieverParcelException(ex.ToString(), ex);
+                throw new FailedToDelieverParcelException("couldn't deliever the parcel\n", ex);
             }
             catch (NotFoundInputException ex)
             {
