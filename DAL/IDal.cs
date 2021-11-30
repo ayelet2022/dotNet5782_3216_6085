@@ -172,11 +172,5 @@ namespace IDAL
         /// </summary>
         /// <returns>all the id of customers that reseved parcels</returns>
         public IEnumerable<int> GetCustomersRe();
-
-        /// <summary>
-        /// update the charging positions of the base station 
-        /// </summary>
-        /// <param name="baseStation">the base station we want to update</param>
-
     }
 }

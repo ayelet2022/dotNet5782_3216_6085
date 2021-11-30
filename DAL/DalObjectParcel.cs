@@ -11,10 +11,10 @@ namespace DalObject
         public void AddParcel(Parcel newParcel)
         {
             newParcel.Id = DataSource.Config.RunningParcelId++;
-            newParcel.CreatParcel = DateTime.MinValue;
-            newParcel.Delivered = DateTime.MinValue;
-            newParcel.PickedUp = DateTime.MinValue;
-            newParcel.Scheduled = DateTime.MinValue;
+            newParcel.CreatParcel = null;
+            newParcel.Delivered = null;
+            newParcel.PickedUp = null;
+            newParcel.Scheduled = null;
             DataSource.Parcels.Add(newParcel);
         }
         public Parcel GetParcel(int idParcel)
