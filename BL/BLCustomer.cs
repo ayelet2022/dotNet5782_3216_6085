@@ -40,47 +40,44 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Customer dalCustomer = dal.GetCustomers().First(item => item.Id == idCustomer);
+                IDAL.DO.Customer dalCustomer = dal.GetCustomer(idCustomer);
                 Customer customer = new();//the customer to returne
                 dalCustomer.CopyPropertiesTo(customer);//only puts:id,name,phone,location
                 customer.CustomerLocation = new();
                 customer.CustomerLocation.Latitude = dalCustomer.Latitude;
                 customer.CustomerLocation.Longitude = dalCustomer.Longitude;
-                foreach (var item in dal.GetParcels())//checks all the parcels in dal
+                //check if the parcel is from this customer or to this customer
+                foreach (var item in dal.GetParcels(item=> item.SenderId == idCustomer || item.TargetId == idCustomer))//checks all the parcels in dal
                 {
-                    //check if the parcel is from this customer or to this customer
-                    if (item.SenderId == idCustomer || item.TargetId == idCustomer)
+                    ParcelInCustomer parcelFromCustomer = new();
+                    item.CopyPropertiesTo(parcelFromCustomer);//only copies:id,weight,priority
+                    if (item.Delivered != null)//meens the parcel was deliverd
+                        parcelFromCustomer.Status = ParcelStatus.delivery;//the parcel was deliverd
+                    else//meens the parcel is pickedup/scheduled/created
                     {
-                        ParcelInCustomer parcelFromCustomer = new();
-                        item.CopyPropertiesTo(parcelFromCustomer);//only copies:id,weight,priority
-                        if (item.Delivered != null)//meens the parcel was deliverd
-                            parcelFromCustomer.Status = ParcelStatus.delivery;//the parcel was deliverd
-                        else//meens the parcel is pickedup/scheduled/created
+                        if (item.PickedUp != null)//meens the parcel was picked up by the drone
+                            parcelFromCustomer.Status = ParcelStatus.pickup;//the parcel was pickedup by the drone
+                        else//meens the parcel is scheduled/created
                         {
-                            if (item.PickedUp != null)//meens the parcel was picked up by the drone
-                                parcelFromCustomer.Status = ParcelStatus.pickup;//the parcel was pickedup by the drone
-                            else//meens the parcel is scheduled/created
-                            {
-                                if (item.Scheduled != null)//meens the parcel was scheduled
-                                    parcelFromCustomer.Status = ParcelStatus.schedul;//the parcel was scheduled
-                                else//meens the parcel is created
-                                    parcelFromCustomer.Status = ParcelStatus.creat;//the parcel was created
-                            }
+                            if (item.Scheduled != null)//meens the parcel was scheduled
+                                parcelFromCustomer.Status = ParcelStatus.schedul;//the parcel was scheduled
+                            else//meens the parcel is created
+                                parcelFromCustomer.Status = ParcelStatus.creat;//the parcel was created
                         }
-                        parcelFromCustomer.SenderOrRecepter = new();
-                        parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
-                        parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
-                        customer.ParcelsFromCustomers = new();
-                        customer.ParcelsToCustomers = new();
-                        if (item.SenderId == idCustomer)//meens the parcel is from the customer
-                            customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
-                        if (item.TargetId == idCustomer)//meens the parcel to the customer
-                            customer.ParcelsToCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                     }
+                    parcelFromCustomer.SenderOrRecepter = new();
+                    parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
+                    parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
+                    customer.ParcelsFromCustomers = new();
+                    customer.ParcelsToCustomers = new();
+                    if (item.SenderId == idCustomer)//meens the parcel is from the customer
+                        customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
+                    if (item.TargetId == idCustomer)//meens the parcel to the customer
+                        customer.ParcelsToCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                 }
                 return customer;
             }
-            catch (InvalidOperationException ex)
+            catch (IDAL.DO.DoesNotExistException ex)
             {
                 throw new NotFoundInputException($"The customer: {idCustomer} was not found.\n", ex);
             }
@@ -90,11 +87,10 @@ namespace BL
         {
             CustomerList customer = new();
             List<CustomerList> Customers = new();//the customer list that we whant to returne
-            foreach (var item in dal.GetCustomers())
+            foreach (var item in dal.GetCustomers(predicate))
             {
-                if(predicate==null||predicate(item))
                 item.CopyPropertiesTo(customer);//copy only:id,name,phone
-                foreach (var item1 in dal.GetParcels())
+                foreach (var item1 in dal.GetParcels(x => x.SenderId == item.Id || x.TargetId == item.Id))
                 {
                     if (item1.SenderId == item.Id)//meens the customer send the parcel
                     {
@@ -109,7 +105,7 @@ namespace BL
                             customer.ParcelsResepted++;
                         else//check if the parcel is on the way
                             if (item1.PickedUp != DateTime.MinValue)//meens the parcel is on the way
-                                customer.ParcelsOnTheWay++;
+                            customer.ParcelsOnTheWay++;
                     }
                 }
                 Customers.Add(customer);

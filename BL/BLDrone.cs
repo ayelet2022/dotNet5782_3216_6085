@@ -108,11 +108,11 @@ namespace BL
                 //search if ther is such a dron with that id 
                 DroneList drone = Drones.First(item => item.Id == id);
                 drone.Model = newModel;
-                dal.GetDrones().First(item => item.Id == id);
+                dal.GetDrone(id);
                 //to update the drone in the drone list
                 dal.UpdateDrone(id, newModel);
             }
-            catch (InvalidOperationException ex)
+            catch (IDAL.DO.DoesNotExistException ex)
             {
                 throw new FailToUpdateException($"The drone: {id} was not found, the drone was not updated.\n", ex);
             }
@@ -123,7 +123,7 @@ namespace BL
             try
             {
                 DroneList droneList = Drones.First(item => item.Id == id);
-                IDAL.DO.Drone dalDrone = dal.GetDrones().First(item => item.Id == id);
+                IDAL.DO.Drone dalDrone = dal.GetDrone(id);
                 IDAL.DO.BaseStation baseStation = new();
                 //droneList = GetDrone(id);
                 baseStation = FindMinDistanceOfDToBSWithEempChar(droneList);
@@ -285,7 +285,6 @@ namespace BL
 
         public void DeliverParcel(int id)
         {
-
             try
             {
                 Drone drone = GetDrone(id);
@@ -310,15 +309,15 @@ namespace BL
             }
             catch (InvalidOperationException ex)
             {
-                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not pick up the parcel\n", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not deliever the parcel\n", ex);
             }
             catch (FailToUpdateException ex)
             {
-                throw new FailToUpdateException($"The drone: {id} could not pick up a parcel ", ex);
+                throw new FailToUpdateException($"The drone: {id} could not deliever a parcel ", ex);
             }
             catch (NotFoundInputException ex)
             {
-                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
+                throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not deliever the parcel\n", ex);
             }
 
         }
@@ -335,12 +334,12 @@ namespace BL
             double minDistance = 0;
             double distance = 0;
             //to fo over all the station
-            foreach (var item in dal.GetBaseStations())
+            foreach (var item in dal.GetBaseStations(item => item.EmptyCharges != 0))
             {
                 //the distance between the drone and this station
                 distance = Distance.Haversine(item.Latitude, item.Longitude, drone.DroneLocation.Latitude, drone.DroneLocation.Longitude);
                 //check if the distance of this station is less then the one before
-                if (minDistance == 0 || (minDistance > distance && item.EmptyCharges != 0))
+                if (minDistance == 0 || minDistance > distance)
                 {
                     minDistance = distance;
                     baseStation = item;

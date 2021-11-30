@@ -39,6 +39,7 @@ namespace BL
                 try
                 {
                     IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
+                    drone.NumOfParcelOnTheWay = parcel.Id;
                     drone.Status = DroneStatus.delivery;//the drone in deliver
                     double customerSLatitude = dal.GetCustomer(parcel.SenderId).Latitude;
                     double customerSLongitude = dal.GetCustomer(parcel.SenderId).Longitude;

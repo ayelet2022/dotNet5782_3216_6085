@@ -298,7 +298,7 @@ namespace ConsoleUI
                                 //in case you want to print the parcels that were not paired to a drone.
                                 case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
-                                    IEnumerable<Parcel> Parcels = dalObj.GetParcelThatWerenNotPaired();
+                                    IEnumerable<Parcel> Parcels = dalObj.GetParcels(item => item.Scheduled == null);
                                     //goes through the list and prints the info of each one.
                                     foreach (var itP in Parcels)
                                         Console.WriteLine(itP.ToString());
@@ -306,7 +306,7 @@ namespace ConsoleUI
                                 //in case you want to print the baseStations with available chargers
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                     //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
-                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStations(item => item.EmptyCharges != 0);
                                     //goes through the list and prints the info of each one.
                                     foreach (var itS in Stations)
                                         Console.WriteLine(itS.ToString());

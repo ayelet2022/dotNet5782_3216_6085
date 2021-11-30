@@ -10,29 +10,34 @@ namespace BL
     {
         public void AddParcel(Parcel parcel)
         {
-            if (parcel.Recepter.Id < 100000000 || parcel.Recepter.Id > 999999999)
-                throw new InvalidInputException($"The parcel recepters id: {parcel.Id} is incorrect.\n");
-            if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
-                throw new InvalidInputException($"The parcel senders id: {parcel.Id} is incorrect.\n");
-            parcel.CreatParcel = DateTime.Now;
-            parcel.Delivered = null;
-            parcel.PickedUp = null;
-            parcel.Scheduled = null;
-            parcel.ParecelDrone = null;
-            IDAL.DO.Parcel newParcel = new();
-            object obj = newParcel;
-            parcel.CopyPropertiesTo(obj);
-            newParcel = (IDAL.DO.Parcel)obj;
-            newParcel.SenderId = parcel.Sender.Id;
-            newParcel.TargetId = parcel.Recepter.Id;
-            dal.AddParcel(newParcel);
+            try
+            {
+                IDAL.DO.Customer customerR = dal.GetCustomer(parcel.Recepter.Id);
+                IDAL.DO.Customer customers = dal.GetCustomer(parcel.Sender.Id);
+                parcel.CreatParcel = DateTime.Now;
+                parcel.Delivered = null;
+                parcel.PickedUp = null;
+                parcel.Scheduled = null;
+                parcel.ParecelDrone = null;
+                IDAL.DO.Parcel newParcel = new();
+                object obj = newParcel;
+                parcel.CopyPropertiesTo(obj);
+                newParcel = (IDAL.DO.Parcel)obj;
+                newParcel.SenderId = parcel.Sender.Id;
+                newParcel.TargetId = parcel.Recepter.Id;
+                dal.AddParcel(newParcel);
+            }
+            catch(IDAL.DO.DoesNotExistException ex)
+            {
+                throw new InvalidInputException($"The parcel sender's id or recepter's id is incorrect.\n", ex);
+            }
         }
 
         public Parcel GetParcel(int idParcel)
         {
             try
             {
-                IDAL.DO.Parcel dalParcel = dal.GetParcels().First(item => item.Id == idParcel);
+                IDAL.DO.Parcel dalParcel = dal.GetParcel(idParcel);
                 Parcel parcel = new();//the parcel to returne
                 dalParcel.CopyPropertiesTo(parcel);
                 Customer sender = new();
@@ -54,7 +59,7 @@ namespace BL
                 }
                 return parcel;
             }
-            catch (InvalidOperationException ex)
+            catch (IDAL.DO.DoesNotExistException ex)
             {
                 throw new InvalidInputException($"The parcel id: {idParcel} was not found.\n", ex);
             }
@@ -64,18 +69,15 @@ namespace BL
         {
             ParcelList parcel = new();
             List<ParcelList> Parcels = new();
-            foreach (var item in dal.GetParcels())
+            foreach (var item in dal.GetParcels(predicate))
             {
-                if (predicate== null||predicate(item))
-                {
-                    item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
-                    //findes the name of the customer that send the parcel
-                    parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                    //findes the name of the customer that is recepting the parcel
-                    parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
-                    Parcels.Add(parcel);
-                    parcel = new();
-                }
+                item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
+                //findes the name of the customer that send the parcel
+                parcel.SenderName = dal.GetCustomer(item.SenderId).Name;
+                //findes the name of the customer that is recepting the parcel
+                parcel.RecepterName = dal.GetCustomer(item.TargetId).Name;
+                Parcels.Add(parcel);
+                parcel = new();
             }
             return Parcels;
         }

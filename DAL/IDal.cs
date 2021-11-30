@@ -40,7 +40,7 @@ namespace IDAL
         /// adds a new charger to the list of chargers
         /// </summary>
         /// <param name="droneCharge">the new charager we want to add</param>
-        public void AddDroneCharge(DroneCharge droneCharge);
+       // public void AddDroneCharge(DroneCharge droneCharge);
         /// <summary>
         ///  search for the base station in the arrey thet has the same id that the user enterd and returnes it
         /// </summary>
@@ -106,19 +106,19 @@ namespace IDAL
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        IEnumerable<BaseStation> GetBaseStations(Predicate<Parcel> predicate = null);
+        IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null);
 
         /// <summary>
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        IEnumerable<Drone> GetDrones(Predicate<Parcel> predicate = null);
+        IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null);
 
         /// <summary>
         /// returnes the list of customers
         /// </summary>
         /// <returns>the list of costomers</returns>
-        IEnumerable<Customer> GetCustomers(Predicate<Parcel> predicate = null);
+        IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null);
 
         /// <summary>
         /// copyes the values of all the parcel in order to print them
@@ -130,7 +130,7 @@ namespace IDAL
         /// returne the list of all the chargers
         /// </summary>
         /// <returns>the list of the chargers</returns>
-        IEnumerable<DroneCharge> GetDroneCharge(Predicate<Parcel> predicate = null);
+        IEnumerable<DroneCharge> GetDroneCharge(Predicate<DroneCharge> predicate = null);
 
         /// <summary>
         /// to update the customer that has the same id-change his name/his phone

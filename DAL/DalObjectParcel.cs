@@ -11,7 +11,7 @@ namespace DalObject
         public void AddParcel(Parcel newParcel)
         {
             newParcel.Id = DataSource.Config.RunningParcelId++;
-            newParcel.CreatParcel = null;
+            newParcel.CreatParcel = DateTime.Now;
             newParcel.Delivered = null;
             newParcel.PickedUp = null;
             newParcel.Scheduled = null;
