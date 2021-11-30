@@ -20,7 +20,7 @@ namespace DalObject
             int customerIndex = DataSource.Customers.FindIndex(item => item.Id == idCustomer);
             if (customerIndex == -1)
                 throw new DoesNotExistException($"Customer id: { idCustomer } does not exists.");
-            return (DataSource.Customers[customerIndex]);
+            return DataSource.Customers[customerIndex];
         }
         public IEnumerable<Customer> GetCustomers()
         {
@@ -47,7 +47,7 @@ namespace DalObject
             //to go over all the list of parcels
             foreach (var item in DataSource.Parcels)
             {
-                if (item.Delivered != DateTime.MinValue)//meens the parcel was deliverd
+                if (item.Delivered != null)//meens the parcel was deliverd
                     customersList.Add(item.TargetId);//adds the customer that reseved the parcel
             }
             return customersList;
