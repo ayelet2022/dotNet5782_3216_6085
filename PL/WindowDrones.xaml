@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowDrones" Height="640" Width="800">
     <Grid>
-        <Grid Name="MainGrid" HorizontalAlignment="Right" Width="800">
+        <Grid Name="MainGrid" HorizontalAlignment="Right" Width="901" Margin="0,0,-101,-67">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
@@ -20,15 +20,16 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" />
-                <Label Name="Status" Content="Label" Grid.Column="0" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Top"/>
+                <ComboBox Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" SelectionChanged="StatusSelector_SelectionChanged" />
+                <Label Name="Status" Content="Label" Grid.Column="0" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Top" Height="51" Width="102"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="DronesListView">
+            <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,107">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
+                <ListBox Height="100" Width="100"/>
             </ListView>
         </Grid>
     </Grid>
