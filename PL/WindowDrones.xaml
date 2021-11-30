@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" SelectionChanged="StatusSelector_SelectionChanged" />
+                <ComboBox x:Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" SelectionChanged="StatusSelector_SelectionChanged" />
                 <Label Name="Status" Content="Label" Grid.Column="0" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Top" Height="51" Width="102"/>
             </Grid>
             <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,107">
@@ -29,7 +29,6 @@
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
-                <ListBox Height="100" Width="100"/>
             </ListView>
         </Grid>
     </Grid>

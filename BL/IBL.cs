@@ -80,7 +80,7 @@ namespace IBL
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        IEnumerable<DroneList> GetDrones();
+        IEnumerable<DroneList> GetDrones(Predicate<DroneList> predicate = null);
         /// <summary>
         /// returnes the parcel that has the same id has wat was enterd
         /// </summary>
