@@ -86,12 +86,13 @@ namespace BL
             }
         }
 
-        public IEnumerable<CustomerList> GetCustomers()
+        public IEnumerable<CustomerList> GetCustomers(Predicate<IDAL.DO.Customer> predicate = null)
         {
             CustomerList customer = new();
             List<CustomerList> Customers = new();//the customer list that we whant to returne
             foreach (var item in dal.GetCustomers())
             {
+                if(predicate==null||predicate(item))
                 item.CopyPropertiesTo(customer);//copy only:id,name,phone
                 foreach (var item1 in dal.GetParcels())
                 {

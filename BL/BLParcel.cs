@@ -60,30 +60,13 @@ namespace BL
             }
         }
 
-        public IEnumerable<ParcelList> GetParcels()
+        public IEnumerable<ParcelList> GetParcels(Predicate<IDAL.DO.Parcel> predicate = null)
         {
             ParcelList parcel = new();
             List<ParcelList> Parcels = new();
             foreach (var item in dal.GetParcels())
             {
-                item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
-                                              //findes the name of the customer that send the parcel
-                parcel.SenderName = dal.GetCustomers().First(item1 => item1.Id == item.SenderId).Name;
-                //findes the name of the customer that is recepting the parcel
-                parcel.RecepterName = dal.GetCustomers().First(item1 => item1.Id == item.TargetId).Name;
-                Parcels.Add(parcel);
-                parcel = new();
-            }
-            return Parcels;
-        }
-
-        public IEnumerable<ParcelList> GetParcelThatWerenNotPaired()
-        {
-            ParcelList parcel = new();
-            List<ParcelList> Parcels = new();
-            foreach (var item in dal.GetParcels())
-            {
-                if (item.Scheduled == null)
+                if (predicate== null||predicate(item))
                 {
                     item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
                     //findes the name of the customer that send the parcel

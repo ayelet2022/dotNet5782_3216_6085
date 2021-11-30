@@ -67,7 +67,7 @@ namespace IBL
         /// returne the all list of the customers
         /// </summary>
         /// <returns>the new list of the customers</returns>
-        IEnumerable<CustomerList> GetCustomers();
+        IEnumerable<CustomerList> GetCustomers(Predicate<IDAL.DO.Customer> predicate = null);
 
         /// <summary>
         /// returne the drone that has the same id as what wes enterd
@@ -91,12 +91,7 @@ namespace IBL
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        IEnumerable<ParcelList> GetParcels();
-        /// <summary>
-        /// search for all the drones that are available and copy them to a new arrey  
-        /// </summary>
-        /// <returns>the new arrey that has all the drones that are availeble</returns>
-        IEnumerable<ParcelList> GetParcelThatWerenNotPaired();
+        IEnumerable<ParcelList> GetParcels(Predicate<IDAL.DO.Parcel> predicate = null);
 
         /// <summary>
         /// a drone piched up a parcel
