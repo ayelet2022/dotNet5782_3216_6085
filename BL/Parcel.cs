@@ -25,13 +25,13 @@ namespace IBL.BO
         /// <summary>
         /// the time that the parcel was created
         /// </summary>
-        public DateTime CreatParcel { get; set; }
+        public DateTime? CreatParcel { get; set; }
         /// <summary>
         /// the time that a drone was peered to the parcel
         /// </summary>
-        public DateTime Scheduled { get; set; }
-        public DateTime PickedUp { get; set; }
-        public DateTime Delivered { get; set; }
+        public DateTime? Scheduled { get; set; }
+        public DateTime? PickedUp { get; set; }
+        public DateTime? Delivered { get; set; }
         public DroneInParcel ParecelDrone { get; set; }
         public override string ToString()
         {

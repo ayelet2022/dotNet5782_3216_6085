@@ -15,9 +15,9 @@ namespace BL
             if (parcel.Sender.Id < 100000000 || parcel.Sender.Id > 999999999)
                 throw new InvalidInputException($"The parcel senders id: {parcel.Id} is incorrect.\n");
             parcel.CreatParcel = DateTime.Now;
-            parcel.Delivered = DateTime.MinValue;
-            parcel.PickedUp = DateTime.MinValue;
-            parcel.Scheduled = DateTime.MinValue;
+            parcel.Delivered = null;
+            parcel.PickedUp = null;
+            parcel.Scheduled = null;
             parcel.ParecelDrone = null;
             IDAL.DO.Parcel newParcel = new();
             object obj = newParcel;
@@ -83,7 +83,7 @@ namespace BL
             List<ParcelList> Parcels = new();
             foreach (var item in dal.GetParcels())
             {
-                if (item.Scheduled == DateTime.MinValue)
+                if (item.Scheduled == null)
                 {
                     item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
                     //findes the name of the customer that send the parcel

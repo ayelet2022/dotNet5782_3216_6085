@@ -79,7 +79,7 @@ namespace BL
                     parcelInT.Recepter.Name = blRecepterCustomer.Name;
                     parcelInT.PickUpLocation = blSenderCustomer.CustomerLocation;
                     parcelInT.DelieveredLocation = blRecepterCustomer.CustomerLocation;
-                    if (blParcel.PickedUp == DateTime.MinValue)
+                    if (blParcel.PickedUp == null)
                         parcelInT.StatusParcel = false;
                     else
                         parcelInT.StatusParcel = true;

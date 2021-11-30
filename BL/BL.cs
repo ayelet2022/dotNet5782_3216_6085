@@ -38,7 +38,7 @@ namespace BL
                 itD.CopyPropertiesTo(drone);
                 try
                 {
-                    IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == DateTime.MinValue); //a parcel was scheduled
+                    IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
                     drone.Status = DroneStatus.delivery;//the drone in deliver
                     double customerSLatitude = dal.GetCustomer(parcel.SenderId).Latitude;
                     double customerSLongitude = dal.GetCustomer(parcel.SenderId).Longitude;
@@ -51,7 +51,7 @@ namespace BL
                     double disRtoBS = Distance.Haversine
                         (customerRLongitude, customerRLatitude, FindMinDistanceOfCToBS(customerRLatitude,customerRLongitude).Longitude, FindMinDistanceOfCToBS(customerRLatitude, customerRLongitude).Latitude);
                     drone.DroneLocation = new();
-                    if (parcel.PickedUp == DateTime.MinValue)//meens the parcel wasnt picked up by the drone
+                    if (parcel.PickedUp == null)//meens the parcel wasnt picked up by the drone
                     {
                         //fineds the closest base station to the customer that sends the paecel and copys the location
                         drone.DroneLocation.Latitude = FindMinDistanceOfCToBS(customerSLatitude, customerSLongitude).Latitude;
