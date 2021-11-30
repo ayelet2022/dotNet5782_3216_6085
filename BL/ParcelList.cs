@@ -13,7 +13,7 @@ namespace IBL.BO
         public string RecepterName { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        
+        public ParcelStatus ParcelStatus { get; set; }
         public override string ToString()
         {
             String result = "";
