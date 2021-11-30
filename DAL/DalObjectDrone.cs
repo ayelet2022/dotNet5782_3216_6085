@@ -57,12 +57,13 @@ namespace DalObject
             DataSource.Stations[baseStationIndex] = updateAStation;
             DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
         }
-        public IEnumerable<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null)
         {
             List<Drone> Drones = new List<Drone>();
             //to copy all the drones from list
             foreach (var itD in DataSource.Drones)
-                Drones.Add(itD);
+                if (predicate == null || predicate(itD))
+                    Drones.Add(itD);
             return Drones;
         }
         public void UpdateDrone(int id, string newModel)

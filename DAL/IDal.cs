@@ -106,43 +106,31 @@ namespace IDAL
         /// copyes the values of al the base stations in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the base stations</returns>
-        IEnumerable<BaseStation> GetBaseStations();
+        IEnumerable<BaseStation> GetBaseStations(Predicate<Parcel> predicate = null);
 
         /// <summary>
         /// copyes the values of all the drones in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the drones</returns>
-        IEnumerable<Drone> GetDrones();
+        IEnumerable<Drone> GetDrones(Predicate<Parcel> predicate = null);
 
         /// <summary>
         /// returnes the list of customers
         /// </summary>
         /// <returns>the list of costomers</returns>
-        IEnumerable<Customer> GetCustomers();
+        IEnumerable<Customer> GetCustomers(Predicate<Parcel> predicate = null);
 
         /// <summary>
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        IEnumerable<Parcel> GetParcels();
+        IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null);
 
         /// <summary>
         /// returne the list of all the chargers
         /// </summary>
         /// <returns>the list of the chargers</returns>
-        IEnumerable<DroneCharge> GetDroneCharge();
-
-        /// <summary>
-        /// search for all the drones that are available and copy them to a new arrey  
-        /// </summary>
-        /// <returns>the new arrey that has all the drones that are availeble</returns>
-        IEnumerable<Parcel> GetParcelThatWerenNotPaired();
-
-        /// <summary>
-        /// search for tha base station that has available charges and copys them to a new arrey
-        /// </summary>
-        /// <returns>the new arrey that has all the base station that has free charges</returns>
-        IEnumerable<BaseStation> GetBaseStationWithAvailableCharges();
+        IEnumerable<DroneCharge> GetDroneCharge(Predicate<Parcel> predicate = null);
 
         /// <summary>
         /// to update the customer that has the same id-change his name/his phone
@@ -166,11 +154,5 @@ namespace IDAL
         /// <param name="newName">the new name we want to give the station</param>
         /// <param name="emptyCharges">the new emount of chargers in base station</param>
         public void UpdateStation(int id, string newName, int emptyCharges);
-
-        /// <summary>
-        /// returnes the list of the id of the customers that reseved a parcel
-        /// </summary>
-        /// <returns>all the id of customers that reseved parcels</returns>
-        public IEnumerable<int> GetCustomersRe();
     }
 }

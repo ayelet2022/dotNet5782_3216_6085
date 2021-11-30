@@ -22,11 +22,12 @@ namespace DalObject
                 throw new DoesNotExistException($"Customer id: { idCustomer } does not exists.");
             return DataSource.Customers[customerIndex];
         }
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
             List<Customer> Customers = new ();
             foreach (var itC in DataSource.Customers)
-                Customers.Add(itC);
+                if (predicate == null || predicate(itC))
+                    Customers.Add(itC);
             return Customers;
         }
         public void UpdateCustomer(int id,string name,string phone)
@@ -40,17 +41,6 @@ namespace DalObject
             if (phone != "\n")
                 customer.Phone = phone;
             DataSource.Customers[customerIndex] = customer;//to change the customer in the list of customers
-        }
-        public IEnumerable<int> GetCustomersRe()
-        {
-            List<int> customersList= new List<int>();
-            //to go over all the list of parcels
-            foreach (var item in DataSource.Parcels)
-            {
-                if (item.Delivered != null)//meens the parcel was deliverd
-                    customersList.Add(item.TargetId);//adds the customer that reseved the parcel
-            }
-            return customersList;
         }
     }
 }

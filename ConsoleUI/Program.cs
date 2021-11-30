@@ -182,7 +182,7 @@ namespace ConsoleUI
                                     int DronesId1;
                                     int.TryParse(Console.ReadLine(), out DronesId1);//cin the drones id
                                     Console.WriteLine("Enter the id of the basestation you whant to charge the drone in (from the list): ");
-                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStation> Stations = dalObj.GetBaseStations();
                                     //prints for the user the baseStations that have free charge stations
                                     foreach (var itBS in Stations)
                                         Console.WriteLine(itBS.ToString());

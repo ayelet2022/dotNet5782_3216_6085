@@ -195,7 +195,7 @@ namespace BL
                 bool foundParcel = false;
                 int battery = 0;
                 //to go over all the parcels
-                foreach (var item in dal.GetParcelThatWerenNotPaired())
+                foreach (var item in dal.GetParcels(item => item.Scheduled == null))
                 {
                     if ((parcel == default || foundParcel == false))
                     {

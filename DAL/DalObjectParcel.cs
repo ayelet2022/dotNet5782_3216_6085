@@ -61,21 +61,12 @@ namespace DalObject
             updateAParcel.DroneId = 0;
             DataSource.Parcels[parcelIndex] = updateAParcel;
         }
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
             List<Parcel> Parcels = new();
-            foreach (var itBS in DataSource.Parcels)
-                    Parcels.Add(itBS);
-            return Parcels;
-        }
-        public IEnumerable<Parcel> GetParcelThatWerenNotPaired()
-        {
-            List<Parcel> Parcels = new();
-            foreach (var itBS in DataSource.Parcels)
-            {
-                if (itBS.DroneId == 0)
-                    Parcels.Add(itBS);
-            }
+            foreach (var itP in DataSource.Parcels)
+                if (predicate == null || predicate(itP))
+                    Parcels.Add(itP);
             return Parcels;
         }
     }

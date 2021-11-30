@@ -22,21 +22,12 @@ namespace DalObject
                 throw new DoesNotExistException($"Base station id: {idBaseStation} does not exists.");
             return DataSource.Stations[baseStationIndex];
         }
-        public IEnumerable<BaseStation> GetBaseStations()
+        public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {
             List<BaseStation> Stations = new List<BaseStation>();
             foreach (var itBS in DataSource.Stations)
-                Stations.Add(itBS);
-            return Stations;
-        }
-        public IEnumerable<BaseStation> GetBaseStationWithAvailableCharges()
-        {
-            List<BaseStation> Stations = new();
-            foreach (var itBS in DataSource.Stations)
-            {
-                if (itBS.EmptyCharges > 0)
+                if (predicate == null || predicate(itBS))
                     Stations.Add(itBS);
-            }
             return Stations;
         }
         public void UpdateStation(int id, string newName, int emptyCharges)

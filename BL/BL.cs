@@ -94,7 +94,10 @@ namespace BL
                     }
                     else
                     {
-                        List<int> customerId = dal.GetCustomersRe().ToList();
+                        List<IDAL.DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();
+                        List<int> customerId = new();
+                        foreach (var item in parcels)
+                            customerId.Add(item.TargetId);
                         int customerI = Rand.Next(0, customerId.Count);
                         drone.DroneLocation = new();
                         drone.DroneLocation.Longitude = dal.GetCustomer(customerId[customerI]).Longitude;
