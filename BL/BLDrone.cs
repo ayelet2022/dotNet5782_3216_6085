@@ -96,9 +96,15 @@ namespace BL
             }
         }
 
-        public IEnumerable<DroneList> GetDrones()
+        public IEnumerable<DroneList> GetDrones(Predicate<DroneList> predicate = null)
         {
-            return Drones;
+            List<DroneList> droneList=new();
+            foreach (var item in Drones)
+            {
+                if (predicate == null || predicate(item))
+                    droneList.Add(item);
+            }
+            return droneList;
         }
 
         public void UpdateDrone(int id, string newModel)

@@ -19,25 +19,22 @@ namespace PL
     /// </summary>
     public partial class WindowDrones : Window
     {
+        IBL.IBL ibl;
         public WindowDrones(IBL.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
             DronesListView.ItemsSource = ibl.GetDrones();
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
         }
-        IBL.IBL ibl;
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
         }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             
         }
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
     }
 }
