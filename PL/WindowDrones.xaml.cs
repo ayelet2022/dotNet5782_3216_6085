@@ -29,12 +29,15 @@ namespace PL
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-
         }
-
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            
+        }
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

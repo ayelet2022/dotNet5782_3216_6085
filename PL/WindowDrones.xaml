@@ -29,7 +29,7 @@
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
-                <ListBox Height="100" Width="100"/>
+                <ListBox Height="100" Width="100" SelectionChanged="ListBox_SelectionChanged"/>
             </ListView>
         </Grid>
     </Grid>
