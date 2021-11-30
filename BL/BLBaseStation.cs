@@ -9,6 +9,8 @@ namespace BL
 {
     public partial class BL
     {
+        //public delegate bool conditionDelegate(IDAL.DO.BaseStation baseStation);
+
         public void AddBaseStation(BaseStation baseStation)
         {
             if (baseStation.Id > 9999 || baseStation.Id < 1000)
@@ -71,28 +73,7 @@ namespace BL
             }
         }
 
-        public IEnumerable<BaseStationList> GetBaseStations()
-        {
-            List<BaseStationList> listStations = new List<BaseStationList>();
-            BaseStationList baseStationList = new();
-            BaseStation blStations = new();
-            //to copy all the station from the station list
-            foreach (var item in dal.GetBaseStations())
-            {
-                blStations = GetBaseStation(item.Id);
-                blStations.CopyPropertiesTo(baseStationList);
-                //meens ther are no drones that are charging in the base station
-                if (blStations.DronesInCharge == null)
-                    baseStationList.FullChargingPositions = 0;
-                else//meens thar are drones that are charging in the base station
-                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
-                listStations.Add(baseStationList);
-                baseStationList = new();
-            }
-            return listStations;
-        }
-
-        public IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges()
+        public IEnumerable<BaseStationList> GetBaseStations(Predicate<IDAL.DO.BaseStation> predicate=null)
         {
                 List<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
@@ -101,7 +82,7 @@ namespace BL
                 foreach (var item in dal.GetBaseStations())
                 {
                     //meens there are empty chargers
-                    if (item.EmptyCharges != 0)
+                    if (predicate==null || predicate(item))
                     {
                         blStations = GetBaseStation(item.Id);
                         blStations.CopyPropertiesTo(baseStationList);
@@ -139,6 +120,5 @@ namespace BL
             }
         }
 
-        
     }
 }
