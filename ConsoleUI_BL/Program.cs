@@ -347,7 +347,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the baseStations with available chargers
                                 case PrintTheWholeListOfAnObject.PrintAllTheBaseStationWithAvailableCharges:
                                     //creats a new list of parcels and sends to a function that returns the list of the baseStations with available chargers
-                                    IEnumerable<BaseStationList> Stations = obj.GetBaseStationWithAvailableCharges();
+                                    IEnumerable<BaseStationList> Stations = obj.GetBaseStations(x => x.EmptyCharges != 0);
                                     if (Stations == null)
                                         Console.WriteLine("There are base station with available chargers.\n");
                                     //goes through the list and prints the info of each one.

@@ -54,13 +54,7 @@ namespace IBL
         /// returens the all base station list
         /// </summary>
         /// <returns>the all base station list</returns>
-        IEnumerable<BaseStationList> GetBaseStations();
-
-        /// <summary>
-        /// search for tha base station that has available charges and copys them to a new list
-        /// </summary>
-        /// <returns>the new list that has all the base station that has free charges</returns>
-        IEnumerable<BaseStationList> GetBaseStationWithAvailableCharges();
+        IEnumerable<BaseStationList> GetBaseStations(Predicate<IDAL.DO.BaseStation> predicate=null);
 
         /// <summary>
         /// returne the customer with the id that was enterd
