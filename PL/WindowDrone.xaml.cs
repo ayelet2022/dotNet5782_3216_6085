@@ -23,5 +23,10 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
