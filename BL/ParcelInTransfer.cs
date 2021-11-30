@@ -8,9 +8,6 @@ namespace IBL.BO
 {
     public class ParcelInTransfer
     {
-        /// <summary>
-        /// the parcel id
-        /// </summary>
         public int Id { get; set; }
         public bool StatusParcel { get; set; }
         public Priorities Priority { get; set; }
