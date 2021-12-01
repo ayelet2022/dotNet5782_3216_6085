@@ -38,7 +38,7 @@
             <Grid x:Name="Actions" Visibility="Visible" Margin="200,59,200,10" Grid.RowSpan="2">
                 <Button Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="status2" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120"/>
-                <ComboBox x:Name="weight2" HorizontalAlignment="Left" Margin="200,145,0,0" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="weight2" HorizontalAlignment="Left" Margin="203,147,0,0" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Id:" HorizontalAlignment="Left" Margin="89,71,0,0" VerticalAlignment="Top"/>
                 <Label Content="Battery:" HorizontalAlignment="Left" Margin="89,108,0,0" VerticalAlignment="Top"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="89,145,0,0" VerticalAlignment="Top"/>
@@ -46,13 +46,13 @@
                 <Label Content="Latitude" HorizontalAlignment="Left" Margin="89,219,0,0" VerticalAlignment="Top"/>
                 <Label Content="Longtitude" HorizontalAlignment="Left" Margin="89,256,0,0" VerticalAlignment="Top"/>
                 <Label Content="Model" HorizontalAlignment="Left" Margin="89,293,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="IdBoxAc" HorizontalAlignment="Left" Margin="249,439,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="Battery" HorizontalAlignment="Left" Margin="282,173,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox HorizontalAlignment="Left" Margin="282,99,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="IdBoxAc" HorizontalAlignment="Left" Margin="200,264,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="Battery" HorizontalAlignment="Left" Margin="203,108,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="200,71,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Status:" HorizontalAlignment="Left" Margin="89,330,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="244,156,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox HorizontalAlignment="Left" Margin="244,216,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox HorizontalAlignment="Left" Margin="260,497,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="203,190,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="200,223,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                <TextBox HorizontalAlignment="Left" Margin="200,301,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
             </Grid>
         </Grid>

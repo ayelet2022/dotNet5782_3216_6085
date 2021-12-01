@@ -50,5 +50,10 @@ namespace PL
         {
             ibl.AddDrone(drone, (int)IdStation.DataContext);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
