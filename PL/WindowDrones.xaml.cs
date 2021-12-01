@@ -28,10 +28,6 @@ namespace PL
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
-        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Selector();
@@ -54,5 +50,10 @@ namespace PL
         {
             new WindowDrone(ibl).Show();
         }
+        private void Add_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            new WindowDrone((Drone)Add.Content);
+        }
+
     }
 }

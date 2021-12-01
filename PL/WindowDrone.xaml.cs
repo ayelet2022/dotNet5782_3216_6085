@@ -21,12 +21,19 @@ namespace PL
     public partial class WindowDrone : Window
     {
         Drone drone = new();
+        IBL.IBL ibl;
         public WindowDrone(IBL.IBL bl)
         {
             InitializeComponent();
-            status.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-            weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            drone.Id = (int)IdBox.Text;
+            ibl = bl;
+            add.Visibility = Visibility.Visible;
+            weight1.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            drone.Id = (int)IdBox.DataContext;
+            drone.Model = (string)ModelBox.DataContext;
+        }
+        public WindowDrone(Drone drone)
+        {
+            
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -34,19 +41,14 @@ namespace PL
 
         }
 
-        private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            drone.MaxWeight = (WeightCategories)status.SelectedItem;
+            drone.MaxWeight = (WeightCategories)status1.SelectedItem;
         }
 
         private void addButten_Click(object sender, RoutedEventArgs e)
         {
-            
+            ibl.AddDrone(drone, (int)IdStation.DataContext);
         }
     }
 }
