@@ -22,6 +22,7 @@
                 </Grid.ColumnDefinitions >
                 <ComboBox x:Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" SelectionChanged="StatusSelector_SelectionChanged" />
                 <Label Name="Status" Content="Label" Grid.Column="0" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Top" Height="51" Width="102"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Width="137" Height="51" SelectionChanged="WeightSelector_SelectionChanged"/>
                 <Button Name="Add" Content="add" Grid.Column="3" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top" Height="37" Width="63" Click="Add_Click"/>
             </Grid>
             <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,107">

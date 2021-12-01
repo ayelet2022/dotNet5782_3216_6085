@@ -76,6 +76,20 @@ namespace BL
                 parcel.SenderName = dal.GetCustomer(item.SenderId).Name;
                 //findes the name of the customer that is recepting the parcel
                 parcel.RecepterName = dal.GetCustomer(item.TargetId).Name;
+                if (item.Delivered != null)//if parcel was delivered
+                    parcel.ParcelStatus = ParcelStatus.delivery;//state -> provided
+                else
+                {
+                    if (item.PickedUp != null)//if parcel was picked up by drone
+                        parcel.ParcelStatus = ParcelStatus.pickup;//state -> picked up
+                    else
+                    {
+                        if (item.Scheduled != null)//if if parcel was assigned to drone
+                            parcel.ParcelStatus = ParcelStatus.schedul;//state -> paired
+                        else//if parcel was requested
+                            parcel.ParcelStatus = ParcelStatus.creat;//state -> created
+                    }
+                }
                 Parcels.Add(parcel);
                 parcel = new();
             }
