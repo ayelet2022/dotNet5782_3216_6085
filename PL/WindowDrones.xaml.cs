@@ -55,5 +55,9 @@ namespace PL
             new WindowDrone((Drone)Add.Content);
         }
 
+        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            new WindowDrone((Drone)DronesListView.SelectedItem);
+        }
     }
 }
