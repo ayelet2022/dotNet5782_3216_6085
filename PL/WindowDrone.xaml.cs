@@ -27,13 +27,14 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             add.Visibility = Visibility.Visible;
-            weight1.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            drone.Id = (int)IdBox.DataContext;
-            drone.Model = (string)ModelBox.DataContext;
+            weightA.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            drone.Id = (int)IdBoxA.DataContext;
+            drone.Model = (string)ModelBoxA.DataContext;
         }
         public WindowDrone(Drone drone)
         {
-            
+            IdBoxAc.DataContext = drone.Id;
+
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,7 +44,7 @@ namespace PL
 
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            drone.MaxWeight = (WeightCategories)status1.SelectedItem;
+            drone.MaxWeight = (WeightCategories)statusA.SelectedItem;
         }
 
         private void addButten_Click(object sender, RoutedEventArgs e)
