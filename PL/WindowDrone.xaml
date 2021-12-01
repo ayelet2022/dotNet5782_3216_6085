@@ -21,6 +21,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
+            <Grid x:Name="add" Visibility="Hidden" Margin="0,69,400,0" Grid.RowSpan="2"/>
+            <Grid x:Name="show" Visibility="Hidden" Margin="400,69,0,0" Grid.RowSpan="2"/>
         </Grid>
     </Grid>
 </Window>
