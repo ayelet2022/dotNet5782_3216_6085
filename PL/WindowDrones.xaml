@@ -13,19 +13,20 @@
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
             <Grid/>
-            <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox x:Name="StatusSelector" Grid.Column="1" Margin="40,25,41,0" SelectionChanged="StatusSelector_SelectionChanged" />
-                <Label Name="Status" Content="Label" Grid.Column="0" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Top" Height="51" Width="102"/>
-                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Width="137" Height="51" SelectionChanged="WeightSelector_SelectionChanged"/>
-                <Button Name="Add" Content="add" Grid.Column="3" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top" Height="37" Width="63" Click="Add_Click"/>
+                <ComboBox x:Name="StatusSelector" Grid.Column="1" Margin="40,33,58,628" SelectionChanged="StatusSelector_SelectionChanged" />
+                <Label Name="Status" Content="Sort by status:" Grid.Column="0" HorizontalAlignment="Left" Margin="180,35,0,0" VerticalAlignment="Top" Height="51" Width="102" Grid.ColumnSpan="2"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Width="127" Height="33" SelectionChanged="WeightSelector_SelectionChanged"/>
+                <Button Name="Add" Content="Add new drone" Grid.Column="3" HorizontalAlignment="Left" Margin="0,566,0,0" VerticalAlignment="Top" Height="30" Width="97" Click="Add_Click"/>
+                <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,107">
+            <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,168">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

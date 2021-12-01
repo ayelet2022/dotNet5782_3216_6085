@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowDrone" Height="640" Width="800">
     <Grid>
-        <Grid Name="MainGrid" Height="624" VerticalAlignment="Bottom">
+        <Grid Name="MainGrid" Height="624" VerticalAlignment="Bottom" RenderTransformOrigin="0.521,0.504">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
@@ -21,8 +21,40 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
-            <Grid x:Name="add" Visibility="Hidden" Margin="0,69,400,0" Grid.RowSpan="2"/>
-            <Grid x:Name="show" Visibility="Hidden" Margin="400,69,0,0" Grid.RowSpan="2"/>
+            <Grid x:Name="add" Visibility="Visible" Margin="200,35,200,34" Grid.RowSpan="2">
+                <ComboBox x:Name="status1" Visibility="Hidden" HorizontalAlignment="Left" Margin="200,150,0,0" VerticalAlignment="Top" Width="116" Height="26" SelectionChanged="status_SelectionChanged"/>
+                <ComboBox x:Name="weight1" HorizontalAlignment="Left" Margin="200,238,0,0" VerticalAlignment="Top" Width="116" Height="26" SelectionChanged="weight_SelectionChanged"/>
+                <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="54,241,0,0" VerticalAlignment="Top"/>
+                <Label Visibility="Hidden" Content="Status:" HorizontalAlignment="Left" Margin="54,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.428,0.691"/>
+                <TextBox x:Name="IdBox" HorizontalAlignment="Left" Margin="200,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+                <Label Content="Id:" HorizontalAlignment="Left" Margin="54,106,0,0" VerticalAlignment="Top"/>
+                <Label Content="Model:" HorizontalAlignment="Left" Margin="52,196,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="ModelBox" HorizontalAlignment="Left" Margin="200,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+                <Label Content="Id Of Charging Station:" HorizontalAlignment="Left" Margin="52,286,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="200,290,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+                <Button x:Name="addButten" Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
+                <Button x:Name="CancelButten" Content="Cancel" HorizontalAlignment="Left" Margin="40,448,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
+            </Grid>
+            <Grid x:Name="update" Visibility="Hidden" Margin="200,59,200,10" Grid.RowSpan="2">
+                <Button Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top"/>
+                <ComboBox x:Name="status2" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="weight2" HorizontalAlignment="Left" Margin="200,145,0,0" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Id:" HorizontalAlignment="Left" Margin="89,71,0,0" VerticalAlignment="Top"/>
+                <Label Content="Battery:" HorizontalAlignment="Left" Margin="89,108,0,0" VerticalAlignment="Top"/>
+                <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="89,145,0,0" VerticalAlignment="Top"/>
+                <Label Content="Parcel In Delievery:" HorizontalAlignment="Left" Margin="89,182,0,0" VerticalAlignment="Top"/>
+                <Label Content="Latitude" HorizontalAlignment="Left" Margin="89,219,0,0" VerticalAlignment="Top"/>
+                <Label Content="Longtitude" HorizontalAlignment="Left" Margin="89,256,0,0" VerticalAlignment="Top"/>
+                <Label Content="Model" HorizontalAlignment="Left" Margin="89,293,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="249,439,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="282,173,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="282,99,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Status:" HorizontalAlignment="Left" Margin="89,330,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="244,156,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="244,216,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Margin="260,497,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+            </Grid>
         </Grid>
     </Grid>
 </Window>
