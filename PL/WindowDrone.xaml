@@ -46,13 +46,13 @@
                 <Label Content="Latitude" HorizontalAlignment="Left" Margin="89,219,0,0" VerticalAlignment="Top"/>
                 <Label Content="Longtitude" HorizontalAlignment="Left" Margin="89,256,0,0" VerticalAlignment="Top"/>
                 <Label Content="Model" HorizontalAlignment="Left" Margin="89,293,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="IdBoxAc" HorizontalAlignment="Left" Margin="200,71,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="BatteryBoxAc" HorizontalAlignment="Left" Margin="200,112,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="IdBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,71,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="BatteryBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,112,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="ModelAc" HorizontalAlignment="Left" Margin="200,297,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Status:" HorizontalAlignment="Left" Margin="89,330,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="ParcelBoxAc" HorizontalAlignment="Left" Margin="200,186,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LatitudeBoxAc" HorizontalAlignment="Left" Margin="200,223,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LongtitudeBoxAc" HorizontalAlignment="Left" Margin="200,260,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Status:"  HorizontalAlignment="Left" Margin="89,330,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="ParcelBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,186,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LatitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,223,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LongtitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,260,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
             </Grid>
         </Grid>

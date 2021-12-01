@@ -34,7 +34,7 @@ namespace PL
         public WindowDrone(Drone drone)
         {
             IdBoxAc.DataContext = drone.Id;
-
+            BatteryBoxAc.DataContext = drone.Battery;
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
