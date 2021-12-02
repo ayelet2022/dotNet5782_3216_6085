@@ -35,7 +35,7 @@
                 <Button x:Name="addButtenA" Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
                 <Button x:Name="CancelButten" Content="Cancel" HorizontalAlignment="Left" Margin="40,448,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
             </Grid>
-            <Grid x:Name="Actions" Visibility="Hidden" Margin="200,59,200,10" Grid.RowSpan="2">
+            <Grid x:Name="Actions" Visibility="Visible" Margin="200,59,200,10" Grid.RowSpan="2">
                 <Button Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="statusAC" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="statusAC_SelectionChanged"/>
                 <ComboBox x:Name="weightAC" HorizontalAlignment="Left" Margin="200,147,0,0" VerticalAlignment="Top" Width="120"/>
@@ -54,7 +54,7 @@
                 <TextBox x:Name="LatitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,223,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="LongtitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,260,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="UpdateButton" Content="Update drone" HorizontalAlignment="Left" Margin="260,459,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-                <Button x:Name="ChargeDrone" Content="" HorizontalAlignment="Left" Margin="259,492,0,0" VerticalAlignment="Top" Width="78" Click="SendDrone_Click"/>
+                <Button x:Name="ChargeDrone" Content="" HorizontalAlignment="Left" Margin="259,492,0,0" VerticalAlignment="Top" Width="78" Click="ChargeDrone_Click" />
                 <Button x:Name="ChangeStatusDrone" Content="" HorizontalAlignment="Left" Margin="260,426,0,0" VerticalAlignment="Top" Width="78" Click="ChangeStatusDrone_Click"/>
                 <TextBox x:Name="FDB" Visibility="Hidden" HorizontalAlignment="Left" Margin="259,527,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
                 <Label x:Name="FDL" Visibility="Hidden" Content="How long charging:" HorizontalAlignment="Left" Margin="111,521,0,0" VerticalAlignment="Top" Height="34" Width="121"/>
