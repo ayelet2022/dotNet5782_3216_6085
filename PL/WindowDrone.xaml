@@ -26,10 +26,10 @@
                 <ComboBox x:Name="weightA" HorizontalAlignment="Left" Margin="200,238,0,0" VerticalAlignment="Top" Width="116" Height="26" SelectionChanged="weight_SelectionChanged"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="54,241,0,0" VerticalAlignment="Top"/>
                 <Label Visibility="Hidden" Content="Status:" HorizontalAlignment="Left" Margin="54,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.428,0.691"/>
-                <TextBox x:Name="IdBoxA" HorizontalAlignment="Left" Margin="200,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" TextChanged="IdBoxA_TextChanged"/>
+                <TextBox x:Name="IdBoxA" HorizontalAlignment="Left" Margin="200,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" TextChanged="IdBoxA_TextChanged"   />
                 <Label Content="Id:" HorizontalAlignment="Left" Margin="54,106,0,0" VerticalAlignment="Top"/>
                 <Label Content="Model:" HorizontalAlignment="Left" Margin="52,196,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="ModelBoxA" HorizontalAlignment="Left" Margin="200,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+                <TextBox x:Name="ModelBoxA" HorizontalAlignment="Left" Margin="200,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" TextChanged="ModelBoxA_TextChanged"/>
                 <Label Content="Id Of Charging Station:" HorizontalAlignment="Left" Margin="52,286,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="IdStation" HorizontalAlignment="Left" Margin="200,290,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
                 <Button x:Name="addButtenA" Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
