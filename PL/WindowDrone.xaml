@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
             </Grid>
-            <Grid x:Name="add" Visibility="Hidden" Margin="200,35,200,34" Grid.RowSpan="2">
+            <Grid x:Name="add" Visibility="Hidden" Margin="0,59,400,10" Grid.RowSpan="2">
                 <ComboBox x:Name="statusA" Visibility="Hidden" HorizontalAlignment="Left" Margin="200,150,0,0" VerticalAlignment="Top" Width="116" Height="26" SelectionChanged="statusA_SelectionChanged"/>
                 <ComboBox x:Name="weightA" HorizontalAlignment="Left" Margin="200,238,0,0" VerticalAlignment="Top" Width="116" Height="26" SelectionChanged="weight_SelectionChanged"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="54,241,0,0" VerticalAlignment="Top"/>
@@ -35,7 +35,7 @@
                 <Button x:Name="addButtenA" Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
                 <Button x:Name="CancelButten" Content="Cancel" HorizontalAlignment="Left" Margin="40,448,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
             </Grid>
-            <Grid x:Name="Actions" Visibility="Hidden" Margin="200,59,200,10" Grid.RowSpan="2">
+            <Grid x:Name="Actions" Visibility="Hidden" Margin="400,59,0,10" Grid.RowSpan="2">
                 <Button Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="statusAC" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="statusAC_SelectionChanged"/>
                 <ComboBox x:Name="weightAC" HorizontalAlignment="Left" Margin="200,147,0,0" VerticalAlignment="Top" Width="120"/>
