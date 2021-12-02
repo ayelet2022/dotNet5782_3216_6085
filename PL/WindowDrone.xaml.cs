@@ -33,10 +33,10 @@ namespace PL
         }
         public WindowDrone(DroneList droneList)
         {
+
             InitializeComponent();
             Actions.Visibility = Visibility.Visible;
             mainDroneList = droneList;
-            Actions.Visibility = Visibility.Visible;
             IdBoxAc.DataContext = droneList.Id;
             BatteryBoxAc.DataContext = droneList.Battery;
             LatitudeBoxAc.DataContext = droneList.DroneLocation.Latitude;
