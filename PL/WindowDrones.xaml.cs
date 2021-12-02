@@ -53,7 +53,7 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, SelectionChangedEventArgs e)
         {
-            new WindowDrone((DroneList)DronesListView.SelectedItem);
+            new WindowDrone((DroneList)DronesListView.SelectedItem).Show();
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

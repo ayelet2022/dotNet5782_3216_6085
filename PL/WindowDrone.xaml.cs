@@ -45,6 +45,8 @@ namespace PL
             ParcelBoxAc.DataContext = droneList.NumOfParcelOnTheWay;
             if (mainDroneList.Status == DroneStatus.available)
             {
+                ChargeDrone.Visibility = Visibility.Visible;
+                ChangeStatusDrone.Visibility = Visibility.Visible;
                 ChargeDrone.Content = "Send drone to charging";
                 ChangeStatusDrone.Content = "Send drone to delievery";
             }
@@ -92,18 +94,6 @@ namespace PL
         {
             mainDroneList.Status = (DroneStatus)statusAC.SelectedItem;
         }
-        private void SendDrone_Click(object sender, RoutedEventArgs e)
-        {
-            if((string)ChargeDrone.DataContext== "Send drone to charging")
-            if (mainDroneList.Status == DroneStatus.available)
-                ibl.SendDroneToCharging(mainDroneList.Id);
-            if ((string)ChargeDrone.DataContext== "Release drone from charging")
-            {
-                FDL.Visibility = Visibility.Visible;
-                FDB.Visibility = Visibility.Visible;
-                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)FDB.DataContext);
-            }
-        }
         private void ChangeStatusDrone_Click(object sender, RoutedEventArgs e)
         {
             if (mainDroneList.Status == DroneStatus.available)
@@ -123,6 +113,19 @@ namespace PL
         private void ModelBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
             mainDrone.Model = (string)ModelBoxA.DataContext;
+        }
+
+        private void ChargeDrone_Click(object sender, RoutedEventArgs e)
+        {
+            if ((string)ChargeDrone.DataContext == "Send drone to charging")
+                if (mainDroneList.Status == DroneStatus.available)
+                    ibl.SendDroneToCharging(mainDroneList.Id);
+            if ((string)ChargeDrone.DataContext == "Release drone from charging")
+            {
+                FDL.Visibility = Visibility.Visible;
+                FDB.Visibility = Visibility.Visible;
+                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)FDB.DataContext);
+            }
         }
     }
 }
