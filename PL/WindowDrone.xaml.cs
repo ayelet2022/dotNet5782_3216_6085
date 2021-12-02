@@ -29,20 +29,17 @@ namespace PL
             ibl = bl;
             add.Visibility=Visibility.Visible;
             weightA.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);
 
         }
         public WindowDrone(DroneList droneList)
         {
-
             InitializeComponent();
+            statusAC.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            weightAC.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             Actions.Visibility=Visibility.Visible;
+            DataContext = droneList;
             mainDroneList = droneList;
-            IdBoxAc.DataContext = droneList.Id;
-            BatteryBoxAc.DataContext = droneList.Battery;
-            LatitudeBoxAc.DataContext = droneList.DroneLocation.Latitude;
-            LongtitudeBoxAc.DataContext = droneList.DroneLocation.Longitude;
-            weightAC.SelectedItem = droneList.MaxWeight;
-            ParcelBoxAc.DataContext = droneList.NumOfParcelOnTheWay;
             if (mainDroneList.Status == DroneStatus.available)
             {
                 ChargeDrone.Visibility = Visibility.Visible;
@@ -55,15 +52,18 @@ namespace PL
                 ChargeDrone.Content = "Release drone from charging";
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
-            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+            else
             {
-                ChargeDrone.Visibility = Visibility.Hidden;
-                ChangeStatusDrone.Content = "Pick up parcel";
-            }
-            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
-            {
-                ChargeDrone.Visibility = Visibility.Hidden;
-                ChangeStatusDrone.Content = "Supply parcel";
+                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+                {
+                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChangeStatusDrone.Content = "Pick up parcel";
+                }
+                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
+                {
+                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChangeStatusDrone.Content = "Supply parcel";
+                }
             }
 
         }
@@ -74,9 +74,9 @@ namespace PL
 
         private void addButten_Click(object sender, RoutedEventArgs e)
         {
-            ibl.AddDrone(mainDrone, (int)IdStation.DataContext);
+            mainDrone = (Drone)DataContext;
+            ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
             add.Visibility = Visibility.Hidden;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -106,26 +106,30 @@ namespace PL
 
         private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            mainDrone.Id = (int)IdBoxA.DataContext;
-
+            
         }
 
         private void ModelBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            mainDrone.Model = (string)ModelBoxA.DataContext;
+            
         }
 
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
         {
-            if ((string)ChargeDrone.DataContext == "Send drone to charging")
+            if ((string)ChargeDrone.Content == "Send drone to charging")
                 if (mainDroneList.Status == DroneStatus.available)
                     ibl.SendDroneToCharging(mainDroneList.Id);
-            if ((string)ChargeDrone.DataContext == "Release drone from charging")
+            if ((string)ChargeDrone.Content == "Release drone from charging")
             {
                 FDL.Visibility = Visibility.Visible;
                 FDB.Visibility = Visibility.Visible;
                 ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)FDB.DataContext);
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

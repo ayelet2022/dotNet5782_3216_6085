@@ -31,14 +31,14 @@
                 <Label Content="Model:" HorizontalAlignment="Left" Margin="52,196,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="ModelBoxA" HorizontalAlignment="Left" Margin="200,200,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" TextChanged="ModelBoxA_TextChanged"/>
                 <Label Content="Id Of Charging Station:" HorizontalAlignment="Left" Margin="52,286,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="IdStation" HorizontalAlignment="Left" Margin="200,290,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
-                <Button x:Name="addButtenA" Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
+                <Button x:Name="addButtenA"  Content="Add Drone" HorizontalAlignment="Left" Margin="258,448,0,0" VerticalAlignment="Top" Width="103" Click="addButten_Click" Height="26"/>
                 <Button x:Name="CancelButten" Content="Cancel" HorizontalAlignment="Left" Margin="40,448,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
+                <ComboBox x:Name="IdStation" HorizontalAlignment="Left" Margin="200,286,0,0" VerticalAlignment="Top" Width="116" Height="24" SelectionChanged="ComboBox_SelectionChanged"/>
             </Grid>
             <Grid x:Name="Actions" Visibility="Visible" Margin="200,59,200,10" Grid.RowSpan="2">
                 <Button Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="statusAC" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="statusAC_SelectionChanged"/>
-                <ComboBox x:Name="weightAC" HorizontalAlignment="Left" Margin="200,147,0,0" VerticalAlignment="Top" Width="120"/>
+                <ComboBox x:Name="statusAC" Text="{Binding Path=Status, Mode=TwoWay}" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="statusAC_SelectionChanged"/>
+                <ComboBox x:Name="weightAC" Text="{Binding Path=MaxWeight, Mode=TwoWay}" HorizontalAlignment="Left" Margin="200,147,0,0" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Id:" HorizontalAlignment="Left" Margin="89,71,0,0" VerticalAlignment="Top"/>
                 <Label Content="Battery:" HorizontalAlignment="Left" Margin="89,108,0,0" VerticalAlignment="Top"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="89,145,0,0" VerticalAlignment="Top"/>
@@ -46,16 +46,16 @@
                 <Label Content="Latitude:" HorizontalAlignment="Left" Margin="89,219,0,0" VerticalAlignment="Top"/>
                 <Label Content="Longtitude:" HorizontalAlignment="Left" Margin="89,256,0,0" VerticalAlignment="Top"/>
                 <Label Content="Model:" HorizontalAlignment="Left" Margin="89,293,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="IdBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,71,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="BatteryBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,112,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="ModelAc" HorizontalAlignment="Left" Margin="200,297,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="IdBoxAc" Text="{Binding Path=Id, Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,71,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="BatteryBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,112,0,0" Text="{Binding Path=Battery, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="ModelAc" HorizontalAlignment="Left" Margin="200,297,0,0" Text="{Binding Path=Model, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Status:"  HorizontalAlignment="Left" Margin="89,330,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="ParcelBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,186,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LatitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,223,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="LongtitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,260,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button x:Name="UpdateButton" Content="Update drone" HorizontalAlignment="Left" Margin="260,459,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-                <Button x:Name="ChargeDrone" Content="" HorizontalAlignment="Left" Margin="259,492,0,0" VerticalAlignment="Top" Width="78" Click="ChargeDrone_Click" />
-                <Button x:Name="ChangeStatusDrone" Content="" HorizontalAlignment="Left" Margin="260,426,0,0" VerticalAlignment="Top" Width="78" Click="ChangeStatusDrone_Click"/>
+                <TextBox x:Name="ParcelBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,186,0,0" Text="{Binding Path=NumOfParcelOnTheWay,Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LatitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,223,0,0" Text="{Binding Path=DroneLocation.Latitude, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LongtitudeBoxAc" IsReadOnly="True" HorizontalAlignment="Left" Margin="200,260,0,0" Text="{Binding Path=DroneLocation.Longitude, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button x:Name="UpdateButton" Content="Update drone" HorizontalAlignment="Left" Margin="158,459,0,0" VerticalAlignment="Top" Click="Button_Click" Width="179"/>
+                <Button x:Name="ChargeDrone" Content="" HorizontalAlignment="Left" Margin="158,492,0,0" VerticalAlignment="Top" Width="179" Click="ChargeDrone_Click" />
+                <Button x:Name="ChangeStatusDrone" Content="" HorizontalAlignment="Left" Margin="158,426,0,0" VerticalAlignment="Top" Width="180" Click="ChangeStatusDrone_Click"/>
                 <TextBox x:Name="FDB" Visibility="Hidden" HorizontalAlignment="Left" Margin="259,527,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
                 <Label x:Name="FDL" Visibility="Hidden" Content="How long charging:" HorizontalAlignment="Left" Margin="111,521,0,0" VerticalAlignment="Top" Height="34" Width="121"/>
 

@@ -13,25 +13,26 @@
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
             <Grid/>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2">
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2" Margin="0,0,0,588">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <ComboBox x:Name="StatusSelector" Grid.Column="1" Margin="40,35,58,628" SelectionChanged="StatusSelector_SelectionChanged" />
+                <ComboBox x:Name="StatusSelector"  SelectionChanged="StatusSelector_SelectionChanged" Grid.Column="1" HorizontalAlignment="Left" Margin="62,30,0,0" VerticalAlignment="Top" Height="33" Width="114" />
                 <Label Name="Status" Content="Sort by status:" Grid.Column="0" HorizontalAlignment="Left" Margin="180,35,0,0" VerticalAlignment="Top" Height="51" Width="102" Grid.ColumnSpan="2"/>
-                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Width="127" Height="33" SelectionChanged="WeightSelector_SelectionChanged"/>
-                <Button Name="Add" Content="Add new drone" Grid.Column="3" HorizontalAlignment="Left" Margin="0,566,0,0" VerticalAlignment="Top" Height="30" Width="97" Click="Add_Click"/>
+                <ComboBox x:Name="WeightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Width="126" Height="33" SelectionChanged="WeightSelector_SelectionChanged"/>
+                <Button Name="Add" Content="Add new drone" Grid.Column="3" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Height="30" Width="97" Click="Add_Click"/>
                 <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,168">
+            <ListView Grid.Row="1" x:Name="DronesListView" SelectionChanged="DronesListView_SelectionChanged" Margin="18,26,122,168" MouseDoubleClick="DronesListView_MouseDoubleClick_1">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
+                <ComboBox Width="120"/>
             </ListView>
         </Grid>
     </Grid>
