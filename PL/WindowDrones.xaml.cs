@@ -50,14 +50,14 @@ namespace PL
         {
             new WindowDrone(ibl).Show();
         }
-        private void Add_DoubleClick(object sender, RoutedEventArgs e)
-        {
-            new WindowDrone((Drone)Add.Content);
-        }
+        //private void Add_DoubleClick(object sender, RoutedEventArgs e)
+        //{
+        //    new WindowDrone((Drone)Add.Content);
+        //}
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new WindowDrone((Drone)DronesListView.SelectedItem);
+            new WindowDrone((DroneList)DronesListView.SelectedItem);
         }
     }
 }

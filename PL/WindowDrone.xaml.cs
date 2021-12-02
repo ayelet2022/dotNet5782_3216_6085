@@ -21,6 +21,7 @@ namespace PL
     public partial class WindowDrone : Window
     {
         Drone mainDrone = new();
+        DroneList mainDroneList = new();
         IBL.IBL ibl;
         public WindowDrone(IBL.IBL bl)
         {
@@ -30,18 +31,40 @@ namespace PL
             weightA.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             mainDrone.Model = (string)ModelBoxA.DataContext;
         }
-        public WindowDrone(Drone drone)
+        public WindowDrone(DroneList droneList)
         {
-            mainDrone = drone;
+            InitializeComponent();
             Actions.Visibility = Visibility.Visible;
-            IdBoxAc.DataContext = drone.Id;
-            BatteryBoxAc.DataContext = drone.Battery;
-            LatitudeBoxAc.DataContext = drone.DroneLocation.Latitude;
-            LongtitudeBoxAc.DataContext = drone.DroneLocation.Longitude;
-            weightAC.SelectedItem = drone.MaxWeight;
-            ParcelBoxAc.DataContext = drone.ParcelInTransfer.Id;
-        }
+            mainDroneList = droneList;
+            Actions.Visibility = Visibility.Visible;
+            IdBoxAc.DataContext = droneList.Id;
+            BatteryBoxAc.DataContext = droneList.Battery;
+            LatitudeBoxAc.DataContext = droneList.DroneLocation.Latitude;
+            LongtitudeBoxAc.DataContext = droneList.DroneLocation.Longitude;
+            weightAC.SelectedItem = droneList.MaxWeight;
+            ParcelBoxAc.DataContext = droneList.NumOfParcelOnTheWay;
+            if (mainDroneList.Status == DroneStatus.available)
+            {
+                ChargeDrone.Content = "Send drone to charging";
+                ChangeStatusDrone.Content = "Send drone to delievery";
+            }
+            if (mainDroneList.Status == DroneStatus.inFix)
+            {
+                ChargeDrone.Content = "Release drone from charging";
+                ChangeStatusDrone.Visibility = Visibility.Hidden;
+            }
+            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+            {
+                ChargeDrone.Visibility = Visibility.Hidden;
+                ChangeStatusDrone.Content = "Pick up parcel";
+            }
+            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
+            {
+                ChargeDrone.Visibility = Visibility.Hidden;
+                ChangeStatusDrone.Content = "Supply parcel";
+            }
 
+        }
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             mainDrone.MaxWeight = (WeightCategories)statusA.SelectedItem;
@@ -55,25 +78,43 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ibl.UpdateDrone(mainDrone.Id, (string)ModelAc.DataContext);
+            ibl.UpdateDrone(mainDroneList.Id, (string)ModelAc.DataContext);
             Actions.Visibility = Visibility.Hidden;
         }
 
         private void statusA_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             statusA.SelectedItem = mainDrone.Status;
-
         }
 
         private void statusAC_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            statusAC.SelectedItem = mainDrone.Status;
-
+            mainDroneList.Status = (DroneStatus)statusAC.SelectedItem;
         }
 
         private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
             mainDrone.Id = (int)IdBoxA.DataContext;
+        }
+        private void SendDrone_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainDroneList.Status == DroneStatus.available)
+                ibl.SendDroneToCharging(mainDroneList.Id);
+            if (mainDroneList.Status == DroneStatus.inFix)
+            {
+                FDL.Visibility = Visibility.Visible;
+                FDB.Visibility = Visibility.Visible;
+                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)FDB.DataContext);
+            }
+        }
+        private void ChangeStatusDrone_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainDroneList.Status == DroneStatus.available)
+                ibl.ScheduledAParcelToADrone(mainDroneList.Id);
+            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+                ibl.PickUpParcel(mainDroneList.Id);
+            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
+                ibl.DeliverParcel(mainDroneList.Id);
         }
     }
 }
