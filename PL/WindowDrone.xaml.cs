@@ -65,7 +65,6 @@ namespace PL
                     ChangeStatusDrone.Content = "Supply parcel";
                 }
             }
-
         }
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -122,12 +121,18 @@ namespace PL
             if ((string)ChargeDrone.Content == "Release drone from charging")
             {
                 FDL.Visibility = Visibility.Visible;
-                FDB.Visibility = Visibility.Visible;
-                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)FDB.DataContext);
+                IdStationCharge.Visibility = Visibility.Visible;
+                IdStationCharge.ItemsSource = ibl.GetBaseStations().Select(s => s.Id);
+                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)IdStationCharge.SelectedItem);
             }
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void IdStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void IdStationCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
