@@ -55,7 +55,7 @@ namespace PL
             }
             else
             {
-                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp==null)
                 {
                     ChargeDrone.Visibility = Visibility.Hidden;
                     ChangeStatusDrone.Content = "Pick up parcel";
