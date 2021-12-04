@@ -69,14 +69,13 @@ namespace PL
         }
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mainDrone = (Drone)DataContext;
 
         }
 
         private void addButten_Click(object sender, RoutedEventArgs e)
         {
+            //mainDrone = (Drone)DataContext;
             ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
-            add.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -119,7 +118,6 @@ namespace PL
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
         {
             if ((string)ChargeDrone.Content == "Send drone to charging")
-                if (mainDroneList.Status == DroneStatus.available)
                     ibl.SendDroneToCharging(mainDroneList.Id);
             if ((string)ChargeDrone.Content == "Release drone from charging")
             {
