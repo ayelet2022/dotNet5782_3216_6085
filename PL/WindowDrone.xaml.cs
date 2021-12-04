@@ -21,118 +21,157 @@ namespace PL
     public partial class WindowDrone : Window
     {
         Drone mainDrone = new();
-        DroneList mainDroneList = new();
         IBL.IBL ibl;
-        public WindowDrone(IBL.IBL bl)
+        private WindowDrones windowDrones;
+         
+        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones)
         {
             InitializeComponent();
             ibl = bl;
-            add.Visibility=Visibility.Visible;
+            windowDrones = _windowDrones;
+            add.Visibility = Visibility.Visible;
+            DataContext = mainDrone;
             weightA.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);
-
         }
-        public WindowDrone(DroneList droneList)
+        public WindowDrone(Drone drone, IBL.IBL bl, WindowDrones _windowDrones)
         {
+            ibl = bl;
             InitializeComponent();
+            windowDrones = _windowDrones;
             statusAC.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             weightAC.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             Actions.Visibility=Visibility.Visible;
-            DataContext = droneList;
-            mainDroneList = droneList;
-            if (mainDroneList.Status == DroneStatus.available)
+            DataContext = drone;
+            mainDrone = drone;
+            if (mainDrone.Status == DroneStatus.available)
             {
                 ChargeDrone.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Visible;
                 ChargeDrone.Content = "Send drone to charging";
                 ChangeStatusDrone.Content = "Send drone to delievery";
             }
-            if (mainDroneList.Status == DroneStatus.inFix)
+            if (mainDrone.Status == DroneStatus.inFix)
             {
                 ChargeDrone.Content = "Release drone from charging";
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
             else
             {
-                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
+                if (mainDrone.Status == DroneStatus.delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
                 {
                     ChargeDrone.Visibility = Visibility.Hidden;
                     ChangeStatusDrone.Content = "Pick up parcel";
                 }
-                if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
+                if (mainDrone.Status == DroneStatus.delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                 {
                     ChargeDrone.Visibility = Visibility.Hidden;
                     ChangeStatusDrone.Content = "Supply parcel";
                 }
             }
         }
-        private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void addButten_Click(object sender, RoutedEventArgs e)
         {
-            //mainDrone = (Drone)DataContext;
-            ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
+            try
+            {
+                ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
+                windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
+                switch (messageBoxResult)
+                {
+                    case MessageBoxResult.None:
+                        break;
+                    case MessageBoxResult.OK:
+                        break;
+                    case MessageBoxResult.Cancel:
+                        break;
+                    case MessageBoxResult.Yes:
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    default:
+                        break;
+                }
+                Close();
+            }
+            catch(FailedToAddException ex)
+            {
+                MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ibl.UpdateDrone(mainDroneList.Id, (string)ModelAc.DataContext);
-            Actions.Visibility = Visibility.Hidden;
-        }
+            try
+            {
+                ibl.UpdateDrone(mainDrone.Id, ModelAc.Text);
+                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
+                DroneList droneList = new();
+                mainDrone.CopyPropertiesTo(droneList);
+                if (mainDrone.ParcelInTransfer == null)
+                    droneList.NumOfParcelOnTheWay = 0;
+                else
+                    droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
+                windowDrones.Drones.ToList()[index] = droneList;
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
+            }
+            catch (FailToUpdateException ex)
+            {
+                MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
 
-        private void statusA_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            statusA.SelectedItem = mainDrone.Status;
-        }
-
-        private void statusAC_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            mainDroneList.Status = (DroneStatus)statusAC.SelectedItem;
         }
         private void ChangeStatusDrone_Click(object sender, RoutedEventArgs e)
         {
-            if (mainDroneList.Status == DroneStatus.available)
-                ibl.ScheduledAParcelToADrone(mainDroneList.Id);
-            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).PickedUp == null)
-                ibl.PickUpParcel(mainDroneList.Id);
-            if (mainDroneList.Status == DroneStatus.delivery && ibl.GetParcel(mainDroneList.NumOfParcelOnTheWay).Delivered == null)
-                ibl.DeliverParcel(mainDroneList.Id);
-        }
-
-        private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
-        private void ModelBoxA_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
+            try
+            {
+                if (mainDrone.Status == DroneStatus.available)
+                    ibl.ScheduledAParcelToADrone(mainDrone.Id);
+                if (mainDrone.Status == DroneStatus.delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
+                    ibl.PickUpParcel(mainDrone.Id);
+                if (mainDrone.Status == DroneStatus.delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
+                    ibl.DeliverParcel(mainDrone.Id);
+                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
+                DroneList droneList = new();
+                mainDrone.CopyPropertiesTo(droneList);
+                droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
+                windowDrones.Drones.ToList()[index] = droneList;
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
+            }
+            catch (FailToUpdateException ex)
+            {
+                MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
 
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
         {
-            if ((string)ChargeDrone.Content == "Send drone to charging")
-                    ibl.SendDroneToCharging(mainDroneList.Id);
-            if ((string)ChargeDrone.Content == "Release drone from charging")
+            try 
+            { 
+                if ((string)ChargeDrone.Content == "Send drone to charging")
+                        ibl.SendDroneToCharging(mainDrone.Id);
+                if ((string)ChargeDrone.Content == "Release drone from charging")
+                {
+                    FDL.Visibility = Visibility.Visible;
+                    IdStationCharge.Visibility = Visibility.Visible;
+                    IdStationCharge.ItemsSource = ibl.GetBaseStations().Select(s => s.Id);
+                    ibl.FreeDroneFromeCharger(mainDrone.Id, (int)IdStationCharge.SelectedItem);
+                }
+                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
+                DroneList droneList = new();
+                mainDrone.CopyPropertiesTo(droneList);
+                droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
+                windowDrones.Drones.ToList()[index] = droneList;
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
+            }
+            catch (FailToUpdateException ex)
             {
-                FDL.Visibility = Visibility.Visible;
-                IdStationCharge.Visibility = Visibility.Visible;
-                IdStationCharge.ItemsSource = ibl.GetBaseStations().Select(s => s.Id);
-                ibl.FreeDroneFromeCharger(mainDroneList.Id, (int)IdStationCharge.SelectedItem);
+                MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
-        private void IdStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void IdStationCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            Close();
         }
     }
 }
