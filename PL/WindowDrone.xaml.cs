@@ -108,11 +108,13 @@ namespace PL
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);
+                droneList.DroneLocation= mainDrone.DroneLocation;
                 if (mainDrone.ParcelInTransfer == null)
                     droneList.NumOfParcelOnTheWay = 0;
                 else
                     droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
-                windowDrones.Drones.ToList()[index] = droneList;
+                windowDrones.Drones.Remove(droneList);
+                windowDrones.Drones.Add(droneList);
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -134,7 +136,11 @@ namespace PL
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);
-                droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
+                droneList.DroneLocation = mainDrone.DroneLocation;
+                if (mainDrone.ParcelInTransfer == null)
+                    droneList.NumOfParcelOnTheWay = 0;
+                else
+                    droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
                 windowDrones.Drones.ToList()[index] = droneList;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
@@ -160,7 +166,11 @@ namespace PL
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);
-                droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
+                droneList.DroneLocation = mainDrone.DroneLocation;
+                if (mainDrone.ParcelInTransfer == null)
+                    droneList.NumOfParcelOnTheWay = 0;
+                else
+                    droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
                 windowDrones.Drones.ToList()[index] = droneList;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
