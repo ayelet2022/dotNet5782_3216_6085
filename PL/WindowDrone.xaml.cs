@@ -31,6 +31,7 @@ namespace PL
             weightA.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);
 
+
         }
         public WindowDrone(DroneList droneList)
         {
@@ -68,12 +69,12 @@ namespace PL
         }
         private void weight_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mainDrone.MaxWeight = (WeightCategories)weightA.SelectedItem;
+            mainDrone = (Drone)DataContext;
+
         }
 
         private void addButten_Click(object sender, RoutedEventArgs e)
         {
-            mainDrone = (Drone)DataContext;
             ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
             add.Visibility = Visibility.Hidden;
         }
@@ -105,12 +106,14 @@ namespace PL
 
         private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            mainDrone = (Drone)DataContext;
+
         }
 
         private void ModelBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            mainDrone = (Drone)DataContext;
+
         }
 
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
