@@ -54,6 +54,8 @@ namespace PL
             if (mainDrone.Status == DroneStatus.inFix)
             {
                 ChargeDrone.Content = "Release drone from charging";
+                FDL.Visibility = Visibility.Visible;
+                IdStationCharge.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
             else
@@ -77,24 +79,13 @@ namespace PL
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
                 windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
-                switch (messageBoxResult)
-                {
-                    case MessageBoxResult.None:
-                        break;
-                    case MessageBoxResult.OK:
-                        break;
-                    case MessageBoxResult.Cancel:
-                        break;
-                    case MessageBoxResult.Yes:
-                        break;
-                    case MessageBoxResult.No:
-                        break;
-                    default:
-                        break;
-                }
                 Close();
             }
             catch(FailedToAddException ex)
+            {
+                MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+            catch(IBL.BO.InvalidInputException ex)
             {
                 MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
@@ -104,7 +95,7 @@ namespace PL
         {
             try
             {
-                ibl.UpdateDrone(mainDrone.Id, ModelAc.Text);
+                ibl.UpdateDrone(ibl.GetDrone(mainDrone.Id), ModelAc.Text);
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);
@@ -155,14 +146,9 @@ namespace PL
             try 
             { 
                 if ((string)ChargeDrone.Content == "Send drone to charging")
-                        ibl.SendDroneToCharging(mainDrone.Id);
+                    ibl.SendDroneToCharging(mainDrone.Id);
                 if ((string)ChargeDrone.Content == "Release drone from charging")
-                {
-                    FDL.Visibility = Visibility.Visible;
-                    IdStationCharge.Visibility = Visibility.Visible;
-                    IdStationCharge.ItemsSource = ibl.GetBaseStations().Select(s => s.Id);
-                    ibl.FreeDroneFromeCharger(mainDrone.Id, (int)IdStationCharge.SelectedItem);
-                }
+                    ibl.FreeDroneFromeCharger(mainDrone.Id, 90);
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);

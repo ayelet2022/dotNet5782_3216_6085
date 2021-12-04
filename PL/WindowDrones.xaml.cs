@@ -31,6 +31,8 @@ namespace PL
             foreach (var item in drones)
                 Drones.Add(item);
             DronesListView.ItemsSource = Drones;
+            ComboBoxItem newItem = new ComboBoxItem();
+            string a = "default(no filter)";
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             Drones.CollectionChanged += Drones_CollectionChanged;

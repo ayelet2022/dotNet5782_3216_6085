@@ -124,7 +124,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">the id of the drone we want to update</param>
         /// <param name="newModel">the new model of the drone</param>
-        void UpdateDrone(int id, string newModel);
+        void UpdateDrone(Drone drone, string newModel);
 
         /// <summary>
         /// update the base station that has the id that was enterd
