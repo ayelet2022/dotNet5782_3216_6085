@@ -60,5 +60,7 @@ namespace PL
         {
             new WindowDrone((DroneList)DronesListView.SelectedItem).Show();
         }
+
+
     }
 }

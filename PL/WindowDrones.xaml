@@ -32,7 +32,6 @@
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
-                <ComboBox Width="120"/>
             </ListView>
         </Grid>
     </Grid>
