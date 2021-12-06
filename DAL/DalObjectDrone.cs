@@ -33,6 +33,7 @@ namespace DalObject
             if (baseStationIndex == -1)
                 throw new DoesNotExistException($"Base station id: {idOfBaseStation} does not exists.");               
             DroneCharge updateADrone = new();
+            updateADrone.StartCharging = DateTime.Now;
             updateADrone.DroneId = dronesId;
             updateADrone.StationId = idOfBaseStation;
             DataSource.DroneCharges.Add(updateADrone);

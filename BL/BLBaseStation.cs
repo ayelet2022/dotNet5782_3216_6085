@@ -54,7 +54,7 @@ namespace BL
                 station.BaseStationLocation.Latitude = dalStation.Latitude;
                 station.BaseStationLocation.Longitude = dalStation.Longitude;
                 //to go over all the drones that are in charger
-                foreach (var item in dal.GetDroneCharge(x => x.StationId == idBaseStation))
+                foreach (var item in dal.GetDroneCharges(x => x.StationId == idBaseStation))
                 {
                     Drone drone = GetDrone(item.DroneId);
                     droneInCharge.Id = item.DroneId;

@@ -130,7 +130,7 @@ namespace IDAL
         /// returne the list of all the chargers
         /// </summary>
         /// <returns>the list of the chargers</returns>
-        IEnumerable<DroneCharge> GetDroneCharge(Predicate<DroneCharge> predicate = null);
+        IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> predicate = null);
 
         /// <summary>
         /// to update the customer that has the same id-change his name/his phone
@@ -154,5 +154,8 @@ namespace IDAL
         /// <param name="newName">the new name we want to give the station</param>
         /// <param name="emptyCharges">the new emount of chargers in base station</param>
         public void UpdateStation(int id, string newName, int emptyCharges);
+
+        public DroneCharge GetDroneCharge(Predicate<DroneCharge> predicate = null);
+
     }
 }

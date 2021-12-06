@@ -47,6 +47,10 @@ namespace BL
             {
                 throw new FailedToAddException($"Drone id: {drone.Id} does not exist.\n", ex);
             }
+            catch (InvalidInputException ex)
+            {
+                throw new FailedToAddException($"Drone id: {drone.Id} does not exist.\n", ex);
+            }
         }
 
         public Drone GetDrone(int idDrone)
@@ -158,7 +162,7 @@ namespace BL
             }
         }
 
-        public void FreeDroneFromeCharger(int id, double timeInCharger)
+        public void FreeDroneFromeCharger(int id)
         {
             try
             {
@@ -166,8 +170,10 @@ namespace BL
                 if (drone.Status == DroneStatus.inFix)
                 {
                     //calculate how much battery the drone have now after charging
-                    drone.Battery += (int)(dal.AskForBattery()[4] * timeInCharger / 60 + (dal.AskForBattery()[4] / 60) * timeInCharger % 60);
-                    if (drone.Battery > 100)
+                    DateTime timeInCharger = new();
+                   // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
+                    drone.Battery += (int)(dal.AskForBattery()[4] * timeInCharger.Hour + (dal.AskForBattery()[4] / 60) * timeInCharger.Minute+ (dal.AskForBattery()[4] / 360) * timeInCharger.Second);
+                    //if (drone.Battery > 100)
                         drone.Battery = 100;
                     drone.Status = DroneStatus.available;//availble
                     //to delet the drone from the list of the drones that are charging

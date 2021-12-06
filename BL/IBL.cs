@@ -41,7 +41,7 @@ namespace IBL
         /// </summary>
         /// <param name="id">the drone we want to free from the charger</param>
         /// <param name="timeInCharger">how long was the drone charging for</param>
-        void FreeDroneFromeCharger(int id, double timeInCharger);
+        void FreeDroneFromeCharger(int id);
 
         /// <summary>
         /// returens the besa station that has the id that was enterd 
