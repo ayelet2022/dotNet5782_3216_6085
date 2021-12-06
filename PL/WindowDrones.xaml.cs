@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using IBL.BO;
 namespace PL
 {
+    public enum WeightCategories { Light, MediumWeight, Heavy, All};
+    public enum DroneStatus { Available, InFix, Delivery, All};
     /// <summary>
     /// Interaction logic for WindowDrones.xaml
     /// </summary>
@@ -22,6 +24,7 @@ namespace PL
     {
         IBL.IBL ibl;
         public ObservableCollection<DroneList> Drones;
+        public DroneList selectedDrone = new();
         public WindowDrones(IBL.IBL bl)
         {
             InitializeComponent();
@@ -31,17 +34,15 @@ namespace PL
             foreach (var item in drones)
                 Drones.Add(item);
             DronesListView.ItemsSource = Drones;
-            ComboBoxItem newItem = new ComboBoxItem();
-            string a = "default(no filter)";
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = System.Enum.GetValues(typeof(DroneStatus));
+            WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.SelectedIndex = 3;
             Drones.CollectionChanged += Drones_CollectionChanged;
         }
 
         private void Drones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            StatusSelector.SelectedIndex = StatusSelector.SelectedIndex;
-            WeightSelector.SelectedIndex = WeightSelector.SelectedIndex;
+            Selector();
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,12 +55,16 @@ namespace PL
         }
         private void Selector()
         {
-            if (StatusSelector.SelectedItem == null && WeightSelector.SelectedItem != null)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
-            if (StatusSelector.SelectedItem != null && WeightSelector.SelectedItem == null)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (DroneStatus)StatusSelector.SelectedItem);
-            if (StatusSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+            if (WeightSelector.SelectedIndex == -1)
+                WeightSelector.SelectedIndex = 3;
+            if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
+                DronesListView.ItemsSource = Drones;
+            if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+            if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem);
+            if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -69,9 +74,8 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            DroneList drone = (DroneList)DronesListView.SelectedItem;
-            Drone mainDrone = ibl.GetDrone(drone.Id);
-            new WindowDrone(mainDrone, ibl, this).Show();
+            selectedDrone=(DroneList)DronesListView.SelectedItem;
+            new WindowDrone(ibl, this, 0).Show();
         }
 
         private void CloseWDS_Click(object sender, RoutedEventArgs e)

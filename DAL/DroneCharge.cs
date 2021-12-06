@@ -12,6 +12,7 @@ namespace IDAL
         {
             public int DroneId { get; set; }
             public int StationId { get; set; }
+            public DateTime? StartCharging { get; set; }
             public override string ToString()
             {
                 String result = "";

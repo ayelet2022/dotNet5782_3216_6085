@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="440" Width="632">
     <Grid>
-        <Button x:Name="showDroneButton" Content="Drones:" HorizontalAlignment="Left" Margin="307,107,0,0" VerticalAlignment="Top" Height="68" Width="165" Click="showDroneButton_Click"/>
+        <Image HorizontalAlignment="Center" Source="https://img.wisebuy.co.il/data/images/Guide/e-drone/shutterstock_547640359132541713991042368.jpg" Height="433" VerticalAlignment="Top" Width="632" AutomationProperties.IsOffscreenBehavior="Default" AutomationProperties.IsColumnHeader="True" Visibility="Visible"/>
+
+        <Button x:Name="showDroneButton" Content="Drones" HorizontalAlignment="Left" Margin="391,283,0,0" VerticalAlignment="Top" Height="68" Width="165" Click="showDroneButton_Click" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True"/>
+
     </Grid>
 </Window>
