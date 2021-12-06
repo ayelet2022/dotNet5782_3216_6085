@@ -63,7 +63,6 @@ namespace PL
             if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.InFix)
             {
                 ChargeDrone.Content = "Release drone from charging";
-                IdStationCharge.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
             else
@@ -174,12 +173,7 @@ namespace PL
                 if ((string)ChargeDrone.Content == "Send drone to charging")
                     ibl.SendDroneToCharging(mainDrone.Id);
                 if ((string)ChargeDrone.Content == "Release drone from charging")
-                {
-                    
-                    IdStationCharge.Visibility = Visibility.Visible;
-                    IdStationCharge.ItemsSource = ibl.GetBaseStations().Select(s => s.Id);
                     ibl.FreeDroneFromeCharger(mainDrone.Id);
-                }
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
                 DroneList droneList = new();
                 mainDrone.CopyPropertiesTo(droneList);
