@@ -39,13 +39,10 @@ namespace PL
             StatusSelector.SelectedIndex = 3;
             Drones.CollectionChanged += Drones_CollectionChanged;
         }
-
         private void Drones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             Selector();
-            
         }
-
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Selector();
@@ -67,18 +64,15 @@ namespace PL
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
         }
-
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             new WindowDrone(ibl, this).Show();
         }
-
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             selectedDrone=(DroneList)DronesListView.SelectedItem;
             new WindowDrone(ibl, this, 0).Show();
         }
-
         private void CloseWDS_Click(object sender, RoutedEventArgs e)
         {
             Close();
