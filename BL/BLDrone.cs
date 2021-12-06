@@ -111,20 +111,17 @@ namespace BL
             return droneList;
         }
 
-        public void UpdateDrone(int id, string newModel)
+        public void UpdateDrone(Drone drone, string newModel)
         {
             try
             {
-                //search if ther is such a dron with that id 
-                DroneList drone = Drones.First(item => item.Id == id);
                 drone.Model = newModel;
-                dal.GetDrone(id);
                 //to update the drone in the drone list
-                dal.UpdateDrone(id, newModel);
+                dal.UpdateDrone(drone.Id, newModel);
             }
             catch (IDAL.DO.DoesNotExistException ex)
             {
-                throw new FailToUpdateException($"The drone: {id} was not found, the drone was not updated.\n", ex);
+                throw new FailToUpdateException($"The drone: {drone.Id} was not found, the drone was not updated.\n", ex);
             }
         }
 
@@ -182,7 +179,7 @@ namespace BL
                 else
                     throw new FailToUpdateException($"Failed to free the drone: {id} from The Charger.\n");
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 throw new FailToUpdateException($"The drone: {id} was not found, the drone: {id} was not freed from Charger.\n", ex);
             }

@@ -63,6 +63,8 @@ namespace PL
             if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.InFix)
             {
                 ChargeDrone.Content = "Release drone from charging";
+                FDL.Visibility = Visibility.Visible;
+                IdStationCharge.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
             else
@@ -86,21 +88,6 @@ namespace PL
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
                 windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
-                switch (messageBoxResult)
-                {
-                    case MessageBoxResult.None:
-                        break;
-                    case MessageBoxResult.OK:
-                        break;
-                    case MessageBoxResult.Cancel:
-                        break;
-                    case MessageBoxResult.Yes:
-                        break;
-                    case MessageBoxResult.No:
-                        break;
-                    default:
-                        break;
-                }
                 Close();
             }
             catch(FailedToAddException ex)
@@ -186,7 +173,7 @@ namespace PL
             try 
             { 
                 if ((string)ChargeDrone.Content == "Send drone to charging")
-                        ibl.SendDroneToCharging(mainDrone.Id);
+                    ibl.SendDroneToCharging(mainDrone.Id);
                 if ((string)ChargeDrone.Content == "Release drone from charging")
                 {
                     

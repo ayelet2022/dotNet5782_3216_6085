@@ -170,7 +170,7 @@ namespace ConsoleUI_BL
                                     Console.Write("Enter drones name: ");
                                     string droneName;
                                     droneName = Console.ReadLine();
-                                    obj.UpdateDrone(droneId, droneName);
+                                    obj.UpdateDrone(obj.GetDrone(droneId), droneName);
                                     break;
                                 case UpdateAnObject.updataABaseStation:
                                     int stationId;
