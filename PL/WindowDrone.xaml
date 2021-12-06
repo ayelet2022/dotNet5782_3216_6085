@@ -35,7 +35,7 @@
                 <Button x:Name="CancelButten" Content="Cancel" HorizontalAlignment="Left" Margin="40,448,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
                 <ComboBox x:Name="IdStation" HorizontalAlignment="Left" Margin="200,286,0,0" VerticalAlignment="Top" Width="116" Height="24" />
             </Grid>
-            <Grid x:Name="Actions" Visibility="Hidden" Margin="200,59,200,10" Grid.RowSpan="2">
+            <Grid x:Name="Actions" Visibility="Visible" Margin="200,59,200,10" Grid.RowSpan="2">
                 <Button x:Name="CloseWindow" Content="Close Window" HorizontalAlignment="Left" Margin="301,28,0,0" VerticalAlignment="Top" Click="CloseWindow_Click"/>
                 <ComboBox x:Name="statusAC" IsEnabled="false" Text="{Binding Path=Status, Mode=TwoWay}" HorizontalAlignment="Left" Margin="200,330,0,0" VerticalAlignment="Top" Width="120" />
                 <ComboBox x:Name="weightAC" IsEnabled="false" Text="{Binding Path=MaxWeight, Mode=TwoWay}" HorizontalAlignment="Left" Margin="200,147,0,0" VerticalAlignment="Top" Width="120"/>
