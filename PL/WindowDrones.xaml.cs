@@ -43,6 +43,7 @@ namespace PL
         private void Drones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             Selector();
+            
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

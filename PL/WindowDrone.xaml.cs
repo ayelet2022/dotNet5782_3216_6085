@@ -63,7 +63,6 @@ namespace PL
             if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.InFix)
             {
                 ChargeDrone.Content = "Release drone from charging";
-                FDL.Visibility = Visibility.Visible;
                 IdStationCharge.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
             }
@@ -130,7 +129,7 @@ namespace PL
         {
             try
             {
-                ibl.UpdateDrone(mainDrone.Id, ModelBoxAc.Text);
+                ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;
                 windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = windowDrones.selectedDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());

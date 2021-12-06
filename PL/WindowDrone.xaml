@@ -43,7 +43,7 @@
                     <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
                     <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
                     <TextBox x:Name="IdBoxAc"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="ModelBoxAc" Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="ModelBoxAc" Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                     <ComboBox x:Name="weightAC"  Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     <TextBox x:Name="BatteryBoxAc" Text="{Binding Path=Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     <ComboBox x:Name="statusAC" Text="{Binding Path=Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
