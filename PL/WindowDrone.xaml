@@ -42,13 +42,13 @@
                     <Label Content="Locatin:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
                     <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
                     <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
-                    <TextBox x:Name="IdBoxAc"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="IdBoxAc"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                     <TextBox x:Name="ModelBoxAc" Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                     <ComboBox x:Name="weightAC"  Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                    <TextBox x:Name="BatteryBoxAc" Text="{Binding Path=Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                    <TextBox x:Name="BatteryBoxAc" Text="{Binding Path=Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     <ComboBox x:Name="statusAC" Text="{Binding Path=Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                    <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding Path=DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="DLongitudeBoxAc" Text="{Binding Path=DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding Path=DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="DLongitudeBoxAc" Text="{Binding Path=DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                 </Grid>
                 <Grid
                     Name="ParcelIT" Visibility="Hidden" Grid.Column="1">
@@ -89,18 +89,18 @@
                     <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5"/>
                     <Label Content="Transport Distance:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Grid.Row="6"/>
                     <TextBox x:Name="PIdBoxAc"  Text="{Binding Path=ParcelInTransfer.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <ComboBox x:Name="PStatusAC" IsReadOnly="True" Text="{Binding Path=ParcelInTransfer.StatusParcel, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <ComboBox x:Name="PPriorityAC" IsReadOnly="True" Text="{Binding Path=ParcelInTransfer.Priority, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <ComboBox x:Name="PWeightAC" IsReadOnly="True" Text="{Binding Path=ParcelInTransfer.Weight, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="SIdBoxAc"  Text="{Binding Path=ParcelInTransfer.Sender.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="SNameBoxAc" Text="{Binding Path=ParcelInTransfer.Sender.Name, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="RIdBoxAc" Text="{Binding Path=ParcelInTransfer.Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="RNameBoxAc" Text="{Binding Path=ParcelInTransfer.Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="PULatitudeBoxAc" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Latitude, Mode=TwoWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="PUongitudeBoxAc" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Longitude, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="PDLatitudeBoxAc" Text="{Binding Path=ParcelInTransfer.DelieverdLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="PDongitudeBoxAc" Text="{Binding Path=ParcelInTransfer.DelieverdLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    <TextBox x:Name="PTransportDisBoxAc" Text="{Binding Path=ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <ComboBox x:Name="PStatusAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.StatusParcel, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <ComboBox x:Name="PPriorityAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Priority, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <ComboBox x:Name="PWeightAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Weight, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="SIdBoxAc" IsEnabled="False"  Text="{Binding Path=ParcelInTransfer.Sender.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="SNameBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Sender.Name, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="RIdBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="RNameBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="PULatitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Latitude, Mode=TwoWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="PUongitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Longitude, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="PDLatitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.DelieverdLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="PDongitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.DelieverdLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <TextBox x:Name="PTransportDisBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
             <StackPanel x:Name="Buttens" Orientation="Horizontal"  Grid.Row="1" Visibility="Hidden">
@@ -127,10 +127,10 @@
                 <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
                 <Label Content="Id of charging station:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
-                <TextBox x:Name="IdBoxA"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="ModelBoxA" Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <ComboBox x:Name="IdStation" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
-                <ComboBox x:Name="weightA" Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
+                <TextBox x:Name="IdBoxA" IsEnabled="False"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="ModelBoxA"  Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <ComboBox x:Name="IdStation" IsEnabled="False" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
+                <ComboBox x:Name="weightA" IsEnabled="False" Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
                 <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click"/>
             </Grid>
         </Grid>
