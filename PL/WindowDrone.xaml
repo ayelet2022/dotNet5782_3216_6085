@@ -107,7 +107,6 @@
                 <Button x:Name="UpdateButton" Content="Update drone" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" Width="100"/>
                 <Button x:Name="ChargeDrone" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Click="ChargeDrone_Click" />
                 <Button x:Name="ChangeStatusDrone" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Click="ChangeStatusDrone_Click"/>
-                <ComboBox x:Name="IdStationCharge"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
                 <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Click="Close_Click"/>
             </StackPanel>
             <Grid 
