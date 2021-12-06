@@ -23,7 +23,7 @@ namespace PL
         Drone mainDrone = new();
         IBL.IBL ibl;
         private WindowDrones windowDrones;
-         
+        
         public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones)
         {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace PL
             weightA.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);
         }
-        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones, int i = 0)
+        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones,int i=0)
         {
             ibl = bl;
             InitializeComponent();
@@ -123,7 +123,6 @@ namespace PL
                 }
             }
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -132,12 +131,12 @@ namespace PL
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;
                 windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = windowDrones.selectedDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
+                Close();
             }
             catch (FailToUpdateException ex)
             {
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
-
         }
         private void ChangeStatusDrone_Click(object sender, RoutedEventArgs e)
         {
@@ -150,14 +149,7 @@ namespace PL
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                     ibl.DeliverParcel(mainDrone.Id);
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
-                DroneList droneList = new();
-                mainDrone.CopyPropertiesTo(droneList);
-                droneList.DroneLocation = mainDrone.DroneLocation;
-                if (mainDrone.ParcelInTransfer == null)
-                    droneList.NumOfParcelOnTheWay = 0;
-                else
-                    droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
-                windowDrones.Drones.ToList()[index] = droneList;
+                windowDrones.Drones.ToList()[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -165,7 +157,6 @@ namespace PL
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
         {
             try 
@@ -175,14 +166,7 @@ namespace PL
                 if ((string)ChargeDrone.Content == "Release drone from charging")
                     ibl.FreeDroneFromeCharger(mainDrone.Id);
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
-                DroneList droneList = new();
-                mainDrone.CopyPropertiesTo(droneList);
-                droneList.DroneLocation = mainDrone.DroneLocation;
-                if (mainDrone.ParcelInTransfer == null)
-                    droneList.NumOfParcelOnTheWay = 0;
-                else
-                    droneList.NumOfParcelOnTheWay = mainDrone.ParcelInTransfer.Id;
-                windowDrones.Drones.ToList()[index] = droneList;
+                windowDrones.Drones.ToList()[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -190,12 +174,9 @@ namespace PL
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
-
     }
 }

@@ -204,10 +204,7 @@ namespace ConsoleUI_BL
                                 case UpdateAnObject.FreeADronFromACharger:
                                     Console.Write("Enter drones id (6 digits): ");
                                     int.TryParse(Console.ReadLine(), out droneId);
-                                    double timeOfCharging;
-                                    Console.Write("Enter how long was the drone charging(in minutes): ");
-                                    double.TryParse(Console.ReadLine(), out timeOfCharging);
-                                    obj.FreeDroneFromeCharger(droneId, timeOfCharging);
+                                    obj.FreeDroneFromeCharger(droneId);
                                     break;
                                 case UpdateAnObject.ScheduledAParcelToADrone:
                                     Console.Write("Enter drones id (6 digits): ");
