@@ -92,6 +92,11 @@ namespace BL
                         drone.DroneLocation.Longitude = baseStationL[stationI].Longitude;
                         drone.DroneLocation.Latitude = baseStationL[stationI].Latitude;
                         drone.Battery = Rand.Next(0, 21);
+                        IDAL.DO.DroneCharge droneCharge = new();
+                        droneCharge.DroneId = drone.Id;
+                        droneCharge.StationId = baseStationL[stationI].Id;
+                        droneCharge.StartCharging = DateTime.Now;
+                        dal.AddDroneCharge(droneCharge);
                     }
                     else
                     {
