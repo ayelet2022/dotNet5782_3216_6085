@@ -79,9 +79,7 @@ namespace PL
             {
                 if (mainDrone.Id < 100000 || mainDrone.Id > 999999)
                     throw new InvalidInputException($"The drones id: {mainDrone.Id} is incorrect, the drone was not added.\n");
-                if ((int)mainDrone.MaxWeight < 0 || (int)mainDrone.MaxWeight > 2)
-                    throw new InvalidInputException($"The drones weight: {mainDrone.MaxWeight} is incorrect, the drone was not added.\n");
-                if (mainDrone.Model == null)
+                if (mainDrone.Model == null || mainDrone.Model == "")
                     throw new InvalidInputException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 if (mainDrone.Id == default)
                     throw new MissingInfoException("No information entered for this drone");
@@ -116,7 +114,7 @@ namespace PL
                 switch (message)
                 {
                     case MessageBoxResult.Yes:
-                        if (IdBoxA.Text.Length < 100000 || IdBoxA.Text.Length > 999999)
+                        if (IdBoxA.Text.Length != 6)
                             IdBoxA.Text = "";
                         break;
                     case MessageBoxResult.No:
@@ -229,6 +227,13 @@ namespace PL
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (IdBoxA.Text.Length < 6 && IdBoxA.Text.Length > 1)
+                IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
         }
     }
 }
