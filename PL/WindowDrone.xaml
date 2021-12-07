@@ -127,10 +127,10 @@
                 <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
                 <Label Content="Id of charging station:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
-                <TextBox x:Name="IdBoxA" IsEnabled="False"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="IdBoxA"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                 <TextBox x:Name="ModelBoxA"  Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <ComboBox x:Name="IdStation" IsEnabled="False" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
-                <ComboBox x:Name="weightA" IsEnabled="False" Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
+                <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
+                <ComboBox x:Name="weightA"  Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
                 <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click"/>
             </Grid>
         </Grid>

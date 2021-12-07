@@ -148,8 +148,11 @@ namespace PL
                     ibl.PickUpParcel(mainDrone.Id);
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                     ibl.DeliverParcel(mainDrone.Id);
-                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
-                windowDrones.Drones.ToList()[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+
+               
+                windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+                mainDrone = ibl.GetDrone(mainDrone.Id);
+                DataContext = mainDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -162,11 +165,19 @@ namespace PL
             try 
             { 
                 if ((string)ChargeDrone.Content == "Send drone to charging")
+                {
                     ibl.SendDroneToCharging(mainDrone.Id);
+                    ChargeDrone.Content = "Release drone from charging";
+                }
+                   
+
                 if ((string)ChargeDrone.Content == "Release drone from charging")
                     ibl.FreeDroneFromeCharger(mainDrone.Id);
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
-                windowDrones.Drones.ToList()[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+
+                windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+                mainDrone = ibl.GetDrone(mainDrone.Id);
+                DataContext = mainDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
