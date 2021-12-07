@@ -167,10 +167,10 @@ namespace BL
                 if (drone.Status == DroneStatus.inFix)
                 {
                     //calculate how much battery the drone have now after charging
-                    DateTime timeInCharger = new();
-                   // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
-                    drone.Battery += (int)(dal.AskForBattery()[4] * timeInCharger.Hour + (dal.AskForBattery()[4] / 60) * timeInCharger.Minute+ (dal.AskForBattery()[4] / 360) * timeInCharger.Second);
-                    //if (drone.Battery > 100)
+                    TimeSpan timeInCharger = (TimeSpan)(DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging);
+                    // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
+                    drone.Battery += (int)(timeInCharger.TotalHours * dal.AskForBattery()[4]);
+                    if (drone.Battery > 100)
                         drone.Battery = 100;
                     drone.Status = DroneStatus.available;//availble
                     //to delet the drone from the list of the drones that are charging
