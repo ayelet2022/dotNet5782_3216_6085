@@ -43,7 +43,8 @@ namespace IBL.BO
             result += $"Battery: {Battery}.\n";
             result += $"Status: {Status}.\n";
             result += $"Location: \n{DroneLocation}\n";
-            result += $"Parcel in transfer: \n{ParcelInTransfer}\n";
+            if (ParcelInTransfer != null)
+                result += $"Parcel in transfer: \n{ParcelInTransfer}\n";
             return result;
         }
     }
