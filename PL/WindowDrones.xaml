@@ -20,11 +20,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Button Name="Add" Content="Add new drone" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="44" Width="114" Click="Add_Click" Grid.Column="3"/>
+                <Button Name="Add" Content="Add new drone" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="44" Width="114" Click="Add_Click" Grid.Column="3" FontFamily="Aharoni" FontSize="14"/>
                 <ComboBox x:Name="StatusSelector"  SelectionChanged="StatusSelector_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="114"  />
-                <Label Name="Status" Content="Sort by status:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="33" Width="114" Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
+                <Label Name="Status" Content="Sort by status:" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
                 <ComboBox x:Name="WeightSelector"  Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="114" Height="33" SelectionChanged="WeightSelector_SelectionChanged"/>
-                <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,9,0,0"/>
+                <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
             </Grid>
             <Button x:Name="CloseWDS" Content="Close" HorizontalAlignment="Left" Margin="763,537,0,0" VerticalAlignment="Top" Height="29" Width="94" Click="CloseWDS_Click" Grid.Row="1"/>
             <ListView Grid.Row="1" x:Name="DronesListView"  Margin="39,25,39,107" MouseDoubleClick="DronesListView_MouseDoubleClick_1">

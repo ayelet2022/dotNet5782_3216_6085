@@ -63,6 +63,7 @@ namespace PL
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem);
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+            DronesListView.Items.Refresh();
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
@@ -71,7 +72,7 @@ namespace PL
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             selectedDrone=(DroneList)DronesListView.SelectedItem;
-            new WindowDrone(ibl, this, 0).Show();
+            new WindowDrone(ibl, this, DronesListView.SelectedIndex).Show();
         }
         private void CloseWDS_Click(object sender, RoutedEventArgs e)
         {
