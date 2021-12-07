@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="קרטונים.jpg" />
     <None Remove="רחפן רקע.jpg" />
   </ItemGroup>
 
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="קרטונים.jpg" />
     <Resource Include="רחפן רקע.jpg" />
   </ItemGroup>
 
