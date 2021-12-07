@@ -25,31 +25,54 @@ namespace PL
         IBL.IBL ibl;
         public ObservableCollection<DroneList> Drones;
         public DroneList selectedDrone = new();
+
+        /// <summary>
+        /// the constractor of the window
+        /// </summary>
+        /// <param name="bl"> the accses to the fileds in IBL</param>
         public WindowDrones(IBL.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
             Drones = new ObservableCollection<DroneList>();
             List<DroneList> drones = ibl.GetDrones().ToList();
-            foreach (var item in drones)
+            foreach (var item in drones)//to fet and shoe all the drones
                 Drones.Add(item);
-            DronesListView.ItemsSource = Drones;
+            DronesListView.ItemsSource = Drones;//to show all the drones 
             StatusSelector.ItemsSource = System.Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
-            StatusSelector.SelectedIndex = 3;
-            Drones.CollectionChanged += Drones_CollectionChanged;
+            StatusSelector.SelectedIndex = 3;//no filter
+            Drones.CollectionChanged += Drones_CollectionChanged;//if the a drone in the drone list was changed
         }
+
+        /// <summary>
+        /// when a drone in the drones was changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Drones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Selector();
+            Selector();//to update  the ist that was printed 
         }
+
+        /// <summary>
+        /// filters the list of drones that was enterd according to what was filtterd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Selector();
+            Selector();//to show the list according to the filter that was enterd
         }
+
+        /// <summary>
+        ///  filters the list of drones that was enterd according to what was filtterd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Selector();
+            Selector();// to show the list according to the filter that was enterd
         }
         private void Selector()
         {
