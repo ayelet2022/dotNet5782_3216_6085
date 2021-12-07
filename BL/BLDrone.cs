@@ -170,8 +170,8 @@ namespace BL
                     TimeSpan timeInCharger = (TimeSpan)(DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging);
                     // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
                     drone.Battery += (int)(timeInCharger.TotalHours * dal.AskForBattery()[4]);
-                    if (drone.Battery > 100)
-                        drone.Battery = 100;
+                    //if (drone.Battery > 100)
+                    drone.Battery = 100;
                     drone.Status = DroneStatus.available;//availble
                     //to delet the drone from the list of the drones that are charging
                     dal.FreeDroneFromBaseStation(drone.Id);

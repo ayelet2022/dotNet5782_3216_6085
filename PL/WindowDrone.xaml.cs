@@ -39,11 +39,6 @@ namespace PL
             ibl = bl;
             InitializeComponent();
             windowDrones = _windowDrones;
-            statusAC.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatus));
-            weightAC.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
-            PStatusAC.ItemsSource = Enum.GetValues(typeof(IBL.BO.ParcelStatus));
-            PPriorityAC.ItemsSource = Enum.GetValues(typeof(IBL.BO.Priorities));
-            PWeightAC.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             ActionseGrid.Visibility=Visibility.Visible;
             Buttens.Visibility = Visibility.Visible;
             mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);
