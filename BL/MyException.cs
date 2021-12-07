@@ -61,4 +61,11 @@ namespace IBL.BO
         public FailToUpdateException(string message) : base(message) { }
         public FailToUpdateException(string message, Exception inner) : base(message, inner) { }
     }
+    public class MissingInfoException : Exception
+    {
+        public MissingInfoException() : base() { }
+        public MissingInfoException(string message) : base(message) { }
+        public MissingInfoException(string message, Exception inner) : base(message, inner) { }
+    }
+
 }
