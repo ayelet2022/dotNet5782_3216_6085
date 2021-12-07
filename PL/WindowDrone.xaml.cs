@@ -139,18 +139,20 @@ namespace PL
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Available)
                 {
                     ibl.ScheduledAParcelToADrone(mainDrone.Id);
-                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChargeDrone.Visibility = Visibility.Collapsed;
+                    ParcelIT.Visibility = Visibility.Visible;
                     ChangeStatusDrone.Content = "Pick up parcel";
                 }
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
                 {
                     ibl.PickUpParcel(mainDrone.Id);
-                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChargeDrone.Visibility = Visibility.Collapsed;
                     ChangeStatusDrone.Content = "Supply parcel";
                 }
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                 {
                     ibl.DeliverParcel(mainDrone.Id);
+                    ParcelIT.Visibility = Visibility.Collapsed;
                     ChargeDrone.Visibility = Visibility.Visible;
                     ChargeDrone.Content = "Send drone to charging";
                     ChangeStatusDrone.Content = "Send drone to delievery";

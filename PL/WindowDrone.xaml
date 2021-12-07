@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        WindowStyle="None"
         mc:Ignorable="d"
         Title="temp" Height="450" Width="800">
     <Grid>
-        <Grid x:Name="AddGrid" Visibility="Visible">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קרטונים.jpg" Opacity="0.3"/>
+        </Grid.Background>
+
+        <Grid x:Name="AddGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="13*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid>
@@ -28,23 +33,23 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+
                 </Grid.ColumnDefinitions>
 
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
-                <Label Content="Id of charging station:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
-                <TextBox x:Name="IdBoxA"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="ModelBoxA"  Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
-                <ComboBox x:Name="weightA"  Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  />
-                <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Click="AddButten_Click" Height="28" Width="75"/>
-                <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Grid.Row="7" Width="82" Click="Close_Click" Height="31"/>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" FontFamily="Aharoni" FontSize="14"/>
+                <Label Content="Station ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" FontFamily="Aharoni" FontSize="16"/>
+                <TextBox x:Name="IdBoxA"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+                <TextBox x:Name="ModelBoxA"  Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="{x:Null}" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+                <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
+                <ComboBox x:Name="weightA"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" Background="{x:Null}" BorderBrush="Black"  />
+                <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
+                <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="5" Grid.Row="5" Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
             </Grid>
         </Grid>
 
-        <Grid x:Name="ActionseGrid" Visibility="Collapsed">
+        <Grid x:Name="ActionseGrid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="13*"/>
                 <RowDefinition Height="*"/>
@@ -71,27 +76,27 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontFamily="Aharoni" FontWeight="Bold"/>
-                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
-                <Label Content="Battery:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
-                <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
-                <Label Content="Locatin:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
-                <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
-                <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontFamily="Aharoni" FontWeight="Bold" FontSize="16"/>
+                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Battery:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Locatin:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" FontFamily="Aharoni" FontSize="16"/>
 
-                <TextBox x:Name="IdBoxAc"  Text="{Binding Path=Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="ModelBoxAc" Text="{Binding Path=Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="weightAC"  Text="{Binding Path=MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                <TextBox x:Name="BatteryBoxAc" Text="{Binding Path=Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                <TextBox x:Name="statusAC" Text="{Binding Path=Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding Path=DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="DLongitudeBoxAc" Text="{Binding Path=DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="#FFF3EEEA" />
+                <TextBox x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#FFF3EEEA" BorderThickness="3,3,3,3"/>
+                <TextBox x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3"/>
+                <TextBox x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#FFF3EEEA" BorderThickness="3,3,3,3"/>
+                <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
+                <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
             </Grid>
 
 
 
-            <Grid Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Visible">
+            <Grid x:Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -132,19 +137,19 @@
                 <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5"/>
 
                 <Label Content="Transport Distance:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Grid.Row="6"/>
-                <TextBox x:Name="PIdBoxAc"  Text="{Binding Path=ParcelInTransfer.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PStatusAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.StatusParcel, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PPriorityAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Priority, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PWeightAC" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Weight, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="SIdBoxAc" IsEnabled="False"  Text="{Binding Path=ParcelInTransfer.Sender.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="SNameBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Sender.Name, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="RIdBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="RNameBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PULatitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Latitude, Mode=TwoWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PUongitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.PickUpLocation.Longitude, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PDLatitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.DelieveredLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PDongitudeBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.DelieveredLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                <TextBox x:Name="PTransportDisBoxAc" IsEnabled="False" Text="{Binding Path=ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PIdBoxAc"  Text="{Binding ParcelInTransfer.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PStatusAC" IsEnabled="False" Text="{Binding ParcelInTransfer.StatusParcel, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PPriorityAC" IsEnabled="False" Text="{Binding ParcelInTransfer.Priority, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PWeightAC" IsEnabled="False" Text="{Binding ParcelInTransfer.Weight, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="SIdBoxAc" IsEnabled="False"  Text="{Binding ParcelInTransfer.Sender.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="SNameBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.Sender.Name, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="RIdBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="RNameBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PULatitudeBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.PickUpLocation.Latitude, Mode=TwoWay}" Grid.Row="1" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PUongitudeBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.PickUpLocation.Longitude, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PDLatitudeBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.DelieveredLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PDongitudeBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.DelieveredLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBox x:Name="PTransportDisBoxAc" IsEnabled="False" Text="{Binding ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
             </Grid>
 
 
@@ -156,10 +161,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="UpdateButton" Grid.Column="0" Content="Update drone" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Click="Button_Click" Width="150"/>
-                <Button x:Name="ChargeDrone" Content="" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="ChargeDrone_Click" />
-                <Button x:Name="ChangeStatusDrone" Content="" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="ChangeStatusDrone_Click"/>
-                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="Close_Click"/>
+                <Button x:Name="UpdateButton" Grid.Column="0" Content="Update drone" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" Click="Button_Click" Width="150" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
+                <Button x:Name="ChargeDrone" Content="" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16" />
+                <Button x:Name="ChangeStatusDrone" Content="" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="ChangeStatusDrone_Click"/>
+                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="150" Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
 
             </Grid>
         </Grid>
