@@ -34,7 +34,7 @@ namespace PL
             weightA.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);
         }
-        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones,int i=0)
+        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones, int i=0)
         {
             ibl = bl;
             InitializeComponent();
@@ -77,6 +77,16 @@ namespace PL
         {
             try
             {
+                if (mainDrone.Id < 100000 || mainDrone.Id > 999999)
+                    throw new InvalidInputException($"The drones id: {mainDrone.Id} is incorrect, the drone was not added.\n");
+                if ((int)mainDrone.MaxWeight < 0 || (int)mainDrone.MaxWeight > 2)
+                    throw new InvalidInputException($"The drones weight: {mainDrone.MaxWeight} is incorrect, the drone was not added.\n");
+                if (mainDrone.Model == null)
+                    throw new InvalidInputException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
+                if (mainDrone.Id == default)
+                    throw new MissingInfoException("No information entered for this drone");
+                if (IdStation.SelectedItem == null)
+                    throw new MissingInfoException("No station was entered for this drone");
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
                 windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
@@ -106,9 +116,24 @@ namespace PL
                 switch (message)
                 {
                     case MessageBoxResult.Yes:
-                        IdBoxA.Text = "";
-                        ModelBoxA.Text = "";
+                        if (IdBoxA.Text.Length < 100000 || IdBoxA.Text.Length > 999999)
+                            IdBoxA.Text = "";
                         break;
+                    case MessageBoxResult.No:
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch(MissingInfoException ex)
+            {
+                var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                            break;
                     case MessageBoxResult.No:
                         Close();
                         break;
@@ -121,6 +146,8 @@ namespace PL
         {
             try
             {
+                if (ModelBoxAc.Text == null)
+                    throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
@@ -128,6 +155,10 @@ namespace PL
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
+            {
+                MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+            catch (MissingInfoException ex)
             {
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
@@ -175,6 +206,7 @@ namespace PL
                 if ((string)ChargeDrone.Content == "Send drone to charging")
                 {
                     ibl.SendDroneToCharging(mainDrone.Id);
+                    ChangeStatusDrone.Visibility = Visibility.Hidden;
                     ChargeDrone.Content = "Release drone from charging";
                 }
                 else
