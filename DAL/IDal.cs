@@ -40,7 +40,7 @@ namespace IDAL
         /// adds a new charger to the list of chargers
         /// </summary>
         /// <param name="droneCharge">the new charager we want to add</param>
-       // public void AddDroneCharge(DroneCharge droneCharge);
+        public void AddDroneCharge(DroneCharge droneCharge);
         /// <summary>
         ///  search for the base station in the arrey thet has the same id that the user enterd and returnes it
         /// </summary>
@@ -156,6 +156,5 @@ namespace IDAL
         public void UpdateStation(int id, string newName, int emptyCharges);
 
         public DroneCharge GetDroneCharge(Predicate<DroneCharge> predicate = null);
-
     }
 }

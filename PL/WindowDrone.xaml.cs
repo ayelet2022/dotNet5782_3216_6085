@@ -129,9 +129,9 @@ namespace PL
             {
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;
-                windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = windowDrones.selectedDrone;
+                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
+                windowDrones.Drones[index] = windowDrones.selectedDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
-                Close();
             }
             catch (FailToUpdateException ex)
             {
@@ -143,14 +143,26 @@ namespace PL
             try
             {
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Available)
+                {
                     ibl.ScheduledAParcelToADrone(mainDrone.Id);
+                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChangeStatusDrone.Content = "Pick up parcel";
+                }
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
+                {
                     ibl.PickUpParcel(mainDrone.Id);
+                    ChargeDrone.Visibility = Visibility.Hidden;
+                    ChangeStatusDrone.Content = "Supply parcel";
+                }
                 if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
+                {
                     ibl.DeliverParcel(mainDrone.Id);
-
-               
-                windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+                    ChargeDrone.Visibility = Visibility.Visible;
+                    ChargeDrone.Content = "Send drone to charging";
+                    ChangeStatusDrone.Content = "Send drone to delievery";
+                }
+                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
+                windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
                 mainDrone = ibl.GetDrone(mainDrone.Id);
                 DataContext = mainDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
@@ -169,13 +181,16 @@ namespace PL
                     ibl.SendDroneToCharging(mainDrone.Id);
                     ChargeDrone.Content = "Release drone from charging";
                 }
-                   
-
-                if ((string)ChargeDrone.Content == "Release drone from charging")
+                else
+                    if ((string)ChargeDrone.Content == "Release drone from charging")
+                {
                     ibl.FreeDroneFromeCharger(mainDrone.Id);
+                    ChangeStatusDrone.Visibility = Visibility.Visible;
+                    ChargeDrone.Content = "Send drone to charging";
+                    ChangeStatusDrone.Content = "Send drone to delievery";
+                }
                 int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);
-
-                windowDrones.Drones[windowDrones.DronesListView.SelectedIndex] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
+                windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);
                 mainDrone = ibl.GetDrone(mainDrone.Id);
                 DataContext = mainDrone;
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
