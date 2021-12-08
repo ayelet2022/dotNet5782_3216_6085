@@ -31,8 +31,8 @@ namespace DalObject
         {
             BaseStation newStation = new BaseStation();
             newStation.Id = Rand.Next(1000, 10000);
-            newStation.Latitude = Rand.Next(30, 34);
-            newStation.Longitude = Rand.Next(34,38);
+            newStation.Latitude = Rand.Next(30, 34) + Rand.NextDouble(); ;
+            newStation.Longitude = Rand.Next(34,38) + Rand.NextDouble(); ;
             newStation.EmptyCharges = Rand.Next(0, 6);
             newStation.Name = name;
             Stations.Add(newStation);
@@ -49,8 +49,8 @@ namespace DalObject
         {
             Customer addCustomer = new Customer();
             addCustomer.Id = Rand.Next(100000000, 1000000000);
-            addCustomer.Latitude = Rand.Next(30, 34);
-            addCustomer.Longitude = Rand.Next(34, 38);
+            addCustomer.Latitude = Rand.Next(30, 34) + Rand.NextDouble(); ;
+            addCustomer.Longitude = Rand.Next(34, 38) + Rand.NextDouble(); ;
             addCustomer.Phone = phone;
             addCustomer.Name = name;
             Customers.Add(addCustomer);
