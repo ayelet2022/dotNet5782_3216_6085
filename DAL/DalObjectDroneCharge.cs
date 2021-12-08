@@ -25,14 +25,17 @@ namespace DalObject
             return DronesCharge;
         }
 
-        public DroneCharge GetDroneCharge(Predicate<DroneCharge> predicate = null)
+        public DroneCharge GetDroneCharge(int idDrone)
         {
-            DroneCharge DronesCharge = new();
-            //to copy all the charger from the list
-            foreach (var itD in DataSource.DroneCharges)
-                if (predicate == null || predicate(itD))
-                    DronesCharge=itD;
-            return DronesCharge;
+            try
+            {
+                return DataSource.DroneCharges.First(x => x.DroneId == idDrone);
+
+            }
+            catch (Exception)
+            {
+                throw new DoesNotExistException($"Drone id: {idDrone} does not exist.");
+            }
         }
     }
 }

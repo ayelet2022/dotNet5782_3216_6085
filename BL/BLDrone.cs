@@ -15,7 +15,7 @@ namespace BL
                 throw new InvalidInputException($"The drones id: {drone.Id} is incorrect, the drone was not added.\n");
             if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 2)
                 throw new InvalidInputException($"The drones weight: {drone.MaxWeight} is incorrect, the drone was not added.\n");
-            if (drone.Model == "")
+            if (drone.Model == "" || drone.Model == null)
                 throw new InvalidInputException($"The drones model: {drone.Model} is incorrect, the drone was not added.\n");
             if (idFirstStation < 1000 || idFirstStation > 9999)
                 throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
@@ -167,7 +167,7 @@ namespace BL
                 if (drone.Status == DroneStatus.inFix)
                 {
                     //calculate how much battery the drone have now after charging
-                    TimeSpan timeInCharger = (TimeSpan)(DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging);
+                    TimeSpan timeInCharger = (TimeSpan)(DateTime.Now - dal.GetDroneCharge(drone.Id).StartCharging);
                     // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
                     drone.Battery += (int)(timeInCharger.TotalHours * dal.AskForBattery()[4]);
                     if (drone.Battery > 100)
