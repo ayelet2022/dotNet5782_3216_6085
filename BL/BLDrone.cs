@@ -206,7 +206,7 @@ namespace BL
                 //to go over all the parcels
                 foreach (var item in dal.GetParcels(item => item.Scheduled == null))
                 {
-                    if ((parcel == default || foundParcel == false))
+                    if (parcel == default || foundParcel == false)
                     {
                         parcel = GetParcel(item.Id);
                         battery = UseOfBattery(item, drone);
