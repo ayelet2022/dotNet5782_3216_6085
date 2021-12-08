@@ -100,7 +100,7 @@ namespace PL
         {
             try
             {
-                if (mainDrone.Id == default||mainDrone.Model==default)
+                if (mainDrone.Id == default || mainDrone.Model == default)
                     throw new MissingInfoException("No information entered for this drone");
                 if (IdStation.SelectedItem == null)
                     throw new MissingInfoException("No station was entered for this drone");
@@ -112,7 +112,7 @@ namespace PL
             catch(FailedToAddException ex)
             {
                 var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message+"\n"+"Woul'd you like to try agein?\n","Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
                 switch (message)
                 {
                     case MessageBoxResult.Yes:
@@ -129,12 +129,11 @@ namespace PL
             catch (InvalidInputException ex)
             {
                 var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
                 switch (message)
                 {
                     case MessageBoxResult.Yes:
-                        if (IdBoxA.Text.Length != 6)//checks if the id that was enterd is wrong
-                            IdBoxA.Text = "";
+                        IdBoxA.Text = "";
                         break;
                     case MessageBoxResult.No:
                         Close();
@@ -146,7 +145,7 @@ namespace PL
             catch(MissingInfoException ex)
             {
                 var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
                 switch (message)
                 {
                     case MessageBoxResult.Yes:
