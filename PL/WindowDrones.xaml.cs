@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace PL
     /// </summary>
     public partial class WindowDrones : Window
     {
+        private bool _close { get; set; } = false;
         IBL.IBL ibl;
         public ObservableCollection<DroneList> Drones;
         public DroneList selectedDrone = new();
@@ -125,7 +127,22 @@ namespace PL
         /// <param name="e"></param>
         private void CloseWDS_Click(object sender, RoutedEventArgs e)
         {
+            _close = true;
             Close();
+        }
+
+        /// <summary>
+        /// to not be able to close the window with the x on the top
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WindowClose(object sender, CancelEventArgs e)
+        {
+            if (!_close)
+            {
+                e.Cancel = true;
+                MessageBox.Show("You can't force the window to close");
+            }
         }
     }
 }

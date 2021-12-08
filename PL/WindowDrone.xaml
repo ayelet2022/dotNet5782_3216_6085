@@ -4,15 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        WindowStyle="None"
         mc:Ignorable="d"
-        Title="temp" Height="450" Width="800">
+        Title="temp" Height="450" Width="800" Closing="WindowClose">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/קרטונים.jpg" Opacity="0.3"/>
         </Grid.Background>
 
-        <Grid x:Name="AddGrid" Visibility="Visible">
+        <Grid x:Name="AddGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="*"/>

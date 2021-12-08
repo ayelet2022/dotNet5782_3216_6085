@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using IBL.BO;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -23,6 +24,7 @@ namespace PL
     public partial class WindowDrone : Window
     {
         Drone mainDrone = new();
+        private bool _close { get; set; } = false;
         IBL.IBL ibl;
         private WindowDrones windowDrones;
         
@@ -107,6 +109,7 @@ namespace PL
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
                 windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
+                _close = true;
                 Close();
             }
             catch(FailedToAddException ex)
@@ -120,6 +123,7 @@ namespace PL
                         ModelBoxA.Text = "";
                         break;
                     case MessageBoxResult.No:
+                        _close = true;
                         Close();
                         break;
                     default:
@@ -137,6 +141,7 @@ namespace PL
                             IdBoxA.Text = "";
                         break;
                     case MessageBoxResult.No:
+                        _close = true;
                         Close();
                         break;
                     default:
@@ -152,6 +157,7 @@ namespace PL
                     case MessageBoxResult.Yes:
                             break;
                     case MessageBoxResult.No:
+                        _close = true;
                         Close();
                         break;
                     default:
@@ -274,20 +280,32 @@ namespace PL
         /// <param name="e"></param>
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            _close = true;
             Close();
         }
+        /// <summary>
+        /// to only allow to enter int in a text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-        private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
+
+        /// <summary>
+        /// to not be able to close the window with the x on the top
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WindowClose(object sender, CancelEventArgs e)
         {
-            
-            //if (IdBoxA.Text.Length < 6 && IdBoxA.Text.Length > 1)
-            //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
-            //else
-            //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
+            if (!_close)
+            {
+                e.Cancel = true;
+                MessageBox.Show("You can't force the window to close");
+            }
         }
     }
 }
