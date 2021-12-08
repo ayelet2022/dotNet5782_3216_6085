@@ -38,7 +38,7 @@ namespace PL
             AddGrid.Visibility = Visibility.Visible;
             DataContext = mainDrone;
             weightA.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
-            IdStation.ItemsSource = bl.GetBaseStations().Select(s => s.Id);//the first basestation that the drone was charging in
+            IdStation.ItemsSource = bl.GetBaseStations(x => x.EmptyCharges != 0).Select(s => s.Id);//the first basestation that the drone was charging in
         }
 
         /// <summary>
@@ -99,7 +99,6 @@ namespace PL
         {
             try
             {
-                IdBoxA.MaxLength = 6;
                 if (mainDrone.Id == default)
                     throw new MissingInfoException("No information entered for this drone");
                 if (IdStation.SelectedItem == null)
@@ -173,7 +172,7 @@ namespace PL
                     throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;//changes the model of the drone thet was clicked in the drones list
-                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);//fineds the index of the drone that we wanted to update
+                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone); //fineds the index of the drone that we wanted to update
                 windowDrones.Drones[index] = windowDrones.selectedDrone;//to update the drone in the list of drones in the main window
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
@@ -288,11 +287,6 @@ namespace PL
             //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
             //else
             //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
-        }
-
-        private void IdBoxA_KeyUp(object sender, KeyEventArgs e)
-        {
-            e.Handled=!char.IsDigit() && !char.IsControl(e.KeyChar);
         }
     }
 }

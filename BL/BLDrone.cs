@@ -168,7 +168,6 @@ namespace BL
                 {
                     //calculate how much battery the drone have now after charging
                     TimeSpan timeInCharger = (TimeSpan)(DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging);
-                    // timeInCharger = DateTime.Now - dal.GetDroneCharge(x => x.DroneId == drone.Id).StartCharging;
                     drone.Battery += (int)(timeInCharger.TotalHours * dal.AskForBattery()[4]);
                     if (drone.Battery > 100)
                         drone.Battery = 100;
