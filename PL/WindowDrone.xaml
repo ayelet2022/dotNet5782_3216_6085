@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="/קרטונים.jpg" Opacity="0.3"/>
         </Grid.Background>
 
-        <Grid x:Name="AddGrid" Visibility="Collapsed">
+        <Grid x:Name="AddGrid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="*"/>
@@ -41,7 +41,7 @@
                 <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" FontFamily="Aharoni" FontSize="14"/>
                 <Label Content="Station ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" FontFamily="Aharoni" FontSize="16"/>
                 <TextBox x:Name="IdBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
-                <TextBox x:Name="ModelBoxA"  Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="{x:Null}" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+                <TextBox x:Name="ModelBoxA"  Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
                 <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
                 <ComboBox x:Name="weightA"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" Background="{x:Null}" BorderBrush="Black"  />
                 <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
