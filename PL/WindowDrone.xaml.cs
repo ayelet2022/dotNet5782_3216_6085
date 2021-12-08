@@ -107,6 +107,7 @@ namespace PL
                 if (IdStation.SelectedItem == null)
                     throw new MissingInfoException("No station was entered for this drone");
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
+                mainDrone = ibl.GetDrone(mainDrone.Id);
                 windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
                 _close = true;
