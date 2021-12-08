@@ -87,7 +87,7 @@ namespace BL
         {
             CustomerList customer = new();
             List<CustomerList> Customers = new();//the customer list that we whant to returne
-            foreach (var item in dal.GetCustomers(predicate))
+            foreach (var item in dal.GetCustomers())
             {
                 item.CopyPropertiesTo(customer);//copy only:id,name,phone
                 foreach (var item1 in dal.GetParcels(x => x.SenderId == item.Id || x.TargetId == item.Id))
