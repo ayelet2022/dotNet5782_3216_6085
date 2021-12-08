@@ -70,25 +70,25 @@ namespace BL
             }
         }
 
-        public IEnumerable<BaseStationList> GetBaseStations(Predicate<IDAL.DO.BaseStation> predicate=null)
+        public IEnumerable<BaseStationList> GetBaseStations(Predicate<BaseStationList> predicate = null)
         {
-                List<BaseStationList> listStations = new List<BaseStationList>();
-                BaseStationList baseStationList = new();
-                BaseStation blStations = new();
-                //to go over all of the base station list and copy only the onece that have avilable chargers
-                foreach (var item in dal.GetBaseStations(predicate))
-                {
-                    blStations = GetBaseStation(item.Id);
-                    blStations.CopyPropertiesTo(baseStationList);
-                    //meens there are no drones charging in the station
-                    if (blStations.DronesInCharge == null)
-                        baseStationList.FullChargingPositions = 0;
-                    else//meens thare are drones that charging
-                        baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
-                    listStations.Add(baseStationList);
-                    baseStationList = new();
-                }
-                return listStations;
+            List<BaseStationList> listStations = new List<BaseStationList>();
+            BaseStationList baseStationList = new();
+            BaseStation blStations = new();
+            //to go over all of the base station list and copy only the onece that have avilable chargers
+            foreach (var item in dal.GetBaseStations())
+            {
+                blStations = GetBaseStation(item.Id);
+                blStations.CopyPropertiesTo(baseStationList);
+                //meens there are no drones charging in the station
+                if (blStations.DronesInCharge == null)
+                    baseStationList.FullChargingPositions = 0;
+                else//meens thare are drones that charging
+                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                listStations.Add(baseStationList);
+                baseStationList = new();
+            }
+            return listStations.FindAll(item => predicate == null ? true : predicate(item));
         }
 
         public void UpdateStation(int id, string newName,int charges)
