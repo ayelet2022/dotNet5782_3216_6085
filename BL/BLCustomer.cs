@@ -83,7 +83,7 @@ namespace BL
             }
         }
 
-        public IEnumerable<CustomerList> GetCustomers(Predicate<IDAL.DO.Customer> predicate = null)
+        public IEnumerable<CustomerList> GetCustomers(Predicate<CustomerList> predicate = null)
         {
             CustomerList customer = new();
             List<CustomerList> Customers = new();//the customer list that we whant to returne
@@ -111,9 +111,10 @@ namespace BL
                 Customers.Add(customer);
                 customer = new();
             }
-            return Customers;
+            return Customers.FindAll(item => predicate == null ? true : predicate(item));
+
         }
-       
+
         public void UpdateCustomer(int id, string name, string phone)
         {
             try

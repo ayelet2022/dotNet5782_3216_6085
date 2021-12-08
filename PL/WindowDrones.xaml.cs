@@ -94,7 +94,6 @@ namespace PL
             //if  he wants to filter both the weight category and the status category
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
-
             DronesListView.Items.Refresh();
         }
 

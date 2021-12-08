@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,7 +100,7 @@ namespace PL
         {
             try
             {
-                if (mainDrone.Id == default)
+                if (mainDrone.Id == default||mainDrone.Model==default)
                     throw new MissingInfoException("No information entered for this drone");
                 if (IdStation.SelectedItem == null)
                     throw new MissingInfoException("No station was entered for this drone");
@@ -171,6 +172,7 @@ namespace PL
                 if (ModelBoxAc.Text == null)//if the model name was not enterd
                     throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
+                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//fineds the index of the drone that we wanted to update
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;//changes the model of the drone thet was clicked in the drones list
                 int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone); //fineds the index of the drone that we wanted to update
                 windowDrones.Drones[index] = windowDrones.selectedDrone;//to update the drone in the list of drones in the main window
@@ -218,7 +220,7 @@ namespace PL
                     ChargeDrone.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDrone.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
                 }
-                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);//fineds the drone that we were updating  index in the list 
+                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//fineds the index of the drone that we wanted to update                                                                                                //fineds the drone that we were updating  index in the list 
                 windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);//updates the drones list
                 mainDrone = ibl.GetDrone(mainDrone.Id);//updates the main drone
                 DataContext = mainDrone;//updates all the text box according to what was updated
@@ -254,7 +256,7 @@ namespace PL
                     ChargeDrone.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDrone.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
-                int index = windowDrones.Drones.ToList().FindIndex(item => item.Id == mainDrone.Id);//to looks for the drone that we updated index in the list
+                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//to looks for the drone that we updated index in the list
                 windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);//to update the drone in the list
                 mainDrone = ibl.GetDrone(mainDrone.Id);//to update the main drone
                 DataContext = mainDrone;//to update all the text boxes according to what was updated

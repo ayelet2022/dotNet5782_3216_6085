@@ -155,6 +155,11 @@ namespace IDAL
         /// <param name="emptyCharges">the new emount of chargers in base station</param>
         public void UpdateStation(int id, string newName, int emptyCharges);
 
-        public DroneCharge GetDroneCharge(Predicate<DroneCharge> predicate = null);
+        /// <summary>
+        /// returns a drone the has the same id
+        /// </summary>
+        /// <param name="droneId">the id of the drone we want to returne</param>
+        /// <returns></returns>
+        public DroneCharge GetDroneCharge(int droneId);
     }
 }
