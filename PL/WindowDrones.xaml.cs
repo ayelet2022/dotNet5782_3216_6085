@@ -74,29 +74,56 @@ namespace PL
         {
             Selector();// to show the list according to the filter that was enterd
         }
+
+        /// <summary>
+        /// shows the list according to the filter that the user disided
+        /// </summary>
         private void Selector()
         {
-            if (WeightSelector.SelectedIndex == -1)
-                WeightSelector.SelectedIndex = 3;
+            if (WeightSelector.SelectedIndex == -1)//meens no filter was chosen
+                WeightSelector.SelectedIndex = 3;//no filter-shows all the drones
+            //if no filter was chosen-show the all list
             if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
-                DronesListView.ItemsSource = Drones;
+                DronesListView.ItemsSource = Drones;//to show the all list
+            //if only he wants to filter the weight category
             if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+            //if only he wants to filter the statuse category
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem);
+            //if  he wants to filter both the weight category and the status category
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+
             DronesListView.Items.Refresh();
         }
+
+        /// <summary>
+        /// to add a new drone to the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new WindowDrone(ibl, this).Show();
+            new WindowDrone(ibl, this).Show();//t oadd a new drone to the parcel
         }
+
+        /// <summary>
+        /// t opresent the drone that the mous double clicked  on
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            selectedDrone=(DroneList)DronesListView.SelectedItem;
-            new WindowDrone(ibl, this, DronesListView.SelectedIndex).Show();
+            selectedDrone=(DroneList)DronesListView.SelectedItem;//the drone that the mous double clicked on
+            new WindowDrone(ibl, this, DronesListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
         }
+
+        /// <summary>
+        /// to close the window of the drones list 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseWDS_Click(object sender, RoutedEventArgs e)
         {
             Close();

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using IBL.BO;
 
 namespace PL
@@ -278,12 +279,18 @@ namespace PL
         {
             Close();
         }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
         private void IdBoxA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (IdBoxA.Text.Length < 6 && IdBoxA.Text.Length > 1)
-                IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
-            else
-                IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
+            
+            //if (IdBoxA.Text.Length < 6 && IdBoxA.Text.Length > 1)
+            //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
+            //else
+            //    IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
         }
     }
 }

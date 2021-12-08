@@ -20,13 +20,23 @@ namespace PL
     public partial class MainWindow : Window
     {
         public IBL.IBL bl = new BL.BL();
+
+        /// <summary>
+        /// the constractor of main window
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// to show the all list of the drones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void showDroneButton_Click(object sender, RoutedEventArgs e)
         {
-            new WindowDrones(bl).Show();
+            new WindowDrones(bl).Show();//to show the all drones
         }
     }
 }
