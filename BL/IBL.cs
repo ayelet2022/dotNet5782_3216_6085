@@ -54,7 +54,7 @@ namespace IBL
         /// returens the all base station list
         /// </summary>
         /// <returns>the all base station list</returns>
-        IEnumerable<BaseStationList> GetBaseStations(Predicate<IDAL.DO.BaseStation> predicate=null);
+        IEnumerable<BaseStationList> GetBaseStations(Predicate<BaseStationList> predicate=null);
 
         /// <summary>
         /// returne the customer with the id that was enterd
@@ -67,7 +67,7 @@ namespace IBL
         /// returne the all list of the customers
         /// </summary>
         /// <returns>the new list of the customers</returns>
-        IEnumerable<CustomerList> GetCustomers(Predicate<IDAL.DO.Customer> predicate = null);
+        IEnumerable<CustomerList> GetCustomers(Predicate<CustomerList> predicate = null);
 
         /// <summary>
         /// returne the drone that has the same id as what wes enterd
@@ -91,7 +91,7 @@ namespace IBL
         /// copyes the values of all the parcel in order to print them
         /// </summary>
         /// <returns>the new arrey that has the the parceles</returns>
-        IEnumerable<ParcelList> GetParcels(Predicate<IDAL.DO.Parcel> predicate = null);
+        IEnumerable<ParcelList> GetParcels(Predicate<ParcelList> predicate = null);
 
         /// <summary>
         /// a drone piched up a parcel

@@ -334,7 +334,7 @@ namespace ConsoleUI_BL
                                 //in case you want to print the parcels that were not paired to a drone.
                                 case PrintTheWholeListOfAnObject.printAllTheParcelsThatWerentPaired:
                                     //creats a new list of parcels and sends to a function that returns the list of the parcels that were not paired to a drone.
-                                    IEnumerable<ParcelList> Parcels = obj.GetParcels(x=>x.Scheduled==null);
+                                    IEnumerable<ParcelList> Parcels = obj.GetParcels(x=>x.ParcelStatus==ParcelStatus.creat);
                                     if(Parcels==null)
                                         Console.WriteLine("There are no parcels that were not paired to a drone.\n");
                                     //goes through the list and prints the info of each one.

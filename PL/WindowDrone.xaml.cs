@@ -174,7 +174,6 @@ namespace PL
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
                 int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//fineds the index of the drone that we wanted to update
                 windowDrones.selectedDrone.Model = ModelBoxAc.Text;//changes the model of the drone thet was clicked in the drones list
-                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone); //fineds the index of the drone that we wanted to update
                 windowDrones.Drones[index] = windowDrones.selectedDrone;//to update the drone in the list of drones in the main window
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
