@@ -11,6 +11,14 @@ namespace BL
         public void AddDrone(Drone drone, int idFirstStation)
         {
             Random Rand = new Random();
+            if (drone.Id < 100000 || drone.Id > 999999)
+                throw new InvalidInputException($"The drones id: {drone.Id} is incorrect, the drone was not added.\n");
+            if ((int)drone.MaxWeight < 0 || (int)drone.MaxWeight > 2)
+                throw new InvalidInputException($"The drones weight: {drone.MaxWeight} is incorrect, the drone was not added.\n");
+            if (drone.Model == "")
+                throw new InvalidInputException($"The drones model: {drone.Model} is incorrect, the drone was not added.\n");
+            if (idFirstStation < 1000 || idFirstStation > 9999)
+                throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
             try
             {
                 IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);

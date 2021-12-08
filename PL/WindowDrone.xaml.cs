@@ -98,10 +98,7 @@ namespace PL
         {
             try
             {
-                if (mainDrone.Id < 100000 || mainDrone.Id > 999999)
-                    throw new InvalidInputException($"The drones id: {mainDrone.Id} is incorrect, the drone was not added.\n");
-                if (mainDrone.Model == null || mainDrone.Model == "")
-                    throw new InvalidInputException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
+                IdBoxA.MaxLength = 6;
                 if (mainDrone.Id == default)
                     throw new MissingInfoException("No information entered for this drone");
                 if (IdStation.SelectedItem == null)
@@ -284,6 +281,11 @@ namespace PL
                 IdBoxA.BorderBrush = new SolidColorBrush(Colors.Red);
             else
                 IdBoxA.BorderBrush = new SolidColorBrush(Colors.Black);
+        }
+
+        private void IdBoxA_KeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled=!char.IsDigit() && !char.IsControl(e.KeyChar);
         }
     }
 }
