@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace IBL.BO
+namespace BO
 {
     public static class DeepCopy
     {

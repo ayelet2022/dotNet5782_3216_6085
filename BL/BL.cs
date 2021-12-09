@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
-using IDAL;
+using BO;
+using DalApi;
+using DO;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : BlApi.IBL
     {
+        internal static BL Instance= new BL();
         IDal dal = new DalObject.DalObject();
         List<DroneList> Drones = new List<DroneList>();
         static Random Rand = new Random();
@@ -38,7 +40,7 @@ namespace BL
                 itD.CopyPropertiesTo(drone);
                 try
                 {
-                    IDAL.DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
+                    DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
                     drone.NumOfParcelOnTheWay = parcel.Id;
                     drone.Status = DroneStatus.delivery;//the drone in deliver
                     double customerSLatitude = dal.GetCustomer(parcel.SenderId).Latitude;
@@ -86,13 +88,13 @@ namespace BL
                     drone.Status = (DroneStatus)Rand.Next(0, 2);
                     if (drone.Status == DroneStatus.inFix)
                     {
-                        List<IDAL.DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
+                        List<DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
                         int stationI = Rand.Next(0, baseStationL.Count);
                         drone.DroneLocation = new();
                         drone.DroneLocation.Longitude = baseStationL[stationI].Longitude;
                         drone.DroneLocation.Latitude = baseStationL[stationI].Latitude;
                         drone.Battery = Rand.Next(0, 21);
-                        IDAL.DO.DroneCharge droneCharge = new();
+                        DO.DroneCharge droneCharge = new();
                         droneCharge.DroneId = drone.Id;
                         droneCharge.StationId = baseStationL[stationI].Id;
                         droneCharge.StartCharging = DateTime.Now;
@@ -100,7 +102,7 @@ namespace BL
                     }
                     else
                     {
-                        List<IDAL.DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();
+                        List<DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();
                         List<int> customerId = new();
                         foreach (var item in parcels)
                             customerId.Add(item.TargetId);
