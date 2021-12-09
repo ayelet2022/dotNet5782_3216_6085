@@ -21,14 +21,14 @@ namespace BL
                 throw new InvalidInputException($"The id: {idFirstStation} of the baseStation incorrect, the drone was not added.\n");
             try
             {
-                IDAL.DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
+                DO.BaseStation baseStation = dal.GetBaseStation(idFirstStation);
                 drone.Battery = Rand.Next(20, 41);
                 drone.Status = (DroneStatus)1;
                 drone.ParcelInTransfer = default;
-                IDAL.DO.Drone drone1 = new();
+                DO.Drone drone1 = new();
                 object obj = drone1;
                 drone.CopyPropertiesTo(obj);
-                drone1 = (IDAL.DO.Drone)obj;
+                drone1 = (DO.Drone)obj;
                 dal.AddDrone(drone1);
                 DroneList droneList = new();
                 drone.CopyPropertiesTo(droneList);
@@ -39,11 +39,11 @@ namespace BL
                 Drones.Add(droneList);
                 dal.DronToCharger(drone.Id, idFirstStation);
             }
-            catch(IDAL.DO.ExistsException ex)
+            catch(DO.ExistsException ex)
             {
                 throw new FailedToAddException($"The drones id: {drone.Id} already exists.\n", ex);
             }
-            catch(IDAL.DO.DoesNotExistException ex)
+            catch(DO.DoesNotExistException ex)
             {
                 throw new FailedToAddException($"Drone id: {drone.Id} does not exist.\n", ex);
             }
@@ -69,7 +69,7 @@ namespace BL
                     returningDrone.ParcelInTransfer = default;
                 else
                 {
-                    IDAL.DO.Parcel dalParcel = dal.GetParcel(droneList.NumOfParcelOnTheWay);
+                    DO.Parcel dalParcel = dal.GetParcel(droneList.NumOfParcelOnTheWay);
                     ParcelInTransfer parcelInT = new();
                     Parcel blParcel = GetParcel(dalParcel.Id);
                     blParcel.CopyPropertiesTo(parcelInT);
@@ -119,7 +119,7 @@ namespace BL
                 //to update the drone in the drone list
                 dal.UpdateDrone(drone.Id, newModel);
             }
-            catch (IDAL.DO.DoesNotExistException ex)
+            catch (DO.DoesNotExistException ex)
             {
                 throw new FailToUpdateException($"The drone: {drone.Id} was not found, the drone was not updated.\n", ex);
             }
@@ -130,8 +130,8 @@ namespace BL
             try
             {
                 DroneList droneList = Drones.First(item => item.Id == id);
-                IDAL.DO.Drone dalDrone = dal.GetDrone(id);
-                IDAL.DO.BaseStation baseStation = new();
+                DO.Drone dalDrone = dal.GetDrone(id);
+                DO.BaseStation baseStation = new();
                 //droneList = GetDrone(id);
                 baseStation = FindMinDistanceOfDToBSWithEempChar(droneList);
                 //fined the distance frome a drone to a base station
@@ -187,7 +187,7 @@ namespace BL
             {
                 throw new FailToUpdateException($"Failed to free the drone: {id} Frome The Charger.\n", ex);
             }
-            catch (IDAL.DO.NotFoundInputException ex)
+            catch (DO.NotFoundInputException ex)
             {
                 throw new FailToUpdateException($"The drone: {id} is not charging.\n", ex);
             }
@@ -336,9 +336,9 @@ namespace BL
         /// </summary>
         /// <param name="drone">the drone that we want to find the station for</param>
         /// <returns>the closest base station to drone that has an empty charger</returns>
-        private IDAL.DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
+        private DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
         {
-            IDAL.DO.BaseStation baseStation = new();
+            DO.BaseStation baseStation = new();
             bool foundParcel = false;
             double minDistance = 0;
             double distance = 0;
@@ -367,9 +367,9 @@ namespace BL
         /// <param name="longitude"></param>
         /// <param name="latitude"></param>
         /// <returns></returns>
-        private IDAL.DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
+        private DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
         {
-            IDAL.DO.BaseStation baseStation = new();
+            DO.BaseStation baseStation = new();
             double minDistance = 0;
             double distance = 0;
             //to fo over all the station
@@ -412,7 +412,7 @@ namespace BL
         /// <param name="parcel">the parcel that the drone is delivering</param>
         /// <param name="drone">the drone that  we are calulating the battery for </param>
         /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
-        private int UseOfBattery(IDAL.DO.Parcel parcel,DroneList drone)
+        private int UseOfBattery(DO.Parcel parcel,DroneList drone)
         {
             Customer senderOfParcel = GetCustomer(parcel.SenderId);
             Customer resepterOfParcel = GetCustomer(parcel.TargetId);

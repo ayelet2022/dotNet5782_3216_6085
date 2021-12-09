@@ -26,15 +26,15 @@ namespace BL
             try
             {
                 baseStation.DronesInCharge = null;
-                IDAL.DO.BaseStation station = new();
+                DO.BaseStation station = new();
                 object obj = station;
                 baseStation.CopyPropertiesTo(obj);
-                station = (IDAL.DO.BaseStation)obj;
+                station = (DO.BaseStation)obj;
                 station.Longitude = baseStation.BaseStationLocation.Longitude;
                 station.Latitude = baseStation.BaseStationLocation.Latitude;
                 dal.AddBaseStation(station);
             }
-            catch (IDAL.DO.ExistsException ex)
+            catch (DO.ExistsException ex)
             {
                 throw new FailedToAddException($"Base station id: {baseStation.Id} already exists, the base station was not added\n.", ex);
             }
@@ -45,7 +45,7 @@ namespace BL
             try
             {
                 //search for the first base station in the list that has the same id
-                IDAL.DO.BaseStation dalStation = dal.GetBaseStation(idBaseStation);
+                DO.BaseStation dalStation = dal.GetBaseStation(idBaseStation);
                 BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
                 station.DronesInCharge = new();
@@ -64,7 +64,7 @@ namespace BL
                 }
                 return station;
             }
-            catch (IDAL.DO.DoesNotExistException ex)
+            catch (DO.DoesNotExistException ex)
             {
                 throw new NotFoundInputException($"The base station: {idBaseStation} was not found.\n", ex);
             }
@@ -107,7 +107,7 @@ namespace BL
             {
                 throw new InvalidInputException($"The number of empty charges: {charges} is incorrect, the base station: {id} was not updated.\n", ex);
             }
-            catch(IDAL.DO.DoesNotExistException ex)
+            catch(DO.DoesNotExistException ex)
             {
                 throw new InvalidInputException($"The base station: {id} was not found, the base station was not updated.\n", ex);
             }

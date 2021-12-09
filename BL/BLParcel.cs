@@ -12,22 +12,22 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Customer customerR = dal.GetCustomer(parcel.Recepter.Id);
-                IDAL.DO.Customer customers = dal.GetCustomer(parcel.Sender.Id);
+                DO.Customer customerR = dal.GetCustomer(parcel.Recepter.Id);
+                DO.Customer customers = dal.GetCustomer(parcel.Sender.Id);
                 parcel.CreatParcel = DateTime.Now;
                 parcel.Delivered = null;
                 parcel.PickedUp = null;
                 parcel.Scheduled = null;
                 parcel.ParecelDrone = null;
-                IDAL.DO.Parcel newParcel = new();
+                DO.Parcel newParcel = new();
                 object obj = newParcel;
                 parcel.CopyPropertiesTo(obj);
-                newParcel = (IDAL.DO.Parcel)obj;
+                newParcel = (DO.Parcel)obj;
                 newParcel.SenderId = parcel.Sender.Id;
                 newParcel.TargetId = parcel.Recepter.Id;
                 dal.AddParcel(newParcel);
             }
-            catch(IDAL.DO.DoesNotExistException ex)
+            catch(DO.DoesNotExistException ex)
             {
                 throw new InvalidInputException($"The parcel sender's id or recepter's id is incorrect.\n", ex);
             }
@@ -37,7 +37,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Parcel dalParcel = dal.GetParcel(idParcel);
+                DO.Parcel dalParcel = dal.GetParcel(idParcel);
                 Parcel parcel = new();//the parcel to returne
                 dalParcel.CopyPropertiesTo(parcel);
                 Customer sender = new();
@@ -59,7 +59,7 @@ namespace BL
                 }
                 return parcel;
             }
-            catch (IDAL.DO.DoesNotExistException ex)
+            catch (DO.DoesNotExistException ex)
             {
                 throw new InvalidInputException($"The parcel id: {idParcel} was not found.\n", ex);
             }

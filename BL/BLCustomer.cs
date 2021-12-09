@@ -22,15 +22,15 @@ namespace BL
                throw new InvalidInputException($"The customer Latitude: {customer.CustomerLocation.Latitude} is incorrect, the customer wasn't added.\n");
             try
             {
-                IDAL.DO.Customer newCustomer = new();
+                DO.Customer newCustomer = new();
                 object obj = newCustomer;
                 customer.CopyPropertiesTo(obj);
-                newCustomer = (IDAL.DO.Customer)obj;
+                newCustomer = (DO.Customer)obj;
                 newCustomer.Longitude = customer.CustomerLocation.Longitude;
                 newCustomer.Latitude = customer.CustomerLocation.Latitude;
                 dal.AddCustomer(newCustomer);
             }
-            catch (IDAL.DO.ExistsException ex)
+            catch (DO.ExistsException ex)
             {
                 throw new FailedToAddException($"The customer: {customer.Id} already exists.", ex);
             }
@@ -40,7 +40,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Customer dalCustomer = dal.GetCustomer(idCustomer);
+                DO.Customer dalCustomer = dal.GetCustomer(idCustomer);
                 Customer customer = new();//the customer to returne
                 dalCustomer.CopyPropertiesTo(customer);//only puts:id,name,phone,location
                 customer.CustomerLocation = new();
@@ -77,7 +77,7 @@ namespace BL
                 }
                 return customer;
             }
-            catch (IDAL.DO.DoesNotExistException ex)
+            catch (DO.DoesNotExistException ex)
             {
                 throw new NotFoundInputException($"The customer: {idCustomer} was not found.\n", ex);
             }
@@ -140,9 +140,9 @@ namespace BL
                 (sender.CustomerLocation.Longitude, sender.CustomerLocation.Latitude, resever.CustomerLocation.Longitude, resever.CustomerLocation.Latitude);
         }
 
-        public IDAL.DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude)
+        public DO.BaseStation FindMinDistanceOfCToBS(double latitude, double longitude)
         {
-            IDAL.DO.BaseStation baseStation = new();
+            DO.BaseStation baseStation = new();
             double minDistance = 0;
             double distance = 0;
             //to go over all the station and check wich one is the closest
