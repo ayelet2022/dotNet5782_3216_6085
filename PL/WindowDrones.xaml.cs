@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BO;
 namespace PL
 {
     public enum WeightCategories { Light, MediumWeight, Heavy, All};
@@ -24,7 +24,7 @@ namespace PL
     public partial class WindowDrones : Window
     {
         private bool _close { get; set; } = false;
-        IBL.IBL ibl;
+        BL.BL ibl;
         public ObservableCollection<DroneList> Drones;
         public DroneList selectedDrone = new();
 
@@ -32,7 +32,7 @@ namespace PL
         /// the constractor of the window
         /// </summary>
         /// <param name="bl"> the accses to the fileds in IBL</param>
-        public WindowDrones(IBL.IBL bl)
+        public WindowDrones(BL.BL bl)
         {
             InitializeComponent();
             ibl = bl;
@@ -89,13 +89,13 @@ namespace PL
                 DronesListView.ItemsSource = Drones;//to show the all list
             //if only he wants to filter the weight category
             if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem);
             //if only he wants to filter the statuse category
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem);
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem);
             //if  he wants to filter both the weight category and the status category
             if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (IBL.BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
+                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem);
             DronesListView.Items.Refresh();
         }
 

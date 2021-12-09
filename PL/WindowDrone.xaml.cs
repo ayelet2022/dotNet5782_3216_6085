@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using IBL.BO;
+using BO;
 using System.ComponentModel;
 
 namespace PL
@@ -25,7 +25,7 @@ namespace PL
     {
         Drone mainDrone = new();
         private bool _close { get; set; } = false;
-        IBL.IBL ibl;
+        BL.BL ibl;
         private WindowDrones windowDrones;
         
         /// <summary>
@@ -33,14 +33,14 @@ namespace PL
         /// </summary>
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
-        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones)
+        public WindowDrone(BL.BL bl, WindowDrones _windowDrones)
         {
             InitializeComponent();
             ibl = bl;
             windowDrones = _windowDrones;
             AddGrid.Visibility = Visibility.Visible;
             DataContext = mainDrone;
-            weightA.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            weightA.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             IdStation.ItemsSource = bl.GetBaseStations(x => x.EmptyCharges != 0).Select(s => s.Id);//the first basestation that the drone was charging in
         }
 
@@ -50,7 +50,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowDrone(IBL.IBL bl, WindowDrones _windowDrones, int i=0)
+        public WindowDrone(BL.BL bl, WindowDrones _windowDrones, int i=0)
         {
             ibl = bl;
             InitializeComponent();
@@ -64,14 +64,14 @@ namespace PL
                 ParcelIT.Visibility = Visibility.Visible;//the window with the enfo of the parcel in the drone
             }
             //changes the buttens content according to the drone statuse
-            if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Available)//if the drone is available
+            if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Available)//if the drone is available
             {
                 ChargeDrone.Visibility = Visibility.Visible;
                 ChangeStatusDrone.Visibility = Visibility.Visible;
                 ChargeDrone.Content = "Send drone to charging";
                 ChangeStatusDrone.Content = "Send drone to delievery";
             }
-            if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.InFix)//if the drone is in charge
+            if (mainDrone.Status == (BO.DroneStatus)DroneStatus.InFix)//if the drone is in charge
             {
                 ChargeDrone.Content = "Release drone from charging";
                 ChangeStatusDrone.Visibility = Visibility.Hidden;
@@ -79,13 +79,13 @@ namespace PL
             else//meens the drone is in delivery
             {
                 //if the drone is in delivery and the parcel in the drone isnt on the way
-                if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
+                if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
                 {
                     ChargeDrone.Visibility = Visibility.Hidden;
                     ChangeStatusDrone.Content = "Pick up parcel";
                 }
                 //if the drone is in delivery and the parcel in the drone is on the way
-                if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
+                if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                 {
                     ChargeDrone.Visibility = Visibility.Hidden;
                     ChangeStatusDrone.Content = "Supply parcel";
@@ -202,7 +202,7 @@ namespace PL
         {
             try
             {
-                if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Available)//meens we can only scheduled a parcel to the drone
+                if (mainDrone.Status == ( BO.DroneStatus)DroneStatus.Available)//meens we can only scheduled a parcel to the drone
                 {
                     ibl.ScheduledAParcelToADrone(mainDrone.Id);//scheduled a parcel to the drone
                     ChargeDrone.Visibility = Visibility.Collapsed;
@@ -210,14 +210,14 @@ namespace PL
                     ChangeStatusDrone.Content = "Pick up parcel";//to change the butten conntact to only be to pick up the parcel
                 }
                 //meens we can only pick up the parcel that the drone supposed to delivery
-                if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
+                if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
                 {
                     ibl.PickUpParcel(mainDrone.Id);//update the drone to pick up the parcel
                     ChargeDrone.Visibility = Visibility.Collapsed;
                     ChangeStatusDrone.Content = "Supply parcel";//to change the butten conntact to only be to delivery the parcel
                 }
                 //meens we can only pick up the parcel that the drone deliver to delivery
-                if (mainDrone.Status == (IBL.BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
+                if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                 {
                     ibl.DeliverParcel(mainDrone.Id);//update the drone to deliver the parcel
                     ParcelIT.Visibility = Visibility.Collapsed;//ther is no parcel in the drone now
