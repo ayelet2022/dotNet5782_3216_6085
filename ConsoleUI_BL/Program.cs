@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
     {
         static void Main(string[] args)
         {
-            BL.BL obj = new BL.BL();
+            BL.BL obj = BL.BlFactory.GetBl();
             MainQuastions choice;
             //It prints the options to the user.
             do

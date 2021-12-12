@@ -4,12 +4,12 @@ using DO;
 using DalApi;
 using StructureMap.Pipeline;
 
-namespace DalObject
+namespace Dal
 {
-    public partial class DalObject : DalApi.IDal
+    internal sealed partial class DalObject : IDal
     {
-        internal static BL Instance= new BL();
-        DalObject()
+        internal static readonly DalObject Instance = new DalObject();
+        private DalObject()
         {
             DataSource.Initialize();
         }

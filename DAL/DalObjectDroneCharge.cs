@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-namespace DalObject
+using DO;
+namespace Dal
 {
     public partial class DalObject
     {
@@ -24,7 +24,6 @@ namespace DalObject
                     DronesCharge.Add(itD);
             return DronesCharge;
         }
-
         public DroneCharge GetDroneCharge(int idDrone)
         {
             try

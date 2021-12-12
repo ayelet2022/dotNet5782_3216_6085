@@ -20,8 +20,6 @@ namespace PL
     public partial class MainWindow : Window
     {
         BL.BL bl = BL.BlFactory.GetBl();
-        //public IBL.IBL bl = new BL.BL();
-
         /// <summary>
         /// the constractor of main window
         /// </summary>
