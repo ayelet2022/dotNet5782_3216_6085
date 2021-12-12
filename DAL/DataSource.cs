@@ -1,7 +1,7 @@
 ﻿using System;
 using DO;
 using System.Collections.Generic;
-namespace DalObject
+namespace Dal
 {
     /// <summary>
     /// includs all the data of the object-the arr of each object,

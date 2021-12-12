@@ -10,10 +10,10 @@ using DO;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    private sealed partial class BL : BlApi.IBL
     {
-        internal static BL Instance= new BL();
-        IDal dal = new DalObject.DalObject();
+        internal static BL Instance = new BL();
+        IDal dal;
         List<DroneList> Drones = new List<DroneList>();
         static Random Rand = new Random();
         double chargingRate;
@@ -23,6 +23,7 @@ namespace BL
         /// </summary>
         public BL()
         {
+            dal = DalApi.DalFactory.GetDL();
             power = dal.AskForBattery();
             chargingRate = power[4]; 
             InitializeDroneList(Drones);

@@ -4,16 +4,15 @@ using DO;
 using DalApi;
 using StructureMap.Pipeline;
 
-namespace DalObject
+namespace Dal
 {
-    public partial class DalObject : IDal
+    internal sealed partial class DalObject : IDal
     {
-        static IDal inst = new DalObject();
-        DalObject()
+        internal static readonly DalObject Instance = new DalObject();
+        private DalObject()
         {
             DataSource.Initialize();
         }
-        public static Instance {get => inst; }
         public double[] AskForBattery()
         {
             double[] arr = { DataSource.Config.Available, DataSource.Config.Light, DataSource.Config.MediumWeight, DataSource.Config.Heavy, DataSource.Config.ChargingRate };

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DalObject;
 using DO;
+
 namespace DalApi
 {
     public interface IDal
