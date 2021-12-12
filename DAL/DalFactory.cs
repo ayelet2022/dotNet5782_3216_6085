@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DalApi;
-namespace DalApi
+
+namespace DAL
 {
     public static class DalFactory
     {
-        public IDal GetDal(String strig)=>DalObject.
+        static public BL GetBl() { return BL.Instance; }
+
     }
 }
