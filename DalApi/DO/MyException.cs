@@ -8,9 +8,9 @@ namespace DO
     [Serializable]
     public class ExistsException : Exception
     {
-        public ExistsException() : base() {}
-        public ExistsException(string message) : base(message) {}
-        public ExistsException(string message,Exception inner) : base(message, inner) {}
+        public ExistsException() : base() { }
+        public ExistsException(string message) : base(message) { }
+        public ExistsException(string message, Exception inner) : base(message, inner) { }
     }
     public class DoesNotExistException : Exception
     {
@@ -25,3 +25,4 @@ namespace DO
         public NotFoundInputException(string message, Exception inner) : base(message, inner) { }
     }
 }
+

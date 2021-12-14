@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using DalApi;
 
 namespace BL
 {
-    private sealed partial class BL : BlApi.IBL
+    sealed partial class BL : BlApi.IBL
     {
         internal static BL Instance = new BL();
         IDal dal;

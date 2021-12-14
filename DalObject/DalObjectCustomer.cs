@@ -1,12 +1,11 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DalApi;
+using DO;
+
 namespace Dal
 {
-    public partial class DalObject
+    internal sealed partial class DalObject : IDal
     {
         public void AddCustomer(Customer newCustomer)
         {

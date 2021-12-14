@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using DalApi;
+
 namespace Dal
 {
-    public partial class DalObject
+    internal sealed partial class DalObject : IDal
     {
         public void AddDrone(Drone addDrone)
         {
