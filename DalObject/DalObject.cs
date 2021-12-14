@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using DO;
 using DalApi;
-using StructureMap.Pipeline;
 
 namespace Dal
 {

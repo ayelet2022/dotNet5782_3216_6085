@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace />
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DalApi\DalApi.csproj" />
-    <ProjectReference Include="..\DalObject\DalObject.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DalApi\DalApi.csproj" />
+		<ProjectReference Include="..\DalObject\DalObject.csproj" />
+	</ItemGroup>
 
 </Project>
