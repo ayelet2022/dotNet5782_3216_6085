@@ -19,12 +19,7 @@ namespace Dal
         }
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> predicate = null)
         {
-            List<DroneCharge> DronesCharge = new();
-            //to copy all the charger from the list
-            foreach (var itD in DataSource.DroneCharges)
-                if (predicate == null || predicate(itD))
-                    DronesCharge.Add(itD);
-            return DronesCharge;
+            return DataSource.DroneCharges.Select(item => item);
         }
         public DroneCharge GetDroneCharge(int idDrone)
         {

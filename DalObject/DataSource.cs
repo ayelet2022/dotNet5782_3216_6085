@@ -8,7 +8,7 @@ namespace Dal
     /// includs all the data of the object-the arr of each object,
     /// and the index of each arr 
     /// </summary>
-    public static class DataSource
+    internal static class DataSource
     {
         internal static List<Drone> Drones = new List<Drone>();
         internal static List<BaseStation> Stations = new List<BaseStation>();

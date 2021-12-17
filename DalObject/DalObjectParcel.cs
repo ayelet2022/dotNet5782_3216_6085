@@ -65,11 +65,7 @@ namespace Dal
         }
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
-            List<Parcel> Parcels = new();
-            foreach (var itP in DataSource.Parcels)
-                if (predicate == null || predicate(itP))
-                    Parcels.Add(itP);
-            return Parcels;
+            return DataSource.Parcels.Select(item => item);
         }
     }
 }

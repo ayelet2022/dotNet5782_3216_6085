@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using DalApi;
 using DO;
 
@@ -23,11 +25,7 @@ namespace Dal
         }
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
-            List<Customer> Customers = new ();
-            foreach (var itC in DataSource.Customers)
-                if (predicate == null || predicate(itC))
-                    Customers.Add(itC);
-            return Customers;
+            return DataSource.Customers.Select(item => item);
         }
         public void UpdateCustomer(int id,string name,string phone)
         {

@@ -62,12 +62,7 @@ namespace Dal
         }
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null)
         {
-            List<Drone> Drones = new List<Drone>();
-            //to copy all the drones from list
-            foreach (var itD in DataSource.Drones)
-                if (predicate == null || predicate(itD))
-                    Drones.Add(itD);
-            return Drones;
+            return DataSource.Drones.Select(item => item);
         }
         public void UpdateDrone(int id, string newModel)
         {   

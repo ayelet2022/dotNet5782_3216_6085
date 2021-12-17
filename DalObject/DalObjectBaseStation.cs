@@ -26,11 +26,7 @@ namespace Dal
         }
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {
-            List<BaseStation> Stations = new List<BaseStation>();
-            foreach (var itBS in DataSource.Stations)
-                if (predicate == null || predicate(itBS))
-                    Stations.Add(itBS);
-            return Stations;
+            return DataSource.Stations.Select(item => item);
         }
         public void UpdateStation(int id, string newName, int emptyCharges)
         {

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+
 namespace PL
 {
     public enum WeightCategories { Light, MediumWeight, Heavy, All};
