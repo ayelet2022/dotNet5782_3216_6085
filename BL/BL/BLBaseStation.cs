@@ -48,7 +48,6 @@ namespace BL
                 DO.BaseStation dalStation = dal.GetBaseStation(idBaseStation);
                 BaseStation station = new BaseStation();
                 dalStation.CopyPropertiesTo(station);
-                station.DronesInCharge = new();
                 DroneInCharge droneInCharge = new();
                 station.BaseStationLocation = new();
                 station.BaseStationLocation.Latitude = dalStation.Latitude;
@@ -59,7 +58,7 @@ namespace BL
                     Drone drone = GetDrone(item.DroneId);
                     droneInCharge.Id = item.DroneId;
                     droneInCharge.Battery = drone.Battery;
-                    station.DronesInCharge.Add(droneInCharge);
+                    station.DronesInCharge.Append(droneInCharge);
                     droneInCharge = new();
                 }
                 return station;
@@ -84,7 +83,7 @@ namespace BL
                 if (blStations.DronesInCharge == null)
                     baseStationList.FullChargingPositions = 0;
                 else//meens thare are drones that charging
-                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count;
+                    baseStationList.FullChargingPositions = blStations.DronesInCharge.Count();
                 listStations.Add(baseStationList);
                 baseStationList = new();
             }

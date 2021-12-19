@@ -6,10 +6,24 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="440" Width="632">
+    <Window.Background>
+        <ImageBrush ImageSource="/רחפן.jpg"/>
+    </Window.Background>
     <Grid>
-        <Image HorizontalAlignment="Center" Source="https://img.wisebuy.co.il/data/images/Guide/e-drone/shutterstock_547640359132541713991042368.jpg" Height="433" VerticalAlignment="Top" Width="632" AutomationProperties.IsOffscreenBehavior="Default" AutomationProperties.IsColumnHeader="True" Visibility="Visible"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Button x:Name="showDroneButton" Content="Drones" HorizontalAlignment="Left" Margin="391,283,0,0" VerticalAlignment="Top" Height="68" Width="165" Click="showDroneButton_Click" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True"/>
-
+        <Button x:Name="OldCus" Grid.Column="0" Content="SIGN IN" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="68" Width="165" Click="showDroneButton_Click" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True"/>
+        <Button Content="NewCus" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Height="68" Width="165" Click="showDroneButton_Click" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True"/>
+        <Button Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="68" Width="165" Click="showDroneButton_Click" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="474,278,0,0" VerticalAlignment="Top"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Aharoni"/>
+        <Label Content="EXISTING CUSTOMERS" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,136,0,0" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="251"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,222,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Label Content="YOUR PASSWORD" HorizontalAlignment="Left" Margin="30,260,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Aharoni"/>
+        <PasswordBox HorizontalAlignment="Left" Margin="30,288,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
