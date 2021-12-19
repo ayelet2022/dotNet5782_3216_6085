@@ -11,17 +11,19 @@ namespace BL
 {
     sealed partial class BL : BlApi.IBL
     {
-        internal static BL Instance = new BL();
+        internal static BL Instance { get; } = new BL();
         IDal dal;
         List<DroneList> Drones = new List<DroneList>();
-        static Random Rand = new Random();
+        static BL() { }
+        static Random Rand;
         double chargingRate;
         double[] power;
         /// <summary>
         /// the contractor of BL
         /// </summary>
-        public BL()
+        private BL()
         {
+            Rand = new Random();
             dal = DalApi.DalFactory.GetDL();
             power = dal.AskForBattery();
             chargingRate = power[4]; 
