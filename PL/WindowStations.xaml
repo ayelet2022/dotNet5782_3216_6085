@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="WindowStations" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="stationList"> 
+        <Button x:Name="buttenAdd" Content="Add" HorizontalAlignment="Left" Margin="643,28,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="buttenAdd_Click"/>
+        <ListView x:Name="stationList" Margin="43,49,263,49">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

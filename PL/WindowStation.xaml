@@ -7,6 +7,25 @@
         mc:Ignorable="d"
         Title="WindowStation" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="55,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="Location:" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="55,99,0,0" VerticalAlignment="Top"/>
+        <Label Content="AvaiCharges" HorizontalAlignment="Left" Margin="55,144,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="nameTB" Text="{Binding Name, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBlock Visibility="Collapsed" x:Name="idTBl" Text="{Binding Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
+        <TextBox x:Name="avaiChargesTB" Text="{Binding EmptyCharges, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBlock Visibility="Collapsed" x:Name="locationTBl" Text="{Binding BaseStationLocation, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
+        <ListView Visibility="Collapsed" x:Name="listDronesInStation" Margin="333,47,37,71">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Visibility="Collapsed" x:Name="labelDronesInStation" Content="Drones that are charging:" HorizontalAlignment="Left" Margin="333,21,0,0" VerticalAlignment="Top" Width="163"/>
+        <Button Visibility="Collapsed" x:Name="buttenUpdate" Content="Update" HorizontalAlignment="Left" Margin="55,272,0,0" VerticalAlignment="Top" Width="84" Height="33" Click="buttenUpdate_Click"/>
+        <Button Visibility="Collapsed" x:Name="buttenRemove" Content="Remove" HorizontalAlignment="Left" Margin="55,334,0,0" VerticalAlignment="Top" Width="84" Height="34"/>
+        <TextBox Visibility="Collapsed" x:Name="idTB" Text="{Binding Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Visibility="Collapsed" x:Name="locationTB" Text="{Binding BaseStationLocation, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="148,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

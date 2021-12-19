@@ -11,7 +11,7 @@
             <ImageBrush ImageSource="/קרטונים.jpg" Opacity="0.3"/>
         </Grid.Background>
 
-        <Grid x:Name="AddGrid" Visibility="Collapsed">
+        <Grid x:Name="AddGrid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="*"/>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -19,9 +20,138 @@ namespace PL
     /// </summary>
     public partial class WindowStation : Window
     {
+        BaseStation station = new();
+        private bool _close { get; set; } = false;
+        BL.BL ibl;
+        private WindowStations windowStations;
+
+        /// <summary>
+        /// constructer-updates the station that the mouse clicked twice on
+        /// </summary>
+        /// <param name="bl">the accses to IBL</param>
+        /// <param name="_windowStations">the window with all the stations</param>
+        /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
         public WindowStation(BL.BL bl, WindowStations _windowStations, int i = 0)
         {
             InitializeComponent();
+            ibl = bl;
+            windowStations = _windowStations;
+            station = ibl.GetBaseStation(windowStations.selectedStation.Id);
+            DataContext = station;
+            buttenRemove.Visibility = Visibility.Visible;
+            buttenUpdate.Visibility = Visibility.Visible;
+            idTBl.Visibility = Visibility.Visible;
+            locationTBl.Visibility = Visibility.Visible;
+            if (station.DronesInCharge != null)
+            {
+                labelDronesInStation.Visibility = Visibility.Visible;
+                listDronesInStation.Visibility = Visibility.Visible;
+                listDronesInStation.ItemsSource = station.DronesInCharge;
+            }
+        }
+
+        /// <summary>
+        /// constructer-adds a new station   
+        /// </summary>
+        /// <param name="bl">the accses to IBL</param>
+        /// <param name="_windowStations">the window with all the stations</param>
+        public WindowStation(BL.BL bl, WindowStations _windowStations)
+        {
+            InitializeComponent();
+            ibl = bl;
+            windowStations = _windowStations;
+            buttenAdd.Visibility = Visibility.Visible;
+            idTB.Visibility = Visibility.Visible;
+            locationTB.Visibility = Visibility.Visible;
+            DataContext = station;
+        }
+
+        private void dronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new WindowDrone(ibl, null, 0);
+        }
+
+        private void buttenUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ibl.UpdateStation(station.Id, nameTB.Text, (int)avaiChargesTB.Text);
+                int index = windowStations.Stations.IndexOf(windowStations.selectedStation);//fineds the index of the drone that we wanted to update                                                                                                //fineds the drone that we were updating  index in the list 
+                windowStations.Stations[index] = ibl.GetBaseStations().First(item => item.Id == station.Id);//updates the drones list
+                station = ibl.GetBaseStation(station.Id);//updates the main drone
+                DataContext = station;//updates all the text box according to what was updated
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
+            }
+            catch(InvalidInputException ex)
+            {
+                MessageBox.Show("Failed to update the station: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void buttenAdd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (station.Id == default || station.EmptyCharges == default)
+                    throw new MissingInfoException("No information entered for this station");
+                ibl.AddBaseStation(station);
+                station = ibl.GetBaseStation(station.Id);
+                windowStations.Stations.Add(ibl.GetBaseStations().First(i => i.Id == station.Id));
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station has been added successfully \n" + station.ToString());
+                _close = true;
+                Close();
+            }
+            catch (FailedToAddException ex)
+            {
+                var message = MessageBox.Show("Failed to add the station: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        idTB.Text = "";
+                        avaiChargesTB.Text = "";
+                        break;
+                    case MessageBoxResult.No:
+                        _close = true;
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (InvalidInputException ex)
+            {
+                var message = MessageBox.Show("Failed to add the station: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        idTB.Text = "";
+                        break;
+                    case MessageBoxResult.No:
+                        _close = true;
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (MissingInfoException ex)
+            {
+                var message = MessageBox.Show("Failed to add the station: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        break;
+                    case MessageBoxResult.No:
+                        _close = true;
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
