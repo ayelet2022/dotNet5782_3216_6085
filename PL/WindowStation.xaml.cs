@@ -38,7 +38,6 @@ namespace PL
             windowStations = _windowStations;
             station = ibl.GetBaseStation(windowStations.selectedStation.Id);
             DataContext = station;
-            buttenRemove.Visibility = Visibility.Visible;
             buttenUpdate.Visibility = Visibility.Visible;
             idTBl.Visibility = Visibility.Visible;
             locationTBl.Visibility = Visibility.Visible;

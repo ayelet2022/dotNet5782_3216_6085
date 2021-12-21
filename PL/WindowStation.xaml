@@ -24,7 +24,7 @@
         </ListView>
         <Label Visibility="Collapsed" x:Name="labelDronesInStation" Content="Drones that are charging:" HorizontalAlignment="Left" Margin="333,21,0,0" VerticalAlignment="Top" Width="163"/>
         <Button Visibility="Collapsed" x:Name="buttenUpdate" Content="Update" HorizontalAlignment="Left" Margin="55,272,0,0" VerticalAlignment="Top" Width="84" Height="33" Click="buttenUpdate_Click"/>
-        <Button Visibility="Collapsed" x:Name="buttenRemove" Content="Remove" HorizontalAlignment="Left" Margin="55,334,0,0" VerticalAlignment="Top" Width="84" Height="34"/>
+        <Button Visibility="Collapsed" x:Name="buttenAdd" Content="Remove" HorizontalAlignment="Left" Margin="55,334,0,0" VerticalAlignment="Top" Width="84" Height="34"/>
         <TextBox Visibility="Collapsed" x:Name="idTB" Text="{Binding Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox Visibility="Collapsed" x:Name="locationTB" Text="{Binding BaseStationLocation, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="148,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
