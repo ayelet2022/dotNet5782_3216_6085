@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="WindowCustomerxaml" Height="450" Width="800">
-    <Window.Background>
+        Title="WindowCustomer" Height="450" Width="800">
+    <!--<Window.Background>
         <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
-    </Window.Background>
+    </Window.Background>-->
     <Grid>
 
         <!--<Grid x:Name="AddGrid" Visibility="Collapsed">
@@ -91,9 +91,9 @@
                 <TextBox x:Name="PhoneBoxA"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
                 <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
                 <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
-                
+
             </Grid>
-            <ListView Grid.Row="1" Visibility="Collapsed"  x:Name="ParcelsFromCustomer"  Margin="39,33,319,116" MouseDoubleClick="ParcelsFCListView_MouseDoubleClick" BorderThickness="3,3,3,3" Foreground="Black">
+            <ListView Grid.Row="1" Visibility="Collapsed"  x:Name="ParcelsFromCustomer"  Margin="39,33,319,116"  BorderThickness="3,3,3,3" Foreground="Black">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -167,10 +167,8 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="UpdateButton" Grid.Column="0" Content="Update drone" VerticalAlignment="Center" Height="30" Click="Button_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
-                <Button x:Name="ChargeDrone" Content="" Grid.Column="1" VerticalAlignment="Center" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16"   />
-                <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="2" VerticalAlignment="Center" Height="30" Click="ChangeStatusDrone_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"  />
                 <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
-
+                <Button x:Name="AddButten" Content="Add A customer" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
             </Grid>
         </Grid>
     </Grid>

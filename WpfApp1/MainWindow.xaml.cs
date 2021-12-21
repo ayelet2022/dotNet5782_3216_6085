@@ -12,32 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-namespace PL
+
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        BL.BL bl= BL.BlFactory.GetBl();
-        /// <summary>
-        /// the constractor of main window
-        /// </summary>
+        BL.BL bl = BL.BlFactory.GetBl();
         public MainWindow()
         {
             InitializeComponent();
-
-
-        }
-
-        /// <summary>
-        /// to show the all list of the drones
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void showDroneButton_Click(object sender, RoutedEventArgs e)
-        {
-            new WindowDrones(bl).Show();//to show the all drones
         }
     }
 }

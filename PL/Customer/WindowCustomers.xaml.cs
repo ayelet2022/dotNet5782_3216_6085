@@ -114,7 +114,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CustomersListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             selectedCustomer = (CustomerList)CustomerListView.SelectedItem;//the drone that the mous double clicked on
             new WindowCustomer(ibl, this, CustomerListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
