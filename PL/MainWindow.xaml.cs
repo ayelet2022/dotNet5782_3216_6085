@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BO;
 namespace PL
 {
     /// <summary>
@@ -26,8 +27,17 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-
+        private void newCusButten_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCustomers windowCustomers = new(bl);
+            new WindowCustomer(bl, windowCustomers).Show();
+        }
+        private void managerButten_Click(object sender, RoutedEventArgs e)
+        {
+            options.Visibility = Visibility.Collapsed;
+            manager.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -35,9 +45,52 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void showDroneButton_Click(object sender, RoutedEventArgs e)
+
+        private void dronesButten_Click(object sender, RoutedEventArgs e)
         {
-            new WindowDrones(bl).Show();//to show the all drones
+            new WindowDrones(bl).Show();
+        }
+
+        private void parcelsButten_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void customersButten_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowCustomers(bl).Show();
+        }
+
+        private void stationsButten_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowStations(bl).Show();
+        }
+
+        private void OldCus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (idTB.Text == default|| idTB.Text == "")
+                    throw new MissingInfoException("No id was entered");
+                Customer customer = bl.GetCustomer(int.Parse(idTB.Text));
+                WindowCustomers windowCustomers = new(bl);
+                new WindowCustomer(bl, windowCustomers, 0).Show();
+            }
+            catch(MissingInfoException ex)
+            {
+                MessageBox.Show("Failed to find the customer: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+            catch (NotFoundInputException ex)
+            {
+                MessageBox.Show("Failed to find the customer: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+            
+        }
+
+        private void newCusButten_Click_1(object sender, RoutedEventArgs e)
+        {
+            WindowCustomers windowCustomers = new(bl);
+            new WindowCustomer(bl, windowCustomers).Show();
         }
     }
 }

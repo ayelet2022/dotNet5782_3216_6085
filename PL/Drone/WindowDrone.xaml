@@ -9,7 +9,7 @@
     <Window.Background>
         <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
     </Window.Background>
-    <Grid>
+    <Grid x:Name="both">
 
         <Grid x:Name="AddGrid" Visibility="Visible">
             <Grid.RowDefinitions>

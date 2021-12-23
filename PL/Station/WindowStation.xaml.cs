@@ -62,14 +62,14 @@ namespace PL
         private void dronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             WindowDrones windowDrones = new WindowDrones(ibl);
-            new WindowDrone(ibl, windowDrones, 0);
+            new WindowDrone(ibl, windowDrones, 0).Show();
         }
 
         private void buttenUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                ibl.UpdateStation(station.Id, nameTB.Text, (int)avaiChargesTB.Text);
+                ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(avaiChargesTB.Text));
                 int index = windowStations.Stations.IndexOf(windowStations.selectedStation);//fineds the index of the drone that we wanted to update                                                                                                //fineds the drone that we were updating  index in the list 
                 windowStations.Stations[index] = ibl.GetBaseStations().First(item => item.Id == station.Id);//updates the drones list
                 station = ibl.GetBaseStation(station.Id);//updates the main drone
@@ -86,7 +86,7 @@ namespace PL
         {
             try
             {
-                if (station.Id == default || station.EmptyCharges == default)
+                if (station.Id == default || station.EmptyCharges == default || station.Name == default || station.BaseStationLocation.Latitude == default || station.BaseStationLocation.Longitude == default)
                     throw new MissingInfoException("No information entered for this station");
                 ibl.AddBaseStation(station);
                 station = ibl.GetBaseStation(station.Id);
@@ -104,6 +104,9 @@ namespace PL
                     case MessageBoxResult.Yes:
                         idTB.Text = "";
                         avaiChargesTB.Text = "";
+                        nameTB.Text = "";
+                        longtitudeTB.Text = "";
+                        latitudeTB.Text = "";
                         break;
                     case MessageBoxResult.No:
                         _close = true;
@@ -121,6 +124,9 @@ namespace PL
                 {
                     case MessageBoxResult.Yes:
                         idTB.Text = "";
+                        longtitudeTB.Text = "";
+                        latitudeTB.Text = "";
+                        avaiChargesTB.Text = "";
                         break;
                     case MessageBoxResult.No:
                         _close = true;
