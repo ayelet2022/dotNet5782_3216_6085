@@ -27,6 +27,9 @@ namespace PL
         private bool _close { get; set; } = false;
         BL.BL ibl;
         private WindowCustomers windowCustomers;
+        public ObservableCollection<ParcelInCustomer> ParcelFromCusW;
+        public ObservableCollection<ParcelInCustomer> ParcelToCusW;
+
 
         /// <summary>
         /// constructer-adds a new customer   
@@ -35,7 +38,6 @@ namespace PL
         /// <param name="_windowCustomers">the window with all the Customers</param>
         public WindowCustomer(BL.BL bl, WindowCustomers _windowCustomers)
         {
-            InitializeComponent();
             InitializeComponent();
             ibl = bl;
             windowCustomers = _windowCustomers;
@@ -61,6 +63,16 @@ namespace PL
             //Buttens.Visibility = Visibility.Visible;
             mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainCustomer;//to connect between the text box and the data
+            ParcelFromCusW = new ObservableCollection<ParcelInCustomer>();
+            List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
+            foreach (var item in parcelInCustomerFromCus)
+                ParcelFromCusW.Add(item);
+            ParcelFromCus.ItemsSource = ParcelFromCusW;
+            ParcelToCusW = new ObservableCollection<ParcelInCustomer>();
+            List<ParcelInCustomer> parcelInCustomerToCus = mainCustomer.ParcelsToCustomers.ToList();
+            foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
+                ParcelToCusW.Add(item);
+            ParcelToCus.ItemsSource = ParcelToCusW;//to show all the drones 
         }
 
         /// <summary>
