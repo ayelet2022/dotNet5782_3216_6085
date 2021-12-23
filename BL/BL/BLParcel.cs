@@ -27,7 +27,7 @@ namespace BL
                 newParcel.TargetId = parcel.Recepter.Id;
                 dal.AddParcel(newParcel);
             }
-            catch(DO.DoesNotExistException ex)
+            catch (DO.DoesNotExistException ex)
             {
                 throw new InvalidInputException($"The parcel sender's id or recepter's id is incorrect.\n", ex);
             }
@@ -95,6 +95,7 @@ namespace BL
             }
             return Parcels.FindAll(item => predicate == null ? true : predicate(item));
         }
+
     }
 }
         
