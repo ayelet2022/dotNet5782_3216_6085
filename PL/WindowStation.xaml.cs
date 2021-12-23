@@ -38,9 +38,6 @@ namespace PL
             windowStations = _windowStations;
             station = ibl.GetBaseStation(windowStations.selectedStation.Id);
             DataContext = station;
-            buttenUpdate.Visibility = Visibility.Visible;
-            idTBl.Visibility = Visibility.Visible;
-            locationTBl.Visibility = Visibility.Visible;
             if (station.DronesInCharge != null)
             {
                 labelDronesInStation.Visibility = Visibility.Visible;
@@ -59,15 +56,13 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             windowStations = _windowStations;
-            buttenAdd.Visibility = Visibility.Visible;
-            idTB.Visibility = Visibility.Visible;
-            locationTB.Visibility = Visibility.Visible;
             DataContext = station;
         }
 
         private void dronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new WindowDrone(ibl, null, 0);
+            WindowDrones windowDrones = new WindowDrones(ibl);
+            new WindowDrone(ibl, windowDrones, 0);
         }
 
         private void buttenUpdate_Click(object sender, RoutedEventArgs e)

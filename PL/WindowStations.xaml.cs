@@ -44,7 +44,21 @@ namespace PL
 
         private void buttenAdd_Click(object sender, RoutedEventArgs e)
         {
-            new WindowDrone(ibl, this);
+            new WindowStation(ibl, this);
+        }
+
+        private void buttenbuttenClose_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
+        }
+        private void WindowClose(object sender, CancelEventArgs e)
+        {
+            if (!_close)
+            {
+                e.Cancel = true;
+                MessageBox.Show("You can't force the window to close");
+            }
         }
     }
 }
