@@ -124,19 +124,19 @@
                     <TextBlock Text="{Binding ParecelDrone.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock Text="{Binding ParecelDrone.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                 </Grid>
-                <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="addDeletButton" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
-                    <Button x:Name="DeliverPickUpButton" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
-                    <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
-                </Grid>
+            </Grid>
+            <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="addDeletButton" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
+                <Button x:Name="DeliverPickUpButton" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
+                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
             </Grid>
         </Grid>
     </Grid>

@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="AddGrid" Visibility="Visible">
+        <Grid x:Name="AddGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="*"/>
@@ -93,7 +93,7 @@
                 <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
                 <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
             </Grid>
-            
+
             <Grid x:Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -148,24 +148,20 @@
                 <TextBox x:Name="PDongitudeBoxAc"  Text="{Binding ParcelInTransfer.DelieveredLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
                 <TextBox x:Name="PTransportDisBoxAc"  Text="{Binding ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="White" />
             </Grid>
-
-
-            <Grid x:Name="Buttens" Grid.Row="1"  Grid.ColumnSpan="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
-                <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="5" Grid.Row="5" Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
-                <Button x:Name="UpdateButton" Grid.Column="0" Content="Update drone" VerticalAlignment="Center" Height="30" Click="Button_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
-                <Button x:Name="ChargeDrone" Content="" Grid.Column="1" VerticalAlignment="Center" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16"   />
-                <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="2" VerticalAlignment="Center" Height="30" Click="ChangeStatusDrone_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"  />
-                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
-
-            </Grid>
+        </Grid>
+        <Grid x:Name="Buttens" Grid.Row="1"  Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
+            <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1"  Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
+            <Button x:Name="UpdateButton" Grid.Column="2" Content="Update drone" VerticalAlignment="Center" Height="30" Click="Button_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
+            <Button x:Name="ChargeDrone" Content="" Grid.Column="3" VerticalAlignment="Center" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16"   />
+            <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="4" VerticalAlignment="Center" Height="30" Click="ChangeStatusDrone_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"  />
         </Grid>
     </Grid>
 </Window>

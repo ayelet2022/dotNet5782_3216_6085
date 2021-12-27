@@ -101,13 +101,13 @@ namespace PL
                 DronesListView.ItemsSource = Drones.Values.SelectMany(item => item);//to show the all list
             //if only he wants to filter the weight category
             if (dStatus == DroneStatus.All && dWeight != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)StatusSelector.SelectedItem);
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem).SelectMany(item => item.Value);
             //if only he wants to filter the statuse category
             if (dStatus != DroneStatus.All && dWeight == WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.Key.status == (BO.DroneStatus)StatusSelector.SelectedItem);
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.status == (BO.DroneStatus)StatusSelector.SelectedItem).SelectMany(item => item.Value);
             //if  he wants to filter both the weight category and the status category
             if (dStatus != DroneStatus.All && dWeight != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)StatusSelector.SelectedItem && item.Key.status == (BO.DroneStatus)WeightSelector.SelectedItem)
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Key.status == (BO.DroneStatus)StatusSelector.SelectedItem)
                     .SelectMany(item => item.Value);
             DronesListView.Items.Refresh();
         }

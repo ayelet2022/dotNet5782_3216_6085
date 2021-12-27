@@ -185,6 +185,7 @@ namespace PL
             {
                 if (ModelBoxAc.Text == null)//if the model name was not enterd
                     throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
+                string oldName = windowDrones.selectedDrone.Model;
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
                 windowDrones.DronesListView.Items.Refresh();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
@@ -231,7 +232,9 @@ namespace PL
                     ChargeDrone.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDrone.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
                 }                                                                                                //fineds the drone that we were updating  index in the list 
-                windowDrones.DronesListView.Items.Refresh();
+                DataContext = ibl.GetDrone(mainDrone.Id);
+                windowDrones.Selector();
+                mainDrone = ibl.GetDrone(mainDrone.Id);
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -264,7 +267,9 @@ namespace PL
                     ChargeDrone.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDrone.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
-                windowDrones.DronesListView.Items.Refresh();
+                DataContext = ibl.GetDrone(mainDrone.Id);
+                mainDrone = ibl.GetDrone(mainDrone.Id);
+                windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)

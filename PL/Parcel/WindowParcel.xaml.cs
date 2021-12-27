@@ -41,8 +41,8 @@ namespace PL
             windowParcels = _windowParcels;
             AddGrid.Visibility = Visibility.Visible;
             DataContext = mainParcel;
-            WeightComboBox.ItemsSource= Enum.GetValues(typeof(BO.WeightCategories));
-            PriorityComboBox.ItemsSource= Enum.GetValues(typeof(BO.Priorities));
+            WeightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            PriorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             addDeletButton.Content = "Add the Parcel";
             addDeletButton.Visibility = Visibility.Visible;
         }
@@ -62,14 +62,14 @@ namespace PL
             Buttens.Visibility = Visibility.Visible;
             mainParcel = ibl.GetParcel(windowParcels.selectedParcel.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainParcel;//to connect between the text box and the data
-            if(mainParcel.Scheduled==null)
+            if (mainParcel.Scheduled == null)
             {
                 addDeletButton.Content = "Delet the parcel";
-                addDeletButton.Visibility= Visibility.Visible;
+                addDeletButton.Visibility = Visibility.Visible;
             }
             if (mainParcel.Scheduled != null)//if the parcel  has a drone 
             {
-                if (mainParcel.Delivered == null && mainParcel.PickedUp==null)
+                if (mainParcel.Delivered == null && mainParcel.PickedUp == null)
                 {
                     DeliverPickUpButton.Content = "Pick up";
                 }
@@ -80,7 +80,6 @@ namespace PL
 
                 DroneInParcel.Visibility = Visibility.Visible;//show the gride of the parcels drone
             }
-            UpdateAddButton.Content = "UPDATE";
         }
 
         /// <summary>
@@ -102,27 +101,6 @@ namespace PL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-        /// <summary>
-        /// to not be able to close the window with the x on the top
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WindowClose(object sender, CancelEventArgs e)
-        {
-            if (!_close)
-            {
-                e.Cancel = true;
-                MessageBox.Show("You can't force the window to close");
-            }
-        }
-
-        private void SenderButten_Click(object sender, RoutedEventArgs e)
-        {
-            sender = ibl.GetCustomer(int.Parse(SenderBoxA.Text));
-            WindowCustomers windowCustomers = new WindowCustomers(ibl);
-            new WindowCustomer(ibl, windowCustomers, 0).Show();
         }
 
         private void addDeletButton_Click(object sender, RoutedEventArgs e)
@@ -201,15 +179,19 @@ namespace PL
 
         private void DeliverPickUpButton_Click(object sender, RoutedEventArgs e)
         {
-            if(DeliverPickUpButton.Content=="Pick up")
+            if (DeliverPickUpButton.Content == "Pick up")
             {
                 try
                 {
                     ibl.PickUpParcel(mainParcel.ParecelDrone.Id);
                 }
-                catch(FailToUpdateException ex)
+                catch (FailToUpdateException ex)
                 {
 
+                    
+                }
+            }
+        }
         /// <summary>
         /// to not be able to close the window with the x on the top
         /// </summary>
@@ -222,12 +204,6 @@ namespace PL
                 e.Cancel = true;
                 MessageBox.Show("You can't force the window to close");
             }
-        }
-
-        private void UpdateAddButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (UpdateAddButton.Content == "ADD")
-                ibl.AddParcel(mainParcel);
         }
 
         Customer send = new();
