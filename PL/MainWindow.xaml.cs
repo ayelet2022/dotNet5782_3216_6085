@@ -53,7 +53,7 @@ namespace PL
 
         private void parcelsButten_Click(object sender, RoutedEventArgs e)
         {
-            
+            new WindowParcels(bl).Show();
         }
 
         private void customersButten_Click(object sender, RoutedEventArgs e)

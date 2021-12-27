@@ -53,14 +53,13 @@ namespace BL
                 station.BaseStationLocation.Latitude = dalStation.Latitude;
                 station.BaseStationLocation.Longitude = dalStation.Longitude;
                 //to go over all the drones that are in charger
-                foreach (var item in dal.GetDroneCharges(x => x.StationId == idBaseStation))
-                {
-                    Drone drone = GetDrone(item.DroneId);
-                    droneInCharge.Id = item.DroneId;
-                    droneInCharge.Battery = drone.Battery;
-                    station.DronesInCharge.Append(droneInCharge);
-                    droneInCharge = new();
-                }
+                station.DronesInCharge = from item in dal.GetDroneCharges(x => x.StationId == idBaseStation)
+                                         let temp = Drones.FirstOrDefault(index => index.Id == item.DroneId)
+                                         select new DroneInCharge
+                                         {
+                                             Id = item.DroneId,
+                                             Battery = temp.Battery
+                                         };
                 return station;
             }
             catch (DO.DoesNotExistException ex)

@@ -90,7 +90,7 @@ namespace PL
             if ((ParcelStatus)StatusSelector.SelectedItem == ParcelStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
                 ParcelsListView.ItemsSource = Parcels;//to show the all list
             //if only he wants to filter the weight category
-            if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
+            if ((ParcelStatus)StatusSelector.SelectedItem == ParcelStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
                 ParcelsListView.ItemsSource = Parcels.ToList().FindAll(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem);
             //if only he wants to filter the statuse category
             if ((ParcelStatus)StatusSelector.SelectedItem != ParcelStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)

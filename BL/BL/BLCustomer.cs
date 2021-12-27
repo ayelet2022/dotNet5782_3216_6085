@@ -110,7 +110,6 @@ namespace BL
                 customer = new();
             }
             return Customers.FindAll(item => predicate == null ? true : predicate(item));
-
         }
 
         public void UpdateCustomer(int id, string name, string phone)

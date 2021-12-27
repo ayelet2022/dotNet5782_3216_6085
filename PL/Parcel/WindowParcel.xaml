@@ -84,7 +84,7 @@
                 <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5"/>
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" />
-                <Button x:Name="RecepterButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7"/>
+                <Button x:Name="RecepterButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7" Click="RecepterButten_Click"/>
 
                 <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
                 <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />

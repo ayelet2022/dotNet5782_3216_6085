@@ -23,9 +23,10 @@ namespace PL
     /// </summary>
     public partial class WindowDrone : Window
     {
+        StatusAndWeight _StatusAndWeight;
         Drone mainDrone = new();
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         private WindowDrones windowDrones;
         
         /// <summary>
@@ -33,10 +34,11 @@ namespace PL
         /// </summary>
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
-        public WindowDrone(BL.BL bl, WindowDrones _windowDrones)
+        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones)
         {
             InitializeComponent();
             ibl = bl;
+            _StatusAndWeight = new();
             windowDrones = _windowDrones;
             AddGrid.Visibility = Visibility.Visible;
             DataContext = mainDrone;
@@ -50,7 +52,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowDrone(BL.BL bl, WindowDrones _windowDrones, int i=0)
+        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int i=0)
         {
             ibl = bl;
             InitializeComponent();
@@ -107,8 +109,14 @@ namespace PL
                 if (IdStation.SelectedItem == null)
                     throw new MissingInfoException("No station was entered for this drone");
                 ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
+                _StatusAndWeight.status = mainDrone.Status;
+                _StatusAndWeight.weight = mainDrone.MaxWeight;
                 mainDrone = ibl.GetDrone(mainDrone.Id);
-                windowDrones.Drones.Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
+                if (windowDrones.Drones.ContainsKey(_StatusAndWeight))
+                    windowDrones.Drones[_StatusAndWeight].Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
+                else
+                    windowDrones.Drones.Add(_StatusAndWeight, ibl.GetDrones().Where(i => i.Id == mainDrone.Id).ToList());
+                windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
                 _close = true;
                 Close();
@@ -178,9 +186,7 @@ namespace PL
                 if (ModelBoxAc.Text == null)//if the model name was not enterd
                     throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
-                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//fineds the index of the drone that we wanted to update
-                windowDrones.selectedDrone.Model = ModelBoxAc.Text;//changes the model of the drone thet was clicked in the drones list
-                windowDrones.Drones[index] = windowDrones.selectedDrone;//to update the drone in the list of drones in the main window
+                windowDrones.DronesListView.Items.Refresh();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -224,11 +230,8 @@ namespace PL
                     ChargeDrone.Visibility = Visibility.Visible;
                     ChargeDrone.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDrone.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
-                }
-                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//fineds the index of the drone that we wanted to update                                                                                                //fineds the drone that we were updating  index in the list 
-                windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);//updates the drones list
-                mainDrone = ibl.GetDrone(mainDrone.Id);//updates the main drone
-                DataContext = mainDrone;//updates all the text box according to what was updated
+                }                                                                                                //fineds the drone that we were updating  index in the list 
+                windowDrones.DronesListView.Items.Refresh();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -245,7 +248,7 @@ namespace PL
         private void ChargeDrone_Click(object sender, RoutedEventArgs e)
         {
             try 
-            { 
+            {
                 //checks what is the butten content and acts according to that
                 if ((string)ChargeDrone.Content == "Send drone to charging")//meens we want to send the drone to charging
                 {
@@ -255,16 +258,13 @@ namespace PL
                 }
                 else
                     if ((string)ChargeDrone.Content == "Release drone from charging")//meens we want to relese the drone from charging
-                {
+                { 
                     ibl.FreeDroneFromeCharger(mainDrone.Id);//to free the drone from chargimg
                     ChangeStatusDrone.Visibility = Visibility.Visible;
                     ChargeDrone.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDrone.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
-                int index = windowDrones.Drones.IndexOf(windowDrones.selectedDrone);//to looks for the drone that we updated index in the list
-                windowDrones.Drones[index] = ibl.GetDrones().First(item => item.Id == mainDrone.Id);//to update the drone in the list
-                mainDrone = ibl.GetDrone(mainDrone.Id);//to update the main drone
-                DataContext = mainDrone;//to update all the text boxes according to what was updated
+                windowDrones.DronesListView.Items.Refresh();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
