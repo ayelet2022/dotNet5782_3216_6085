@@ -1,0 +1,42 @@
+﻿<Window x:Class="PL.WindowParcels"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="WindowParcels" Height="640" Width="800" Closing="WindowClose">
+    <Window.Background>
+        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+    </Window.Background>
+    <Grid>
+        <Grid Name="MainGrid" HorizontalAlignment="Right" Width="885" Margin="0,0,-85,-75">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="400*"/>
+            </Grid.RowDefinitions>
+            <Grid/>
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2" Margin="0,0,102,588">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Button Name="Add" Content="Add new parcel" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="44" Width="176" Click="Add_Click" Grid.Column="3" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" Background="#FFE8E8EC" BorderBrush="#FF858F8F"/>
+                <ComboBox x:Name="StatusSelector"  SelectionChanged="StatusSelector_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="114" FontFamily="Arial" FontSize="16"  />
+                <Label Name="Status" Content="Sort by status:" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
+                <ComboBox x:Name="WeightSelector"   Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="114" Height="33" SelectionChanged="WeightSelector_SelectionChanged" FontFamily="Arial" FontSize="16"/>
+                <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
+            </Grid>
+            <Button x:Name="CloseWDS" Content="Close" HorizontalAlignment="Left" Margin="640,461,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="CloseWDS_Click" Grid.Row="1" RenderTransformOrigin="0.007,-0.233" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FF858F8F"/>
+            <ListView Grid.Row="1"  x:Name="ParcelsListView"  Margin="39,33,319,116" MouseDoubleClick="ParcelListView_MouseDoubleClick" BorderThickness="3,3,3,3" Foreground="Black">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

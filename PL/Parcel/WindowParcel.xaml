@@ -1,0 +1,143 @@
+﻿<Window x:Class="PL.WindowParcel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="WindowParcel" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+    </Window.Background>
+    <Grid>
+        <Grid x:Name="ActionseGrid" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="AddUpdateGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                </Grid.RowDefinitions>
+            </Grid>
+
+            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Collapsed" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
+                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
+                <Label Content="Sender ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+
+                <TextBox x:Name="IDBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
+                <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
+                <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
+                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+            </Grid>
+            <Grid x:Name="UpdateGride" Visibility="Visible"  Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
+                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
+                <Label Content="Statuse:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Created at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Scheduled at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" />
+                <Label Content="Picked Up at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" />
+                <Label Content="Delivered at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" />
+                <Label Content="Sender:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" />
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" />
+                <Button x:Name="SenderButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" Click="SenderButten_Click"/>
+                <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5"/>
+                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" />
+                <Button x:Name="RecepterButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7"/>
+
+                <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
+                <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
+                <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
+                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Resever.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Parcel's drone:" Grid.Row="0" Grid.Column="0"/>
+                    <Label Content="ID:" Grid.Row="1" Grid.Column="0"/>
+                    <Label Content="Battery:" Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="Location:" Grid.Row="3" Grid.Column="0"/>
+                    <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                    <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" />
+                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6"/>
+
+
+                    <TextBlock Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
+                    <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
+                    <TextBlock Text="{Binding ParecelDrone.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
+                    <TextBlock Text="{Binding ParecelDrone.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
+                </Grid>
+                <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="UpdateAddButton" Grid.Column="0"  VerticalAlignment="Center" Height="30" Click="UpdateAddButton_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
+                    <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+    

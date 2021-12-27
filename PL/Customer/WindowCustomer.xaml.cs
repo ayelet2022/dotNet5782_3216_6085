@@ -26,6 +26,8 @@ namespace PL
         Customer mainCustomer = new();
         private bool _close { get; set; } = false;
         BL.BL ibl;
+        public ParcelList selectedparcelFC = new();
+        public CustomerList selectedParcelTC = new();
         private WindowCustomers windowCustomers;
         public ObservableCollection<ParcelInCustomer> ParcelFromCusW;
         public ObservableCollection<ParcelInCustomer> ParcelToCusW;
@@ -41,11 +43,9 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             windowCustomers = _windowCustomers;
-            //IDBoxA.IsReadOnly = false;
-            //NameBoxA.IsReadOnly = false;
-            //PhoneBoxA.IsReadOnly = false;
-            //LatitudeBoxA.IsReadOnly = false;
-            //LongitudeBoxA.IsReadOnly = false;
+            AddGrid.Visibility=Visibility.Visible;
+            UpdateGride.Visibility = Visibility.Collapsed;
+            UpdateAddButton.Content = "Add a customer";
             DataContext = mainCustomer;
         }
 
@@ -60,90 +60,27 @@ namespace PL
             ibl = bl;
             InitializeComponent();
             windowCustomers = _windowCustomers;
-            //Buttens.Visibility = Visibility.Visible;
+            UpdateGride.Visibility = Visibility.Visible;
+            UpdateAddButton.Content = "Update the customer";
             mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainCustomer;//to connect between the text box and the data
             ParcelFromCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
-            foreach (var item in parcelInCustomerFromCus)
-                ParcelFromCusW.Add(item);
-            ParcelFromCus.ItemsSource = ParcelFromCusW;
+            if (parcelInCustomerFromCus != null)
+            {
+                ParcelFromCusListView.Visibility = Visibility.Visible;
+                foreach (var item in parcelInCustomerFromCus)
+                    ParcelFromCusW.Add(item);
+                ParcelFromCusListView.ItemsSource = ParcelFromCusW;
+            }
             ParcelToCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerToCus = mainCustomer.ParcelsToCustomers.ToList();
-            foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
-                ParcelToCusW.Add(item);
-            ParcelToCus.ItemsSource = ParcelToCusW;//to show all the drones 
-        }
-
-        /// <summary>
-        /// when the butten add was prest and the new drone
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddButten_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            if (parcelInCustomerToCus != null)
             {
-                if (mainCustomer.Id == default || mainCustomer.Name == default || mainCustomer.Phone == default)
-                    throw new MissingInfoException("No information entered for this Customer");
-                ibl.AddCustomer(mainCustomer);
-                mainCustomer = ibl.GetCustomer(mainCustomer.Id);
-                windowCustomers.Customers.Add(ibl.GetCustomers().First(i => i.Id == mainCustomer.Id));
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainCustomer.ToString());
-                _close = true;
-                Close();
-            }
-            catch (FailedToAddException ex)
-            {
-                var message = MessageBox.Show("Failed to add the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Error);
-                switch (message)
-                {
-                    case MessageBoxResult.Yes:
-                        IDBoxA.Text = "";
-                        NameBoxA.Text = "";
-                        PhoneBoxA.Text = "";
-                        break;
-                    case MessageBoxResult.No:
-                        _close = true;
-                        Close();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (InvalidInputException ex)
-            {
-                var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Error);
-                switch (message)
-                {
-                    case MessageBoxResult.Yes:
-                        IDBoxA.Text = "";
-                        break;
-                    case MessageBoxResult.No:
-                        _close = true;
-                        Close();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (MissingInfoException ex)
-            {
-                var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Error);
-                switch (message)
-                {
-                    case MessageBoxResult.Yes:
-                        break;
-                    case MessageBoxResult.No:
-                        _close = true;
-                        Close();
-                        break;
-                    default:
-                        break;
-                }
+                ParcelToCusListView.Visibility = Visibility.Visible;
+                foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
+                    ParcelToCusW.Add(item);
+                ParcelToCusListView.ItemsSource = ParcelToCusW;//to show all the drones 
             }
         }
 
@@ -152,29 +89,120 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void UpdateAddButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (UpdateAddButton.Content == "Add a customer")
             {
-                //if (NameBoxAc.Text == null)//if the model name was not enterd
-                //    throw new MissingInfoException($"The customer model: {mainCustomer.Name} is incorrect, the drone was not added.\n");
-                ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
-                int index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
-                if (NameBoxA.Text != default)
-                    windowCustomers.selectedCustomer.Name = NameBoxA.Text;//changes the model of the drone thet was clicked in the drones list
-                if (PhoneBoxA.Text != default)
-                    windowCustomers.selectedCustomer.Phone = PhoneBoxA.Text;//changes the model of the drone thet was clicked in the drones list
-                windowCustomers.Customers[index] = windowCustomers.selectedCustomer;//to update the drone in the list of drones in the main window
-                MessageBoxResult messageBoxResult = MessageBox.Show("The Customer has been updateded successfully \n" + mainCustomer.ToString());
+                try
+                {
+                    if (mainCustomer.Id == default || mainCustomer.Name == default || mainCustomer.Phone == default)
+                        throw new MissingInfoException("No information entered for this Customer");
+                    ibl.AddCustomer(mainCustomer);
+                    mainCustomer = ibl.GetCustomer(mainCustomer.Id);
+                    windowCustomers.Customers.Add(ibl.GetCustomers().First(i => i.Id == mainCustomer.Id));
+                    MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainCustomer.ToString());
+                    _close = true;
+                    Close();
+                }
+                catch (FailedToAddException ex)
+                {
+                    var message = MessageBox.Show("Failed to add the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            IDBoxA.Text = "";
+                            NameBoxA.Text = "";
+                            PhoneBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (InvalidInputException ex)
+                {
+                    var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            IDBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (MissingInfoException ex)
+                {
+                    var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
-            catch (FailToUpdateException ex)
+            else
             {
-                MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                try
+                {
+                    ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
+                    int index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
+                    if (NameBoxA.Text != default)
+                        windowCustomers.selectedCustomer.Name = NameBoxA.Text;//changes the model of the drone thet was clicked in the drones list
+                    if (PhoneBoxA.Text != default)
+                        windowCustomers.selectedCustomer.Phone = PhoneBoxA.Text;//changes the model of the drone thet was clicked in the drones list
+                    windowCustomers.Customers[index] = windowCustomers.selectedCustomer;//to update the drone in the list of drones in the main window
+                    MessageBoxResult messageBoxResult = MessageBox.Show("The Customer has been updateded successfully \n" + mainCustomer.ToString());
+                }
+                catch (FailToUpdateException ex)
+                {
+                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                }
+                catch (MissingInfoException ex)
+                {
+                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                }
             }
-            catch (MissingInfoException ex)
-            {
-                MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
-            }
+        }
+
+        /// <summary>
+        /// shows the all parcel that was clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParcelToCusListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //selectedparcelFC = (ParcelList)ParcelToCusListView.SelectedItem;//the drone that the mous double clicked on
+            WindowParcels windowParcels = new WindowParcels(ibl);
+            new WindowParcel(ibl, windowParcels, ParcelToCusListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
+        }
+
+        /// <summary>
+        /// shows the all parcel that was clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParcelFromCusListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            selectedparcelFC = (ParcelList)ParcelFromCusListView.SelectedItem;//the drone that the mous double clicked on
+            WindowParcels windowParcels = new WindowParcels(ibl);
+            new WindowParcel(ibl, windowParcels, ParcelFromCusListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>
@@ -212,5 +240,6 @@ namespace PL
                 MessageBox.Show("You can't force the window to close");
             }
         }
+
     }
 }
