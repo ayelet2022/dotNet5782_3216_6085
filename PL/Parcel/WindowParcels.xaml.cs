@@ -97,7 +97,7 @@ namespace PL
                 ParcelsListView.ItemsSource = Parcels.ToList().FindAll(item => item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem);
             //if  he wants to filter both the weight category and the status category
             if ((ParcelStatus)StatusSelector.SelectedItem != ParcelStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
-                ParcelsListView.ItemsSource = Parcels.ToList().FindAll(item => item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem && item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem);
+                ParcelsListView.ItemsSource = Parcels.ToList().FindAll(item => item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem && item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem);
             ParcelsListView.Items.Refresh();
         }
 
