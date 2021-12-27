@@ -187,7 +187,7 @@ namespace PL
                     throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                 string oldName = windowDrones.selectedDrone.Model;
                 ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
-                windowDrones.DronesListView.Items.Refresh();
+                windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)

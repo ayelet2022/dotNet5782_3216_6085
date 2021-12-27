@@ -65,7 +65,9 @@ namespace Dal
         }
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
-            return DataSource.Parcels.Select(item => item);
+            return from item in DataSource.Parcels
+                   where predicate == null ? true : predicate(item)
+                   select item;
         }
     }
 }

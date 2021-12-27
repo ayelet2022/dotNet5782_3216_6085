@@ -98,7 +98,9 @@ namespace PL
             WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
             if (dStatus == DroneStatus.All && dWeight == WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Values.SelectMany(item => item);//to show the all list
+                DronesListView.ItemsSource = from item in Drones.Values.SelectMany(x => x)
+                                             orderby item.MaxWeight, item.Status
+                                             select item;//to show the all list
             //if only he wants to filter the weight category
             if (dStatus == DroneStatus.All && dWeight != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem).SelectMany(item => item.Value);

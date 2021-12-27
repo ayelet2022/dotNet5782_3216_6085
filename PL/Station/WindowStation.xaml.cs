@@ -22,7 +22,7 @@ namespace PL
     {
         BaseStation station = new();
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         private WindowStations windowStations;
 
         /// <summary>
@@ -31,15 +31,16 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowStations">the window with all the stations</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowStation(BL.BL bl, WindowStations _windowStations, int i = 0)
+        public WindowStation(BlApi.IBL bl, WindowStations _windowStations, int i = 0)
         {
             InitializeComponent();
             ibl = bl;
             windowStations = _windowStations;
             updateGrid.Visibility = Visibility.Visible;
+            station.BaseStationLocation = new();
             station = ibl.GetBaseStation(windowStations.selectedStation.Id);
             DataContext = station;
-            if (station.DronesInCharge != null)
+            if (station.DronesInCharge.Count() != 0)
             {
                 labelDronesInStation.Visibility = Visibility.Visible;
                 listDronesInStation.Visibility = Visibility.Visible;
@@ -53,19 +54,22 @@ namespace PL
         /// </summary>
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowStations">the window with all the stations</param>
-        public WindowStation(BL.BL bl, WindowStations _windowStations)
+        public WindowStation(BlApi.IBL bl, WindowStations _windowStations)
         {
             InitializeComponent();
             ibl = bl;
             windowStations = _windowStations;
             addGrid.Visibility = Visibility.Visible;
+            station.BaseStationLocation = new();
             DataContext = station;
             buttenAddUpdate.Content = "ADD";
         }
 
-        private void dronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             WindowDrones windowDrones = new WindowDrones(ibl);
+            //Drone drone=ibl.GetDrone(listDronesInStation.SelectedItem)
+            windowDrones.selectedDrone = (DroneList)listDronesInStation.SelectedItem;
             new WindowDrone(ibl, windowDrones, 0).Show();
         }
 
@@ -79,20 +83,27 @@ namespace PL
                         throw new MissingInfoException("No information entered for this station");
                     ibl.AddBaseStation(station);
                     station = ibl.GetBaseStation(station.Id);
-                    windowStations.Stations.Add(ibl.GetBaseStations().First(i => i.Id == station.Id));
+                    int key = station.EmptyCharges;
+                    if (windowStations.Stations.ContainsKey(key))
+                        windowStations.Stations[key].Add(ibl.GetBaseStations().First(i => i.Id == station.Id));
+                    else
+                        windowStations.Stations.Add(key, ibl.GetBaseStations().Where(i => i.Id == station.Id).ToList());
+                    windowStations.MyRefresh();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The station has been added successfully \n" + station.ToString());
-                                    _close = true;
-                Close();
+                    _close = true;
+                    Close();
                 }
                 else
                 {
                     try
                     {
+                        //StationListWindow.CurrentStation.Name = NameTxtUp.Text;//updating drone name
+                        //StationListWindow.CurrentStation.AvailableChargeSlots = int.Parse(ChargeSlotsTxtUp.Text);
                         ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(avaiChargesTB.Text));
-                        int index = windowStations.Stations.IndexOf(windowStations.selectedStation);//fineds the index of the drone that we wanted to update                                                                                                //fineds the drone that we were updating  index in the list 
-                        windowStations.Stations[index] = ibl.GetBaseStations().First(item => item.Id == station.Id);//updates the drones list
-                        station = ibl.GetBaseStation(station.Id);//updates the main drone
-                        DataContext = station;//updates all the text box according to what was updated
+                        //updates all the text box according to what was updated
+                        windowStations.selectedStation.Name = nameTB.Text;
+                        windowStations.selectedStation.EmptyCharges = int.Parse(avaiChargesTB.Text);
+                        windowStations.MyRefresh();
                         MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
                     }
                     catch (InvalidInputException ex)

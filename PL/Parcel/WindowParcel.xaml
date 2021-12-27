@@ -22,7 +22,7 @@
                 </Grid.ColumnDefinitions>
             </Grid>
 
-            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Collapsed" >
+            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Visible" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -95,7 +95,7 @@
                 <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Resever.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+                <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Visible">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

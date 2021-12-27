@@ -19,7 +19,9 @@ namespace Dal
         }
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> predicate = null)
         {
-            return DataSource.DroneCharges.Select(item => item);
+            return from item in DataSource.DroneCharges
+                   where predicate == null ? true : predicate(item)
+                   select item;
         }
         public DroneCharge GetDroneCharge(int idDrone)
         {

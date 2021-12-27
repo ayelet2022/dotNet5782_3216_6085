@@ -16,25 +16,25 @@ using System.Windows.Shapes;
 using BO;
 
 namespace PL
-{
+{ 
     /// <summary>
     /// Interaction logic for WindowStations.xaml
     /// </summary>
     public partial class WindowStations : Window
     {
         private bool _close { get; set; } = false;
-        BL.BL ibl;
-        public ObservableCollection<BaseStationList> Stations;
+        BlApi.IBL ibl;
+        public Dictionary<int ,List<BaseStationList>> Stations;
         public BaseStationList selectedStation = new();
-        public WindowStations(BL.BL bl)
+        public WindowStations(BlApi.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
-            Stations = new ObservableCollection<BaseStationList>();
-            List<BaseStationList> stations = ibl.GetBaseStations().ToList();
-            foreach (var item in stations)//to fet and shoe all the drones
-                Stations.Add(item);
-            stationList.ItemsSource = Stations;//to show all the drones 
+            Stations = new Dictionary<int, List<BaseStationList>>();
+            Stations = (from item in ibl.GetBaseStations()
+                        group item by item.EmptyCharges
+                      ).ToDictionary(item => item.Key, item => item.ToList());
+            stationList.ItemsSource = Stations.Values.SelectMany(item => item);//to show all the drones 
         }
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -60,6 +60,13 @@ namespace PL
         {
             _close = true;
             Close();
+        }
+
+        public void MyRefresh()
+        {
+            stationList.ItemsSource = from item in Stations.Values.SelectMany(x => x)
+                                      orderby item.EmptyCharges
+                                      select item;//to show the all list
         }
     }
 }
