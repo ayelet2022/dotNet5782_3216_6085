@@ -116,7 +116,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ParcelsListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             selectedParcel = (ParcelList)ParcelsListView.SelectedItem;//the drone that the mous double clicked on
             new WindowParcel(ibl, this, ParcelsListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
