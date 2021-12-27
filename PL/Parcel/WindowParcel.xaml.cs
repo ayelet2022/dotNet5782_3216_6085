@@ -24,7 +24,6 @@ namespace PL
     public partial class WindowParcel : Window
     {
         Parcel mainParcel = new();
-        public CustomerList sender = new();
 
         private bool _close { get; set; } = false;
         BL.BL ibl;
@@ -81,6 +80,7 @@ namespace PL
 
                 DroneInParcel.Visibility = Visibility.Visible;//show the gride of the parcels drone
             }
+            UpdateAddButton.Content = "UPDATE";
         }
 
         /// <summary>
@@ -210,8 +210,42 @@ namespace PL
                 catch(FailToUpdateException ex)
                 {
 
-                }
+        /// <summary>
+        /// to not be able to close the window with the x on the top
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WindowClose(object sender, CancelEventArgs e)
+        {
+            if (!_close)
+            {
+                e.Cancel = true;
+                MessageBox.Show("You can't force the window to close");
             }
+        }
+
+        private void UpdateAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UpdateAddButton.Content == "ADD")
+                ibl.AddParcel(mainParcel);
+        }
+
+        Customer send = new();
+        private void SenderButten_Click(object sender, RoutedEventArgs e)
+        {
+            send = ibl.GetCustomer(int.Parse(SenderBoxA.Text));
+            WindowCustomers windowCustomers = new WindowCustomers(ibl);
+            windowCustomers.selectedCustomer.Id = send.Id;
+            new WindowCustomer(ibl, windowCustomers, 0).Show();
+        }
+        Customer recepter = new();
+
+        private void RecepterButten_Click(object sender, RoutedEventArgs e)
+        {
+            recepter = ibl.GetCustomer(int.Parse(SenderBoxA.Text));
+            WindowCustomers windowCustomers = new WindowCustomers(ibl);
+            windowCustomers.selectedCustomer.Id = recepter.Id;
+            new WindowCustomer(ibl, windowCustomers, 0).Show();
         }
     }
 }

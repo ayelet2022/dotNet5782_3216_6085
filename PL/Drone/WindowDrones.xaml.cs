@@ -17,6 +17,11 @@ using BO;
 
 namespace PL
 {
+    public struct StatusAndWeight
+    {
+        public BO.WeightCategories weight { get; set; }
+        public BO.DroneStatus status { get; set; }
+    }
     public enum WeightCategories { Light, MediumWeight, Heavy, All};
     public enum DroneStatus { Available, InFix, Delivery, All};
     /// <summary>
@@ -24,28 +29,32 @@ namespace PL
     /// </summary>
     public partial class WindowDrones : Window
     {
+        BlApi.IBL ibl;
+        public Dictionary<StatusAndWeight, List<DroneList>> Drones;
         private bool _close { get; set; } = false;
-        BL.BL ibl;
-        public ObservableCollection<DroneList> Drones;
-        public DroneList selectedDrone = new();
+        public DroneList selectedDrone { get; set; } = new();
 
         /// <summary>
         /// the constractor of the window
         /// </summary>
         /// <param name="bl"> the accses to the fileds in IBL</param>
-        public WindowDrones(BL.BL bl)
+        public WindowDrones(BlApi.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
-            Drones = new ObservableCollection<DroneList>();
-            List<DroneList> drones = ibl.GetDrones().ToList();
-            foreach (var item in drones)//to fet and shoe all the drones
-                Drones.Add(item);
-            DronesListView.ItemsSource = Drones;//to show all the drones 
+            Drones = new Dictionary<StatusAndWeight, List<DroneList>>();
+            Drones = (from item in bl.GetDrones()
+                      group item by
+                      new StatusAndWeight()
+                      {
+                          status = item.Status,
+                          weight = item.MaxWeight
+                      }).ToDictionary(item => item.Key, item => item.ToList());
+            DronesListView.ItemsSource = Drones.SelectMany(item => item.Value);//to show all the drones 
             StatusSelector.ItemsSource = System.Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
             StatusSelector.SelectedIndex = 3;//no filter
-            Drones.CollectionChanged += Drones_CollectionChanged;//if the a drone in the drone list was changed
+            //Drones.CollectionChanged += Drones_CollectionChanged;//if the a drone in the drone list was changed
         }
 
         /// <summary>
@@ -81,22 +90,25 @@ namespace PL
         /// <summary>
         /// shows the list according to the filter that the user disided
         /// </summary>
-        private void Selector()
+        public void Selector()
         {
+            DroneStatus dStatus = (DroneStatus)StatusSelector.SelectedItem;
             if (WeightSelector.SelectedIndex == -1)//meens no filter was chosen
                 WeightSelector.SelectedIndex = 3;//no filter-shows all the drones
+            WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
-            if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
-                DronesListView.ItemsSource = Drones;//to show the all list
+            if (dStatus == DroneStatus.All && dWeight == WeightCategories.All)
+                DronesListView.ItemsSource = Drones.Values.SelectMany(item => item);//to show the all list
             //if only he wants to filter the weight category
-            if ((DroneStatus)StatusSelector.SelectedItem == DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem);
+            if (dStatus == DroneStatus.All && dWeight != WeightCategories.All)
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)StatusSelector.SelectedItem);
             //if only he wants to filter the statuse category
-            if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem == WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem);
+            if (dStatus != DroneStatus.All && dWeight == WeightCategories.All)
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.status == (BO.DroneStatus)StatusSelector.SelectedItem);
             //if  he wants to filter both the weight category and the status category
-            if ((DroneStatus)StatusSelector.SelectedItem != DroneStatus.All && (WeightCategories)WeightSelector.SelectedItem != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.ToList().FindAll(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem && item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem);
+            if (dStatus != DroneStatus.All && dWeight != WeightCategories.All)
+                DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)StatusSelector.SelectedItem && item.Key.status == (BO.DroneStatus)WeightSelector.SelectedItem)
+                    .SelectMany(item => item.Value);
             DronesListView.Items.Refresh();
         }
 
@@ -117,7 +129,7 @@ namespace PL
         /// <param name="e"></param>
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            selectedDrone=(DroneList)DronesListView.SelectedItem;//the drone that the mous double clicked on
+            selectedDrone = (DroneList)DronesListView.SelectedItem;//the drone that the mous double clicked on
             new WindowDrone(ibl, this, DronesListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
         }
 

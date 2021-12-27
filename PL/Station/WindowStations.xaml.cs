@@ -44,14 +44,9 @@ namespace PL
 
         private void buttenAdd_Click(object sender, RoutedEventArgs e)
         {
-            new WindowStation(ibl, this);
+            new WindowStation(ibl, this).Show();
         }
 
-        private void buttenbuttenClose_Click(object sender, RoutedEventArgs e)
-        {
-            _close = true;
-            Close();
-        }
         private void WindowClose(object sender, CancelEventArgs e)
         {
             if (!_close)
@@ -59,6 +54,12 @@ namespace PL
                 e.Cancel = true;
                 MessageBox.Show("You can't force the window to close");
             }
+        }
+
+        private void buttenClose_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
         }
     }
 }
