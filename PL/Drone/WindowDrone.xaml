@@ -9,8 +9,11 @@
     <Window.Background>
         <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
     </Window.Background>
-    <Grid x:Name="both">
-
+    <Grid x:Name="AddActionseGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid x:Name="AddGrid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -32,19 +35,17 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-
                 </Grid.ColumnDefinitions>
 
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" FontFamily="Aharoni" FontSize="14"/>
-                <Label Content="Station ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" FontFamily="Aharoni" FontSize="16"/>
-                <TextBox x:Name="IdBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
-                <TextBox x:Name="ModelBoxA"  Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
-                <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
-                <ComboBox x:Name="weightA"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" Background="{x:Null}" BorderBrush="Black"  />
-                <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
-                <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="5" Grid.Row="5" Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
+                <Label Content="ID:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+                <Label Content="Model:" Grid.Column="2" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+                <Label Content="Max Weight:"  Grid.Column="2" Grid.Row="2" Style="{StaticResource LableStyle}"/>
+                <Label Content="Station ID:" Grid.Column="2" Grid.Row="3" Style="{StaticResource LableStyle}"/>
+
+                <TextBox x:Name="IdBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" PreviewTextInput="NumberValidationTextBox" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ModelBoxA"  Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBoxStyle}" />
+                <ComboBox x:Name="IdStation"  Grid.Row="3" Grid.Column="3" Style="{StaticResource ComboBoxStyle}"/>
+                <ComboBox x:Name="weightA"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Style="{StaticResource ComboBoxStyle}"/>
             </Grid>
         </Grid>
 
@@ -59,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <!---->
+
             <Grid x:Name="DroneGrid" Grid.ColumnSpan="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -75,26 +76,24 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontFamily="Aharoni" FontWeight="Bold" FontSize="16"/>
-                <Label Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Max Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Battery:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="5" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" FontFamily="Aharoni" FontSize="16"/>
-                <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" FontFamily="Aharoni" FontSize="16"/>
+                <Label Content="ID:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+                <Label Content="Model:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+                <Label Content="Max Weight:" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
+                <Label Content="Battery:" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
+                <Label Content="Status:"  Grid.Column="0" Grid.Row="4" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
+                <Label Content="Location:"  Grid.Column="0" Grid.Row="5" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
+                <Label Content="Latitude:"  Grid.Column="0" Grid.Row="6" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
+                <Label Content="Longitude:"  Grid.Column="0" Grid.Row="7" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
 
-                <TextBox x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="White" SelectionBrush="White" />
-                <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="White" />
-                <TextBox x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" IsReadOnly="True" VerticalAlignment="Center" Background="White" BorderThickness="3,3,3,3"/>
-                <TextBox x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3"/>
-                <TextBox x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" BorderThickness="3,3,3,3"/>
-                <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
-                <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
+                <TextBox x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
+                <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
             </Grid>
-
-
-
+            
             <Grid x:Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -104,7 +103,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <!---->
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="52.232"/>
@@ -160,6 +158,8 @@
                     <ColumnDefinition Width="0*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
+                <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
+                <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="5" Grid.Row="5" Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
                 <Button x:Name="UpdateButton" Grid.Column="0" Content="Update drone" VerticalAlignment="Center" Height="30" Click="Button_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
                 <Button x:Name="ChargeDrone" Content="" Grid.Column="1" VerticalAlignment="Center" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16"   />
                 <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="2" VerticalAlignment="Center" Height="30" Click="ChangeStatusDrone_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"  />

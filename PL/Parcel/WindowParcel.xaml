@@ -20,8 +20,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                </Grid.RowDefinitions>
             </Grid>
 
             <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Collapsed" >
@@ -69,35 +67,34 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
-                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
-                <Label Content="Statuse:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Created at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
-                <Label Content="Scheduled at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" />
-                <Label Content="Picked Up at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" />
-                <Label Content="Delivered at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" />
-                <Label Content="Sender:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" />
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
-                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" />
-                <Button x:Name="SenderButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" Click="SenderButten_Click"/>
-                <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5"/>
-                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" />
-                <Button x:Name="RecepterButten" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7"/>
-
-                <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
-                <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
-                <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
-                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
-                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Resever.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"   Background="#FFEAEAEA" />
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}" />
+                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
+                <Label Content="Statuse:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
+                <Label Content="Created at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
+                <Label Content="Scheduled at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
+                <Label Content="Picked Up at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
+                <Label Content="Delivered at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
+                <Label Content="Sender:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Style="{StaticResource LableStyle}"/>
+                <Button x:Name="SenderButten" Content="Show more" Grid.Column="2" Grid.Row="3" Click="SenderButten_Click" Style="{StaticResource ButtenStyle}"/>
+                <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Style="{StaticResource LableStyle}"/>
+                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5" Style="{StaticResource LableStyle}"/>
+                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource LableStyle}" />
+                <Button x:Name="RecepterButten" Content="Show more"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}"/>
+                <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" PreviewTextInput="NumberValidationTextBox" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Resever.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -113,28 +110,32 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Parcel's drone:" Grid.Row="0" Grid.Column="0"/>
-                    <Label Content="ID:" Grid.Row="1" Grid.Column="0"/>
-                    <Label Content="Battery:" Grid.Row="2" Grid.Column="0"/>
-                    <Label Content="Location:" Grid.Row="3" Grid.Column="0"/>
-                    <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
-                    <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" />
-                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6"/>
+                    <Label Content="Parcel's drone:" Grid.Row="0" Grid.Column="0" Style="{StaticResource LableStyle}"/>
+                    <Label Content="ID:" Grid.Row="1" Grid.Column="0" Style="{StaticResource LableStyle}"/>
+                    <Label Content="Battery:" Grid.Row="2" Grid.Column="0" Style="{StaticResource LableStyle}"/>
+                    <Label Content="Location:" Grid.Row="3" Grid.Column="0" Style="{StaticResource LableStyle}"/>
+                    <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}" />
+                    <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}" />
+                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource ButtenStyle}"/>
 
 
-                    <TextBlock Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA" />
-                    <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
-                    <TextBlock Text="{Binding ParecelDrone.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
-                    <TextBlock Text="{Binding ParecelDrone.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Background="#FFEAEAEA"/>
+                    <TextBlock Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
+                    <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding ParecelDrone.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding ParecelDrone.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                 </Grid>
-                <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="4">
+                <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="6">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="UpdateAddButton" Grid.Column="0"  VerticalAlignment="Center" Height="30" Click="UpdateAddButton_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
-                    <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
+                    <Button x:Name="addDeletButton" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
+                    <Button x:Name="DeliverPickUpButton" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
+                    <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
                 </Grid>
             </Grid>
         </Grid>

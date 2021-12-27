@@ -23,7 +23,7 @@
             <Label Content="EXISTING CUSTOMERS" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,136,0,0" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="307" Grid.ColumnSpan="2"/>
             <TextBox x:Name="idTB" HorizontalAlignment="Left" Margin="30,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" Height="28"/>
         </Grid>
-        <Grid x:Name="manager" Visibility="Hidden">
+        <Grid x:Name="manager" Visibility="Collapsed">
             <Button x:Name="dronesButten"  Content="DRONES" HorizontalAlignment="Left" Margin="222,255,0,0" VerticalAlignment="Top" Width="88" Height="32" Click="dronesButten_Click" RenderTransformOrigin="0.5,0.5"/>
             <Button x:Name="parcelsButten" Content="PARCELS" HorizontalAlignment="Left" Margin="316,255,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="parcelsButten_Click"/>
             <Button x:Name="customersButten" Content="CUSTOMERS" HorizontalAlignment="Left" Margin="429,255,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="customersButten_Click"/>

@@ -134,5 +134,11 @@ namespace BlApi
         /// <param name="emptyCharges">the new emount of empty chargers in the base station</param>
         void UpdateStation(int id, string newName, int emptyCharges);
 
+        /// <summary>
+        /// to delet a parcel
+        /// </summary>
+        /// <param name="parcel">the parcel we want to delet</param>
+        void DeletParcel(Parcel parcel);
+
     }
 }

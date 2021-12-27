@@ -36,7 +36,7 @@
                 <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
             </Grid>
 
-            <Grid x:Name="AddGrid" Grid.Column="1" Visibility="Collapsed"  Grid.Row="0">
+            <Grid x:Name="AddGrid" Visibility="Collapsed"  Grid.Row="0" Grid.ColumnSpan="2" Margin="133,5,0,25" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="5*"/>
@@ -55,7 +55,7 @@
                 <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
                 <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
             </Grid>
-            <Grid x:Name="UpdateGride" Visibility="Visible"  Grid.Column="1" Grid.Row="0">
+            <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
@@ -95,7 +95,7 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="UpdateAddButton" Grid.Column="0"  VerticalAlignment="Center" Height="30" Click="UpdateAddButton_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
+                <Button x:Name="UpdateAddButton" Grid.Column="0"  VerticalAlignment="Top" Height="30" Click="UpdateAddButton_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" Grid.ColumnSpan="2" Margin="0,0,533,0" />
                 <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="30" Click="Close_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"/>
             </Grid>
         </Grid>
