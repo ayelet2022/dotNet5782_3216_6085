@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowParcel" Height="450" Width="800">
     <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+        <ImageBrush ImageSource="/קופסאות.jpg"/>
     </Window.Background>
     <Grid>
         <Grid x:Name="ActionseGrid" Visibility="Visible">
@@ -35,17 +35,15 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
                 <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
                 <Label Content="Sender Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
                 <Label Content="Resepter Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
 
-                <TextBox x:Name="IDBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
-                <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
-                <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
-                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
-                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
+                <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
+                <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
+                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
             </Grid>
             <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>

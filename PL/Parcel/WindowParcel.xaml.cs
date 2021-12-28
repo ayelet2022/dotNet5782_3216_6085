@@ -61,7 +61,7 @@ namespace PL
             ibl = bl;
             InitializeComponent();
             windowParcels = _windowParcels;
-            ActionseGrid.Visibility = Visibility.Visible;
+            UpdateGride.Visibility = Visibility.Visible;
             if (i == 0)
                 mainParcel = ibl.GetParcel(windowParcels.selectedParcel.Id);//returnes the drone that the mouce clicked twise on
             else
@@ -137,7 +137,6 @@ namespace PL
                         switch (message)
                         {
                             case MessageBoxResult.Yes:
-                                IDBoxA.Text = "";
                                 SenderBoxA.Text = "";
                                 RecepterBoxA.Text = "";
                                 break;
@@ -155,9 +154,6 @@ namespace PL
                             MessageBoxButton.YesNo, MessageBoxImage.Error);
                         switch (message)
                         {
-                            case MessageBoxResult.Yes:
-                                IDBoxA.Text = "";
-                                break;
                             case MessageBoxResult.No:
                                 _close = true;
                                 Close();
@@ -198,7 +194,6 @@ namespace PL
                         switch (message)
                         {
                             case MessageBoxResult.Yes:
-                                IDBoxA.Text = "";
                                 SenderBoxA.Text = "";
                                 RecepterBoxA.Text = "";
                                 break;
@@ -223,7 +218,6 @@ namespace PL
                         switch (message)
                         {
                             case MessageBoxResult.Yes:
-                                IDBoxA.Text = "";
                                 SenderBoxA.Text = "";
                                 RecepterBoxA.Text = "";
                                 break;

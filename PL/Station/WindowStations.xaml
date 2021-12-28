@@ -6,9 +6,30 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowStations" Height="450" Width="800">
-    <Grid>
+    <Window.Background>
+        <ImageBrush ImageSource="/קופסאות.jpg" />
+    </Window.Background>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions >
+        <Grid/>
         <Button x:Name="buttenAdd" Content="Add" HorizontalAlignment="Left" Margin="643,49,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="buttenAdd_Click"/>
-        <ListView x:Name="stationList" Margin="43,49,263,49" MouseDoubleClick="stationList_MouseDoubleClick">
+        <ListView x:Name="stationList" MouseDoubleClick="stationList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -16,6 +37,6 @@
             </ListView.View>
         </ListView>
         <Button x:Name="buttenClose" Content="close" HorizontalAlignment="Left" Margin="643,351,0,0" VerticalAlignment="Top" Width="87" Height="34" Click="buttenClose_Click"/>
-
+        <Grid/>
     </Grid>
 </Window>

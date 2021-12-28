@@ -214,6 +214,7 @@ namespace PL
                 if (mainDrone.Status == ( BO.DroneStatus)DroneStatus.Available)//meens we can only scheduled a parcel to the drone
                 {
                     ibl.ScheduledAParcelToADrone(mainDrone.Id);//scheduled a parcel to the drone
+                    DroneParcel.Visibility = Visibility.Visible;
                     ChargeDroneButten.Visibility = Visibility.Collapsed;
                     ChangeStatusDroneButten.Content = "Pick up parcel";//to change the butten conntact to only be to pick up the parcel
                 }
@@ -229,6 +230,7 @@ namespace PL
                 {
                     ibl.DeliverParcel(mainDrone.Id);//update the drone to deliver the parcel
                     ChargeDroneButten.Visibility = Visibility.Visible;
+                    DroneParcel.Visibility = Visibility.Collapsed;
                     ChargeDroneButten.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
                 }                                                                                                //fineds the drone that we were updating  index in the list 
@@ -316,7 +318,7 @@ namespace PL
         private void ParcelButton_Click(object sender, RoutedEventArgs e)
         {
             WindowParcels windowParcels = new WindowParcels (ibl);
-            new WindowParcel(ibl, windowParcels, mainDrone.ParcelInTransfer.Id);
+            new WindowParcel(ibl, windowParcels, mainDrone.ParcelInTransfer.Id).Show();
         }
     }
 }
