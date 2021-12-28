@@ -46,6 +46,7 @@ namespace PL
             AddGrid.Visibility=Visibility.Visible;
             UpdateGride.Visibility = Visibility.Collapsed;
             UpdateAddButton.Content = "Add a customer";
+            mainCustomer.CustomerLocation = new();
             DataContext = mainCustomer;
         }
 
@@ -55,7 +56,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowCustomers">the window with all the Customers</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowCustomer(BL.BL bl, WindowCustomers _windowCustomers, int i = 0)
+        public WindowCustomer(BL.BL bl, WindowCustomers _windowCustomers, int i=0)
         {
             ibl = bl;
             InitializeComponent();
@@ -63,7 +64,11 @@ namespace PL
             AddGrid.Visibility = Visibility.Collapsed;
             UpdateGride.Visibility = Visibility.Visible;
             UpdateAddButton.Content = "Update the customer";
-            mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
+            if (i == 0)
+                mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
+            else
+                mainCustomer = ibl.GetCustomer(i);
+            mainCustomer.CustomerLocation = new();
             DataContext = mainCustomer;//to connect between the text box and the data
             ParcelFromCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
@@ -101,7 +106,7 @@ namespace PL
                     ibl.AddCustomer(mainCustomer);
                     mainCustomer = ibl.GetCustomer(mainCustomer.Id);
                     windowCustomers.Customers.Add(ibl.GetCustomers().First(i => i.Id == mainCustomer.Id));
-                    MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainCustomer.ToString());
+                    MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been added successfully \n" + mainCustomer.ToString());
                     _close = true;
                     Close();
                 }

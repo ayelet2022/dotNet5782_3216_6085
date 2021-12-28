@@ -74,7 +74,7 @@ namespace PL
                     throw new MissingInfoException("No id was entered");
                 Customer customer = bl.GetCustomer(int.Parse(idTB.Text));
                 WindowCustomers windowCustomers = new(bl);
-                new WindowCustomer(bl, windowCustomers, 0).Show();
+                new WindowCustomer(bl, windowCustomers,customer.Id).Show();
             }
             catch(MissingInfoException ex)
             {
