@@ -144,7 +144,7 @@ namespace PL
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             selectedParcel = (ParcelList)ParcelsListView.SelectedItem;//the drone that the mous double clicked on
-            new WindowParcel(ibl, this, ParcelsListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowParcel(ibl, this, 0).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>

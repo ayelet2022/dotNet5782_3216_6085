@@ -66,7 +66,7 @@ namespace PL
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             selectedCustomer = (CustomerList)CustomerListView.SelectedItem;//the drone that the mous double clicked on
-            new WindowCustomer(ibl, this, CustomerListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowCustomer(ibl, this, 0).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>

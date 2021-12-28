@@ -42,6 +42,8 @@ namespace PL
             windowParcels = _windowParcels;
             AddGrid.Visibility = Visibility.Visible;
             DataContext = mainParcel;
+            mainParcel.Sender = new();
+            mainParcel.Recepter = new();
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             PriorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             addDeletDeliverPickUpButton.Content = "Add the Parcel";
@@ -251,22 +253,21 @@ namespace PL
             }
         }
 
-        Customer send = new();
         private void SenderButten_Click(object sender, RoutedEventArgs e)
         {
-            send = ibl.GetCustomer(mainParcel.Sender.Id);
             WindowCustomers windowCustomers = new WindowCustomers(ibl);
-            windowCustomers.selectedCustomer.Id = send.Id;
-            new WindowCustomer(ibl, windowCustomers, 0).Show();
+            new WindowCustomer(ibl, windowCustomers, mainParcel.Sender.Id).Show();
         }
-        Customer recepter = new();
 
         private void RecepterButten_Click(object sender, RoutedEventArgs e)
         {
-            recepter = ibl.GetCustomer(mainParcel.Recepter.Id);
             WindowCustomers windowCustomers = new WindowCustomers(ibl);
-            windowCustomers.selectedCustomer.Id = recepter.Id;
-            new WindowCustomer(ibl, windowCustomers, 0).Show();
+            new WindowCustomer(ibl, windowCustomers, mainParcel.Recepter.Id).Show();
+        }
+        private void Parcelsdrone_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDrones windowDrones = new WindowDrones(ibl);
+            new WindowDrone(ibl, windowDrones, mainParcel.ParecelDrone.Id);
         }
     }
 }

@@ -132,7 +132,7 @@ namespace PL
         private void DronesListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             selectedDrone = (DroneList)DronesListView.SelectedItem;//the drone that the mous double clicked on
-            new WindowDrone(ibl, this, DronesListView.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowDrone(ibl, this, 0).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>

@@ -82,7 +82,7 @@
                 <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Style="{StaticResource LableStyle}"/>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5" Style="{StaticResource LableStyle}"/>
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource LableStyle}" />
-                <Button x:Name="RecepterButten" Content="Show more"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}"/>
+                <Button x:Name="RecepterButten" Content="Show more"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}" Click="RecepterButten_Click" />
                 <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" PreviewTextInput="NumberValidationTextBox" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
@@ -116,10 +116,10 @@
                     <Label Content="Location:" Grid.Row="3" Grid.Column="0" Style="{StaticResource LableStyle}"/>
                     <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}" />
                     <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}" />
-                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource ButtenStyle}"/>
+                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource ButtenStyle}" Click="Parcelsdrone_Click" />
 
 
-                    <TextBlock Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
+                    <TextBlock x:Name="ParcelsIdTB" Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
                     <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock Text="{Binding ParecelDrone.DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock Text="{Binding ParecelDrone.DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
