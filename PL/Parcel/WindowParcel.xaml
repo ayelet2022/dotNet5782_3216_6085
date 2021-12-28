@@ -47,7 +47,7 @@
                 <TextBox x:Name="SenderBoxA"  Text="{Binding Sender, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
                 <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center"  BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" />
             </Grid>
-            <Grid x:Name="UpdateGride" Visibility="Visible"  Grid.Column="1" Grid.Row="0">
+            <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
