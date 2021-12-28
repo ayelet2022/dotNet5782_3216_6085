@@ -67,13 +67,10 @@ namespace PL
 
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            WindowDrones windowDrones = new WindowDrones(ibl);
-            
+            WindowDrones windowDrones = new WindowDrones(ibl);            
             DroneInCharge droneInCharging;
             droneInCharging = (DroneInCharge)listDronesInStation.SelectedItem;
-            Drone drone = ibl.GetDrone(droneInCharging.Id);
-            windowDrones.selectedDrone = drone;
-            new WindowDrone(ibl, windowDrones, 0).Show();
+            new WindowDrone(ibl, windowDrones, droneInCharging.Id).Show();
         }
 
         private void buttenAddUpdate_Click(object sender, RoutedEventArgs e)
@@ -102,10 +99,10 @@ namespace PL
                     {
                         //StationListWindow.CurrentStation.Name = NameTxtUp.Text;//updating drone name
                         //StationListWindow.CurrentStation.AvailableChargeSlots = int.Parse(ChargeSlotsTxtUp.Text);
-                        ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(avaiChargesTB.Text));
+                        ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(chargingSlotsTB.Text));
                         //updates all the text box according to what was updated
                         windowStations.selectedStation.Name = nameTB.Text;
-                        windowStations.selectedStation.EmptyCharges = int.Parse(avaiChargesTB.Text);
+                        windowStations.selectedStation.EmptyCharges = int.Parse(chargingSlotsTB.Text) - windowStations.selectedStation.FullChargingPositions; 
                         windowStations.MyRefresh();
                         MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
                     }

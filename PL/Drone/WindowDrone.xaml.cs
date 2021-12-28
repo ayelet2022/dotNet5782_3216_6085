@@ -59,7 +59,10 @@ namespace PL
             windowDrones = _windowDrones;
             ActionseGrid.Visibility=Visibility.Visible;
             Buttens.Visibility = Visibility.Visible;
-            mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
+            if (i == 0)
+                mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
+            else
+                mainDrone = ibl.GetDrone(i);
             DataContext = mainDrone;//to connect between the text box and the data
             if(mainDrone.ParcelInTransfer!=null)//if the drone has a parcel 
             {

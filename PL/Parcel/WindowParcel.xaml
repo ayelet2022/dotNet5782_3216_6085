@@ -93,8 +93,8 @@
                 <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Resever.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Visible">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -121,8 +121,8 @@
 
                     <TextBlock Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
                     <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="{Binding ParecelDrone.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="{Binding ParecelDrone.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding ParecelDrone.DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding ParecelDrone.DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                 </Grid>
             </Grid>
             <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="6">
