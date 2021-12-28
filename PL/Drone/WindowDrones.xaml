@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="WindowDrones" Height="640" Width="800" Closing="WindowClose">
     <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+        <ImageBrush ImageSource="/קופסאות.jpg"/>
     </Window.Background>
     <Grid>
         <Grid Name="MainGrid" HorizontalAlignment="Right" Width="885" Margin="0,0,-85,-75">

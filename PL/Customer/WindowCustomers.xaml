@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="WindowCustomers" Height="450" Width="800">
     <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+        <ImageBrush ImageSource="/קופסאות.jpg" />
     </Window.Background>
     <Grid>
         <Grid Name="MainGrid">
@@ -29,7 +29,7 @@
             <Grid/>
             <Button Name="Add" Content="Add new customer" Click="Add_Click" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
             <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
-            <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="CustomerListView" MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
+            <ListView x:Name="CustomerListView"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
