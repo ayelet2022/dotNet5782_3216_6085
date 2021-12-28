@@ -26,7 +26,9 @@ namespace Dal
         }
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {
-            return DataSource.Stations.Select(item => item);
+            return from item in DataSource.Stations
+                   where predicate == null ? true : predicate(item)
+                   select item;
         }
         public void UpdateStation(int id, string newName, int emptyCharges)
         {

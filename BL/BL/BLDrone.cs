@@ -115,7 +115,8 @@ namespace BL
         {
             try
             {
-                drone.Model = newModel;
+                DroneList drone1 = Drones.First(x => x.Id == drone.Id);
+                drone1.Model = newModel;
                 //to update the drone in the drone list
                 dal.UpdateDrone(drone.Id, newModel);
             }

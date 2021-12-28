@@ -15,8 +15,9 @@
         <TextBox x:Name="avaiChargesTB" Text="{Binding EmptyCharges, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Latitude:" HorizontalAlignment="Left" Margin="55,248,0,0" VerticalAlignment="Top"/>
         <Label Content="Longitude:" HorizontalAlignment="Left" Margin="55,281,0,0" VerticalAlignment="Top"/>
+        <Button  x:Name="buttenAddUpdate" Content="" HorizontalAlignment="Left" Margin="55,334,0,0" VerticalAlignment="Top" Width="84" Height="34" Click="buttenAddUpdate_Click"/>
         <Grid x:Name="addGrid" Visibility="Collapsed">
-            <Button  x:Name="buttenAddUpdate" Content="" HorizontalAlignment="Left" Margin="55,334,0,0" VerticalAlignment="Top" Width="84" Height="34" Click="buttenAddUpdate_Click"/>
+            
             <TextBox x:Name="idTB" Text="{Binding Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="latitudeTB" Text="{Binding BaseStationLocation.Latitude, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="148,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="longtitudeTB" Text="{Binding BaseStationLocation.Longitude, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -26,7 +27,7 @@
             <TextBlock x:Name="idTBl" Text="{Binding Id, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
             <TextBlock x:Name="latitudeTBl"  Text="{Binding BaseStationLocation.Latitude, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
             <TextBlock x:Name="longtitudeTBl"  Text="{Binding BaseStationLocation.Longitude, Mode=TwoWay}" HorizontalAlignment="Left" Margin="148,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
-            <ListView Visibility="Collapsed" x:Name="listDronesInStation" Margin="333,47,37,71">
+            <ListView Visibility="Collapsed" x:Name="listDronesInStation" Margin="333,47,37,71" MouseDoubleClick="listDronesInStation_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

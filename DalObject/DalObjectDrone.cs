@@ -62,7 +62,9 @@ namespace Dal
         }
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null)
         {
-            return DataSource.Drones.Select(item => item);
+            return from item in DataSource.Drones
+                   where predicate == null ? true : predicate(item)
+                   select item;
         }
         public void UpdateDrone(int id, string newModel)
         {   

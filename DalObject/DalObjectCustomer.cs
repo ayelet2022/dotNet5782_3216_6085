@@ -25,7 +25,9 @@ namespace Dal
         }
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
-            return DataSource.Customers.Select(item => item);
+            return from item in DataSource.Customers
+                   where predicate == null ? true : predicate(item)
+                   select item;
         }
         public void UpdateCustomer(int id,string name,string phone)
         {
