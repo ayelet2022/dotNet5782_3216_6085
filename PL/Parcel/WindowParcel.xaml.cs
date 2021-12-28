@@ -60,7 +60,10 @@ namespace PL
             InitializeComponent();
             windowParcels = _windowParcels;
             ActionseGrid.Visibility = Visibility.Visible;
-            mainParcel = ibl.GetParcel(windowParcels.selectedParcel.Id);//returnes the drone that the mouce clicked twise on
+            if (i == 0)
+                mainParcel = ibl.GetParcel(windowParcels.selectedParcel.Id);//returnes the drone that the mouce clicked twise on
+            else
+                mainParcel = ibl.GetParcel(i);
             DataContext = mainParcel;//to connect between the text box and the data
             if (mainParcel.Scheduled == null)
             {

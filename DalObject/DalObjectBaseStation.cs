@@ -30,13 +30,18 @@ namespace Dal
                    where predicate == null ? true : predicate(item)
                    select item;
         }
-        public void UpdateStation(int id, string newName, int emptyCharges)
+        private int emptyCharging(int charges, int id)
+        {
+            int sum = DataSource.DroneCharges.Where(item => item.StationId == id).Count();
+            return charges - sum;
+        }
+        public void UpdateStation(int id, string newName, int charges)
         {
             int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == id);
             BaseStation baseStation = DataSource.Stations[baseStationIndex];
             if (newName != "\n")
                 baseStation.Name = newName;
-            baseStation.EmptyCharges = emptyCharges;
+            baseStation.EmptyCharges = emptyCharging(charges, id);
             DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
         }
     }

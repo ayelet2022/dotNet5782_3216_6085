@@ -41,6 +41,11 @@ namespace PL
             foreach (var item in customers)//to fet and shoe all the drones
                 Customers.Add(item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
+            Customers.CollectionChanged += Customers_CollactionChanged;
+        }
+        private void Customers_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CustomerListView.Items.Refresh();
         }
 
         /// <summary>

@@ -60,6 +60,10 @@ namespace PL
             windowDrones = _windowDrones;
             ActionseGrid.Visibility=Visibility.Visible;
             Buttens.Visibility = Visibility.Visible;
+            if (i == 0)
+                mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
+            else
+                mainDrone = ibl.GetDrone(i);
             AddUpdateButten.Content = "Update the Drone";
             mainDrone.ParcelInTransfer = new();
             mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
