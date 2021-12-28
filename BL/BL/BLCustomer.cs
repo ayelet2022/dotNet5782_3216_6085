@@ -44,12 +44,14 @@ namespace BL
                 Customer customer = new();//the customer to returne
                 dalCustomer.CopyPropertiesTo(customer);//only puts:id,name,phone,location
                 customer.CustomerLocation = new();
+                customer.ParcelsFromCustomers = new();
+                customer.ParcelsToCustomers = new();
                 customer.CustomerLocation.Latitude = dalCustomer.Latitude;
                 customer.CustomerLocation.Longitude = dalCustomer.Longitude;
                 //check if the parcel is from this customer or to this customer
                 foreach (var item in dal.GetParcels(item=> item.SenderId == idCustomer || item.TargetId == idCustomer))//checks all the parcels in dal
                 {
-                    ParcelInCustomer parcelFromCustomer = new();
+                    ParcelInCustomer parcelFromCustomer = new  ParcelInCustomer    ();
                     item.CopyPropertiesTo(parcelFromCustomer);//only copies:id,weight,priority
                     if (item.Delivered != null)//meens the parcel was deliverd
                         parcelFromCustomer.Status = ParcelStatus.delivery;//the parcel was deliverd
@@ -69,9 +71,9 @@ namespace BL
                     parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
                     parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
                     if (item.SenderId == idCustomer)//meens the parcel is from the customer
-                        customer.ParcelsFromCustomers.Append(parcelFromCustomer);//adds the parcel that this customer send
+                        customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                     if (item.TargetId == idCustomer)//meens the parcel to the customer
-                        customer.ParcelsToCustomers.Append(parcelFromCustomer);//adds the parcel that this customer send
+                        customer.ParcelsToCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
                 }
                 return customer;
             }

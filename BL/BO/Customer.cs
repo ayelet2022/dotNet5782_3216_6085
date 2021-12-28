@@ -12,8 +12,8 @@ namespace BO
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location CustomerLocation { get; set; }
-        public IEnumerable<ParcelInCustomer> ParcelsFromCustomers{ get; set; }
-        public IEnumerable<ParcelInCustomer> ParcelsToCustomers{ get; set; }
+        public List<ParcelInCustomer> ParcelsFromCustomers{ get; set; }
+        public List<ParcelInCustomer> ParcelsToCustomers{ get; set; }
         public override string ToString()
         {
             String result = "";

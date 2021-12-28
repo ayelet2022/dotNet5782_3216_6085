@@ -28,6 +28,7 @@ namespace PL
         private bool _close { get; set; } = false;
         BL.BL ibl;
         private WindowParcels windowParcels;
+        StatusWeightAndPriorities _StatusWeightAndPriorities;
 
         /// <summary>
         /// constructer-adds a new Parcel   
@@ -59,7 +60,6 @@ namespace PL
             InitializeComponent();
             windowParcels = _windowParcels;
             ActionseGrid.Visibility = Visibility.Visible;
-            Buttens.Visibility = Visibility.Visible;
             mainParcel = ibl.GetParcel(windowParcels.selectedParcel.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainParcel;//to connect between the text box and the data
             if (mainParcel.Scheduled == null)
@@ -112,8 +112,14 @@ namespace PL
                     if (mainParcel.Id == default || mainParcel.Sender == default || mainParcel.Recepter == default)
                         throw new MissingInfoException("No information entered for this drone");
                     ibl.AddParcel(mainParcel);
+                    _StatusWeightAndPriorities.status = BO.ParcelStatus.creat;
+                    _StatusWeightAndPriorities.priorities = mainParcel.Priority;
+                    _StatusWeightAndPriorities.weight = mainParcel.Weight;
                     mainParcel = ibl.GetParcel(mainParcel.Id);
-                    windowParcels.Parcels.Add(ibl.GetParcels().First(i => i.Id == mainParcel.Id));
+                    if (windowParcels.Parcels.ContainsKey(_StatusWeightAndPriorities))
+                        windowParcels.Parcels[_StatusWeightAndPriorities].Add(ibl.GetParcels().First(i => i.Id == mainParcel.Id));
+                    else
+                        windowParcels.Parcels.Add(_StatusWeightAndPriorities, ibl.GetParcels().Where(i => i.Id == mainParcel.Id).ToList());
                     MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
                     _close = true;
                     Close();
@@ -209,7 +215,7 @@ namespace PL
         Customer send = new();
         private void SenderButten_Click(object sender, RoutedEventArgs e)
         {
-            send = ibl.GetCustomer(int.Parse(SenderBoxA.Text));
+            send = ibl.GetCustomer(mainParcel.Sender.Id);
             WindowCustomers windowCustomers = new WindowCustomers(ibl);
             windowCustomers.selectedCustomer.Id = send.Id;
             new WindowCustomer(ibl, windowCustomers, 0).Show();
@@ -218,7 +224,7 @@ namespace PL
 
         private void RecepterButten_Click(object sender, RoutedEventArgs e)
         {
-            recepter = ibl.GetCustomer(int.Parse(SenderBoxA.Text));
+            recepter = ibl.GetCustomer(mainParcel.Recepter.Id);
             WindowCustomers windowCustomers = new WindowCustomers(ibl);
             windowCustomers.selectedCustomer.Id = recepter.Id;
             new WindowCustomer(ibl, windowCustomers, 0).Show();

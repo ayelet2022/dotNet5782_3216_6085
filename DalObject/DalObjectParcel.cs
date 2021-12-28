@@ -69,5 +69,10 @@ namespace Dal
                    where predicate == null ? true : predicate(item)
                    select item;
         }
+
+        public void DeletParcel(Parcel parcel)
+        {
+            DataSource.Parcels.Remove(parcel);
+        }
     }
 }

@@ -60,6 +60,7 @@ namespace PL
             ibl = bl;
             InitializeComponent();
             windowCustomers = _windowCustomers;
+            AddGrid.Visibility = Visibility.Collapsed;
             UpdateGride.Visibility = Visibility.Visible;
             UpdateAddButton.Content = "Update the customer";
             mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
@@ -161,6 +162,8 @@ namespace PL
             {
                 try
                 {
+                    AddGrid.Visibility = Visibility.Collapsed;
+                    UpdateGride.Visibility = Visibility.Visible;
                     ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
                     int index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
                     if (NameBoxA.Text != default)
