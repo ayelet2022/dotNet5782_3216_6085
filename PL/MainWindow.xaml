@@ -28,7 +28,7 @@
             <Button x:Name="parcelsButten" Content="PARCELS" HorizontalAlignment="Left" Margin="316,255,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="parcelsButten_Click"/>
             <Button x:Name="customersButten" Content="CUSTOMERS" HorizontalAlignment="Left" Margin="429,255,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="customersButten_Click"/>
             <Button x:Name="stationsButten" Content="STATIONS" HorizontalAlignment="Left" Margin="132,255,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="stationsButten_Click"/>
-            <Button x:Name="GoBackButten" Content="GoBack"/>
+            <Button x:Name="GoBackButten" Content="GoBack" Style="{StaticResource ButtenNainStyle}"/>
 
         </Grid>
     </Grid>

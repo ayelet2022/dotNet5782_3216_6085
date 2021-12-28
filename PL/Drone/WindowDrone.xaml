@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="temp" Height="450" Width="800" Closing="WindowClose">
     <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+        <ImageBrush ImageSource="/קופסאות.jpg"/>
     </Window.Background>
     <Grid x:Name="AddActionseGrid">
         <Grid.RowDefinitions>
@@ -49,52 +49,43 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="ActionseGrid" Visibility="Collapsed">
+        <Grid x:Name="ActionseGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="13*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Label Content="ID:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+            <Label Content="Model:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+            <Label Content="Max Weight:" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
+            <Label Content="Battery:" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
+            <Label Content="Status:"  Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
+            <Label Content="Location:"  Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
+            <Label Content="Latitude:"  Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
+            <Label Content="Longitude:"  Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
 
-            <Grid x:Name="DroneGrid" Grid.ColumnSpan="2" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="ID:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
-                <Label Content="Model:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
-                <Label Content="Max Weight:" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
-                <Label Content="Battery:" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
-                <Label Content="Status:"  Grid.Column="0" Grid.Row="4" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
-                <Label Content="Location:"  Grid.Column="0" Grid.Row="5" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
-                <Label Content="Latitude:"  Grid.Column="0" Grid.Row="6" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
-                <Label Content="Longitude:"  Grid.Column="0" Grid.Row="7" FontFamily="Aharoni" FontSize="16" Style="{StaticResource LableStyle}"/>
-
-                <TextBox x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
-                <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
-                <TextBox x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
-                <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
-            </Grid>
-
-            <Grid x:Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Collapsed">
+            <TextBox x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}" IsReadOnly="True" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
+            <TextBox x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"  />
+            <Label Content="Parcel in transfer:" VerticalAlignment="Bottom" Grid.Column="2" Style="{StaticResource LableStyle}"/>
+            <Label Content="ID:" Grid.Column="2" Grid.Row="1" Style="{StaticResource LableStyle}"/>
+        </Grid>
+        <!--<Grid x:Name="ParcelIT" Grid.Column="2" Grid.Row="0" Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -113,11 +104,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <Label Content="Parcel in transfer:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" FontFamily="Aharoni" Grid.ColumnSpan="2" Width="110" />
-                <Label Content="ID:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" FontFamily="Aharoni" Width="110" Grid.ColumnSpan="2"/>
-                <Label Content="Statuse:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" FontFamily="Aharoni" Width="110" Grid.ColumnSpan="2"/>
+                </Grid.RowDefinitions>-->
+                <!--<Label Content="Statuse:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" FontFamily="Aharoni" Width="110" Grid.ColumnSpan="2"/>
                 <Label Content="Priority:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" FontFamily="Aharoni" Grid.ColumnSpan="2" Width="110"/>
                 <Label Content="Weight:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" FontFamily="Aharoni" Width="110" Grid.ColumnSpan="2"/>
                 <Label Content="Sender:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="0" FontFamily="Aharoni" Grid.ColumnSpan="2" Width="109"/>
@@ -146,10 +134,8 @@
                 <TextBox x:Name="PUongitudeBoxAc"  Text="{Binding ParcelInTransfer.PickUpLocation.Longitude, Mode=TwoWay}" Grid.Row="2" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
                 <TextBox x:Name="PDLatitudeBoxAc"  Text="{Binding ParcelInTransfer.DelieveredLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
                 <TextBox x:Name="PDongitudeBoxAc"  Text="{Binding ParcelInTransfer.DelieveredLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" />
-                <TextBox x:Name="PTransportDisBoxAc"  Text="{Binding ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="White" />
-            </Grid>
-        </Grid>
-        <Grid x:Name="Buttens" Grid.Row="1"  Grid.ColumnSpan="5">
+                <TextBox x:Name="PTransportDisBoxAc"  Text="{Binding ParcelInTransfer.TransportDistance, Mode=TwoWay}" Grid.Row="6" Grid.Column="5" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" Background="White" />-->
+        <Grid x:Name="Buttens" Grid.Row="1" Grid.ColumnSpan="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -157,11 +143,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="AddButten" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Click="AddButten_Click" Height="48" Width="94" FontFamily="Aharoni" FontSize="16" BorderBrush="#FFACACAC" BorderThickness="3,3,3,3"/>
-            <Button x:Name="CloseWindow" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1"  Width="82" Click="Close_Click" Height="31" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" />
-            <Button x:Name="UpdateButton" Grid.Column="2" Content="Update drone" VerticalAlignment="Center" Height="30" Click="Button_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" />
-            <Button x:Name="ChargeDrone" Content="" Grid.Column="3" VerticalAlignment="Center" Height="30" Click="ChargeDrone_Click" BorderThickness="3,3,3,3" FontFamily="Aharoni" FontSize="16"   />
-            <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="4" VerticalAlignment="Center" Height="30" Click="ChangeStatusDrone_Click" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3"  />
+            <Button x:Name="AddButten" Content="Add drone" Grid.Column="0" Click="AddButten_Click" Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="CloseWindow" Style="{StaticResource ButtenCloseStyle}" Content="Close" Grid.Column="1" Click="Close_Click"/>
+            <Button x:Name="UpdateButton" Grid.Column="2" Content="Update drone" Click="Button_Click" Style="{StaticResource ButtenStyle}"  />
+            <Button x:Name="ChargeDrone" Content="" Grid.Column="3" Click="ChargeDrone_Click"  Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="ChangeStatusDrone" Content=""  Grid.Column="4" Click="ChangeStatusDrone_Click"  Style="{StaticResource ButtenStyle}"/>
         </Grid>
     </Grid>
 </Window>
