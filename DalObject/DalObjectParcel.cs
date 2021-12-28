@@ -67,5 +67,10 @@ namespace Dal
         {
             return DataSource.Parcels.Select(item => item);
         }
+
+        public void DeletParcel(Parcel parcel)
+        {
+            DataSource.Parcels.Remove(parcel);
+        }
     }
 }

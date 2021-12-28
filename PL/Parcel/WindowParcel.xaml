@@ -38,8 +38,8 @@
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" />
                 <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
-                <Label Content="Sender ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Sender Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Resepter Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
 
                 <TextBox x:Name="IDBoxA" MaxLength="6" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="3,3,3,3" BorderBrush="#FFACACAC" Background="#FFEAEAEA" PreviewTextInput="NumberValidationTextBox" />
                 <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" FontFamily="Arial" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="Black" />
@@ -84,13 +84,13 @@
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource LableStyle}" />
                 <Button x:Name="RecepterButten" Content="Show more"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}"/>
                 <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" PreviewTextInput="NumberValidationTextBox" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Resever.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
@@ -134,8 +134,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="addDeletButton" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
-                <Button x:Name="DeliverPickUpButton" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
+                <Button x:Name="addDeletButton" Visibility="Collapsed" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
+                <Button x:Name="DeliverPickUpButton" Visibility="Collapsed" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
                 <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
             </Grid>
         </Grid>

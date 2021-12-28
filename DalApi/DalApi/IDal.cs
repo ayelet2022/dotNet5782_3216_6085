@@ -161,6 +161,8 @@ namespace DalApi
         /// <param name="droneId">the id of the drone we want to returne</param>
         /// <returns></returns>
         public DroneCharge GetDroneCharge(int droneId);
+
+        //public void DeletParcel(int parcelId);
     }
 }
 
