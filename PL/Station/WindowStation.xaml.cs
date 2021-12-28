@@ -68,8 +68,11 @@ namespace PL
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             WindowDrones windowDrones = new WindowDrones(ibl);
-            //Drone drone=ibl.GetDrone(listDronesInStation.SelectedItem)
-            windowDrones.selectedDrone = (DroneList)listDronesInStation.SelectedItem;
+            
+            DroneInCharge droneInCharging;
+            droneInCharging = (DroneInCharge)listDronesInStation.SelectedItem;
+            Drone drone = ibl.GetDrone(droneInCharging.Id);
+            windowDrones.selectedDrone = drone;
             new WindowDrone(ibl, windowDrones, 0).Show();
         }
 
