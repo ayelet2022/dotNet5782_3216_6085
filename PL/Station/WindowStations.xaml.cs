@@ -39,7 +39,7 @@ namespace PL
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             selectedStation = (BaseStationList)stationList.SelectedItem;//the drone that the mous double clicked on
-            new WindowStation(ibl, this, stationList.SelectedIndex).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowStation(ibl, this, 0).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         private void buttenAdd_Click(object sender, RoutedEventArgs e)

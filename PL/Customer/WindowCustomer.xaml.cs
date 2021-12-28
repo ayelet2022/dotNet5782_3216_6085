@@ -72,7 +72,7 @@ namespace PL
             DataContext = mainCustomer;//to connect between the text box and the data
             ParcelFromCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
-            if (parcelInCustomerFromCus != null)
+            if (parcelInCustomerFromCus.Count() != 0)
             {
                 ParcelFromCusListView.Visibility = Visibility.Visible;
                 foreach (var item in parcelInCustomerFromCus)
@@ -81,7 +81,7 @@ namespace PL
             }
             ParcelToCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerToCus = mainCustomer.ParcelsToCustomers.ToList();
-            if (parcelInCustomerToCus != null)
+            if (parcelInCustomerToCus.Count() != 0)
             {
                 ParcelToCusListView.Visibility = Visibility.Visible;
                 foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
@@ -162,6 +162,7 @@ namespace PL
                             break;
                     }
                 }
+
             }
             else
             {
@@ -183,6 +184,10 @@ namespace PL
                     MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
                 }
                 catch (MissingInfoException ex)
+                {
+                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                }
+                catch (NotFoundInputException ex)
                 {
                     MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
                 }
