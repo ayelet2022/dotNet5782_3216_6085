@@ -61,10 +61,6 @@ namespace PL
             Buttens.Visibility = Visibility.Visible;
             mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainDrone;//to connect between the text box and the data
-            if(mainDrone.ParcelInTransfer!=null)//if the drone has a parcel 
-            {
-                ParcelIT.Visibility = Visibility.Visible;//the window with the enfo of the parcel in the drone
-            }
             //changes the buttens content according to the drone statuse
             if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Available)//if the drone is available
             {
@@ -213,7 +209,6 @@ namespace PL
                 {
                     ibl.ScheduledAParcelToADrone(mainDrone.Id);//scheduled a parcel to the drone
                     ChargeDrone.Visibility = Visibility.Collapsed;
-                    ParcelIT.Visibility = Visibility.Visible;
                     ChangeStatusDrone.Content = "Pick up parcel";//to change the butten conntact to only be to pick up the parcel
                 }
                 //meens we can only pick up the parcel that the drone supposed to delivery
@@ -227,7 +222,6 @@ namespace PL
                 if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == true)
                 {
                     ibl.DeliverParcel(mainDrone.Id);//update the drone to deliver the parcel
-                    ParcelIT.Visibility = Visibility.Collapsed;//ther is no parcel in the drone now
                     ChargeDrone.Visibility = Visibility.Visible;
                     ChargeDrone.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDrone.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
