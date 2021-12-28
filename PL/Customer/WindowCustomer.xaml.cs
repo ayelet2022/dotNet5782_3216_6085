@@ -74,6 +74,7 @@ namespace PL
             List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
             if (parcelInCustomerFromCus.Count() != 0)
             {
+                ParcelFromCusLable.Visibility = Visibility.Visible;
                 ParcelFromCusListView.Visibility = Visibility.Visible;
                 foreach (var item in parcelInCustomerFromCus)
                     ParcelFromCusW.Add(item);
@@ -83,6 +84,7 @@ namespace PL
             List<ParcelInCustomer> parcelInCustomerToCus = mainCustomer.ParcelsToCustomers.ToList();
             if (parcelInCustomerToCus.Count() != 0)
             {
+                ParcelToCusLable.Visibility= Visibility.Visible;
                 ParcelToCusListView.Visibility = Visibility.Visible;
                 foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
                     ParcelToCusW.Add(item);

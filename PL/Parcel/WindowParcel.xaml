@@ -10,23 +10,32 @@
         <ImageBrush ImageSource="/קופסאות.jpg"/>
     </Window.Background>
     <Grid>
-        <Grid x:Name="ActionseGrid" Visibility="Visible">
+        <Grid x:Name="ActionseGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="AddUpdateGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="AddGrid" Grid.ColumnSpan="2" Grid.RowSpan="5" Visibility="Collapsed" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
-
-            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Collapsed" >
-                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -45,8 +54,10 @@
                 <TextBox x:Name="SenderBoxA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
                 <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
             </Grid>
-            <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.Row="0">
+            <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.ColumnSpan="8" Grid.RowSpan="8">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -63,38 +74,37 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}" />
                 <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
                 <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
-                <Label Content="Statuse:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
-                <Label Content="Created at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
-                <Label Content="Scheduled at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
-                <Label Content="Picked Up at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
-                <Label Content="Delivered at:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
+                <Label Content="Created" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
+                <Label Content="Scheduled" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
+                <Label Content="Picked Up" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
+                <Label Content="Delivered" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
                 <Label Content="Sender:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Style="{StaticResource LableStyle}"/>
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Style="{StaticResource LableStyle}"/>
-                <Button x:Name="SenderButten" Content="Show more" Grid.Column="2" Grid.Row="3" Click="SenderButten_Click" Style="{StaticResource ButtenStyle}"/>
+                <Button x:Name="SenderButten" Content="Show more" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" Click="SenderButten_Click" Style="{StaticResource ButtenStyle}"/>
                 <Label Content="Resepter:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Style="{StaticResource LableStyle}"/>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5" Style="{StaticResource LableStyle}"/>
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource LableStyle}" />
-                <Button x:Name="RecepterButten" Content="Show more"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}" Click="RecepterButten_Click" />
+                <Button x:Name="RecepterButten" Content="Show more"  Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="7" Style="{StaticResource ButtenStyle}" Click="RecepterButten_Click" />
                 <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" PreviewTextInput="NumberValidationTextBox" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="WeightBlockA"  Text="{Binding Weight, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding Scheduled, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUp, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding Delivered, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
-                <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Visible">
+                <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding Scheduled, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUp, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding Delivered, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ReseverNameBlockA"  Text="{Binding Recepter.Name, Mode=TwoWay}" Grid.Row="6" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
+                <Grid x:Name="DroneInParcel" Grid.Column="4" Grid.RowSpan="8" Grid.Row="0" Grid.ColumnSpan="8" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -114,27 +124,15 @@
                     <Label Content="Location:" Grid.Row="3" Grid.Column="0" Style="{StaticResource LableStyle}"/>
                     <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}" />
                     <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}" />
-                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.Column="2" Grid.Row="6" Style="{StaticResource ButtenStyle}" Click="Parcelsdrone_Click" />
-
-
+                    <Button x:Name="Parcelsdrone" Content="Show more" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="6" Style="{StaticResource ButtenStyle}" Click="Parcelsdrone_Click" />
                     <TextBlock x:Name="ParcelsIdTB" Text="{Binding ParecelDrone.Id, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
                     <TextBlock Text="{Binding ParecelDrone.Battery, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock Text="{Binding ParecelDrone.DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock Text="{Binding ParecelDrone.DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="Buttens" Grid.Row="8"  Grid.ColumnSpan="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="addDeletDeliverPickUpButton" Visibility="Collapsed" Grid.Column="0"   Click="addDeletDeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
-                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
-            </Grid>
+            <Button x:Name="addDeletDeliverPickUpButton" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="9"   Click="addDeletDeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
+            <Button x:Name="CloseWindowA" Content="Close" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="9" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
         </Grid>
     </Grid>
 </Window>
