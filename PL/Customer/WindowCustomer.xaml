@@ -51,7 +51,7 @@
                 </Grid.RowDefinitions>
                 <TextBox x:Name="IDBoxA" MaxLength="9" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Style="{StaticResource TextBoxStyle}" PreviewTextInput="NumberValidationTextBox" />
                 <TextBox x:Name="NameBoxA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1"  Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="PhoneBoxA"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2"  Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="PhoneBoxA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2"  Style="{StaticResource TextBoxStyle}" />
                 <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  Style="{StaticResource TextBoxStyle}" />
                 <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}" />
             </Grid>
@@ -98,7 +98,7 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="UpdateAddButton" Grid.Column="0" Style="{StaticResource ButtenStyle}" Click="UpdateAddButton_Click"/>
-                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" Style="{StaticResource ButtenStyle}" Click="Close_Click"/>
+                <Button x:Name="CloseWindowA" Content="Close" Grid.Column="4" Style="{StaticResource ButtenCloseStyle}" Click="Close_Click"/>
             </Grid>
         </Grid>
     </Grid>

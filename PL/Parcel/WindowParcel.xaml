@@ -22,7 +22,7 @@
                 </Grid.ColumnDefinitions>
             </Grid>
 
-            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Visible" >
+            <Grid x:Name="AddGrid" Grid.Column="0" Visibility="Collapsed" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -134,8 +134,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="addDeletButton" Visibility="Collapsed" Grid.Column="0"   Click="addDeletButton_Click" Style="{StaticResource ButtenStyle}" />
-                <Button x:Name="DeliverPickUpButton" Visibility="Collapsed" Grid.Column="1"   Click="DeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
+                <Button x:Name="addDeletDeliverPickUpButton" Visibility="Collapsed" Grid.Column="0"   Click="addDeletDeliverPickUpButton_Click" Style="{StaticResource ButtenStyle}" />
                 <Button x:Name="CloseWindowA" Content="Close" Grid.Column="5" Click="Close_Click" Style="{StaticResource ButtenStyle}"/>
             </Grid>
         </Grid>

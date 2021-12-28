@@ -6,26 +6,30 @@
         mc:Ignorable="d"
         Title="WindowCustomers" Height="450" Width="800">
     <Window.Background>
-            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
-        </Window.Background>
+        <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.3"/>
+    </Window.Background>
     <Grid>
-        <Grid Name="MainGrid" HorizontalAlignment="Right" Width="885" Margin="0,0,-85,-75">
+        <Grid Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="400*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid/>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2" Margin="0,0,102,588">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions >
-                <Button Name="Add" Content="Add new customer" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="44" Width="176" Click="Add_Click" Grid.Column="3" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" Background="#FFE8E8EC" BorderBrush="#FF858F8F"/>
-            </Grid>
-            <Button x:Name="CloseWDS" Content="Close" HorizontalAlignment="Left" Margin="640,461,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="CloseWDS_Click" Grid.Row="1" RenderTransformOrigin="0.007,-0.233" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FF858F8F"/>
-            <ListView Grid.Row="1"  x:Name="CustomerListView"  Margin="39,33,319,116" MouseDoubleClick="CustomerListView_MouseDoubleClick" BorderThickness="3,3,3,3" Foreground="Black">
+            <Button Name="Add" Content="Add new customer" Click="Add_Click" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
+            <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="CustomerListView" MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>

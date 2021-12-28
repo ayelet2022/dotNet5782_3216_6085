@@ -15,8 +15,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="OldCus" Grid.Column="0" Content="SIGN IN" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="OldCus_Click"/>
-            <Button x:Name="newCusButten" Content="NewCus" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="newCusButten_Click"/>
+            <Button x:Name="OldCus" Grid.Column="0" Content="SIGN IN"  Click="OldCus_Click" Style="{StaticResource ButtenNainStyle}"/>
+            <Button x:Name="newCusButten" Content="NewCus" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="newCusButten_Click"/>
             <Button x:Name="managerButten" Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="managerButten_Click"/>
             <Label Content="Label" HorizontalAlignment="Left" Margin="474,278,0,0" VerticalAlignment="Top"/>
             <Label Content="ID" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Aharoni"/>
@@ -28,6 +28,7 @@
             <Button x:Name="parcelsButten" Content="PARCELS" HorizontalAlignment="Left" Margin="316,255,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="parcelsButten_Click"/>
             <Button x:Name="customersButten" Content="CUSTOMERS" HorizontalAlignment="Left" Margin="429,255,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="customersButten_Click"/>
             <Button x:Name="stationsButten" Content="STATIONS" HorizontalAlignment="Left" Margin="132,255,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="stationsButten_Click"/>
+            <Button x:Name="GoBackButten" Content="GoBack"/>
 
         </Grid>
     </Grid>
