@@ -66,7 +66,7 @@ namespace PL
                 mainDrone = ibl.GetDrone(i);
             AddUpdateButten.Content = "Update the Drone";
             mainDrone.ParcelInTransfer = new();
-            mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
+            mainDrone = ibl.GetDrone(mainDrone.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainDrone;//to connect between the text box and the data
             //changes the buttens content according to the drone statuse
             if(mainDrone.ParcelInTransfer!=default)

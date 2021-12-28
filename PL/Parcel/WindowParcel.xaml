@@ -37,13 +37,13 @@
                 </Grid.RowDefinitions>
                 <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
-                <Label Content="Sender Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Resepter Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Sender ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
 
                 <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
                 <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
-                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
-                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
             </Grid>
             <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -86,9 +86,9 @@
                 <TextBlock x:Name="PriorityBlockA"  Text="{Binding Priority, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="StatuseBlockA"  Text="{Binding Statuse, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="CreatedBlockA"  Text="{Binding CreatParcel, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding ScheduledParcel, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUpParcel, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding DeliverdParcel, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="ScheduledBlockA"  Text="{Binding Scheduled, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="PickedUpBlockA"  Text="{Binding PickedUp, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
+                <TextBlock x:Name="DeliverdBlockA"  Text="{Binding Delivered, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderIDBlockA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="SenderNameBlockA"  Text="{Binding Sender.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <TextBlock x:Name="ReseverIDBlockA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
