@@ -115,7 +115,7 @@ namespace PL
                 case "Add the Parcel":
                     try
                     {
-                        if (mainParcel.Id == default || mainParcel.Sender == default || mainParcel.Recepter == default)
+                        if (mainParcel.Sender.Id == default || mainParcel.Recepter.Id == default)
                             throw new MissingInfoException("No information entered for this drone");
                         ibl.AddParcel(mainParcel);
                         _StatusWeightAndPriorities.status = BO.ParcelStatus.creat;
@@ -261,7 +261,7 @@ namespace PL
         private void Parcelsdrone_Click(object sender, RoutedEventArgs e)
         {
             WindowDrones windowDrones = new WindowDrones(ibl);
-            new WindowDrone(ibl, windowDrones, mainParcel.ParecelDrone.Id);
+            new WindowDrone(ibl, windowDrones, mainParcel.ParecelDrone.Id).Show();
         }
     }
 }

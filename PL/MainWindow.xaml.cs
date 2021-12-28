@@ -20,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BL.BL bl= BL.BlFactory.GetBl();
+        BlApi.IBL bl = BL.BlFactory.GetBl();
         /// <summary>
         /// the constractor of main window
         /// </summary>
@@ -32,7 +32,7 @@ namespace PL
 
         private void newCusButten_Click(object sender, RoutedEventArgs e)
         {
-            WindowCustomers windowCustomers = new(bl);
+            WindowCustomers windowCustomers = new WindowCustomers(bl);
             new WindowCustomer(bl, windowCustomers).Show();
         }
         private void managerButten_Click(object sender, RoutedEventArgs e)
