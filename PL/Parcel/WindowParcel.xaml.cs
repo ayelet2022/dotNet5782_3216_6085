@@ -26,7 +26,7 @@ namespace PL
         Parcel mainParcel = new();
 
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         private WindowParcels windowParcels;
         StatusWeightAndPriorities _StatusWeightAndPriorities;
 
@@ -35,7 +35,7 @@ namespace PL
         /// </summary>
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowParcels">the window with all the Parcel</param>
-        public WindowParcel(BL.BL bl, WindowParcels _windowParcels)
+        public WindowParcel(BlApi.IBL bl, WindowParcels _windowParcels)
         {
             InitializeComponent();
             ibl = bl;
@@ -54,7 +54,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowParcels">the window with all the drones</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowParcel(BL.BL bl, WindowParcels _windowParcels, int i = 0)
+        public WindowParcel(BlApi.IBL bl, WindowParcels _windowParcels, int i = 0)
         {
             ibl = bl;
             InitializeComponent();

@@ -32,7 +32,7 @@ namespace PL
     public partial class WindowParcels : Window
     {
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         public Dictionary<StatusWeightAndPriorities, List<ParcelList>> Parcels;
         public ParcelList selectedParcel = new();
 
@@ -40,7 +40,7 @@ namespace PL
         /// the constractor of the window
         /// </summary>
         /// <param name="bl"> the accses to the fileds in IBL</param>
-        public WindowParcels(BL.BL bl)
+        public WindowParcels(BlApi.IBL bl)
         {
             InitializeComponent();
             ibl = bl;

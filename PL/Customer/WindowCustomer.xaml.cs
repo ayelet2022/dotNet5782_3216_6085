@@ -25,7 +25,7 @@ namespace PL
     {
         Customer mainCustomer = new();
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         public ParcelList selectedparcelFC = new();
         public CustomerList selectedParcelTC = new();
         private WindowCustomers windowCustomers;
@@ -38,7 +38,7 @@ namespace PL
         /// </summary>
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowCustomers">the window with all the Customers</param>
-        public WindowCustomer(BL.BL bl, WindowCustomers _windowCustomers)
+        public WindowCustomer(BlApi.IBL bl, WindowCustomers _windowCustomers)
         {
             InitializeComponent();
             ibl = bl;
@@ -56,7 +56,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowCustomers">the window with all the Customers</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowCustomer(BL.BL bl, WindowCustomers _windowCustomers, int i=0)
+        public WindowCustomer(BlApi.IBL bl, WindowCustomers _windowCustomers, int i=0)
         {
             ibl = bl;
             InitializeComponent();

@@ -24,7 +24,7 @@ namespace PL
     public partial class WindowCustomers : Window
     {
         private bool _close { get; set; } = false;
-        BL.BL ibl;
+        BlApi.IBL ibl;
         public ObservableCollection<CustomerList> Customers;
         public CustomerList selectedCustomer = new();
 
@@ -32,7 +32,7 @@ namespace PL
         /// the constractor of the window
         /// </summary>
         /// <param name="bl"> the accses to the fileds in IBL</param>
-        public WindowCustomers(BL.BL bl)
+        public WindowCustomers(BlApi.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
