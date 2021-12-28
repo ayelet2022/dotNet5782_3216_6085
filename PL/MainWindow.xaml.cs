@@ -27,6 +27,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+            options.Visibility = Visibility.Visible;
         }
 
         private void newCusButten_Click(object sender, RoutedEventArgs e)
@@ -91,6 +92,12 @@ namespace PL
         {
             WindowCustomers windowCustomers = new(bl);
             new WindowCustomer(bl, windowCustomers).Show();
+        }
+
+        private void GoBackButten_Click(object sender, RoutedEventArgs e)
+        {
+            manager.Visibility = Visibility.Collapsed;
+            options.Visibility = Visibility.Visible;
         }
     }
 }

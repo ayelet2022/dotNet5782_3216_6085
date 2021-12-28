@@ -9,7 +9,7 @@
         <ImageBrush ImageSource="/רחפן.jpg"/>
     </Window.Background>
     <Grid x:Name="both">
-        <Grid x:Name="options" Visibility="Visible">
+        <Grid x:Name="options" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="*"/>
@@ -24,11 +24,25 @@
             <TextBox x:Name="idTB" HorizontalAlignment="Left" Margin="30,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" Height="28"/>
         </Grid>
         <Grid x:Name="manager" Visibility="Collapsed">
-            <Button x:Name="dronesButten"  Content="DRONES" HorizontalAlignment="Left" Margin="222,255,0,0" VerticalAlignment="Top" Width="88" Height="32" Click="dronesButten_Click" RenderTransformOrigin="0.5,0.5"/>
-            <Button x:Name="parcelsButten" Content="PARCELS" HorizontalAlignment="Left" Margin="316,255,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="parcelsButten_Click"/>
-            <Button x:Name="customersButten" Content="CUSTOMERS" HorizontalAlignment="Left" Margin="429,255,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="customersButten_Click"/>
-            <Button x:Name="stationsButten" Content="STATIONS" HorizontalAlignment="Left" Margin="132,255,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="stationsButten_Click"/>
-            <Button x:Name="GoBackButten" Content="GoBack" Style="{StaticResource ButtenNainStyle}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="dronesButten"  Content="DRONES" Grid.Row="4" Grid.Column="0" Style="{StaticResource ButtenNainStyle}"  Click="dronesButten_Click" />
+            <Button x:Name="parcelsButten" Content="PARCELS" Grid.Row="4" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="parcelsButten_Click"/>
+            <Button x:Name="customersButten" Content="CUSTOMERS" Grid.Row="4" Grid.Column="2" Style="{StaticResource ButtenNainStyle}" Click="customersButten_Click"/>
+            <Button x:Name="stationsButten" Content="STATIONS" Grid.Row="4" Grid.Column="3" Style="{StaticResource ButtenNainStyle}" Click="stationsButten_Click"/>
+            <Button x:Name="GoBackButten" Grid.Row="5" Grid.Column="3" Content="GoBack" Style="{StaticResource ButtenNainStyle}" Click="GoBackButten_Click"/>
 
         </Grid>
     </Grid>

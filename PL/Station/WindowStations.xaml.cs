@@ -68,5 +68,15 @@ namespace PL
                                       orderby item.EmptyCharges
                                       select item;//to show the all list
         }
+        /// <summary>
+        /// to close the window of the drones list 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseWDS_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
+        }
     }
 }
