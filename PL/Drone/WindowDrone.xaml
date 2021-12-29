@@ -81,7 +81,7 @@
             <Label Content="Longitude:"  Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
 
             <TextBlock x:Name="IdBoxAc"  Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlockStyle}"/>
-            <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="ModelBoxAc" Text="{Binding Model, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
             <TextBlock x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"   Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}"  Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
