@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BO;
 namespace PL
 {
     /// <summary>
@@ -37,9 +27,9 @@ namespace PL
         }
         private void managerButten_Click(object sender, RoutedEventArgs e)
         {
-            managerButten.IsEnabled = false;
+            ManagerButten.IsEnabled = false;
             PasswordBox.Visibility = Visibility.Visible;
-            
+            SignInM.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -72,21 +62,26 @@ namespace PL
         {
             try
             {
-                if (idTB.Text == default|| idTB.Text == "")
+                if (idTB.Text == default || idTB.Text == "")
                     throw new MissingInfoException("No id was entered");
                 Customer customer = bl.GetCustomer(int.Parse(idTB.Text));
                 WindowCustomers windowCustomers = new(bl);
-                new WindowCustomer(bl, windowCustomers,customer.Id).Show();
+                idTB.Text = null;
+                new WindowCustomer(bl, windowCustomers, customer.Id).Show();
             }
-            catch(MissingInfoException ex)
+            catch (MissingInfoException ex)
             {
                 MessageBox.Show("Failed to find the customer: " + ex.GetType().Name + "\n" + ex.Message);
+                idTB.Text = null;
+
             }
             catch (NotFoundInputException ex)
             {
                 MessageBox.Show("Failed to find the customer: " + ex.GetType().Name + "\n" + ex.Message);
+                idTB.Text = null;
+
             }
-            
+
         }
 
         private void newCusButten_Click_1(object sender, RoutedEventArgs e)
@@ -100,17 +95,50 @@ namespace PL
             manager.Visibility = Visibility.Collapsed;
             options.Visibility = Visibility.Visible;
         }
-        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+
+        private void SignInM_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordBox.Password == "010203")
+            try
             {
-                options.Visibility = Visibility.Collapsed;
-                manager.Visibility = Visibility.Visible;
-                managerButten.IsEnabled = true;
-                PasswordBox.Password = null;
-                PasswordBox.Visibility = Visibility.Collapsed;
+                if (PasswordBox.Password == "010203")
+                {
+                    options.Visibility = Visibility.Collapsed;
+                    manager.Visibility = Visibility.Visible;
+                    ManagerButten.IsEnabled = true;
+                    PasswordBox.Password = null;
+                    SignInM.Visibility = Visibility.Collapsed;
+                    PasswordBox.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    throw new InvalidInputException("Worng password");
+                }
+            }
+            catch (InvalidInputException ex)
+            {
+                var message = MessageBox.Show(ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                            MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        PasswordBox.Password = null;
+                        break;
+                    case MessageBoxResult.No:
+                        SignInM.Visibility = Visibility.Collapsed;
+                        ManagerButten.IsEnabled = true;
+                        PasswordBox.Password = null;
+                        PasswordBox.Visibility = Visibility.Collapsed;
+                        break;
+                    default:
+                        break;
+                }
             }
 
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

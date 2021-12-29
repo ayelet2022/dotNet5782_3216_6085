@@ -26,7 +26,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Button Name="Add" Content="Add new customer" Click="Add_Click" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
-        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" VerticalAlignment="Stretch" Click="Refresh_Click"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" VerticalAlignment="Top" Click="Refresh_Click" Height="30" Margin="0,21,0,0"/>
         <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
         <ListView x:Name="CustomerListView"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
             <ListView.View>

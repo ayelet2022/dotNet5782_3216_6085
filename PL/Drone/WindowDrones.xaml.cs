@@ -159,5 +159,10 @@ namespace PL
                 MessageBox.Show("You can't force the window to close");
             }
         }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            Selector();
+        }
     }
 }

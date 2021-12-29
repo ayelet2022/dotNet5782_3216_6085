@@ -78,5 +78,10 @@ namespace PL
             _close = true;
             Close();
         }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            MyRefresh();
+        }
     }
 }

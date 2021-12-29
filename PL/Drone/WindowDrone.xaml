@@ -111,8 +111,8 @@
                 <Label Content="ID:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
                 <Label Content="Priority:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="2" />
                 <Label Content="Weight:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Transport &#10; Distance:" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="4" />
-                <Label Content="Pick Up location:" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="5" />
+                <Label Content="Transport &#10; Distance:" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Pick Up location:" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="5" />
                 <Label Content="Latitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="6" />
                 <Label Content="Longitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="7" />
                 <Label Content="Delivery location:" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="8" />
@@ -148,10 +148,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="AddUpdateButten" Content="" Grid.Column="0" Click="AddUpdateButten_Click" Style="{StaticResource ButtenStyle}"/>
-            <Button x:Name="CloseWindowButten" Style="{StaticResource ButtenCloseStyle}" Content="Close" Grid.Column="4" Click="CloseButten_Click"/>
-            <Button x:Name="ChargeDroneButten" Content="" Grid.Column="2" Click="ChargeDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
-            <Button x:Name="ChangeStatusDroneButten" Content=""  Grid.Column="1" Click="ChangeStatusDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="AddUpdateButten" Width="185"  Content="" Grid.Column="0" Click="AddUpdateButten_Click" Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="CloseWindowButten"  Style="{StaticResource ButtenCloseStyle}" Content="Close" Grid.Column="4" Click="CloseButten_Click"/>
+            <Button x:Name="ChargeDroneButten" Width="185"  Content="" Grid.Column="2" Click="ChargeDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="ChangeStatusDroneButten" Width="185"  Content=""  Grid.Column="1" Click="ChangeStatusDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
         </Grid>
     </Grid>
 </Window>

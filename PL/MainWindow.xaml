@@ -10,19 +10,27 @@
     </Window.Background>
     <Grid x:Name="both">
         <Grid x:Name="options" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="OldCus" Grid.Column="0" Content="SIGN IN"  Click="OldCus_Click" Style="{StaticResource ButtenNainStyle}"/>
-            <Button x:Name="newCusButten" Content="NewCus" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="newCusButten_Click"/>
-            <Button x:Name="managerButten"  Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="managerButten_Click"/>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="474,278,0,0" VerticalAlignment="Top"/>
-            <Label Content="ID" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Aharoni"/>
-            <Label Content="EXISTING CUSTOMERS" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,136,0,0" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="307" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="idTB" HorizontalAlignment="Left" Margin="30,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" Height="28"/>
-            <PasswordBox x:Name="PasswordBox" Visibility="Collapsed"  Width="170" Height="30" Grid.Column="2"  BorderBrush="#FFB3ACAB" PasswordChanged="passwordBox_PasswordChanged"/>
+            <Button x:Name="OldCus" Grid.Column="0" Grid.Row="5" Content="SIGN IN"  Click="OldCus_Click" Style="{StaticResource ButtenNainStyle}"/>
+            <Button x:Name="NewCusButten" Grid.Row="5" Content="NewCus" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="newCusButten_Click"/>
+            <Button x:Name="SignInM" Visibility="Collapsed"  Width="129" Height="28" Grid.Row="4" Content="Sign in" Grid.Column="2" Style="{StaticResource ButtenStyle}" Click="SignInM_Click"/>
+            <Button x:Name="ManagerButten" Grid.Row="5"  Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="managerButten_Click"/>
+            <Label Content="ID" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" FontSize="18" FontFamily="Aharoni"/>
+            <Label Content="EXISTING CUSTOMERS" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="307" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="idTB" HorizontalAlignment="Left" PreviewTextInput="NumberValidationTextBox" MaxLength="9" Grid.Row="4" TextWrapping="Wrap" Text=""  Width="129" Height="28"/>
+            <PasswordBox x:Name="PasswordBox" PreviewTextInput="NumberValidationTextBox" MaxLength="9" Visibility="Collapsed"  Width="129" Height="28" Grid.Row="3" Grid.Column="2"  BorderBrush="#FFB3ACAB"/>
         </Grid>
         <Grid x:Name="manager" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
