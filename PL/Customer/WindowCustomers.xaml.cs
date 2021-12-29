@@ -99,5 +99,10 @@ namespace PL
         {
             Customers.OrderBy(item => item.Id);
         }
+        public void MyRefresh()
+        {
+            Customers.OrderBy(item => item.Id);
+            CustomerListView.Items.Refresh();
+        }
     }
 }
