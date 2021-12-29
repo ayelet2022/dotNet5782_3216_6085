@@ -31,6 +31,7 @@
         <Label Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
         <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}"/>
         <Button x:Name="CloseWDS" Content="Close" Grid.Column="5" Grid.Row="5" Click="CloseWDS_Click" Style="{StaticResource ButtenCloseStyle}"/>
         <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}">
             <ListView.View>

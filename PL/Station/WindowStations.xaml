@@ -28,6 +28,7 @@
         </Grid.ColumnDefinitions>
         <Grid/>
         <Button Name="Add" Content="Add new station" Click="buttenAdd_Click" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}"/>
         <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5"  Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
         <ListView x:Name="stationList" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" Style="{StaticResource ListViewStyle}" MouseDoubleClick="stationList_MouseDoubleClick">
             <ListView.View>

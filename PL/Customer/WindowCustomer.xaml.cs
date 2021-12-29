@@ -63,6 +63,7 @@ namespace PL
             windowCustomers = _windowCustomers;
             AddGrid.Visibility = Visibility.Collapsed;
             UpdateGride.Visibility = Visibility.Visible;
+            AddParcel.Visibility = Visibility.Visible;
             UpdateAddButton.Content = "Update the customer";
             mainCustomer.CustomerLocation = new();
             if (i == 0)
@@ -256,5 +257,10 @@ namespace PL
             }
         }
 
+        private void AddParcel_Click(object sender, RoutedEventArgs e)
+        {
+            WindowParcels windowParcels = new WindowParcels(ibl);
+            new WindowParcel(ibl, windowParcels).Show();
+        }
     }
 }

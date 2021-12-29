@@ -128,7 +128,7 @@ namespace PL
                         else
                             windowParcels.Parcels.Add(_StatusWeightAndPriorities, ibl.GetParcels().Where(i => i.Id == mainParcel.Id).ToList());
                         windowParcels.Selector();
-                        MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
+                        MessageBoxResult messageBoxResult1 = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
                         _close = true;
                         Close();
                     }
@@ -182,9 +182,9 @@ namespace PL
                     }
                     break;
                 case "Delet the parcel":
-                    //ibl.DeletParcel(mainParcel);
+                    ibl.DeletParcel(mainParcel);
                     windowParcels.Selector();
-                    _close = true;
+                    MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + mainParcel.ToString());
                     Close();
                     break;
                 case "Pick up":

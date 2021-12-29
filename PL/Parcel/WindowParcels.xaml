@@ -33,6 +33,7 @@
         <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <ComboBox x:Name="PrioritiesSelector" Grid.Column="5" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="PrioritiesSelector_SelectionChanged"/>
         <Label Content="Sort by prioritie:" Grid.Column="4" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>
         <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
         <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  x:Name="ParcelsListView" MouseDoubleClick="ParcelListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
             <ListView.View>

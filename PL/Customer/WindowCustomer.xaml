@@ -6,11 +6,41 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowCustomer" Height="450" Width="800">
-    <Grid>
-        <Grid x:Name="ActionseGrid">
-            <Grid.Background>
-                <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
-            </Grid.Background>
+    <Grid x:Name="ActionseGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Customer/לקוחות 2.png"  Opacity="0.4"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="ID:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="0" />
+        <Label Content="Name:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="1"/>
+        <Label Content="Phone:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="2"/>
+        <Label Content="Location:" Style="{StaticResource LableStyle}" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="3" />
+        <Label Content="Latitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="4"/>
+        <Label Content="Longitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="5"/>
+        <Grid x:Name="AddGrid" Visibility="Visible"  Grid.Column="1"   Grid.RowSpan="9" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -21,6 +51,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <TextBox x:Name="IDBoxA" MaxLength="9" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Style="{StaticResource TextBoxStyle}" PreviewTextInput="NumberValidationTextBox" />
+            <TextBox x:Name="NameBoxA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1"  Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="PhoneBoxA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2"  Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}" />
+        </Grid>
+        <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -29,81 +66,43 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="ID:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="0" />
-                <Label Content="Name:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Phone:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="2"/>
-                <Label Content="Location:" Style="{StaticResource LableStyle}" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Latitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="4"/>
-                <Label Content="Longitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="5"/>
-            <Grid x:Name="AddGrid" Visibility="Collapsed"  Grid.Column="1"   Grid.RowSpan="9" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBox x:Name="IDBoxA" MaxLength="9" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Style="{StaticResource TextBoxStyle}" PreviewTextInput="NumberValidationTextBox" />
-                <TextBox x:Name="NameBoxA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1"  Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="PhoneBoxA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2"  Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}" />
-            </Grid>
-            <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}" PreviewTextInput="NumberValidationTextBox" />
-                <TextBox x:Name="NameBlockA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
-                <TextBox x:Name="PhoneBlockA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
-                <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
-                <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
-                <Label x:Name="ParcelFromCusLable" Content="Parcel To CusList" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
-                <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Label x:Name="ParcelToCusLable" Content="Parcel To Customer" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="5"/>
-                <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="6" Grid.RowSpan="4" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-            <Button x:Name="UpdateAddButton" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Style="{StaticResource ButtenStyle}" Click="UpdateAddButton_Click"/>
-            <Button x:Name="CloseWindowA" Grid.Column="8" Grid.Row="9" Content="Close" Style="{StaticResource ButtenCloseStyle}" Click="Close_Click"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}" PreviewTextInput="NumberValidationTextBox" />
+            <TextBox x:Name="NameBlockA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
+            <TextBox x:Name="PhoneBlockA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
+            <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
+            <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
+            <Label x:Name="ParcelFromCusLable" Content="Parcel To CusList" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
+            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label x:Name="ParcelToCusLable" Content="Parcel To Customer" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="5"/>
+            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="6" Grid.RowSpan="4" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
+        <Button x:Name="UpdateAddButton" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Style="{StaticResource ButtenStyle}" Click="UpdateAddButton_Click"/>
+        <Button x:Name="AddParcel" Visibility="Collapsed" Content="Add a new parcel" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Style="{StaticResource ButtenStyle}" Click="AddParcel_Click"/>
+        <Button x:Name="CloseWindowA" Grid.Column="8" Grid.Row="9" Content="Close" Style="{StaticResource ButtenCloseStyle}" Click="Close_Click"/>
     </Grid>
 </Window>
