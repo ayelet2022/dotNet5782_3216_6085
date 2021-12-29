@@ -74,14 +74,14 @@ namespace PL
             }
             if (mainParcel.Scheduled != null)//if the parcel  has a drone 
             {
-                if (mainParcel.Delivered == null && mainParcel.PickedUp == null)
-                {
-                    addDeletDeliverPickUpButton.Content = "Pick up";
-                }
-                if (mainParcel.Delivered == null && mainParcel.PickedUp != null)
-                {
-                    addDeletDeliverPickUpButton.Content = "Deliver";
-                }
+                //if (mainParcel.Delivered == null && mainParcel.PickedUp == null)
+                //{
+                //    addDeletDeliverPickUpButton.Content = "Pick up";
+                //}
+                //if (mainParcel.Delivered == null && mainParcel.PickedUp != null)
+                //{
+                //    addDeletDeliverPickUpButton.Content = "Deliver";
+                //}
 
                 DroneInParcel.Visibility = Visibility.Visible;//show the gride of the parcels drone
             }
@@ -187,54 +187,54 @@ namespace PL
                     MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + mainParcel.ToString());
                     Close();
                     break;
-                case "Pick up":
-                    try
-                    {
-                        ibl.PickUpParcel(mainParcel.ParecelDrone.Id);
-                    }
-                    catch (FailToUpdateException ex)
-                    {
-                        var message = MessageBox.Show("Failed to pick up the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        switch (message)
-                        {
-                            case MessageBoxResult.Yes:
-                                SenderBoxA.Text = "";
-                                RecepterBoxA.Text = "";
-                                break;
-                            case MessageBoxResult.No:
-                                _close = true;
-                                Close();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    break;
-                case "Deliver":
-                    try
-                    {
-                        ibl.DeliverParcel(mainParcel.ParecelDrone.Id);
-                    }
-                    catch (FailToUpdateException ex)
-                    {
-                        var message = MessageBox.Show("Failed to deliver the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        switch (message)
-                        {
-                            case MessageBoxResult.Yes:
-                                SenderBoxA.Text = "";
-                                RecepterBoxA.Text = "";
-                                break;
-                            case MessageBoxResult.No:
-                                _close = true;
-                                Close();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    break;
+                //case "Pick up":
+                //    try
+                //    {
+                //        ibl.PickUpParcel(mainParcel.ParecelDrone.Id);
+                //    }
+                //    catch (FailToUpdateException ex)
+                //    {
+                //        var message = MessageBox.Show("Failed to pick up the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
+                //            MessageBoxButton.YesNo, MessageBoxImage.Error);
+                //        switch (message)
+                //        {
+                //            case MessageBoxResult.Yes:
+                //                SenderBoxA.Text = "";
+                //                RecepterBoxA.Text = "";
+                //                break;
+                //            case MessageBoxResult.No:
+                //                _close = true;
+                //                Close();
+                //                break;
+                //            default:
+                //                break;
+                //        }
+                //    }
+                //    break;
+                //case "Deliver":
+                //    try
+                //    {
+                //        ibl.DeliverParcel(mainParcel.ParecelDrone.Id);
+                //    }
+                //    catch (FailToUpdateException ex)
+                //    {
+                //        var message = MessageBox.Show("Failed to deliver the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
+                //            MessageBoxButton.YesNo, MessageBoxImage.Error);
+                //        switch (message)
+                //        {
+                //            case MessageBoxResult.Yes:
+                //                SenderBoxA.Text = "";
+                //                RecepterBoxA.Text = "";
+                //                break;
+                //            case MessageBoxResult.No:
+                //                _close = true;
+                //                Close();
+                //                break;
+                //            default:
+                //                break;
+                //        }
+                //    }
+                //    break;
             }
         }
 
