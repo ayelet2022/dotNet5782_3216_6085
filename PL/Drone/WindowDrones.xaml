@@ -6,37 +6,38 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowDrones" Height="640" Width="800" Closing="WindowClose">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg"/>
-    </Window.Background>
-    <Grid>
-        <Grid Name="MainGrid" HorizontalAlignment="Right" Width="885" Margin="0,0,-85,-75">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="400*"/>
-            </Grid.RowDefinitions>
-            <Grid/>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.RowSpan="2" Margin="0,0,102,588">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions >
-                <Button Name="Add" Content="Add new drone" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="44" Width="176" Click="Add_Click" Grid.Column="3" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" Background="#FFE8E8EC" BorderBrush="#FF858F8F"/>
-                <ComboBox x:Name="StatusSelector"  SelectionChanged="StatusSelector_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="114" FontFamily="Arial" FontSize="16"  />
-                <Label Name="Status" Content="Sort by status:" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
-                <ComboBox x:Name="WeightSelector"   Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="114" Height="33" SelectionChanged="WeightSelector_SelectionChanged" FontFamily="Arial" FontSize="16"/>
-                <Label Content="Sort by weight:" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,7,0,0" FontSize="14" FontFamily="Aharoni"/>
-            </Grid>
-            <Button x:Name="CloseWDS" Content="Close" HorizontalAlignment="Left" Margin="640,461,0,0" VerticalAlignment="Top" Height="44" Width="116" Click="CloseWDS_Click" Grid.Row="1" RenderTransformOrigin="0.007,-0.233" FontFamily="Aharoni" FontSize="16" BorderThickness="3,3,3,3" BorderBrush="#FF858F8F"/>
-            <ListView Grid.Row="1"  x:Name="DronesListView"  Margin="39,33,319,116" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
+    <Grid Name="MainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
+        <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
+        <Label Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
+        <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <Button x:Name="CloseWDS" Content="Close" Grid.Column="5" Grid.Row="5" Click="CloseWDS_Click" Style="{StaticResource ButtenCloseStyle}"/>
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

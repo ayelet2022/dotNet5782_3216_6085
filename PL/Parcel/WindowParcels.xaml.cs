@@ -93,7 +93,7 @@ namespace PL
         /// <summary>
         /// shows the list according to the filter that the user disided
         /// </summary>
-        private void Selector()
+        public void Selector()
         {
             ParcelStatus pStatus = (ParcelStatus)StatusSelector.SelectedItem;
             if (WeightSelector.SelectedIndex == -1)//meens no filter was chosen
@@ -104,7 +104,9 @@ namespace PL
             WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
             if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All&&pPriorities==Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Values.SelectMany(item => item);//to show the all list
+                ParcelsListView.ItemsSource = from item in Parcels.Values.SelectMany(x => x)
+                                             orderby item.Weight, item.ParcelStatus,item.Priority
+                                             select item;//to show the all list//to show the all list
             //if only he wants to filter the weight category
             if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All&&pPriorities!=Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.priorities == (BO.Priorities)PrioritiesSelector.SelectedItem).SelectMany(item => item.Value);

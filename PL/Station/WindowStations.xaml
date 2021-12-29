@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowStations" Height="450" Width="800">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" />
-    </Window.Background>
     <Grid x:Name="MainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>

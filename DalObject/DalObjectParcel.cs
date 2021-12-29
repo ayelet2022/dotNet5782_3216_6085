@@ -70,9 +70,9 @@ namespace Dal
                    select item;
         }
 
-        public void DeletParcel(Parcel parcel)
-        {
-            DataSource.Parcels.Remove(parcel);
-        }
+        //public void DeletParcel(Parcel parcel)
+        //{
+        //    DataSource.Parcels.Remove(parcel);
+        //}
     }
 }

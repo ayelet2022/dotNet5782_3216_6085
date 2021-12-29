@@ -121,11 +121,13 @@ namespace PL
                         _StatusWeightAndPriorities.status = BO.ParcelStatus.creat;
                         _StatusWeightAndPriorities.priorities = mainParcel.Priority;
                         _StatusWeightAndPriorities.weight = mainParcel.Weight;
-                        mainParcel = ibl.GetParcel(mainParcel.Id);
+                        int id = ibl.GetParcels().Last().Id;
+                        mainParcel = ibl.GetParcel(id);
                         if (windowParcels.Parcels.ContainsKey(_StatusWeightAndPriorities))
                             windowParcels.Parcels[_StatusWeightAndPriorities].Add(ibl.GetParcels().First(i => i.Id == mainParcel.Id));
                         else
                             windowParcels.Parcels.Add(_StatusWeightAndPriorities, ibl.GetParcels().Where(i => i.Id == mainParcel.Id).ToList());
+                        windowParcels.Selector();
                         MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
                         _close = true;
                         Close();
@@ -180,7 +182,10 @@ namespace PL
                     }
                     break;
                 case "Delet the parcel":
-                    ibl.DeletParcel(mainParcel);
+                    //ibl.DeletParcel(mainParcel);
+                    windowParcels.Selector();
+                    _close = true;
+                    Close();
                     break;
                 case "Pick up":
                     try

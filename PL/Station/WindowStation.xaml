@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowStation" Height="450" Width="800">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" />
-    </Window.Background>
     <Grid x:Name="both">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -50,12 +50,12 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="avaiChargesTB" MaxLength="6" PreviewTextInput="NumberValidationTextBox" Text="{Binding EmptyCharges, Mode=TwoWay}" Grid.Row="3" Style="{StaticResource TextBoxStyle}"/>
-            <TextBox x:Name="idTB" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="avaiChargesTB"  Text="{Binding EmptyCharges, Mode=TwoWay}" Grid.Row="2" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="idTB" MaxLength="6" PreviewTextInput="NumberValidationTextBox" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Style="{StaticResource TextBoxStyle}"/>
             <TextBox x:Name="latitudeTB" Text="{Binding BaseStationLocation.Latitude, Mode=TwoWay}"  Grid.Row="4"  Style="{StaticResource TextBoxStyle}"/>
             <TextBox x:Name="longtitudeTB" Text="{Binding BaseStationLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}"/>
         </Grid>
-        <Grid x:Name="updateGrid" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="8">
+        <Grid x:Name="updateGrid" Visibility="Collapsed"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

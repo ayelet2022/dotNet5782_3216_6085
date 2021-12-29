@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="temp" Height="450" Width="800" Closing="WindowClose">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg"/>
-    </Window.Background>
     <Grid x:Name="AddActionseGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>

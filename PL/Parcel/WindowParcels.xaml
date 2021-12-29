@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowParcels" Height="640" Width="800" Closing="WindowClose">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg" />
-    </Window.Background>
     <Grid Name="MainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>

@@ -28,7 +28,6 @@ namespace PL
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
         private WindowDrones windowDrones;
-        
         /// <summary>
         /// constructer-adds a new drone   
         /// </summary>

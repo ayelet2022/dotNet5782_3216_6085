@@ -98,12 +98,17 @@ namespace PL
                 {
                     try
                     {
-                        //StationListWindow.CurrentStation.Name = NameTxtUp.Text;//updating drone name
-                        //StationListWindow.CurrentStation.AvailableChargeSlots = int.Parse(ChargeSlotsTxtUp.Text);
-                        ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(chargingSlotsTB.Text));
+                        if (chargingSlotsTB.Text == default || chargingSlotsTB.Text == "")
+                            ibl.UpdateStation(station.Id, nameTB.Text, 0);
+                        else
+                        {
+                            ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(chargingSlotsTB.Text));
+                            windowStations.selectedStation.EmptyCharges = int.Parse(chargingSlotsTB.Text) - windowStations.selectedStation.FullChargingPositions;
+                            avaiChargesTBl.Text = windowStations.selectedStation.EmptyCharges.ToString();
+                        }
                         //updates all the text box according to what was updated
+                        station = ibl.GetBaseStation(station.Id);
                         windowStations.selectedStation.Name = nameTB.Text;
-                        windowStations.selectedStation.EmptyCharges = int.Parse(chargingSlotsTB.Text) - windowStations.selectedStation.FullChargingPositions; 
                         windowStations.MyRefresh();
                         MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
                     }

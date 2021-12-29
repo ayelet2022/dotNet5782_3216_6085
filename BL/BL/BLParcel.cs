@@ -96,10 +96,10 @@ namespace BL
             return Parcels.FindAll(item => predicate == null ? true : predicate(item));
         }
 
-        public void DeletParcel(Parcel parcel)
-        {
-            
-        }
+        //public void DeletParcel(Parcel parcel)
+        //{
+        //    dal.DeletParcel(parcel.Id);
+        //}
 
     }
 }

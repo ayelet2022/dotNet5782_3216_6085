@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="WindowCustomer" Height="450" Width="800">
-    <Window.Background>
-        <ImageBrush ImageSource="/קופסאות.jpg"/>
-    </Window.Background>
     <Grid>
         <Grid x:Name="ActionseGrid">
+            <Grid.Background>
+                <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -37,15 +37,12 @@
                 <Label Content="Location:" Style="{StaticResource LableStyle}" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="3" />
                 <Label Content="Latitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="4"/>
                 <Label Content="Longitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="5"/>
-            <Grid x:Name="AddGrid" Visibility="Collapsed"  Grid.Column="1"   Grid.RowSpan="6" Grid.ColumnSpan="2">
+            <Grid x:Name="AddGrid" Visibility="Collapsed"  Grid.Column="1"   Grid.RowSpan="9" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
