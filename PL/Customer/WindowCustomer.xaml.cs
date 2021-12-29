@@ -174,7 +174,9 @@ namespace PL
                     AddGrid.Visibility = Visibility.Collapsed;
                     UpdateGride.Visibility = Visibility.Visible;
                     ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
-                    int index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
+                    CustomerList customerList = new();
+                    customerList = ibl.GetCustomers(item => item.Id == mainCustomer.Id).FirstOrDefault();
+                    int index = windowCustomers.Customers.IndexOf(customerList);//fineds the index of the drone that we wanted to update
                     if (NameBoxA.Text != default)
                         windowCustomers.selectedCustomer.Name = NameBoxA.Text;//changes the model of the drone thet was clicked in the drones list
                     if (PhoneBoxA.Text != default)
