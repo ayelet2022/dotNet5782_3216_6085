@@ -9,7 +9,7 @@
         <ImageBrush ImageSource="/רחפן.jpg"/>
     </Window.Background>
     <Grid x:Name="both">
-        <Grid x:Name="options" Visibility="Collapsed">
+        <Grid x:Name="options" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="*"/>

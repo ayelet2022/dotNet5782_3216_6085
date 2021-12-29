@@ -38,6 +38,7 @@ namespace PL
         private void managerButten_Click(object sender, RoutedEventArgs e)
         {
             options.Visibility = Visibility.Collapsed;
+            
             manager.Visibility = Visibility.Visible;
         }
 

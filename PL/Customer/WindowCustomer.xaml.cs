@@ -64,11 +64,11 @@ namespace PL
             AddGrid.Visibility = Visibility.Collapsed;
             UpdateGride.Visibility = Visibility.Visible;
             UpdateAddButton.Content = "Update the customer";
+            mainCustomer.CustomerLocation = new();
             if (i == 0)
                 mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
             else
                 mainCustomer = ibl.GetCustomer(i);
-            mainCustomer.CustomerLocation = new();
             DataContext = mainCustomer;//to connect between the text box and the data
             ParcelFromCusW = new ObservableCollection<ParcelInCustomer>();
             List<ParcelInCustomer> parcelInCustomerFromCus = mainCustomer.ParcelsFromCustomers.ToList();
