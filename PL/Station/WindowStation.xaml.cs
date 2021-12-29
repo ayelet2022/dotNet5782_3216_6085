@@ -148,6 +148,7 @@ namespace PL
                     case MessageBoxResult.Yes:
                         idTB.Text = "";
                         longtitudeTB.Text = "";
+                        nameTB.Text = "";
                         latitudeTB.Text = "";
                         avaiChargesTB.Text = "";
                         break;
