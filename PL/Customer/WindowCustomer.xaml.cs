@@ -63,6 +63,7 @@ namespace PL
             windowCustomers = _windowCustomers;
             AddGrid.Visibility = Visibility.Collapsed;
             UpdateGride.Visibility = Visibility.Visible;
+            AddParcel.Visibility = Visibility.Visible;
             UpdateAddButton.Content = "Update the customer";
             if (i == 0)
                 mainCustomer = ibl.GetCustomer(windowCustomers.selectedCustomer.Id);//returnes the drone that the mouce clicked twise on
@@ -256,5 +257,10 @@ namespace PL
             }
         }
 
+        private void AddParcel_Click(object sender, RoutedEventArgs e)
+        {
+            WindowParcels windowParcels = new WindowParcels(ibl);
+            new WindowParcel(ibl, windowParcels).Show();
+        }
     }
 }

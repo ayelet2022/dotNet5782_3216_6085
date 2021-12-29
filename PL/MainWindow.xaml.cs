@@ -37,8 +37,9 @@ namespace PL
         }
         private void managerButten_Click(object sender, RoutedEventArgs e)
         {
-            options.Visibility = Visibility.Collapsed;
-            manager.Visibility = Visibility.Visible;
+            managerButten.IsEnabled = false;
+            PasswordBox.Visibility = Visibility.Visible;
+            
         }
 
         /// <summary>
@@ -98,6 +99,18 @@ namespace PL
         {
             manager.Visibility = Visibility.Collapsed;
             options.Visibility = Visibility.Visible;
+        }
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PasswordBox.Password == "010203")
+            {
+                options.Visibility = Visibility.Collapsed;
+                manager.Visibility = Visibility.Visible;
+                managerButten.IsEnabled = true;
+                PasswordBox.Password = null;
+                PasswordBox.Visibility = Visibility.Collapsed;
+            }
+
         }
     }
 }

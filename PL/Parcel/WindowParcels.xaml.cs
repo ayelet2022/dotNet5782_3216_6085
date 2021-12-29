@@ -178,5 +178,18 @@ namespace PL
         {
             Selector();
         }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            Parcels = (from item in ibl.GetParcels()
+                       group item by
+                       new StatusWeightAndPriorities()
+                       {
+                           status = item.ParcelStatus,
+                           weight = item.Weight,
+                           priorities = item.Priority,
+                       }).ToDictionary(item => item.Key, item => item.ToList());
+            Selector();
+        }
     }
 }

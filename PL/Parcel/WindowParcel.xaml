@@ -44,15 +44,15 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
-                <Label Content="Sender ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
-                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" />
+                <Label Content="Sender ID:"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
+                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
 
                 <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
                 <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
-                <TextBox x:Name="SenderBoxA"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
-                <TextBox x:Name="RecepterBoxA"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+                <TextBox x:Name="SenderBoxA" MaxLength="9" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Sender.Id, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  Style="{StaticResource TextBoxStyle}"/>
+                <TextBox x:Name="RecepterBoxA" MaxLength="9" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Recepter.Id, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
             </Grid>
             <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.ColumnSpan="8" Grid.RowSpan="8">
                 <Grid.ColumnDefinitions>
@@ -78,10 +78,10 @@
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}" />
                 <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
                 <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
-                <Label Content="Created" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
-                <Label Content="Scheduled" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
-                <Label Content="Picked Up" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
-                <Label Content="Delivered" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Style="{StaticResource LableStyle}"/>
+                <Label Content="Created" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" Style="{StaticResource LableStyle}"/>
+                <Label Content="Scheduled" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Style="{StaticResource LableStyle}"/>
+                <Label Content="Picked Up" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Style="{StaticResource LableStyle}"/>
+                <Label Content="Delivered" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6" Style="{StaticResource LableStyle}"/>
                 <Label Content="Sender:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
                 <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Style="{StaticResource LableStyle}"/>
                 <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Style="{StaticResource LableStyle}"/>

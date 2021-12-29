@@ -138,7 +138,8 @@ namespace BlApi
         /// to delet a parcel
         /// </summary>
         /// <param name="parcel">the parcel we want to delet</param>
-        //void DeletParcel(Parcel parcel);
+        public void DeletParcel(Parcel parcel);
+
 
     }
 }

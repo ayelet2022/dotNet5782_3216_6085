@@ -38,6 +38,7 @@ namespace PL
             ibl = bl;
             Customers = new ObservableCollection<CustomerList>();
             List<CustomerList> customers = ibl.GetCustomers().ToList();
+            customers.OrderBy(item => item.Id);
             foreach (var item in customers)//to fet and shoe all the drones
                 Customers.Add(item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
@@ -92,6 +93,11 @@ namespace PL
                 e.Cancel = true;
                 MessageBox.Show("You can't force the window to close");
             }
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
