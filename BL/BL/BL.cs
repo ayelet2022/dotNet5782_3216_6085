@@ -23,11 +23,11 @@ namespace BL
         /// </summary>
         private BL()
         {
-            Rand = new Random();
+            //Rand = new Random();
             dal = DalApi.DalFactory.GetDL();
-            power = dal.AskForBattery();
-            chargingRate = power[4]; 
-            InitializeDroneList(Drones);
+            //power = dal.AskForBattery();
+            //chargingRate = power[4];
+            //InitializeDroneList(Drones);
         }
         /// <summary>
         /// the builder if list

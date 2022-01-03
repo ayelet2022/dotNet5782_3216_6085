@@ -12,6 +12,7 @@ namespace Dal
     {
         public void AddBaseStation(BaseStation addBaseStation)
         {
+            
             if (DataSource.Stations.Exists(item => item.Id == addBaseStation.Id))
                 throw new ExistsException($"Base station id: {addBaseStation.Id} already exists.");
             DataSource.Stations.Add(addBaseStation);
