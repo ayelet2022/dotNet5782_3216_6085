@@ -1,4 +1,6 @@
 ﻿using BO;
+using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -139,6 +141,10 @@ namespace PL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void WindowClose(object sender, CancelEventArgs e)
+        {
         }
     }
 }
