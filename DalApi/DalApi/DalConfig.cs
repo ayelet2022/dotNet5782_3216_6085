@@ -24,7 +24,7 @@ namespace DalApi
         /// </summary>
         static DalConfig()
         {
-            XElement dlConfig = XElement.Load(@"config.xml");
+            XElement dlConfig = XElement.Load(@"dal-config.xml");
             DalName = dlConfig.Element("dal").Value;
             DalPackages = (from pkg in dlConfig.Element("dal-packages").Elements()
                            let tmp1 = pkg.Attribute("namespace")

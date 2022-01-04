@@ -221,8 +221,7 @@ namespace PL
         private void ParcelToCusListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelInCustomer parcel = (ParcelInCustomer)ParcelToCusListView.SelectedItem;//the drone that the mous double clicked on
-            WindowParcels windowParcels = new WindowParcels(ibl);
-            new WindowParcel(ibl, windowParcels, parcel.Id).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowParcel(ibl, this, parcel.Id, ParcelToCusListView.SelectedIndex,mainCustomer.Id).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>
@@ -233,8 +232,7 @@ namespace PL
         private void ParcelFromCusListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelInCustomer parcel = (ParcelInCustomer)ParcelFromCusListView.SelectedItem;
-            WindowParcels windowParcels = new WindowParcels(ibl);
-            new WindowParcel(ibl, windowParcels, parcel.Id).Show();//to show the all the details of the drone and to be able to updae him
+            new WindowParcel(ibl, this, parcel.Id, ParcelFromCusListView.SelectedIndex, mainCustomer.Id).Show();//to show the all the details of the drone and to be able to updae him
         }
 
         /// <summary>

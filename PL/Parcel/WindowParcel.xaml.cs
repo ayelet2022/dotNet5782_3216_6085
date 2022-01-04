@@ -29,7 +29,15 @@ namespace PL
         BlApi.IBL ibl;
         private WindowParcels windowParcels;
         StatusWeightAndPriorities _StatusWeightAndPriorities;
-
+        private WindowCustomer windowCustomer { get; set; }
+        private int index { get; set; }
+        private int customerId { get; set; }
+        public WindowParcel(BlApi.IBL bl, WindowCustomer _windowCustomer, int id, int _index,int _customerId) : this(bl, null, id)
+        {
+            windowCustomer = _windowCustomer;
+            index = _index;
+            customerId = _customerId;
+        }
         /// <summary>
         /// constructer-adds a new Parcel   
         /// </summary>
@@ -183,7 +191,12 @@ namespace PL
                     break;
                 case "Delet the parcel":
                     ibl.DeletParcel(mainParcel);
-                    windowParcels.Selector();
+                    if (customerId == mainParcel.Recepter.Id)
+                        windowCustomer.ParcelToCusW.RemoveAt(index);
+                    if (customerId == mainParcel.Sender.Id)
+                        windowCustomer.ParcelFromCusW.RemoveAt(index);
+                    if (windowParcels != null)
+                        windowParcels.Selector();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + mainParcel.ToString());
                     Close();
                     break;

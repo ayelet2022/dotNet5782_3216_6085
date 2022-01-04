@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -25,7 +26,7 @@ namespace PL
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
         private WindowStations windowStations;
-
+        public ObservableCollection<DroneInCharge> dronesInchargeList = new ObservableCollection<DroneInCharge>();
         /// <summary>
         /// constructer-updates the station that the mouse clicked twice on
         /// </summary>
@@ -43,6 +44,8 @@ namespace PL
             DataContext = station;
             if (station.DronesInCharge.Count() != 0)
             {
+                foreach (var item in station.DronesInCharge)
+                    dronesInchargeList.Add(item);
                 labelDronesInStation.Visibility = Visibility.Visible;
                 listDronesInStation.Visibility = Visibility.Visible;
                 listDronesInStation.ItemsSource = station.DronesInCharge;
@@ -67,11 +70,10 @@ namespace PL
         }
 
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            WindowDrones windowDrones = new WindowDrones(ibl);            
+        {          
             DroneInCharge droneInCharging;
             droneInCharging = (DroneInCharge)listDronesInStation.SelectedItem;
-            new WindowDrone(ibl, windowDrones, droneInCharging.Id).Show();
+            new WindowDrone(ibl, this, droneInCharging.Id, listDronesInStation.SelectedIndex).Show();
         }
 
         private void buttenAddUpdate_Click(object sender, RoutedEventArgs e)

@@ -28,6 +28,14 @@ namespace PL
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
         private WindowDrones windowDrones;
+        private WindowStation windowStation { get; set; }
+        private int index { get; set; }
+
+        public WindowDrone(BlApi.IBL bl, WindowStation window_Station, int id, int _index) : this(bl, null, id)
+        {
+            windowStation = window_Station;
+            index = _index;
+        }
         /// <summary>
         /// constructer-adds a new drone   
         /// </summary>
@@ -264,13 +272,15 @@ namespace PL
                     if (ChargeDroneButten.Content == "Release drone from charging")//meens we want to relese the drone from charging
                 { 
                     ibl.FreeDroneFromeCharger(mainDrone.Id);//to free the drone from chargimg
+                    windowStation.dronesInchargeList.RemoveAt(index);
                     ChangeStatusDroneButten.Visibility = Visibility.Visible;
                     ChargeDroneButten.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
                 DataContext = ibl.GetDrone(mainDrone.Id);
                 mainDrone = ibl.GetDrone(mainDrone.Id);
-                windowDrones.Selector();
+                if (windowDrones != null)
+                    windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
