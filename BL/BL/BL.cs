@@ -11,8 +11,9 @@ namespace BL
 {
     sealed partial class BL : BlApi.IBL
     {
+        readonly IDal dal = DalFactory.GetDL();
         internal static BL Instance { get; } = new BL();
-        IDal dal;
+
         List<DroneList> Drones = new List<DroneList>();
         static BL() { }
         static Random Rand;
@@ -23,11 +24,11 @@ namespace BL
         /// </summary>
         private BL()
         {
-            //Rand = new Random();
+            Rand = new Random();
             dal = DalApi.DalFactory.GetDL();
-            //power = dal.AskForBattery();
-            //chargingRate = power[4];
-            //InitializeDroneList(Drones);
+            power = dal.AskForBattery();
+            chargingRate = power[4];
+            InitializeDroneList(Drones);
         }
         /// <summary>
         /// the builder if list

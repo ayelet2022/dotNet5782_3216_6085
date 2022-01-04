@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <Id>999999999</Id>
+    <Name>penina</Name>
+    <Phone>0535438907</Phone>
+    <Longitude>35</Longitude>
+    <Latitude>32</Latitude>
+  </Customer>
+  <Customer>
+    <Id>888888888</Id>
+    <Name>ra</Name>
+    <Phone>0548444064</Phone>
+    <Longitude>35</Longitude>
+    <Latitude>33</Latitude>
+  </Customer>
+</ArrayOfCustomer>

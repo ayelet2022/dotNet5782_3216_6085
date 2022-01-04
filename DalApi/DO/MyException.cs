@@ -24,7 +24,6 @@ namespace DO
         public NotFoundInputException(string message) : base(message) { }
         public NotFoundInputException(string message, Exception inner) : base(message, inner) { }
     }
-
     public class XMLFileLoadCreateException : Exception
     {
         public string xmlFilePath;

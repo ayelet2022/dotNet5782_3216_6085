@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 using DO;
 
-namespace DalXml
+namespace Dal
 {
     public class XMLTools
     {

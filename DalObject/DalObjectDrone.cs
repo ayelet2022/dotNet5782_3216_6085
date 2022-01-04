@@ -18,11 +18,15 @@ namespace Dal
         }
         public Drone GetDrone(int idDrone)
         {
-            //search for the drone that has the same id has the id that the user enterd
-            int droneIndex = DataSource.Drones.FindIndex(item => item.Id == idDrone);
-            if (droneIndex == -1)
+            try
+            {
+                //search for the drone that has the same id has the id that the user enterd
+                return DataSource.Drones.First(item => item.Id == idDrone);
+            }
+            catch (InvalidOperationException ex)
+            {
                 throw new DoesNotExistException($"Drone id: {idDrone} does not exist.");
-            return DataSource.Drones[droneIndex];
+            }
         }
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
@@ -34,11 +38,11 @@ namespace Dal
             int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == idOfBaseStation);
             if (baseStationIndex == -1)
                 throw new DoesNotExistException($"Base station id: {idOfBaseStation} does not exists.");               
-            DroneCharge updateADrone = new();
-            updateADrone.StartCharging = DateTime.Now;
-            updateADrone.DroneId = dronesId;
-            updateADrone.StationId = idOfBaseStation;
-            DataSource.DroneCharges.Add(updateADrone);
+            DroneCharge droneCharge = new();
+            droneCharge.StartCharging = DateTime.Now;
+            droneCharge.DroneId = dronesId;
+            droneCharge.StationId = idOfBaseStation;
+            AddDroneCharge(droneCharge);
             BaseStation updateAStation = DataSource.Stations[baseStationIndex];
             updateAStation.EmptyCharges--;
             DataSource.Stations[baseStationIndex] = updateAStation;

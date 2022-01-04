@@ -19,11 +19,15 @@ namespace Dal
         }
         public BaseStation GetBaseStation(int idBaseStation)
         {
-            //search for the base station that has the same id has the id that the user enterd
-            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == idBaseStation);
-            if (baseStationIndex == -1)
+            try
+            {
+                //search for the base station that has the same id has the id that the user enterd
+                return DataSource.Stations.First(item => item.Id == idBaseStation);
+            }
+            catch (InvalidOperationException ex)
+            {
                 throw new DoesNotExistException($"Base station id: {idBaseStation} does not exists.");
-            return DataSource.Stations[baseStationIndex];
+            }
         }
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {

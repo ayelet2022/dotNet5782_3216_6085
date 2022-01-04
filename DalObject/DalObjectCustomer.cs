@@ -17,11 +17,15 @@ namespace Dal
         }
         public Customer GetCustomer(int idCustomer)
         {
-            //search for the customer that has the same id has the id that the user enterd
-            int customerIndex = DataSource.Customers.FindIndex(item => item.Id == idCustomer);
-            if (customerIndex == -1)
+            try
+            {
+                //search for the customer that has the same id has the id that the user enterd
+                return DataSource.Customers.First(item => item.Id == idCustomer);
+            }
+            catch (InvalidOperationException ex)
+            {
                 throw new DoesNotExistException($"Customer id: { idCustomer } does not exists.");
-            return DataSource.Customers[customerIndex];
+            }
         }
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {

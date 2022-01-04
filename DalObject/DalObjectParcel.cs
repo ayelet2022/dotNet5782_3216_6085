@@ -21,11 +21,15 @@ namespace Dal
         }
         public Parcel GetParcel(int idParcel)
         {
-            //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == idParcel);
-            if (parcelIndex == -1)
+            try
+            {
+                //search for the parcel that has the same id has the id that the user enterd
+                return DataSource.Parcels.First(item => item.Id == idParcel);
+            }
+            catch (InvalidOperationException ex)
+            {
                 throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
-            return DataSource.Parcels[parcelIndex];
+            }
         }
         public void DronToAParcel(int droneId, int parcelId)
         {
