@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using Dal;
 using DalApi;
 
 namespace BL
@@ -88,9 +89,10 @@ namespace BL
                 //meens thar are no parcels schedulde to the drone
                 catch (InvalidOperationException)
                 {
-                    drone.Status = (DroneStatus)Rand.Next(0, 2);
-                    if (drone.Status == DroneStatus.inFix)
+                    try
                     {
+                        dal.GetDroneCharge(drone.Id);
+                        drone.Status = DroneStatus.inFix;
                         List<DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
                         int stationI = Rand.Next(0, baseStationL.Count);
                         drone.DroneLocation = new();
@@ -103,8 +105,9 @@ namespace BL
                         droneCharge.StartCharging = DateTime.Now;
                         dal.AddDroneCharge(droneCharge);
                     }
-                    else
+                    catch(DO.DoesNotExistException ex)
                     {
+                        drone.Status = DroneStatus.available;
                         List<DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();
                         List<int> customerId = new();
                         foreach (var item in parcels)

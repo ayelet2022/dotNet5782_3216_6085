@@ -148,7 +148,11 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
             XMLTools.SaveListToXMLSerializer(Stations, StationXml);
             XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
-            XMLTools.SaveListToXMLSerializer(new List<DroneCharge>(), DroneChargeXml);
+            XMLTools.SaveListToXMLSerializer(new List<DroneCharge>
+                
+                
+                
+                (), DroneChargeXml);
         }
         private static string DroneXml = "@DroneXml.xml";
         private static string StationXml = "@StationXml.xml";

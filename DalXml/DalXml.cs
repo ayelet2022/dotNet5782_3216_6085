@@ -16,8 +16,10 @@ namespace Dal
         private static string ParcelXml = @"ParcelXml.xml";
         private static string CustomerXml = @"CustomerXml.xml";
         private static string DroneChargeXml = @"DroneChargeXml.xml";
+
         internal static DalXml Instance { get; set; } = new DalXml();
-        static DalXml() { }
+        static DalXml() { //XMLTools.SaveListToXMLSerializer(new List<int> { 1010 }, "RunParcelNum.xml");
+                          }
         private DalXml()
         {
             //DataSource.Initialize();
@@ -58,23 +60,33 @@ namespace Dal
         public void AddParcel(Parcel newParcel)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelXml);
-            newParcel.Id = DataSource.Config.RunningParcelId++;
+            XElement runingNum = XMLTools.LoadListFromXMLElement(@"RunParcelNum.xml");
+            newParcel.Id =1+int.Parse(runingNum.Element("int").Value);
             newParcel.CreatParcel = DateTime.Now;
             newParcel.Delivered = null;
             newParcel.PickedUp = null;
             newParcel.Scheduled = null;
             parcels.Add(newParcel);
             XMLTools.SaveListToXMLSerializer(parcels, ParcelXml);
+            runingNum.Element("int").Value = newParcel.Id.ToString();
+            XMLTools.SaveListToXMLElement(runingNum, "RunParcelNum.xml");
         }
 
         public void AddDroneCharge(DroneCharge droneCharge)
         {
             XElement droneChargeRoot = XMLTools.LoadListFromXMLElement(DroneChargeXml);
-            XElement droneId = new XElement("DroneId", droneCharge.DroneId);
-            XElement stationId = new XElement("StationId", droneCharge.StationId);
-            XElement startCharging = new XElement("StartCharging", droneCharge.StartCharging);
-            droneChargeRoot.Add(new XElement("DroneCharge", droneId, stationId, startCharging));
-            droneChargeRoot.Save(DroneChargeXml);
+            try
+            {
+                GetDroneCharge(droneCharge.DroneId);
+            }
+            catch (DoesNotExistException ex)
+            {
+                XElement droneId = new XElement("DroneId", droneCharge.DroneId);
+                XElement stationId = new XElement("StationId", droneCharge.StationId);
+                XElement startCharging = new XElement("StartCharging", droneCharge.StartCharging);
+                droneChargeRoot.Add(new XElement("DroneCharge", droneId, stationId, startCharging));
+                XMLTools.SaveListToXMLElement(droneChargeRoot, "DroneChargeXml");
+            }
         }
 
         public BaseStation GetBaseStation(int idBaseStation)
@@ -325,7 +337,7 @@ namespace Dal
         public DroneCharge GetDroneCharge(int droneId)
         {
             XElement droneChargeRoot = XMLTools.LoadListFromXMLElement(DroneChargeXml);
-            DroneCharge droneCharge;
+            DroneCharge droneCharge=new();
             try
             {
                 droneCharge = (from p in droneChargeRoot.Elements()
@@ -337,9 +349,9 @@ namespace Dal
                                    StartCharging = Convert.ToDateTime(p.Element("StartCharging").Value),
                                }).FirstOrDefault();
             }
-            catch
+            catch (ArgumentNullException ex)
             {
-                droneCharge = default;
+                new DoesNotExistException($"Drone id: { droneId } does not exists.");
             }
             return droneCharge;
         }

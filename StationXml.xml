@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <ArrayOfBaseStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BaseStation>
-    <Id>9730</Id>
+    <Id>4362</Id>
     <Name>Banana</Name>
     <EmptyCharges>2</EmptyCharges>
-    <Longitude>36.45424725555547</Longitude>
-    <Latitude>32.64407305915098</Latitude>
+    <Longitude>37.33557299912701</Longitude>
+    <Latitude>31.710871150582502</Latitude>
   </BaseStation>
   <BaseStation>
-    <Id>3402</Id>
+    <Id>3862</Id>
     <Name>Apple</Name>
-    <EmptyCharges>4</EmptyCharges>
-    <Longitude>37.30957453572637</Longitude>
-    <Latitude>31.832600885924233</Latitude>
+    <EmptyCharges>2</EmptyCharges>
+    <Longitude>35.480903075300574</Longitude>
+    <Latitude>33.12668958265646</Latitude>
   </BaseStation>
 </ArrayOfBaseStation>
