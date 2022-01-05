@@ -90,6 +90,8 @@ namespace BL
                 catch (InvalidOperationException)
                 {
                     try
+                    //drone.Status = (DroneStatus)Rand.Next(0, 2);
+                    //if (drone.Status==DroneStatus.inFix)
                     {
                         dal.GetDroneCharge(drone.Id);
                         drone.Status = DroneStatus.inFix;
@@ -103,8 +105,9 @@ namespace BL
                         droneCharge.DroneId = drone.Id;
                         droneCharge.StationId = baseStationL[stationI].Id;
                         droneCharge.StartCharging = DateTime.Now;
-                        dal.AddDroneCharge(droneCharge);
+                        //dal.AddDroneCharge(droneCharge);
                     }
+                    //else
                     catch(DO.DoesNotExistException ex)
                     {
                         drone.Status = DroneStatus.available;

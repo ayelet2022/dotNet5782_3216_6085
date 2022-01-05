@@ -36,6 +36,8 @@ namespace Dal
         public void UpdateCustomer(int id,string name,string phone)
         {
             int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id);
+            if(customerIndex == -1)
+                throw new DoesNotExistException($"Customer id: {id} does not exist.");
             Customer customer = DataSource.Customers[customerIndex];
             //meens we want to update the name 
             if (name != "\n")

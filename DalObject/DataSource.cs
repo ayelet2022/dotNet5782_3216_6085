@@ -151,10 +151,10 @@ namespace Dal
             //XMLTools.SaveListToXMLSerializer(new List<DroneCharge>(), DroneChargeXml);
 
         }
-        private static string DroneXml = "@DroneXml.xml";
-        private static string StationXml = "@StationXml.xml";
-        private static string CustomerXml = "@CustomerXml.xml";
-        private static string ParcelXml = "@ParcelXml.xml";
-        private static string DroneChargeXml = "@DroneChargeXml.xml";
+        private static string DroneXml = "@Drone.xml";
+        private static string StationXml = "@Station.xml";
+        private static string CustomerXml = "@Customer.xml";
+        private static string ParcelXml = "@Parcel.xml";
+        private static string DroneChargeXml = "@DroneCharge.xml";
     }
 }
