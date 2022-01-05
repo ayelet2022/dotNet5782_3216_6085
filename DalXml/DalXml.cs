@@ -11,28 +11,29 @@ namespace Dal
 {
     internal partial class DalXml : IDal
     {
-        private static string DroneXml = @"DroneXml.xml";
-        private static string StationXml = @"StationXml.xml";
-        private static string ParcelXml = @"ParcelXml.xml";
-        private static string CustomerXml = @"CustomerXml.xml";
-        private static string DroneChargeXml = @"DroneChargeXml.xml";
-        private static string ConfigXml = @"ConfigXml.xml";
+        private static string DroneXml = @"Drone.xml";
+        private static string StationXml = @"Station.xml";
+        private static string ParcelXml = @"Parcel.xml";
+        private static string CustomerXml = @"Customer.xml";
+        private static string DroneChargeXml = @"DroneCharge.xml";
+        private static string ConfigXml = @"Config.xml";
 
         internal static DalXml Instance { get; set; } = new DalXml();
         static DalXml() { //XMLTools.SaveListToXMLSerializer(new List<int> { 1010 },"ConfigXml.xml");
                           }
         private DalXml()
         {
-            DataSource.Initialize();
+            //DataSource.Initialize();
         }
         public double[] AskForBattery()
         {
             XElement configXml = XMLTools.LoadListFromXMLElement(ConfigXml);
-            double[] arr = { int.Parse(configXml.Element("Available").Value),
-                int.Parse(configXml.Element("Light").Value),
-                int.Parse(configXml.Element("MediumWeight").Value),
-                int.Parse(configXml.Element("Heavy").Value),
-                int.Parse(configXml.Element("ChargingRate").Value) };
+            double[] arr = { 
+                double.Parse(configXml.Element("Available").Value),
+                double.Parse(configXml.Element("Light").Value),
+                double.Parse(configXml.Element("MediumWeight").Value),
+                double.Parse(configXml.Element("Heavy").Value),
+                double.Parse(configXml.Element("ChargingRate").Value) };
             return arr;
         }
 
@@ -81,7 +82,7 @@ namespace Dal
         public void AddParcel(Parcel newParcel)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelXml);
-            XElement configXml = XMLTools.LoadListFromXMLElement(@"ConfigXml.xml");
+            XElement configXml = XMLTools.LoadListFromXMLElement(ConfigXml);
             newParcel.Id =1+int.Parse(configXml.Element("RunningParcelId").Value);
             newParcel.CreatParcel = DateTime.Now;
             newParcel.Delivered = null;
@@ -343,10 +344,7 @@ namespace Dal
 
             customer.Element("Id").Value = id.ToString();
             customer.Element("Name").Value = name;
-            customer.Element("PhoneNumber").Value = phone;
-            customer.Element("Longitude").Value = customer.Element("Longitude").ToString();
-            customer.Element("Latitude").Value = customer.Element("Latitude").ToString();
-
+            customer.Element("Phone").Value = phone;
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
 

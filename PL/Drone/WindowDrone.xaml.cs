@@ -272,7 +272,8 @@ namespace PL
                     if (ChargeDroneButten.Content == "Release drone from charging")//meens we want to relese the drone from charging
                 { 
                     ibl.FreeDroneFromeCharger(mainDrone.Id);//to free the drone from chargimg
-                    windowStation.dronesInchargeList.RemoveAt(index);
+                    if (windowDrones == null)
+                        windowStation.dronesInchargeList.RemoveAt(index);
                     ChangeStatusDroneButten.Visibility = Visibility.Visible;
                     ChargeDroneButten.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//we can send the drone to deliver

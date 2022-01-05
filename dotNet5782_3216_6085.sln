@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Targil0", "Targil0\Targil0.csproj", "{0F0DE729-FCD6-4912-8C5B-A1E16E0EC16A}"
 EndProject
@@ -26,7 +26,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalApi\DalFaca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{36EF1AE6-5E2F-463D-BC8F-12759870EA8F}"
 	ProjectSection(SolutionItems) = preProject
+		Config.xml = Config.xml
+		Customer.xml = Customer.xml
 		dal-config.xml = dal-config.xml
+		Drone.xml = Drone.xml
+		DroneCharge.xml = DroneCharge.xml
+		Parcel.xml = Parcel.xml
+		Station.xml = Station.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{E1BC88C3-E7DF-4175-B589-CA38430F27E4}"
