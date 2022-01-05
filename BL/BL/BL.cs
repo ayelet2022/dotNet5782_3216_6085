@@ -89,9 +89,11 @@ namespace BL
                 //meens thar are no parcels schedulde to the drone
                 catch (InvalidOperationException)
                 {
-                    try
+                    //try
+                    drone.Status = (DroneStatus)Rand.Next(0, 2);
+                    if(drone.Status==DroneStatus.inFix)
                     {
-                        dal.GetDroneCharge(drone.Id);
+                        //dal.GetDroneCharge(drone.Id);
                         drone.Status = DroneStatus.inFix;
                         List<DO.BaseStation> baseStationL = dal.GetBaseStations().ToList();
                         int stationI = Rand.Next(0, baseStationL.Count);
@@ -105,7 +107,8 @@ namespace BL
                         droneCharge.StartCharging = DateTime.Now;
                         dal.AddDroneCharge(droneCharge);
                     }
-                    catch(DO.DoesNotExistException ex)
+                    else
+                    //catch(DO.DoesNotExistException ex)
                     {
                         drone.Status = DroneStatus.available;
                         List<DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();

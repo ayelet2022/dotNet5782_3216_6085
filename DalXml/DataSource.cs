@@ -1,6 +1,7 @@
 ﻿using DO;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Dal
 {
@@ -19,15 +20,15 @@ namespace Dal
         /// <summary>
         /// restarting the indexes
         /// </summary>
-        internal class Config
-        {
-            internal static double Available = 0.1;
-            internal static double Light = 1;
-            internal static double MediumWeight = 2;
-            internal static double Heavy = 4;
-            internal static int RunningParcelId = 1000;
-            internal static double ChargingRate =200;
-        }
+        //internal class Config
+        //{
+        //    internal static double Available = 0.1;
+        //    internal static double Light = 1;
+        //    internal static double MediumWeight = 2;
+        //    internal static double Heavy = 4;
+        //    internal static int RunningParcelId = 1000;
+        //    internal static double ChargingRate =200;
+        //}
         static void InitializeBaseStation(string name)
         {
             BaseStation newStation = new BaseStation();
@@ -61,7 +62,8 @@ namespace Dal
             for (int index = 0; index < 10; index++)//Updating 10 parcels
             {
                 Parcel newParcel = new();
-                newParcel.Id = Config.RunningParcelId++;//Updating the ID number of the package
+                XElement configXml = XMLTools.LoadListFromXMLElement(ConfigXml);
+                newParcel.Id = 1 + int.Parse(configXml.Element("RunningParcelId").Value);
                 newParcel.SenderId = Customers[Rand.Next(10)].Id;//Updating the ID number of the sender
                 newParcel.DroneId = 0;//Updating the ID number of the drone
                 do
@@ -111,6 +113,8 @@ namespace Dal
                     }
                 }
                 Parcels.Add(newParcel);
+                configXml.Element("RunningParcelId").Value = newParcel.Id.ToString();
+                XMLTools.SaveListToXMLElement(configXml, ConfigXml);
             }
         }
 
@@ -148,16 +152,13 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
             XMLTools.SaveListToXMLSerializer(Stations, StationXml);
             XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
-            XMLTools.SaveListToXMLSerializer(new List<DroneCharge>
-                
-                
-                
-                (), DroneChargeXml);
+            XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
         }
-        private static string DroneXml = "@DroneXml.xml";
-        private static string StationXml = "@StationXml.xml";
-        private static string CustomerXml = "@CustomerXml.xml";
-        private static string ParcelXml = "@ParcelXml.xml";
-        private static string DroneChargeXml = "@DroneChargeXml.xml";
+        private static string DroneXml = @"DroneXml.xml";
+        private static string StationXml = @"StationXml.xml";
+        private static string CustomerXml = @"CustomerXml.xml";
+        private static string ParcelXml = @"ParcelXml.xml";
+        private static string ConfigXml = @"ConfigXml.xml";
+        private static string DroneChargeXml = @"DroneChargeXml.xml";
     }
 }
