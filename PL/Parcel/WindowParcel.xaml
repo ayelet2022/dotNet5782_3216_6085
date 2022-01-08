@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="AddGrid" Grid.ColumnSpan="2" Grid.RowSpan="5" Visibility="Collapsed" >
+            <Grid x:Name="AddGrid" Grid.ColumnSpan="2" Grid.RowSpan="5" Visibility="Visible" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

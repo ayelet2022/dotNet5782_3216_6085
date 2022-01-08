@@ -32,6 +32,14 @@ namespace PL
         private WindowCustomer windowCustomer { get; set; }
         private int index { get; set; }
         private int customerId { get; set; }
+        /// <summary>
+        /// a constructer of parcel (when we come from a customer window)
+        /// </summary>
+        /// <param name="bl">the accses to bl</param>
+        /// <param name="_windowCustomer">the window we came from</param>
+        /// <param name="id">the id of the parcel</param>
+        /// <param name="_index">the index wehre the parcel was</param>
+        /// <param name="_customerId">the customer that has the parcel</param>
         public WindowParcel(BlApi.IBL bl, WindowCustomer _windowCustomer, int id, int _index,int _customerId) : this(bl, null, id)
         {
             windowCustomer = _windowCustomer;

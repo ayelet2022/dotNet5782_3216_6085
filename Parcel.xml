@@ -120,16 +120,4 @@
     <PickedUp>2021-10-06T19:17:37</PickedUp>
     <Delivered>2021-10-06T19:45:15</Delivered>
   </Parcel>
-  <Parcel>
-    <Id>1010</Id>
-    <SenderId>999999999</SenderId>
-    <TargetId>999999999</TargetId>
-    <DroneId>0</DroneId>
-    <Weight>light</Weight>
-    <Priority>regular</Priority>
-    <CreatParcel>2022-01-05T21:03:21.5724981+02:00</CreatParcel>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
 </ArrayOfParcel>
