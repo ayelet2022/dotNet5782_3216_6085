@@ -276,13 +276,12 @@ namespace PL
         private void SenderButten_Click(object sender, RoutedEventArgs e)
         {
             WindowCustomers windowCustomers = new WindowCustomers(ibl);
-            new WindowCustomer(ibl, windowCustomers, mainParcel.Sender.Id).Show();
+            new WindowCustomer(ibl, this, mainParcel.Sender.Id, mainParcel).Show();
         }
 
         private void RecepterButten_Click(object sender, RoutedEventArgs e)
         {
-            WindowCustomers windowCustomers = new WindowCustomers(ibl);
-            new WindowCustomer(ibl, windowCustomers, mainParcel.Recepter.Id).Show();
+            new WindowCustomer(ibl, this, mainParcel.Recepter.Id, mainParcel).Show();
         }
         private void Parcelsdrone_Click(object sender, RoutedEventArgs e)
         {
