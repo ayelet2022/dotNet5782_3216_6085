@@ -51,6 +51,9 @@ namespace PL
                           weight = item.MaxWeight
                       }).ToDictionary(item => item.Key, item => item.ToList());
             DronesListView.ItemsSource = Drones.SelectMany(item => item.Value);//to show all the drones 
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
             StatusSelector.ItemsSource = System.Enum.GetValues(typeof(DroneStatus));
             WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
             StatusSelector.SelectedIndex = 3;//no filter
@@ -101,7 +104,7 @@ namespace PL
                 DronesListView.ItemsSource = from item in Drones.Values.SelectMany(x => x)
                                              orderby item.MaxWeight, item.Status
                                              select item;//to show the all list
-            //if only he wants to filter the weight category
+                                                         //if only he wants to filter the weight category
             if (dStatus == DroneStatus.All && dWeight != WeightCategories.All)
                 DronesListView.ItemsSource = Drones.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem).SelectMany(item => item.Value);
             //if only he wants to filter the statuse category

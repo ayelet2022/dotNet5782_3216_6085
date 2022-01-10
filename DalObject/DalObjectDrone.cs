@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
 
@@ -10,12 +11,15 @@ namespace Dal
 {
     internal sealed partial class DalObject : IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone addDrone)
         {
             if (DataSource.Drones.Exists(item => item.Id == addDrone.Id))
                 throw new ExistsException($"Drone id: {addDrone.Id} already exists.");
             DataSource.Drones.Add(addDrone);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int idDrone)
         {
             try
@@ -28,6 +32,8 @@ namespace Dal
                 throw new DoesNotExistException($"Drone id: {idDrone} does not exist.");
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DronToCharger(int dronesId, int idOfBaseStation)
         {
             //search for the drone that has the same id has the id that the user enterd
@@ -47,6 +53,8 @@ namespace Dal
             updateAStation.EmptyCharges--;
             DataSource.Stations[baseStationIndex] = updateAStation;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void FreeDroneFromBaseStation(int dronesId)
         {
             //search for the drone that has the same id has the id that the user enterd
@@ -64,12 +72,16 @@ namespace Dal
             DataSource.Stations[baseStationIndex] = updateAStation;
             DataSource.DroneCharges.Remove(DataSource.DroneCharges[droneChargesIndex]);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null)
         {
             return from item in DataSource.Drones
                    where predicate == null ? true : predicate(item)
                    select item;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int id, string newModel)
         {   
             int droneIndex = DataSource.Drones.FindIndex(item => item.Id == id);

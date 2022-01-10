@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="WindowDrones" Height="640" Width="800" Closing="WindowClose">
     <Grid Name="MainGrid">
+
         <Grid.Background>
             <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
         </Grid.Background>
@@ -26,19 +27,39 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
+        <Button Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
         <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
         <Label Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
         <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>
         <Button x:Name="CloseWDS" Content="Close" Grid.Column="5" Grid.Row="5" Click="CloseWDS_Click" Style="{StaticResource ButtenCloseStyle}"/>
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}">
+        <ListView Grid.ColumnSpan="6" Grid.RowSpan="5" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}" Margin="67,104,65,0">
             <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="70" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Model" Width="70" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Header="Battery" Width="70" DisplayMemberBinding="{Binding Battery}" />
+                    <GridViewColumn Header="MaxWeight" Width="100" DisplayMemberBinding="{Binding MaxWeight}" />
+                    <GridViewColumn Header="DroneLocation" Width="200" DisplayMemberBinding="{Binding DroneLocation}" />
+                    <GridViewColumn Header="Parcel" Width="65" DisplayMemberBinding="{Binding NumOfParcelOnTheWay}" />
+                </GridView>
+            </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Status}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
         </ListView>
     </Grid>
 </Window>

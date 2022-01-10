@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
 
@@ -10,6 +11,7 @@ namespace Dal
 {
     internal sealed partial class DalObject : IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation addBaseStation)
         {
             
@@ -17,6 +19,8 @@ namespace Dal
                 throw new ExistsException($"Base station id: {addBaseStation.Id} already exists.");
             DataSource.Stations.Add(addBaseStation);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int idBaseStation)
         {
             try
@@ -29,6 +33,8 @@ namespace Dal
                 throw new DoesNotExistException($"Base station id: {idBaseStation} does not exists.");
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {
             return from item in DataSource.Stations
@@ -40,6 +46,8 @@ namespace Dal
             int sum = DataSource.DroneCharges.Where(item => item.StationId == id).Count();
             return charges - sum;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int id, string newName, int charges)
         {
             int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == id);

@@ -12,7 +12,7 @@ namespace BL
 {
     sealed partial class BL : BlApi.IBL
     {
-        readonly IDal dal = DalFactory.GetDL();
+        internal readonly IDal dal = DalFactory.GetDL();
         internal static BL Instance { get; } = new BL();
 
         List<DroneList> Drones = new List<DroneList>();
@@ -101,10 +101,10 @@ namespace BL
                         drone.DroneLocation.Longitude = baseStationL[stationI].Longitude;
                         drone.DroneLocation.Latitude = baseStationL[stationI].Latitude;
                         drone.Battery = Rand.Next(0, 21);
-                        DO.DroneCharge droneCharge = new();
-                        droneCharge.DroneId = drone.Id;
-                        droneCharge.StationId = baseStationL[stationI].Id;
-                        droneCharge.StartCharging = DateTime.Now;
+                        //DO.DroneCharge droneCharge = new();
+                        //droneCharge.DroneId = drone.Id;
+                        //droneCharge.StationId = baseStationL[stationI].Id;
+                        //droneCharge.StartCharging = DateTime.Now;
                         //dal.AddDroneCharge(droneCharge);
                     }
                     //else
@@ -127,6 +127,11 @@ namespace BL
                     drone = new();
                 }
             }
+        }
+
+        public void StartSimulatur(int droneId, Action action, Func<bool> stop)
+        {
+            Simulator simulator = new Simulator(BlFactory.GetBl(), droneId, action, stop);
         }
     }
 }

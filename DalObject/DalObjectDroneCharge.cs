@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
 
@@ -10,6 +11,7 @@ namespace Dal
 {
     internal sealed partial class DalObject : IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge droneCharge)
         {
             //chcks if the charger already exists
@@ -17,12 +19,16 @@ namespace Dal
                 throw new ExistsException($"The Drone:{droneCharge.DroneId} already charging.");
             DataSource.DroneCharges.Add(droneCharge);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDroneCharges(Predicate<DroneCharge> predicate = null)
         {
             return from item in DataSource.DroneCharges
                    where predicate == null ? true : predicate(item)
                    select item;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge GetDroneCharge(int idDrone)
         {
             try

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
 
 namespace Dal
 {
     internal sealed partial class DalObject : IDal
-    { 
+    {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel newParcel)
         {
             newParcel.Id = DataSource.Config.RunningParcelId++;
@@ -19,6 +21,8 @@ namespace Dal
             newParcel.Scheduled = null;
             DataSource.Parcels.Add(newParcel);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int idParcel)
         {
             try
@@ -31,6 +35,8 @@ namespace Dal
                 throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DronToAParcel(int droneId, int parcelId)
         {
             //search for the drone that has the same id has the id that the user enterd
@@ -46,6 +52,8 @@ namespace Dal
             updateAParcel.Scheduled = DateTime.Now;
             DataSource.Parcels[parcelIndex] = updateAParcel;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickUpParcel(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
@@ -55,7 +63,9 @@ namespace Dal
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
             updateAParcel.PickedUp = DateTime.Now;
             DataSource.Parcels[parcelIndex] = updateAParcel;
-        }       
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelToCustomer(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
@@ -67,6 +77,8 @@ namespace Dal
             updateAParcel.DroneId = 0;
             DataSource.Parcels[parcelIndex] = updateAParcel;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
             return from item in DataSource.Parcels
@@ -74,6 +86,7 @@ namespace Dal
                    select item;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeletParcel(int id)
         {
             DataSource.Parcels.Remove(GetParcel(id));

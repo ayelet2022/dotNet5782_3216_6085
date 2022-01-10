@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
 
@@ -13,6 +14,7 @@ namespace Dal
         {
             DataSource.Initialize();
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] AskForBattery()
         {
             double[] arr = { DataSource.Config.Available, DataSource.Config.Light, DataSource.Config.MediumWeight, DataSource.Config.Heavy, DataSource.Config.ChargingRate };

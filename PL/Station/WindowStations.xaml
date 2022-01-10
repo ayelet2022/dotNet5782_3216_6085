@@ -33,9 +33,21 @@
         <ListView x:Name="stationList" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" Style="{StaticResource ListViewStyle}" MouseDoubleClick="stationList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Id" Width="70" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" Width="80" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="AvailableChargingPositions" Width="150" DisplayMemberBinding="{Binding EmptyCharges}" />
+                    <GridViewColumn Header="FullChargingPositions" Width="150" DisplayMemberBinding="{Binding FullChargingPositions}" />
                 </GridView>
-            </ListView.View>
+                </ListView.View>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Status}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
         </ListView>
         <Grid/>
     </Grid>

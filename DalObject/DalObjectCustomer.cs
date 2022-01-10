@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 
@@ -9,12 +9,15 @@ namespace Dal
 {
     internal sealed partial class DalObject : IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
             if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id))
                 throw new ExistsException($"Customer id: {newCustomer.Id} already exists.");
             DataSource.Customers.Add(newCustomer);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int idCustomer)
         {
             try
@@ -27,12 +30,16 @@ namespace Dal
                 throw new DoesNotExistException($"Customer id: { idCustomer } does not exists.");
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
             return from item in DataSource.Customers
                    where predicate == null ? true : predicate(item)
                    select item;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(int id,string name,string phone)
         {
             int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id);
