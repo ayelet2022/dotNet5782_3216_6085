@@ -19,7 +19,7 @@ namespace BL
         static BL() { }
         static Random Rand;
         double chargingRate;
-        double[] power;
+        internal double[] power;
         /// <summary>
         /// the contractor of BL
         /// </summary>
