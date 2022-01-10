@@ -9,6 +9,7 @@ namespace BO
     public class ParcelInTransfer
     {
         public int Id { get; set; }
+        //if the parcel was picked up by the drone the statusParcel will be true else will be false.
         public bool StatusParcel { get; set; }
         public Priorities Priority { get; set; }
         public WeightCategories Weight { get; set; }

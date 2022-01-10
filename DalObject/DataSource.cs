@@ -1,6 +1,7 @@
 ﻿using DO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -117,9 +118,6 @@ namespace Dal
         /// <summary>
         /// Incluods the data that we enterd
         /// </summary>
-        
-
-
         internal static void Initialize()
         {
             InitializeBaseStation("Banana");
@@ -143,18 +141,6 @@ namespace Dal
             InitializeCustomer("0500000000", "Yakov");
 
             InitializeParcel();
-
-            //XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
-            //XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
-            //XMLTools.SaveListToXMLSerializer(Stations, StationXml);
-            //XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
-            //XMLTools.SaveListToXMLSerializer(new List<DroneCharge>(), DroneChargeXml);
-
         }
-        private static string DroneXml = "@Drone.xml";
-        private static string StationXml = "@Station.xml";
-        private static string CustomerXml = "@Customer.xml";
-        private static string ParcelXml = "@Parcel.xml";
-        private static string DroneChargeXml = "@DroneCharge.xml";
     }
 }

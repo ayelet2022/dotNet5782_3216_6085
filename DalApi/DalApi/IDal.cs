@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using DO;
 
 namespace DalApi
@@ -163,8 +164,6 @@ namespace DalApi
         public DroneCharge GetDroneCharge(int droneId);
 
         public void DeletParcel(int id);
-
-
     }
 }
 

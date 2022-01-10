@@ -1,40 +1,57 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BlApi
 {
     public interface IBL
     {
-        /// <summary>
-        /// adds a new base station to the list
-        /// </summary>
-        /// <param name="baseStation">the new base station that we want to add</param>
-        void AddBaseStation(BaseStation baseStation);
-
-        /// <summary>
-        /// adds a new customer to the list of customers
-        /// </summary>
-        /// <param name="customer">the new customer we want to add</param>
-        void AddCustomer(Customer customer);
-
+        #region DRONE
         /// <summary>
         /// adds a new drone to the list
         /// </summary>
         /// <param name="drone">the drone to add</param>
         /// <param name="idFirstStation">the id of the first station that the drone is in</param>
         void AddDrone(Drone drone, int idFirstStation);
-        /// <summary>
-        /// adds a new parcel to the list of parcels
-        /// </summary>
-        /// <param name="parcel">the new parcel we want to add</param>
-        void AddParcel(Parcel parcel);
 
         /// <summary>
         /// a drone deliverd a parcel
         /// </summary>
         /// <param name="id">the is of the drone that deliverd the parcel</param>
         void DeliverParcel(int id);
+        #endregion
+        #region PARCEL
+        /// <summary>
+        /// adds a new parcel to the list of parcels
+        /// </summary>
+        /// <param name="parcel">the new parcel we want to add</param>
+        void AddParcel(Parcel parcel);
+        #endregion
+        #region CUSTOMER
+        /// <summary>
+        /// adds a new customer to the list of customers
+        /// </summary>
+        /// <param name="customer">the new customer we want to add</param>
+        void AddCustomer(Customer customer);
+        #endregion
+        #region STATION
+        /// <summary>
+        /// adds a new base station to the list
+        /// </summary>
+        /// <param name="baseStation">the new base station that we want to add</param>
+        void AddBaseStation(BaseStation baseStation);
+        #endregion
+        #region 
+        #endregion
+
+
+       
+
+       
+       
+
+        
 
         /// <summary>
         /// to free the drone from the charger
@@ -139,7 +156,6 @@ namespace BlApi
         /// </summary>
         /// <param name="parcel">the parcel we want to delet</param>
         public void DeletParcel(Parcel parcel);
-
-
+        public void StartSimulatur(int droneId, Action action, Func<bool> stop);
     }
 }

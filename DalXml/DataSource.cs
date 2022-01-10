@@ -20,15 +20,6 @@ namespace Dal
         /// <summary>
         /// restarting the indexes
         /// </summary>
-        //internal class Config
-        //{
-        //    internal static double Available = 0.1;
-        //    internal static double Light = 1;
-        //    internal static double MediumWeight = 2;
-        //    internal static double Heavy = 4;
-        //    internal static int RunningParcelId = 1000;
-        //    internal static double ChargingRate =200;
-        //}
         static void InitializeBaseStation(string name)
         {
             BaseStation newStation = new BaseStation();
@@ -121,9 +112,6 @@ namespace Dal
         /// <summary>
         /// Incluods the data that we enterd
         /// </summary>
-        
-
-
         internal static void Initialize()
         {
             InitializeBaseStation("Banana");
