@@ -330,5 +330,20 @@ namespace PL
             WindowParcels windowParcels = new WindowParcels (ibl);
             new WindowParcel(ibl, windowParcels, mainDrone.ParcelInTransfer.Id).Show();
         }
+
+        bool Auto;
+        BackgroundWorker worker;
+        private void updateDrone() => worker.ReportProgress(0);
+        private bool checkStop() => worker.CancellationPending;
+        private void Simulator_Click(object sender, RoutedEventArgs e)
+        {
+            Auto = true;
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+            worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, updateDrone, checkStop);
+            worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            //worker.ProgressChanged += (sender, args) => updateDrone();
+            worker.RunWorkerAsync(mainDrone.Id);
+        }
+        private void Regular_Click(object sender, RoutedEventArgs e) => worker.CancelAsync();
     }
 }

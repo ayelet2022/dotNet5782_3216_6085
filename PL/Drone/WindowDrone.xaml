@@ -71,6 +71,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Button x:Name="Simulator" Content="Simulator" HorizontalAlignment="Left" Grid.Column="4" VerticalAlignment="Top" Style="{StaticResource ButtenStyle}" Click="Simulator_Click"/>
+            <Button x:Name="Regular" Content="Regular" HorizontalAlignment="Left" Grid.Column="5" VerticalAlignment="Top" Style="{StaticResource ButtenStyle}" Click="Regular_Click"/>
             <Label Content="ID:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
             <Label Content="Model:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LableStyle}"/>
             <Label Content="Max Weight:" Grid.Column="0" Grid.Row="2" Style="{StaticResource LableStyle}"/>
@@ -118,7 +120,7 @@
                 <Label Content="Delivery location:" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="8" />
                 <Label Content="Latitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="9" />
                 <Label Content="Longitude:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="10" />
-                
+
                 <Label Content="Sender:" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0" />
                 <Label Content="ID:" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="1" />
                 <Label Content="Name:" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="2" />

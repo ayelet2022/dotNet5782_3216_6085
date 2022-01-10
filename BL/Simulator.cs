@@ -19,7 +19,7 @@ namespace BL
                 {
                     switch (drone.Status)
                     {
-                        case DroneStatus.available:
+                        case DroneStatus.available:                           
                             bl.ScheduledAParcelToADrone(drone.Id);
                             break;
                         case DroneStatus.inFix:
