@@ -131,7 +131,7 @@ namespace BL
 
         public void StartSimulatur(int droneId, Action action, Func<bool> stop)
         {
-            Simulator simulator = new Simulator(BlFactory.GetBl(), droneId, action, stop);
+            new Simulator(this, droneId, action, stop);
         }
     }
 }
