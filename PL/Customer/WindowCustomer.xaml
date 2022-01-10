@@ -57,7 +57,7 @@
             <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  Style="{StaticResource TextBoxStyle}" />
             <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}" />
         </Grid>
-        <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="6">
+        <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -83,20 +83,52 @@
             <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
             <Label x:Name="ParcelFromCusLable" Content="Parcel To CusList" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
-            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
+            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel></StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="70"/>
+                        <GridViewColumn Header="Weight"  DisplayMemberBinding="{Binding Weight}" Width="100"/>
+                        <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="100"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                        <GridViewColumn Header="Sender" DisplayMemberBinding="{Binding SenderOrRecepter}" Width="100"/>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
             <Label x:Name="ParcelToCusLable" Content="Parcel To Customer" Visibility="Collapsed" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="5"/>
-            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="2"  Grid.Column="2" Grid.Row="6" Grid.RowSpan="4" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
+            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel></StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="70"/>
+                        <GridViewColumn Header="Weight"  DisplayMemberBinding="{Binding Weight}" Width="100"/>
+                        <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="100"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                        <GridViewColumn Header="Recepter" DisplayMemberBinding="{Binding SenderOrRecepter}" Width="100"/>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
         <Button x:Name="UpdateAddButton" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Style="{StaticResource ButtenStyle}" Click="UpdateAddButton_Click"/>

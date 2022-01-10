@@ -71,5 +71,9 @@
             <Setter Property="FontFamily" Value="Arial"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+
+        <Style x:Key="ListViewItem" TargetType="ListViewItem">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>

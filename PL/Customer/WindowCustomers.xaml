@@ -18,22 +18,40 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
         <Button Name="Add" Content="Add new customer" Click="Add_Click" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
-        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" VerticalAlignment="Top" Click="Refresh_Click" Height="30" Margin="0,21,0,0"/>
-        <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="3"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" VerticalAlignment="Top" Click="Refresh_Click" Height="30" Margin="0,21,0,0"/>
+        <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="4" Style="{StaticResource ButtenCloseStyle}"/>
         <ListView x:Name="CustomerListView"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel></StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}" Width="100"/>
+                    <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" Width="100"/>
+                    <GridViewColumn Header="Parcels from Cus &#10; that deliverd " DisplayMemberBinding="{Binding Location}" Width="100"/>
+                    <GridViewColumn Header="Parcels from Cus &#10; that not deliverd " DisplayMemberBinding="{Binding Location}" Width="100"/>
+                    <GridViewColumn Header="Parcels that the cus &#10; resepted" DisplayMemberBinding="{Binding SenderOrRecepter}" Width="110"/>
+                    <GridViewColumn Header="Parcels on &#10; the way " DisplayMemberBinding="{Binding Location}" Width="100"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Window>

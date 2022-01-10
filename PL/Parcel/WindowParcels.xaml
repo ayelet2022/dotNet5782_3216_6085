@@ -38,9 +38,25 @@
         <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  x:Name="ParcelsListView" MouseDoubleClick="ParcelListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel></StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                    <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="100"/>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="100"/>
+                    <GridViewColumn Header="Sender"  DisplayMemberBinding="{Binding SenderName}" Width="100"/>
+                    <GridViewColumn Header="Recepter" DisplayMemberBinding="{Binding RecepterName}" Width="100"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Window>
