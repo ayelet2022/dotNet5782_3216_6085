@@ -145,5 +145,6 @@ namespace BlApi
         /// <param name="phone">the new phone to the customer</param>
         void UpdateCustomer(int id, string name, string phone);
         #endregion
+        public void StartSimulatur(int droneId, Action action, Func<bool> stop);
     }
 }
