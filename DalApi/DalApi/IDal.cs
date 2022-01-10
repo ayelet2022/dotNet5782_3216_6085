@@ -164,6 +164,8 @@ namespace DalApi
         public DroneCharge GetDroneCharge(int droneId);
 
         public void DeletParcel(int id);
+
+        public void DroneInStation(int stationId);
     }
 }
 

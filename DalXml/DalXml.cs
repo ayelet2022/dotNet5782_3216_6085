@@ -216,12 +216,15 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
         }
 
-
-
-
-
-
-
+        public void DroneInStation(int stationId)
+        {
+            List<BaseStation> stations = XMLTools.LoadListFromXMLSerializer<BaseStation>(StationXml);
+            int baseStationIndex =stations.FindIndex(item => item.Id == stationId);
+            BaseStation baseStation = stations[baseStationIndex];
+            baseStation.EmptyCharges--;
+            stations[baseStationIndex] = baseStation;
+            XMLTools.SaveListToXMLSerializer(stations, StationXml);
+        }
 
         #endregion
 
