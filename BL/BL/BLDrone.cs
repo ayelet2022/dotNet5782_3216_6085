@@ -238,19 +238,19 @@ namespace BL
                         if (parcel == default || foundParcel == false)
                         {
                             parcel = GetParcel(item.Id);
-                            battery = UseOfBattery(item, drone);
+                            battery = UseOfBattery(item, drone.Id);
                             if (battery > 0 && parcel.Weight <= drone.MaxWeight)
                                 foundParcel = true;
                         }
                         if (foundParcel == true)
                         {
-                            battery = UseOfBattery(item, drone);
+                            battery = UseOfBattery(item, drone.Id);
                             Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
                             Customer senderOfItem = GetCustomer(item.SenderId);
                             Customer resepterOfItem = GetCustomer(item.TargetId);
                             BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
-                            double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
-                            double disDroneToSenderI = DisDronToCustomer(drone, senderOfItem);
+                            double disDroneToSenderP = DisDronToCustomer(drone.Id, senderOfParcel);
+                            double disDroneToSenderI = DisDronToCustomer(drone.Id, senderOfItem);
                             double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
                             double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
                             //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
@@ -368,7 +368,64 @@ namespace BL
             }
         }
 
-        #region private_functions 
+        #region INTERNAL FUNC
+
+        /// <summary>
+        /// calculate how much battery did the drone used in the delivery of parcel
+        /// </summary>
+        /// <param name="parcel">the parcel that the drone is delivering</param>
+        /// <param name="drone">the drone that  we are calulating the battery for </param>
+        /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
+        internal int UseOfBattery(DO.Parcel parcel, int dronId)
+        {
+            lock (dal)
+            {
+                Drone drone = GetDrone(dronId);
+                Customer senderOfParcel = GetCustomer(parcel.SenderId);
+                Customer resepterOfParcel = GetCustomer(parcel.TargetId);
+                BaseStation baseStationToCharge = new();
+                //the closest base station to the resever of the parcel
+                baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfParcel.CustomerLocation.Latitude, resepterOfParcel.CustomerLocation.Longitude).Id);
+                double disDroneToSenderP = DisDronToCustomer(drone.Id, senderOfParcel);
+                double disReseverToBS = DisDronToBS(resepterOfParcel, baseStationToCharge);
+                double disSenderToResepter = DisSenderToResever(senderOfParcel, resepterOfParcel);
+                //culcilates how much batery will leght in the drone after he get to the parcel to delever the parcel and if he needs to get also to a base station 
+                int battery = drone.Battery - ((int)(disDroneToSenderP * dal.AskForBattery()[(int)parcel.Weight + 1]) + (int)(disSenderToResepter * dal.AskForBattery()[(int)parcel.Weight + 1]) + (int)(disReseverToBS * dal.AskForBattery()[(int)parcel.Weight + 1]));
+                return battery;
+            }
+        }
+
+        /// <summary>
+        /// fineds the closest base station to drone
+        /// </summary>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <returns></returns>
+        internal DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
+        {
+            lock (dal)
+            {
+                DO.BaseStation baseStation = new();
+                double minDistance = 0;
+                double distance = 0;
+                //to fo over all the station
+                foreach (var item in dal.GetBaseStations())
+                {
+                    //the distance between the drone and this station
+                    distance = Distance.Haversine(item.Latitude, item.Longitude, latitude, longitude);
+                    //check if the distance of this station is less then the one before
+                    if (minDistance == 0 || minDistance > distance)
+                    {
+                        minDistance = distance;
+                        baseStation = item;
+                    }
+                }
+                return baseStation;
+            }
+        }
+        #endregion
+
+        #region PRIVATE FUNC
         /// <summary>
         /// fineds the closest station to drone that has empty charger
         /// </summary>
@@ -402,42 +459,16 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// fineds the closest base station to drone
-        /// </summary>
-        /// <param name="longitude"></param>
-        /// <param name="latitude"></param>
-        /// <returns></returns>
-        private DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
-        {
-            lock (dal)
-            {
-                DO.BaseStation baseStation = new();
-                double minDistance = 0;
-                double distance = 0;
-                //to fo over all the station
-                foreach (var item in dal.GetBaseStations())
-                {
-                    //the distance between the drone and this station
-                    distance = Distance.Haversine(item.Latitude, item.Longitude, latitude, longitude);
-                    //check if the distance of this station is less then the one before
-                    if (minDistance == 0 || minDistance > distance)
-                    {
-                        minDistance = distance;
-                        baseStation = item;
-                    }
-                }
-                return baseStation;
-            }
-        }
+       
         /// <summary>
         /// returne the distance between a drone and a customer
         /// </summary>
         /// <param name="drone"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        private double DisDronToCustomer(DroneList drone, Customer customer)
+        private double DisDronToCustomer(int droneId, Customer customer)
         {
+            Drone drone=GetDrone(droneId);
             lock (dal)
                 return Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
         }
@@ -451,29 +482,6 @@ namespace BL
         {
             lock (dal)
                 return Distance.Haversine(customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude, station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
-        }
-        /// <summary>
-        /// calculate how much battery did the drone used in the delivery of parcel
-        /// </summary>
-        /// <param name="parcel">the parcel that the drone is delivering</param>
-        /// <param name="drone">the drone that  we are calulating the battery for </param>
-        /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
-        private int UseOfBattery(DO.Parcel parcel,DroneList drone)
-        {
-            lock (dal)
-            {
-                Customer senderOfParcel = GetCustomer(parcel.SenderId);
-                Customer resepterOfParcel = GetCustomer(parcel.TargetId);
-                BaseStation baseStationToCharge = new();
-                //the closest base station to the resever of the parcel
-                baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfParcel.CustomerLocation.Latitude, resepterOfParcel.CustomerLocation.Longitude).Id);
-                double disDroneToSenderP = DisDronToCustomer(drone, senderOfParcel);
-                double disReseverToBS = DisDronToBS(resepterOfParcel, baseStationToCharge);
-                double disSenderToResepter = DisSenderToResever(senderOfParcel, resepterOfParcel);
-                //culcilates how much batery will leght in the drone after he get to the parcel to delever the parcel and if he needs to get also to a base station 
-                int battery = drone.Battery - ((int)(disDroneToSenderP * dal.AskForBattery()[(int)parcel.Weight + 1]) + (int)(disSenderToResepter * dal.AskForBattery()[(int)parcel.Weight + 1]) + (int)(disReseverToBS * dal.AskForBattery()[(int)parcel.Weight + 1]));
-                return battery;
-            }
         }
         #endregion
     }

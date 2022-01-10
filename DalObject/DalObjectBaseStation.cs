@@ -14,7 +14,7 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation addBaseStation)
         {
-            
+
             if (DataSource.Stations.Exists(item => item.Id == addBaseStation.Id))
                 throw new ExistsException($"Base station id: {addBaseStation.Id} already exists.");
             DataSource.Stations.Add(addBaseStation);
@@ -56,6 +56,14 @@ namespace Dal
                 baseStation.Name = newName;
             baseStation.EmptyCharges = emptyCharging(charges, id);
             DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
+        }
+
+        public void DroneInStation(int stationId)
+        {
+            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == stationId);
+            BaseStation baseStation = DataSource.Stations[baseStationIndex];
+            baseStation.EmptyCharges--;
+            DataSource.Stations[baseStationIndex] = baseStation;
         }
     }
 }

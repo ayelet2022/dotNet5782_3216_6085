@@ -68,4 +68,10 @@ namespace BO
         public MissingInfoException(string message, Exception inner) : base(message, inner) { }
     }
 
+    public class DataCorruptionException : Exception
+    {
+        public DataCorruptionException() : base() { }
+        public DataCorruptionException(string message) : base(message) { }
+        public DataCorruptionException(string message, Exception inner) : base(message, inner) { }
+    }
 }
