@@ -62,22 +62,28 @@ namespace PL
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
         public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int i=0)
         {
-            ibl = bl;
             InitializeComponent();
+            ibl = bl;
             windowDrones = _windowDrones;
-            ActionseGrid.Visibility=Visibility.Visible;
-            Buttens.Visibility = Visibility.Visible;
             if (i == 0)
                 mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
             else
                 mainDrone = ibl.GetDrone(i);
+            ActionseGrid.Visibility = Visibility.Visible;
+            Buttens.Visibility = Visibility.Visible;
             AddUpdateButten.Content = "Update the Drone";
             mainDrone.ParcelInTransfer = new();
             mainDrone = ibl.GetDrone(mainDrone.Id);//returnes the drone that the mouce clicked twise on
             DataContext = mainDrone;//to connect between the text box and the data
             //changes the buttens content according to the drone statuse
-            if(mainDrone.ParcelInTransfer!=default)
-                DroneParcel.Visibility=Visibility.Visible;
+            WindowUp();
+
+        }
+        private void WindowUp()
+        {
+            
+            if (mainDrone.ParcelInTransfer != default)
+                DroneParcel.Visibility = Visibility.Visible;
             if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Available)//if the drone is available
             {
                 ChargeDroneButten.Visibility = Visibility.Visible;
@@ -106,7 +112,6 @@ namespace PL
                 }
             }
         }
-
         /// <summary>
         /// when the butten add was prest and the new drone
         /// </summary>
@@ -335,13 +340,20 @@ namespace PL
         BackgroundWorker worker;
         private void updateDrone() => worker.ReportProgress(0);
         private bool checkStop() => worker.CancellationPending;
+        private void UpdateWidowDrone()
+        {
+            mainDrone=ibl.GetDrone(mainDrone.Id);
+            DataContext = mainDrone;
+            WindowUp();
+        }
+
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
             Auto = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
             worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, updateDrone, checkStop);
             worker.RunWorkerCompleted += (sender, args) => Auto = false;
-            //worker.ProgressChanged += (sender, args) => updateDrone();
+            worker.ProgressChanged += (sender, args) =>UpdateWidowDrone();
             worker.RunWorkerAsync(mainDrone.Id);
         }
         private void Regular_Click(object sender, RoutedEventArgs e) => worker.CancelAsync();
