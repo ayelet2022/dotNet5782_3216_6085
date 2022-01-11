@@ -74,4 +74,10 @@ namespace BO
         public DataCorruptionException(string message) : base(message) { }
         public DataCorruptionException(string message, Exception inner) : base(message, inner) { }
     }
+    public class ItemIsDeletedException : Exception
+    {
+        public ItemIsDeletedException() : base() { }
+        public ItemIsDeletedException(string message) : base(message) { }
+        public ItemIsDeletedException(string message, Exception inner) : base(message, inner) { }
+    }
 }

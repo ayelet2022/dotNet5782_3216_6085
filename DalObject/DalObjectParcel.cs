@@ -19,6 +19,7 @@ namespace Dal
             newParcel.Delivered = null;
             newParcel.PickedUp = null;
             newParcel.Scheduled = null;
+            newParcel.IsActive = true;
             DataSource.Parcels.Add(newParcel);
         }
 
@@ -28,9 +29,17 @@ namespace Dal
             try
             {
                 //search for the parcel that has the same id has the id that the user enterd
-                return DataSource.Parcels.First(item => item.Id == idParcel);
+                Parcel parcel = DataSource.Parcels.First(item => item.Id == idParcel);
+                if (parcel.IsActive)
+                    return parcel;
+                else
+                    throw new ItemIsDeletedException();
             }
             catch (InvalidOperationException ex)
+            {
+                throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
+            }
+            catch (ItemIsDeletedException ex)
             {
                 throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
             }
@@ -44,7 +53,7 @@ namespace Dal
             if (droneIndex == -1)
                 throw new DoesNotExistException($"Drone id: {droneId} does not exist.");
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == parcelId);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == parcelId && item.IsActive);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { parcelId } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
@@ -57,7 +66,7 @@ namespace Dal
         public void PickUpParcel(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id && item.IsActive);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { id } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
@@ -69,7 +78,7 @@ namespace Dal
         public void ParcelToCustomer(int id)
         {
             //search for the parcel that has the same id has the id that the user enterd
-            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id);
+            int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id && item.IsActive);
             if (parcelIndex == -1)
                 throw new DoesNotExistException($"Parcel id: { id } does not exists.");
             Parcel updateAParcel = DataSource.Parcels[parcelIndex];
@@ -83,13 +92,29 @@ namespace Dal
         {
             return from item in DataSource.Parcels
                    where predicate == null ? true : predicate(item)
+                   where item.IsActive == true
                    select item;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void DeletParcel(int id)
+        public void DeleteParcel(int id)
         {
-            DataSource.Parcels.Remove(GetParcel(id));
+            try
+            {
+                Parcel parcel = GetParcel(id);
+                if (parcel.Scheduled == null)
+                    DataSource.Parcels.Remove(parcel);
+                else
+                {
+                    parcel.IsActive = false;
+                    int parcelIndex = DataSource.Parcels.FindIndex(item => item.Id == id);
+                    DataSource.Parcels[parcelIndex] = parcel;
+                }
+            }
+            catch (DoesNotExistException ex)
+            {
+                throw new ItemIsDeletedException($"Parcel: { id } is already deleted.");
+            }
         }
     }
 }

@@ -181,7 +181,7 @@ namespace PL
                 }
 
             }
-            else
+            else//meens to update the customer
             {
                 try
                 {
@@ -285,6 +285,22 @@ namespace PL
         {
             WindowParcels windowParcels = new WindowParcels(ibl);
             new WindowParcel(ibl, windowParcels).Show();
+        }
+
+        private void DeletButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ibl.DeleteCustomer(mainCustomer.Id);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + mainCustomer.ToString());
+                _close = true;
+                Close();
+                //windowCustomers.MyRefresh();
+            }
+            catch(BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been added successfully \n" + mainCustomer.ToString());
+            }
         }
     }
 }

@@ -97,7 +97,7 @@ namespace PL
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Customers.OrderBy(item => item.Id);
+            MyRefresh();
         }
         public void MyRefresh()
         {

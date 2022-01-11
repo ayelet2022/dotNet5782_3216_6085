@@ -126,5 +126,19 @@ namespace BL
                 }
             }
         }
+         public void DeleteStation(int id)
+        {
+            lock (dal)
+            {
+                try
+                {
+                    dal.DeleteBaseStation(id);
+                }
+                catch (DO.ItemIsDeletedException ex)
+                {
+                    throw new ItemIsDeletedException($"Station: { id } is already deleted.");
+                }
+            }
+        }
     }
 }

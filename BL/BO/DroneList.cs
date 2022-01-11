@@ -34,6 +34,8 @@ namespace BO
         /// <returns></returns>the string that collect all the delaies and then prints it
         public Location DroneLocation { get; set; }
         public int NumOfParcelOnTheWay { get; set; }
+
+        public bool IsActive { get; set; }
         public override string ToString()
         {
             String result = "";
