@@ -77,4 +77,18 @@
     <Longitude>35.67</Longitude>
     <Latitude>32.78</Latitude>
   </Customer>
+  <Customer>
+    <Id>989898989</Id>
+    <Name>tamar</Name>
+    <Phone>0597979797</Phone>
+    <Longitude>35.78</Longitude>
+    <Latitude>32.89</Latitude>
+  </Customer>
+  <Customer>
+    <Id>777777777</Id>
+    <Name>yosi</Name>
+    <Phone>0544444444</Phone>
+    <Longitude>35.98</Longitude>
+    <Latitude>32.78</Latitude>
+  </Customer>
 </ArrayOfCustomer>
