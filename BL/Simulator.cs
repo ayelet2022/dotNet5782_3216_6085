@@ -147,7 +147,7 @@ namespace BL
                         break;
                 }
                 //ReportProgressInSimultor();
-                  Thread.Sleep(1000);
+                    Thread.Sleep(1000);
             }
         }
         /// <summary>
