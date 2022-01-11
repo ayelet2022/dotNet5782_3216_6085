@@ -46,7 +46,7 @@ namespace BL
                         {
                             parcelId = bl.dal.GetParcels(p => p.Scheduled == null
                              && (WeightCategories)p.Weight <= drone.MaxWeight
-                             && bl.UseOfBattery(parcel, drone.Id) < drone.Battery)
+                             && bl.UseOfBattery(p, drone.Id) < drone.Battery)
                                 .OrderByDescending(x => x.Priority)
                                 .ThenByDescending(x => x.Weight)
                                 .FirstOrDefault().Id;
@@ -58,9 +58,6 @@ namespace BL
                                     drone.Status = DroneStatus.inFix;
                                     charging = Charging.Starting;
                                     bl.dal.DronToCharger(droneId, stationId);
-                                    //bl.dal.DroneInStation(stationId);
-                                    //DO.DroneCharge droneCharge = new() { DroneId = drone.Id,StationId=stationId };
-                                    //bl.dal.AddDroneCharge(droneCharge);
                                 }
                             }
                             if (parcelId != default && drone.Battery != 100)
@@ -100,6 +97,7 @@ namespace BL
                                         (drone.DroneLocation.Longitude, drone.DroneLocation.Latitude,
                                         station.BaseStationLocation.Longitude, station.BaseStationLocation.Latitude);
                                     charging = Charging.Going;
+                                    bl.GetDrones().Where(d => d.Id == droneId).Select(d =>d.Battery=drone.Battery);
                                 }
                                 break;
                             case Charging.Going:
@@ -123,6 +121,9 @@ namespace BL
                                             drone.Battery = (int)(drone.Battery - del * bl.dal.AskForBattery()[0]);
                                     }
                                 }
+
+
+
                                 break;
                             case Charging.Charging:
                                 if (drone.Battery == 100)
@@ -143,19 +144,21 @@ namespace BL
                                             drone.Battery = 0;
                                     }
                                 }
+                               
+
                                 break;
                             default:
                                 throw new DataCorruptionException("Internal data curruption");
                                 #endregion
                         }
-                        if (drone.Battery == 100)
+                        if (drone.Battery >= 100)
                             bl.FreeDroneFromeCharger(drone.Id);
                         break;
                     case DroneStatus.delivery:
                         lock (bl)
                         {
                             if (parcelId == 0)
-                                Delivery(parcel.Id);
+                                Delivery(drone.ParcelInTransfer.Id);
                             distance = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude,
                                 customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
                         }
@@ -181,10 +184,12 @@ namespace BL
                             {
                                 double del = distance < Step ? distance : Step;
                                 double propor = del / distance;
-                                drone.Battery = Max(0, (int)(drone.Battery + bl.power[(int)(pickUp ? batteryUse : 0)]));
+                                drone.Battery = Max(0, (int)(drone.Battery - bl.power[(int)(pickUp ? batteryUse : 0)]));
                                 double lat = drone.DroneLocation.Latitude + (customer.CustomerLocation.Latitude - drone.DroneLocation.Latitude) * propor;
                                 double lon = drone.DroneLocation.Longitude + (customer.CustomerLocation.Longitude - drone.DroneLocation.Longitude) * propor;
-                                drone.DroneLocation = new() { Latitude = lat, Longitude = lon };
+                                drone.DroneLocation = new() { Latitude = lat, Longitude = lon};
+
+                                //drone.DroneLocation = new() { Latitude = drone.DroneLocation.Longitude+5, Longitude = drone.DroneLocation.Longitude+5 };
                             }
                         }
                         break;
