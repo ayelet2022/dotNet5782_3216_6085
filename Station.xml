@@ -10,7 +10,7 @@
   <BaseStation>
     <Id>1584</Id>
     <Name>Apple</Name>
-    <EmptyCharges>4</EmptyCharges>
+    <EmptyCharges>5</EmptyCharges>
     <Longitude>36.52314133873356</Longitude>
     <Latitude>32.99316442152167</Latitude>
   </BaseStation>
