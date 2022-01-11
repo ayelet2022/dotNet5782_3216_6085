@@ -93,14 +93,14 @@ namespace PL
             if (mainDrone.Status == (BO.DroneStatus)DroneStatus.InFix)//if the drone is in charge
             {
                 ChargeDroneButten.Content = "Release drone from charging";
-                ChangeStatusDroneButten.Visibility = Visibility.Hidden;
+                ChangeStatusDroneButten.Visibility = Visibility.Collapsed;
             }
             else//meens the drone is in delivery
             {
                 //if the drone is in delivery and the parcel in the drone isnt on the way
                 if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Delivery && mainDrone.ParcelInTransfer.StatusParcel == false)
                 {
-                    ChargeDroneButten.Visibility = Visibility.Hidden;
+                    ChargeDroneButten.Visibility = Visibility.Collapsed;
                     ChangeStatusDroneButten.Content = "Pick up parcel";
                 }
                 //if the drone is in delivery and the parcel in the drone is on the way
@@ -349,13 +349,16 @@ namespace PL
 
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
-            Auto = true;
+            //Auto = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
             worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, updateDrone, checkStop);
-            worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
             worker.ProgressChanged += (sender, args) =>UpdateWidowDrone();
             worker.RunWorkerAsync(mainDrone.Id);
         }
-        private void Regular_Click(object sender, RoutedEventArgs e) => worker.CancelAsync();
+        private void Regular_Click(object sender, RoutedEventArgs e)
+        {
+            //worker.CancellationPending=false;
+        }
     }
 }
