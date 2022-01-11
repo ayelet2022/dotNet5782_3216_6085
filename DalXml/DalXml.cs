@@ -241,7 +241,7 @@ namespace Dal
             parcels.Add(newParcel);
             XMLTools.SaveListToXMLSerializer(parcels, ParcelXml);
             configXml.Element("RunningParcelId").Value = newParcel.Id.ToString();
-            XMLTools.SaveListToXMLElement(configXml, "ConfigXml.xml");
+            XMLTools.SaveListToXMLElement(configXml, "Config.xml");
         }
         public void DeletParcel(int id)
         {

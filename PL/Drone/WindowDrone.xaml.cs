@@ -26,7 +26,9 @@ namespace PL
         StatusAndWeight _StatusAndWeight;
         Drone mainDrone = new();
         private bool _close { get; set; } = false;
+
         BlApi.IBL ibl;
+
         private WindowDrones windowDrones;
         private WindowStation windowStation { get; set; }
         private int index { get; set; }
@@ -60,15 +62,15 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int i=0)
+        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int id=0)
         {
             InitializeComponent();
             ibl = bl;
             windowDrones = _windowDrones;
-            if (i == 0)
+            if (id == 0)
                 mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
             else
-                mainDrone = ibl.GetDrone(i);
+                mainDrone = ibl.GetDrone(id);
             ActionseGrid.Visibility = Visibility.Visible;
             Buttens.Visibility = Visibility.Visible;
             AddUpdateButten.Content = "Update the Drone";
@@ -110,7 +112,8 @@ namespace PL
                     ChangeStatusDroneButten.Content = "Supply parcel";
                 }
             }
-            windowDrones.Selector();
+            if (windowDrones != null)
+                windowDrones.Selector();
         }
         /// <summary>
         /// when the butten add was prest and the new drone
@@ -358,7 +361,8 @@ namespace PL
         }
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
-            //worker.CancellationPending=false;
+            worker.CancelAsync();
+            worker = null;
         }
     }
 }
