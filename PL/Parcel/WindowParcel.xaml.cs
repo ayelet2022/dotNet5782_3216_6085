@@ -62,7 +62,7 @@ namespace PL
             mainParcel.Recepter = new();
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             PriorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
-            addDeletDeliverPickUpButton.Content = "Add the Parcel";
+            addDeletDeliverPickUpButton.Content = "Add a Parcel";
             addDeletDeliverPickUpButton.Visibility = Visibility.Visible;
         }
 
@@ -128,7 +128,7 @@ namespace PL
         {
             switch (addDeletDeliverPickUpButton.Content)
             {
-                case "Add the Parcel":
+                case "Add a Parcel":
                     try
                     {
                         if (mainParcel.Sender.Id == default || mainParcel.Recepter.Id == default)

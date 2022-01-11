@@ -191,7 +191,7 @@ namespace PL
                     int index = -1;
                     if (windowCustomers != null)
                         index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
-                    if (index != -1)
+                    if (index == -1)
                         windowCustomers.MyRefresh();
                     else
                     {
