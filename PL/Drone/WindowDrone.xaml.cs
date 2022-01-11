@@ -77,7 +77,6 @@ namespace PL
             DataContext = mainDrone;//to connect between the text box and the data
             //changes the buttens content according to the drone statuse
             WindowUp();
-
         }
         private void WindowUp()
         {
@@ -111,6 +110,7 @@ namespace PL
                     ChangeStatusDroneButten.Content = "Supply parcel";
                 }
             }
+            windowDrones.Selector();
         }
         /// <summary>
         /// when the butten add was prest and the new drone

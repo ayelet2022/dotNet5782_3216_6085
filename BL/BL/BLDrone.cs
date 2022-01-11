@@ -229,43 +229,17 @@ namespace BL
                     DroneList drone = Drones.First(item => item.Id == droneId);
                     if (drone.Status == DroneStatus.delivery)//meens the drone is in delivery
                         throw new FailedToScheduledAParcelToADroneException($"Failed to sceduled a parcel to drone:{droneId}.\n");
-                    Parcel parcel = default;
-                    bool foundParcel = false;
-                    int battery = 0;
+                    ParcelList parcel = default;
+                    //bool foundParcel = false;
+                    //int battery = 0;
                     //to go over all the parcels
-                    foreach (var item in dal.GetParcels(item => item.Scheduled == null))
-                    {
-                        if (parcel == default || foundParcel == false)
-                        {
-                            parcel = GetParcel(item.Id);
-                            battery = UseOfBattery(item, drone.Id);
-                            if (battery > 0 && parcel.Weight <= drone.MaxWeight)
-                                foundParcel = true;
-                        }
-                        if (foundParcel == true)
-                        {
-                            battery = UseOfBattery(item, drone.Id);
-                            Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
-                            Customer senderOfItem = GetCustomer(item.SenderId);
-                            Customer resepterOfItem = GetCustomer(item.TargetId);
-                            BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
-                            double disDroneToSenderP = DisDronToCustomer(drone.Id, senderOfParcel);
-                            double disDroneToSenderI = DisDronToCustomer(drone.Id, senderOfItem);
-                            double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
-                            double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
-                            //if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
-                            if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
-                                //the distatnce of this parcel his smaller then the distance of the parcel before
-                                if (foundParcel == false)
-                                    if (disDroneToSenderI < disDroneToSenderP)
-                                    {
-                                        parcel = GetParcel(item.Id);
-                                        foundParcel = true;
-                                    }
-                        }
-                    }
-                    //meens if found a parcel
-                    if (foundParcel == true)
+                    parcel = GetParcels(p => p.ParcelStatus == ParcelStatus.creat
+                                           && p.Weight <= drone.MaxWeight
+                                           && UseOfBattery(p.Id, drone.Id) < drone.Battery)
+                                           .OrderByDescending(x => x.Priority)
+                                           .ThenByDescending(x => x.Weight)
+                                           .FirstOrDefault();
+                    if (parcel != default)
                     {
                         Drones.Find(item => item.Id == drone.Id).Status = DroneStatus.delivery;//update the drone to be in delivery
                         dal.DronToAParcel(droneId, parcel.Id);
@@ -273,6 +247,45 @@ namespace BL
                     }
                     else
                         throw new FailToUpdateException($"Failed to sceduled a parcel to drone:{droneId}.\n");
+                    //foreach (var item in dal.GetParcels(item => item.Scheduled == null))
+                    //{
+
+                    //    if (parcel == default || foundParcel == false)
+                    //    {
+                    //        parcel = GetParcel(item.Id);
+                    //        battery = UseOfBattery(item.Id, drone.Id);
+                    //        if (battery > 0 && parcel.Weight <= drone.MaxWeight)
+                    //            foundParcel = true;
+                    //    }
+                    //    if (foundParcel == true)
+                    //    {
+                    //        battery = UseOfBattery(item.Id, drone.Id);
+                    //        Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
+                    //        Customer senderOfItem = GetCustomer(item.SenderId);
+                    //        Customer resepterOfItem = GetCustomer(item.TargetId);
+                    //        BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
+                    //        double disDroneToSenderP = DisDronToCustomer(drone.Id, senderOfParcel);
+                    //        double disDroneToSenderI = DisDronToCustomer(drone.Id, senderOfItem);
+                    //        double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
+                    //        double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
+                    //        if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
+                    //        if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
+                    //            the distatnce of this parcel his smaller then the distance of the parcel before
+                    //            if (foundParcel == false)
+                    //            if (disDroneToSenderI < disDroneToSenderP)
+                    //            {
+                    //                parcel = GetParcel(item.Id);
+                    //                foundParcel = true;
+                    //            }
+                    //    }
+                    //}
+                    //meens if found a parcel
+                    //if (foundParcel == true)
+                    //{
+                    //    Drones.Find(item => item.Id == drone.Id).Status = DroneStatus.delivery;//update the drone to be in delivery
+                    //    dal.DronToAParcel(droneId, parcel.Id);
+                    //    drone.NumOfParcelOnTheWay = parcel.Id;
+                    //}
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -376,10 +389,11 @@ namespace BL
         /// <param name="parcel">the parcel that the drone is delivering</param>
         /// <param name="drone">the drone that  we are calulating the battery for </param>
         /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
-        internal int UseOfBattery(DO.Parcel parcel, int dronId)
+        internal int UseOfBattery(int parcelId, int dronId)
         {
             lock (dal)
             {
+                DO.Parcel parcel = dal.GetParcel(parcelId);
                 Drone drone = GetDrone(dronId);
                 Customer senderOfParcel = GetCustomer(parcel.SenderId);
                 Customer resepterOfParcel = GetCustomer(parcel.TargetId);
@@ -423,15 +437,12 @@ namespace BL
                 return baseStation;
             }
         }
-        #endregion
-
-        #region PRIVATE FUNC
         /// <summary>
         /// fineds the closest station to drone that has empty charger
         /// </summary>
         /// <param name="drone">the drone that we want to find the station for</param>
         /// <returns>the closest base station to drone that has an empty charger</returns>
-        private DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
+        internal DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
         {
             lock (dal)
             {
@@ -458,8 +469,11 @@ namespace BL
                 return baseStation;
             }
         }
+        #endregion
 
-       
+        #region PRIVATE FUNC
+
+
         /// <summary>
         /// returne the distance between a drone and a customer
         /// </summary>
