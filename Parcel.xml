@@ -120,4 +120,28 @@
     <PickedUp>2021-10-06T19:17:37</PickedUp>
     <Delivered>2021-10-06T19:45:15</Delivered>
   </Parcel>
+  <Parcel>
+    <Id>1010</Id>
+    <SenderId>777777777</SenderId>
+    <TargetId>999999999</TargetId>
+    <DroneId>0</DroneId>
+    <Weight>light</Weight>
+    <Priority>regular</Priority>
+    <CreatParcel>2022-01-11T18:44:34.0246507+02:00</CreatParcel>
+    <Scheduled>2022-01-11T18:44:54.0322212+02:00</Scheduled>
+    <PickedUp>2022-01-11T18:44:55.0840062+02:00</PickedUp>
+    <Delivered>2022-01-11T18:44:56.1195597+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>1010</Id>
+    <SenderId>999999999</SenderId>
+    <TargetId>777777777</TargetId>
+    <DroneId>0</DroneId>
+    <Weight>light</Weight>
+    <Priority>regular</Priority>
+    <CreatParcel>2022-01-11T18:48:23.9912597+02:00</CreatParcel>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+  </Parcel>
 </ArrayOfParcel>

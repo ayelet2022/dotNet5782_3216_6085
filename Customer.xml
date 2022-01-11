@@ -9,7 +9,7 @@
   </Customer>
   <Customer>
     <Id>566257827</Id>
-    <Name>Penina</Name>
+    <Name>Pe</Name>
     <Phone>0522222222</Phone>
     <Longitude>36.37885123322664</Longitude>
     <Latitude>31.112155873380672</Latitude>
@@ -76,5 +76,12 @@
     <Phone>0567676767</Phone>
     <Longitude>35.67</Longitude>
     <Latitude>32.78</Latitude>
+  </Customer>
+  <Customer>
+    <Id>777777777</Id>
+    <Name>pe</Name>
+    <Phone>0535438907</Phone>
+    <Longitude>35.8</Longitude>
+    <Latitude>32.67</Latitude>
   </Customer>
 </ArrayOfCustomer>
