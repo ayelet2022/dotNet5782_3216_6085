@@ -65,9 +65,15 @@ namespace BL
                                              select new DroneInCharge
                                              {
                                                  Id = item.DroneId,
-                                                 Battery = temp.Battery
+                                                 Battery = temp != default ? temp.Battery :
+                                                 throw new NotFoundInputException($"The base station: {idBaseStation} was not found.\n")
                                              };
                     return station;
+                }
+                catch(NotFoundInputException ex)
+                {
+                    throw new NotFoundInputException($"The base station: {idBaseStation} was not found.\n", ex);
+
                 }
                 catch (DO.DoesNotExistException ex)
                 {
