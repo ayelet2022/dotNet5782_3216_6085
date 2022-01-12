@@ -286,21 +286,5 @@ namespace PL
             WindowParcels windowParcels = new WindowParcels(ibl);
             new WindowParcel(ibl, windowParcels).Show();
         }
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            FrameworkElement framework = sender as FrameworkElement;
-            selectedParcel = framework.DataContext as ParcelList;
-            try
-            {
-                ibl.DeleteParcel(selectedParcel.Id);
-                Parcels.Remove(selectedParcel);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + selectedParcel.ToString());
-            }
-            catch (BO.ItemIsDeletedException ex)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not deleted \n" + selectedParcel.ToString());
-            }
-
-        }
     }
 }

@@ -93,15 +93,6 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="" Width="50" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Image Width="25" MouseDown="Image_MouseDown" Source="/Customer/פח זבל.jpeg"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="70"/>
                         <GridViewColumn Header="Weight"  DisplayMemberBinding="{Binding Weight}" Width="100"/>
                         <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="100"/>
