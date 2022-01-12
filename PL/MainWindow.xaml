@@ -51,8 +51,7 @@
             <Button x:Name="parcelsButten" Content="PARCELS" Grid.Row="4" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="parcelsButten_Click"/>
             <Button x:Name="customersButten" Content="CUSTOMERS" Grid.Row="4" Grid.Column="2" Style="{StaticResource ButtenNainStyle}" Click="customersButten_Click"/>
             <Button x:Name="stationsButten" Content="STATIONS" Grid.Row="4" Grid.Column="3" Style="{StaticResource ButtenNainStyle}" Click="stationsButten_Click"/>
-            <Button x:Name="GoBackButten" Grid.Row="5" Grid.Column="3" Content="GoBack" Style="{StaticResource ButtenNainStyle}" Click="GoBackButten_Click"/>
-
+            <Button x:Name="GoBackButten" Grid.Row="5" Grid.Column="3" Content="GoBack" Style="{StaticResource ButtenCloseStyle}" Click="GoBackButten_Click"/>
         </Grid>
     </Grid>
 </Window>
