@@ -285,21 +285,26 @@ namespace PL
                 { 
                     ibl.FreeDroneFromeCharger(mainDrone.Id);//to free the drone from chargimg
                     if (windowDrones == null)
+                    {
                         windowStation.dronesInchargeList.Remove(windowStation.dronesInchargeList[index]);
+                        windowStation.MyRefresh();
+                    }
                     ChangeStatusDroneButten.Visibility = Visibility.Visible;
                     ChargeDroneButten.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
                 mainDrone = ibl.GetDrone(mainDrone.Id);
                 DataContext = mainDrone;
-                IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
-                if (items != null)
-                {
-                    items.EditItem(windowDrones.Drones);
-                    items.CommitEdit();
-                }
                 if (windowDrones != null)
+                {
+                    IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
+                    if (items != null)
+                    {
+                        items.EditItem(windowDrones.Drones);
+                        items.CommitEdit();
+                    }
                     windowDrones.Selector();
+                }
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -315,7 +320,8 @@ namespace PL
         /// <param name="e"></param>
         private void CloseButten_Click(object sender, RoutedEventArgs e)
         {
-            worker.CancelAsync();
+            if (worker != null)
+                worker.CancelAsync();
             _close = true;
             Close();
         }

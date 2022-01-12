@@ -212,17 +212,35 @@ namespace PL
 
         private void SenderButten_Click(object sender, RoutedEventArgs e)
         {
-            new WindowCustomer(ibl, this, mainParcel.Sender.Id, mainParcel).Show();
+            MessageBoxResult messageBoxResult;
+            Customer customer = ibl.GetCustomer(mainParcel.Sender.Id);
+            if (ibl.IsActive(customer.Id))
+                new WindowCustomer(ibl, this, mainParcel.Sender.Id, mainParcel).Show();
+            else
+                messageBoxResult = MessageBox.Show("The customer was deleted \n" + mainParcel.Sender.ToString());
         }
 
         private void RecepterButten_Click(object sender, RoutedEventArgs e)
         {
-            new WindowCustomer(ibl, this, mainParcel.Recepter.Id, mainParcel).Show();
+            MessageBoxResult messageBoxResult;
+            Customer customer = ibl.GetCustomer(mainParcel.Recepter.Id);
+            if (ibl.IsActive(customer.Id))
+                new WindowCustomer(ibl, this, mainParcel.Recepter.Id, mainParcel).Show();
+            else
+                messageBoxResult = MessageBox.Show("The customer was deleted \n" + mainParcel.Recepter.ToString());
         }
         private void Parcelsdrone_Click(object sender, RoutedEventArgs e)
         {
-            WindowDrones windowDrones = new WindowDrones(ibl);
-            new WindowDrone(ibl, windowDrones, mainParcel.ParecelDrone.Id).Show();
+            try
+            {
+                ibl.GetDrone(mainParcel.ParecelDrone.Id);
+                WindowDrones windowDrones = new WindowDrones(ibl);
+                new WindowDrone(ibl, windowDrones, mainParcel.ParecelDrone.Id).Show();
+            }
+            catch (NotFoundInputException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was deleted \n" + mainParcel.ParecelDrone.ToString());
+            }
         }
     }
 }

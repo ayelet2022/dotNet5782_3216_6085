@@ -69,6 +69,13 @@ namespace Dal
             }
 
         }
+        public bool IsActive(int id)
+        {
+            Customer customer = GetCustomer(id);
+            if (customer.IsActive)
+                return true;
+            return false;
+        }
 
     }
 }

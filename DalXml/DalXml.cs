@@ -426,6 +426,16 @@ namespace Dal
             customer.Element("IsActive").Value = "False";
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
+        public bool IsActive(int id)
+        {
+            XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
+            XElement customer = (from cus in customerXml.Elements()
+                                 where cus.Element("Id").Value == id.ToString()
+                                 select cus).FirstOrDefault();
+            if (customer.Element("IsActive").Value == "True")
+                return true;
+            return false;
+        }
         #endregion
 
         #region DRONE_CHARGE

@@ -195,5 +195,9 @@ namespace PL
             _close = true;
             Close();
         }
+        public void MyRefresh()
+        {
+            windowStations.MyRefresh();
+        }
     }
 }

@@ -64,7 +64,10 @@ namespace PL
 
         public void MyRefresh()
         {
-            stationList.ItemsSource = Stations;
+            Stations = new ObservableCollection<BaseStationList>();
+            List<BaseStationList> stations = ibl.GetBaseStations().ToList();
+            foreach (var stat in stations) Stations.Add(stat);
+            stationList.ItemsSource = Stations;//to show all the stations
         }
         /// <summary>
         /// to close the window of the drones list 

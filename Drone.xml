@@ -4,7 +4,7 @@
     <Id>235206</Id>
     <Model>Ui65JH</Model>
     <MaxWeight>heavy</MaxWeight>
-    <IsActive>true</IsActive>
+    <IsActive>false</IsActive>
   </Drone>
   <Drone>
     <Id>442637</Id>
@@ -22,6 +22,6 @@
     <Id>368176</Id>
     <Model>Aa44ZX</Model>
     <MaxWeight>light</MaxWeight>
-    <IsActive>true</IsActive>
+    <IsActive>false</IsActive>
   </Drone>
 </ArrayOfDrone>

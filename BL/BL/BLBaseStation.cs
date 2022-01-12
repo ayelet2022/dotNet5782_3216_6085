@@ -47,7 +47,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int idBaseStation)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -85,7 +85,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationList> GetBaseStations(Predicate<BaseStationList> predicate = null)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 List<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
@@ -134,7 +134,7 @@ namespace BL
         }
          public void DeleteStation(int id)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {

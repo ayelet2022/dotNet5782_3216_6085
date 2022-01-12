@@ -54,7 +54,7 @@
     <Phone>0577777777</Phone>
     <Longitude>36.22399782306701</Longitude>
     <Latitude>32.6673289941006</Latitude>
-    <IsActive>True</IsActive>
+    <IsActive>False</IsActive>
   </Customer>
   <Customer>
     <Id>691667244</Id>
@@ -94,6 +94,6 @@
     <Phone>0535438907</Phone>
     <Longitude>35.8</Longitude>
     <Latitude>32.67</Latitude>
-    <IsActive>True</IsActive>
+    <IsActive>False</IsActive>
   </Customer>
 </ArrayOfCustomer>

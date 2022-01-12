@@ -14,8 +14,7 @@ namespace BL
     sealed partial class BL : BlApi.IBL
     {
         internal readonly IDal dal = DalFactory.GetDL();
-        static readonly IBL instance = new BL();
-        public static IBL Instance { get => instance; }
+        internal static BL Instance { get; } = new BL();
 
         List<DroneList> Drones = new List<DroneList>();
         static BL() { }

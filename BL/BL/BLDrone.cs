@@ -12,7 +12,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone, int idFirstStation)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 Random Rand = new Random();
                 if (drone.Id < 100000 || drone.Id > 999999)
@@ -63,7 +63,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int idDrone)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -126,7 +126,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone, string newModel)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -145,7 +145,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToCharging(int id)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -183,7 +183,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void FreeDroneFromeCharger(int id)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -221,7 +221,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ScheduledAParcelToADrone(int droneId)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -261,7 +261,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickUpParcel(int id)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -302,7 +302,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliverParcel(int id)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -343,7 +343,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int idDrone)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -381,7 +381,7 @@ namespace BL
         /// <returns>the battery that will be left in the dron if he will do the delivery of parcel</returns>
         internal int UseOfBattery(int parcelId, int dronId)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 DO.Parcel parcel = dal.GetParcel(parcelId);
                 Drone drone = GetDrone(dronId);
@@ -407,7 +407,7 @@ namespace BL
         /// <returns></returns>
         internal DO.BaseStation FindMinDistanceOfDToBS(double longitude, double latitude)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 DO.BaseStation baseStation = new();
                 double minDistance = 0;
@@ -434,7 +434,7 @@ namespace BL
         /// <returns>the closest base station to drone that has an empty charger</returns>
         internal DO.BaseStation FindMinDistanceOfDToBSWithEempChar(DroneList drone)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 DO.BaseStation baseStation = new();
                 bool foundParcel = false;
@@ -472,11 +472,9 @@ namespace BL
         /// <returns></returns>
         private double DisDronToCustomer(int droneId, Customer customer)
         {
-            lock (Instance)
-            {
-                Drone drone = GetDrone(droneId);
-                return Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
-            }
+            Drone drone = GetDrone(droneId);
+            return Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, customer.CustomerLocation.Longitude, customer.CustomerLocation.Latitude);
+            
         }
         /// <summary>
         /// returne the distance between a drone and a base station

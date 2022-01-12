@@ -12,7 +12,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 if (customer.Id < 100000000 || customer.Id > 999999999)
                     throw new InvalidInputException($"The customer id: {customer.Id} is incorrect, the customer wasn't added.\n");
@@ -42,34 +42,31 @@ namespace BL
         }
         private ParcelInCustomer NewMethod(DO.Parcel indexOfParcels, Customer blCustomer)
         {
-            lock (Instance)
+           
+            ParcelInCustomer parcelAtCustomer = new ParcelInCustomer();
+            indexOfParcels.CopyPropertiesTo(parcelAtCustomer);// converting dal->bl
+                                                              //If the customer we want is either the sender or the recipient of the package
+            if (indexOfParcels.SenderId == blCustomer.Id || indexOfParcels.TargetId == blCustomer.Id)
             {
-                ParcelInCustomer parcelAtCustomer = new ParcelInCustomer();
-                indexOfParcels.CopyPropertiesTo(parcelAtCustomer);// converting dal->bl
-                                                                  //If the customer we want is either the sender or the recipient of the package
-                if (indexOfParcels.SenderId == blCustomer.Id || indexOfParcels.TargetId == blCustomer.Id)
+                if (indexOfParcels.Scheduled != null)//if parcel is assigned a drones
                 {
-                    if (indexOfParcels.Scheduled != null)//if parcel is assigned a drones
+                    if (indexOfParcels.PickedUp != null)//if parcel is picked up by drone
                     {
-                        if (indexOfParcels.PickedUp != null)//if parcel is picked up by drone
-                        {
-                            if (indexOfParcels.Delivered != null)//parcel is delivered
-                                parcelAtCustomer.Status = ParcelStatus.delivery;
-                            else
-                                parcelAtCustomer.Status = ParcelStatus.pickup;
-                        }
+                        if (indexOfParcels.Delivered != null)//parcel is delivered
+                            parcelAtCustomer.Status = ParcelStatus.delivery;
                         else
-                            parcelAtCustomer.Status = ParcelStatus.schedul;
+                            parcelAtCustomer.Status = ParcelStatus.pickup;
                     }
                     else
-                        parcelAtCustomer.Status = ParcelStatus.creat;
-                    parcelAtCustomer.SenderOrRecepter = new CustomerInParcel();
-                    parcelAtCustomer.SenderOrRecepter.Id = blCustomer.Id;//Updates the source information of the parcel
-                    parcelAtCustomer.SenderOrRecepter.Name = blCustomer.Name;//Updates the source information of the parcel
+                        parcelAtCustomer.Status = ParcelStatus.schedul;
                 }
-                return parcelAtCustomer;
+                else
+                    parcelAtCustomer.Status = ParcelStatus.creat;
+                parcelAtCustomer.SenderOrRecepter = new CustomerInParcel();
+                parcelAtCustomer.SenderOrRecepter.Id = blCustomer.Id;//Updates the source information of the parcel
+                parcelAtCustomer.SenderOrRecepter.Name = blCustomer.Name;//Updates the source information of the parcel
             }
-
+            return parcelAtCustomer;
         }
         private IEnumerable<ParcelInCustomer> parcelAtCustomers(bool flag, Customer blCustomer, List<DO.Parcel> parcelList)
         {
@@ -81,7 +78,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int customerId)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
                 {
                     Customer blCustomer = new Customer();
                     try
@@ -109,7 +106,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> GetCustomers(Predicate<CustomerList> predicate = null)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 CustomerList customer = new();
                 List<CustomerList> Customers = new();//the customer list that we whant to returne
@@ -144,7 +141,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(int id, string name, string phone)
         {
-            lock (Instance) lock (dal)
+            lock (dal)
             {
                 try
                 {
@@ -153,7 +150,7 @@ namespace BL
                         throw new InvalidInputException($"The customer phone: {phone} is incorrect");
                     dal.UpdateCustomer(id, name, phone);//to update the customr
                 }
-                catch (NotFoundInputException ex)
+                catch (DO.NotFoundInputException ex)
                 {
                     throw new FailToUpdateException($"The customer: {id} wasn't found, the customer wasn't updated.\n", ex);
                 }
@@ -209,6 +206,13 @@ namespace BL
                     throw new ItemIsDeletedException($"Customer: { id } is already deleted.");
                 }
             }
+        }
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public bool IsActive(int id)
+        {
+            if (dal.IsActive(id))
+                return true;
+            return false;
         }
     }
 }
