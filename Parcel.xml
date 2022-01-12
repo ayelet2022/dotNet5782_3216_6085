@@ -156,4 +156,17 @@
     <Delivered>2022-01-12T09:06:59.0420327+02:00</Delivered>
     <IsActive>true</IsActive>
   </Parcel>
+  <Parcel>
+    <Id>1012</Id>
+    <SenderId>999999999</SenderId>
+    <TargetId>777777777</TargetId>
+    <DroneId>0</DroneId>
+    <Weight>light</Weight>
+    <Priority>regular</Priority>
+    <CreatParcel>2022-01-12T18:27:42.0263487+02:00</CreatParcel>
+    <Scheduled>2022-01-12T18:27:54.1380907+02:00</Scheduled>
+    <PickedUp>2022-01-12T18:27:58.1797662+02:00</PickedUp>
+    <Delivered>2022-01-12T18:27:59.2046704+02:00</Delivered>
+    <IsActive>true</IsActive>
+  </Parcel>
 </ArrayOfParcel>

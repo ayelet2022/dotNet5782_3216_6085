@@ -297,6 +297,7 @@ namespace PL
         /// <param name="e"></param>
         private void CloseButten_Click(object sender, RoutedEventArgs e)
         {
+            worker.CancelAsync();
             _close = true;
             Close();
         }
@@ -349,7 +350,6 @@ namespace PL
         }
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
-            //worker.WorkerSupportsCancellation = false;
             worker.CancelAsync();
         }
     }
