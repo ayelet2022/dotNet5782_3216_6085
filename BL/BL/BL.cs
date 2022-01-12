@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlApi;
 using BO;
 using Dal;
 using DalApi;
@@ -13,7 +14,8 @@ namespace BL
     sealed partial class BL : BlApi.IBL
     {
         internal readonly IDal dal = DalFactory.GetDL();
-        internal static BL Instance { get; } = new BL();
+        static readonly IBL instance = new BL();
+        public static IBL Instance { get => instance; }
 
         List<DroneList> Drones = new List<DroneList>();
         static BL() { }
@@ -121,7 +123,8 @@ namespace BL
                     catch(DO.DoesNotExistException ex)
                     {
                         drone.Status = DroneStatus.available;
-                        List<DO.Parcel> parcels = dal.GetParcels(item => item.Delivered != null).ToList();
+                        List<DO.Parcel> parcels = new();
+                        parcels = dal.GetParcels(item => item.Delivered != null).ToList();
                         List<int> customerId = new();
                         foreach (var item in parcels)
                             customerId.Add(item.TargetId);

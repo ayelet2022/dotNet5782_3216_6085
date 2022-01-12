@@ -315,6 +315,7 @@ namespace PL
         /// <param name="e"></param>
         private void CloseButten_Click(object sender, RoutedEventArgs e)
         {
+            worker.CancelAsync();
             _close = true;
             Close();
         }
