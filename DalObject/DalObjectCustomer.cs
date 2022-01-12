@@ -23,7 +23,7 @@ namespace Dal
             try
             {
                 //search for the customer that has the same id has the id that the user enterd
-                return DataSource.Customers.First(item => item.Id == idCustomer && item.IsActive);
+                return DataSource.Customers.First(item => item.Id == idCustomer);
             }
             catch (InvalidOperationException ex)
             {
@@ -35,7 +35,7 @@ namespace Dal
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
             return from item in DataSource.Customers
-                   where (predicate == null ? true : predicate(item)) && item.IsActive
+                   where predicate == null ? true : predicate(item)
                    select item;
         }
 

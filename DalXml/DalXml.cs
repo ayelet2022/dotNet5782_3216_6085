@@ -130,6 +130,7 @@ namespace Dal
                 List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml);
                 Drone drone = GetDrone(id);
                 drones.Remove(drone);
+                DeleteDroneCharge(id);
                 XMLTools.SaveListToXMLSerializer(drones, DroneXml);
             }
             catch (DoesNotExistException ex)
@@ -359,7 +360,7 @@ namespace Dal
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
 
             Customer customer = (from cus in customerXml.Elements()
-                                 where cus.Element("Id").Value == idCustomer.ToString() && cus.Element("IsActive").Value =="true"
+                                 where cus.Element("Id").Value == idCustomer.ToString()
                                  select new Customer()
                                  {
                                      Id = int.Parse(cus.Element("Id").Value),
@@ -400,7 +401,6 @@ namespace Dal
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
             IEnumerable<Customer> customer = from cus in customerXml.Elements()
-                                             where  cus.Element("IsActive").Value == "true"
                                              select new Customer()
                                              {
                                                  Id = int.Parse(cus.Element("Id").Value),
@@ -442,7 +442,6 @@ namespace Dal
             {
                 List<DroneCharge> droneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
                 return droneCharges.First(x => x.DroneId == droneId);
-
             }
             catch (Exception)
             {
@@ -457,6 +456,20 @@ namespace Dal
                 throw new ExistsException($"The Drone:{droneCharge.DroneId} already charging.");
             droneCharges.Add(droneCharge);
             XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
+        }
+        public void DeleteDroneCharge(int id)
+        {
+            try
+            {
+                List<DroneCharge> droneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
+                DroneCharge droneCharge = droneCharges.First(item => item.DroneId == id);
+                droneCharges.Remove(droneCharge);
+                XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new ItemIsDeletedException($"Station: { id } is already deleted.");
+            }
         }
         #endregion
     }

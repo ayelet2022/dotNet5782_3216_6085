@@ -2,11 +2,11 @@
 <ArrayOfCustomer>
   <Customer>
     <Id>838358303</Id>
-    <Name>A</Name>
+    <Name>Ayali</Name>
     <Phone>0511111111</Phone>
     <Longitude>36.1611144836811</Longitude>
     <Latitude>33.4214664154786</Latitude>
-    <IsActive>true</IsActive>
+    <IsActive>True</IsActive>
   </Customer>
   <Customer>
     <Id>566257827</Id>
