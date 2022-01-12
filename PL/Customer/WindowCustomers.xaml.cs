@@ -39,8 +39,7 @@ namespace PL
             Customers = new ObservableCollection<CustomerList>();
             List<CustomerList> customers = ibl.GetCustomers().ToList();
             customers.OrderBy(item => item.Id);
-            Customers= (ObservableCollection<CustomerList>)(from item in customers
-                     select item);
+            foreach(var item in customers)Customers.Add(item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
         }
 
@@ -111,11 +110,11 @@ namespace PL
             {
                 ibl.DeleteCustomer(selectedCustomer.Id);
                 Customers.Remove(selectedCustomer);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedCustomer.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + selectedCustomer.ToString());
             }
             catch (BO.ItemIsDeletedException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedCustomer.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer was not deleted \n" + selectedCustomer.ToString());
             }
 
         }

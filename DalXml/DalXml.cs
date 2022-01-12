@@ -208,7 +208,7 @@ namespace Dal
                 int baseStationIndex = stations.FindIndex(item => item.Id == id && item.IsActive);
                 BaseStation baseStation = GetBaseStation(id);
                 baseStation.IsActive = false;
-                int stationIndex = DataSource.Stations.FindIndex(item => item.Id == id);
+                int stationIndex = stations.FindIndex(item => item.Id == id);
                 stations[stationIndex] = baseStation;
                 XMLTools.SaveListToXMLSerializer(stations, StationXml);
             }

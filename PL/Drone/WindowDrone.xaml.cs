@@ -23,7 +23,6 @@ namespace PL
     /// </summary>
     public partial class WindowDrone : Window
     {
-        StatusAndWeight _StatusAndWeight;
         Drone mainDrone = new();
         private bool _close { get; set; } = false;
 
@@ -47,7 +46,6 @@ namespace PL
         {
             InitializeComponent();
             ibl = bl;
-            _StatusAndWeight = new();
             windowDrones = _windowDrones;
             AddGrid.Visibility = Visibility.Visible;
             AddUpdateButten.Content = "Add the Drone";
@@ -132,14 +130,7 @@ namespace PL
                     if (IdStation.SelectedItem == null)
                         throw new MissingInfoException("No station was entered for this drone");
                     ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
-                    _StatusAndWeight.status = mainDrone.Status;
-                    _StatusAndWeight.weight = mainDrone.MaxWeight;
-                    mainDrone = ibl.GetDrone(mainDrone.Id);
-                    if (windowDrones.Drones.ContainsKey(_StatusAndWeight))
-                        windowDrones.Drones[_StatusAndWeight].Add(ibl.GetDrones().First(i => i.Id == mainDrone.Id));
-                    else
-                        windowDrones.Drones.Add(_StatusAndWeight, ibl.GetDrones().Where(i => i.Id == mainDrone.Id).ToList());
-                    windowDrones.Selector();
+                    windowDrones.Drones.Add(ibl.GetDrones().First(item=>item.Id==mainDrone.Id));
                     MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
                     _close = true;
                     Close();

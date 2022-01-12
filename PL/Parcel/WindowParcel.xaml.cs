@@ -190,7 +190,7 @@ namespace PL
                     }
                     break;
                 case "Delet the parcel":
-                    ibl.DeleteParcel(mainParcel);
+                    ibl.DeleteParcel(mainParcel.Id);
                     if (customerId == mainParcel.Recepter.Id)
                         windowCustomer.ParcelToCusW.Remove(windowCustomer.ParcelToCusW[index]);
                     if (customerId == mainParcel.Sender.Id)

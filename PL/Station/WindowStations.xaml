@@ -8,7 +8,7 @@
         Title="WindowStations" Height="450" Width="800">
     <Grid x:Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+            <ImageBrush ImageSource="/Images/קופסאות.jpg" Opacity="0.4"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -33,6 +33,15 @@
         <ListView x:Name="stationList" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" Style="{StaticResource ListViewStyle}" MouseDoubleClick="stationList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header = "" Width="70" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Width = "25" MouseDown="Image_MouseDown" Source="/Station/פח זבל.jpeg"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Id" Width="70" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Name" Width="80" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="AvailableChargingPositions" Width="150" DisplayMemberBinding="{Binding EmptyCharges}" />

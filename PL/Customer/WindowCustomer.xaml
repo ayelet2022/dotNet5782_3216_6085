@@ -8,7 +8,7 @@
         Title="WindowCustomer" Height="450" Width="800">
     <Grid x:Name="ActionseGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/Customer/לקוחות 2.png"  Opacity="0.4"/>
+            <ImageBrush ImageSource="/Images/לקוחות 2.png"  Opacity="0.4"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

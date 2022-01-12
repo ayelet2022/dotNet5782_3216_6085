@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 
-namespace PL
+namespace PL 
 {
     public enum WeightCategories { Light, MediumWeight, Heavy, All };
     public enum DroneStatus { Available, InFix, Delivery, All };
@@ -36,13 +36,13 @@ namespace PL
         public WindowDrones(BlApi.IBL bl)
         {
             InitializeComponent();
-            Drones = new ObservableCollection<DroneList>();
-            List<DroneList> drones = ibl.GetDrones().ToList();
-            drones.OrderBy(item => item.Id);
-            Drones = (ObservableCollection<DroneList>)(from item in drones
-                                                       select item);
-            DronesListView.ItemsSource = Drones;//to show all the customers
             ibl = bl;
+            Drones = new ObservableCollection<DroneList>();
+            List<DroneList> drones = new();
+            drones = ibl.GetDrones().ToList();
+            drones.OrderBy(item => item.Id);
+            foreach (var item in drones)Drones.Add(item);
+            DronesListView.ItemsSource = Drones;//to show all the customers
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);

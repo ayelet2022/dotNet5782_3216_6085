@@ -33,8 +33,7 @@ namespace PL
             Stations = new ObservableCollection<BaseStationList>();
             List<BaseStationList> stations = ibl.GetBaseStations().ToList();
             stations.OrderBy(item => item.Id);
-            Stations = (ObservableCollection<BaseStationList>)(from item in stations
-                                                               select item);
+            foreach(var stat in stations)Stations.Add(stat);
             stationList.ItemsSource = Stations;//to show all the stations
         }
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -81,6 +80,22 @@ namespace PL
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             MyRefresh();
+        }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            selectedStation = framework.DataContext as BaseStationList;
+            try
+            {
+                ibl.DeleteStation(selectedStation.Id);
+                Stations.Remove(selectedStation);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station has been deleted successfully \n" + selectedStation.ToString());
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station was not deleted \n" + selectedStation.ToString());
+            }
+
         }
     }
 }

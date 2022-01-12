@@ -8,7 +8,7 @@
         Title="WindowStation" Height="450" Width="800">
     <Grid x:Name="both">
         <Grid.Background>
-            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+            <ImageBrush ImageSource="/Images/קופסאות.jpg" Opacity="0.4"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

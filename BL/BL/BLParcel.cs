@@ -110,16 +110,16 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void DeleteParcel(Parcel parcel)
+        public void DeleteParcel(int id)
         {
             try
             {
                 lock (dal)
-                    dal.DeleteParcel(parcel.Id);
+                    dal.DeleteParcel(id);
             }
             catch (DO.ItemIsDeletedException ex)
             {
-                throw new ItemIsDeletedException($"Parcel: { parcel.Id } is already deleted.");
+                throw new ItemIsDeletedException($"Parcel: { id } is already deleted.");
             }
         }
     }

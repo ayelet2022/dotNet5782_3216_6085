@@ -42,8 +42,8 @@ namespace PL
             Parcels = new ObservableCollection<ParcelList>();
             List<ParcelList> parcels = bl.GetParcels().ToList();
             parcels.OrderBy(item => item.Id);
-            Parcels= (ObservableCollection<ParcelList>)(from item in parcels 
-                    select item);
+            foreach (var item in parcels)
+                Parcels.Add(item);
             ParcelsListView.ItemsSource = Parcels;
         }
 
@@ -176,13 +176,13 @@ namespace PL
             selectedParcel = framework.DataContext as ParcelList;
             try
             {
-                ibl.DeleteCustomer(selectedParcel.Id);
+                ibl.DeleteParcel(selectedParcel.Id);
                 Parcels.Remove(selectedParcel);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedParcel.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + selectedParcel.ToString());
             }
             catch (BO.ItemIsDeletedException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedParcel.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not deleted \n" + selectedParcel.ToString());
             }
 
         }

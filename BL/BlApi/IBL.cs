@@ -121,7 +121,7 @@ namespace BlApi
         /// to delet a parcel
         /// </summary>
         /// <param name="parcel">the parcel we want to delet</param>
-        public void DeleteParcel(Parcel parcel);
+        public void DeleteParcel(int id);
 
         #endregion
 

@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="440" Width="632">
     <Window.Background>
-        <ImageBrush ImageSource="/רחפן.jpg"/>
+        <ImageBrush ImageSource="/Images/רחפן.jpg"/>
     </Window.Background>
     <Grid x:Name="both">
         <Grid x:Name="options" Visibility="Visible">

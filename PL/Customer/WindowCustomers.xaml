@@ -7,7 +7,7 @@
         Title="WindowCustomers" Height="450" Width="800">
     <Grid Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+            <ImageBrush  Opacity="0.4" ImageSource="/Images/לקוחות 2.png"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -28,7 +28,7 @@
         <Button Name="Add" Content="Add new customer" Click="Add_Click" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtenStyle}"/>
         <Button x:Name="Refresh" Content="Refresh" Grid.Column="3"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" VerticalAlignment="Top" Click="Refresh_Click" Height="30" Margin="0,21,0,0"/>
         <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="4" Style="{StaticResource ButtenCloseStyle}"/>
-        <ListView x:Name="CustomerListView"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
+        <ListView x:Name="CustomerListView"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  MouseDoubleClick="CustomerListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}" Background="{x:Null}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="">
@@ -38,13 +38,22 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="100"/>
-                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}" Width="100"/>
+                    <GridViewColumn Header="" Width="50" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Width="25" MouseDown="Image_MouseDown" Source="/Customer/פח זבל.jpeg"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="90"/>
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}" Width="90"/>
                     <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" Width="100"/>
-                    <GridViewColumn Header="Parcels from Cus &#10; that deliverd " DisplayMemberBinding="{Binding Location}" Width="100"/>
-                    <GridViewColumn Header="Parcels from Cus &#10; that not deliverd " DisplayMemberBinding="{Binding Location}" Width="100"/>
-                    <GridViewColumn Header="Parcels that the cus &#10; resepted" DisplayMemberBinding="{Binding SenderOrRecepter}" Width="110"/>
-                    <GridViewColumn Header="Parcels on &#10; the way " DisplayMemberBinding="{Binding Location}" Width="100"/>
+                    <GridViewColumn Header="Parcels from Cus &#10; that deliverd " DisplayMemberBinding="{Binding ParcelsSentAndDel}" Width="100"/>
+                    <GridViewColumn Header="Parcels from Cus &#10; that not deliverd " DisplayMemberBinding="{Binding ParcelsSentAndNotDel}" Width="100"/>
+                    <GridViewColumn Header="Parcels that the &#10; cus  resepted" DisplayMemberBinding="{Binding ParcelsResepted}" Width="110"/>
+                    <GridViewColumn Header="Parcels on &#10; the way " DisplayMemberBinding="{Binding ParcelsOnTheWay}" Width="100"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <None Remove="Customer\לקוחות 2.png" />
+    <None Remove="Customer\פח זבל.jpeg" />
     <None Remove="Drone\פח זבל.jpeg" />
+    <None Remove="Parcel\פח זבל.jpeg" />
+    <None Remove="Station\פח זבל.jpeg" />
     <None Remove="קופסאות.jpg" />
     <None Remove="רחפן.jpg" />
   </ItemGroup>
@@ -18,12 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Customer\לקוחות 2.png" />
-    <Resource Include="Drone\פח זבל.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="קופסאות.jpg" />
-    <Resource Include="רחפן.jpg" />
+    <Resource Include="Customer\פח זבל.jpeg" />
+    <Resource Include="Drone\פח זבל.jpeg" />
+    <Resource Include="Images\לקוחות 2.png" />
+    <Resource Include="Images\קופסאות.jpg" />
+    <Resource Include="Images\רחפן.jpg" />
+    <Resource Include="Parcel\פח זבל.jpeg" />
+    <Resource Include="Station\פח זבל.jpeg" />
   </ItemGroup>
 
   <ItemGroup>

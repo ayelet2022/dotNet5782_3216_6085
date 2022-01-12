@@ -8,7 +8,7 @@
         Title="WindowParcels" Height="640" Width="800" Closing="WindowClose">
     <Grid Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/קופסאות.jpg" Opacity="0.4"/>
+            <ImageBrush ImageSource="/Images/קופסאות.jpg" Opacity="0.4"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -35,13 +35,22 @@
         <Label Content="Sort by prioritie:" Grid.Column="4" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>
         <Button x:Name="CloseWDS" Content="Close" Click="CloseWDS_Click" Grid.Row="5" Grid.Column="5" Style="{StaticResource ButtenCloseStyle}"/>
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  x:Name="ParcelsListView" MouseDoubleClick="ParcelListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}">
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4"  x:Name="ParcelsListView" MouseDoubleClick="ParcelListView_MouseDoubleClick" Style="{StaticResource ListViewStyle}" Background="{x:Null}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel></StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="" Width="70" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Width="25" MouseDown="Image_MouseDown" Source="/Parcel/פח זבל.jpeg"/>
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
