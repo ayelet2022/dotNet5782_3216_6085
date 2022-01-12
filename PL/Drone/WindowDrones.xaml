@@ -27,14 +27,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
-        <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
-        <Label x:Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
-        <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
-        <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
-        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>
-        <Button x:Name="CloseWDS" Content="Close" Grid.Column="5" Grid.Row="5" Click="CloseWDS_Click" Style="{StaticResource ButtenCloseStyle}"/>
-        <ListView Grid.ColumnSpan="6" Grid.RowSpan="5" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}" Margin="67,104,65,0">
+        <ListView Grid.ColumnSpan="6" Grid.RowSpan="5" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}" Margin="67,104,65,0" Background="{x:Null}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="70" DisplayMemberBinding="{Binding Id}" />
@@ -48,7 +41,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Image Source="Drone\פח זבל.jpeg"  Width="30" MouseDown="Image_MouseDown"/>
+                                    <Image   Width="30" MouseDown="Image_MouseDown" Source="/Drone/פח זבל.jpeg" IsHitTestVisible="True"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -70,5 +63,12 @@
                 </GridView>
             </ListView.View>-->
         </ListView>
+        <Button x:Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
+        <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
+        <Label x:Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
+        <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>
+        <Button x:Name="CloseWDS" Content="Close" Grid.Column="5" Grid.Row="5" Click="CloseWDS_Click" Style="{StaticResource ButtenCloseStyle}"/>
     </Grid>
 </Window>

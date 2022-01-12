@@ -83,6 +83,7 @@ namespace BL
             {
                 DO.Customer dalCustomer = dal.GetCustomer(customerId);//finding customer using inputted id
                 dalCustomer.CopyPropertiesTo(blCustomer);//converting dal->bl
+                blCustomer.CustomerLocation = new();
                 blCustomer.CustomerLocation.Longitude = dalCustomer.Longitude;
                 blCustomer.CustomerLocation.Latitude = dalCustomer.Latitude;
                 blCustomer.ParcelsFromCustomers = new List<ParcelInCustomer>();

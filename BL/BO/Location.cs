@@ -13,8 +13,8 @@ namespace BO
         public override string ToString()
         {
             String result = "";
-            result += $"Latitude: {Latitude}.\n";
-            result += $"longitude: {Longitude}.\n";
+            result += $"Latitude: {Latitude:0.###}.\n";
+            result += $"longitude: {Longitude:0.###}.\n";
             return result;
         }
     }
