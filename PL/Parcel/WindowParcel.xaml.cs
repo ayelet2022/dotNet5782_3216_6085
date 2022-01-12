@@ -200,9 +200,9 @@ namespace PL
                 case "Delet the parcel":
                     ibl.DeleteParcel(mainParcel);
                     if (customerId == mainParcel.Recepter.Id)
-                        windowCustomer.ParcelToCusW.RemoveAt(index);
+                        windowCustomer.ParcelToCusW.Remove(windowCustomer.ParcelToCusW[index]);
                     if (customerId == mainParcel.Sender.Id)
-                        windowCustomer.ParcelFromCusW.RemoveAt(index);
+                        windowCustomer.ParcelFromCusW.Remove(windowCustomer.ParcelFromCusW[index]);
                     if (windowParcels != null)
                         windowParcels.Selector();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + mainParcel.ToString());

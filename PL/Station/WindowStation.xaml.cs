@@ -68,10 +68,6 @@ namespace PL
             DataContext = station;
             buttenAddUpdate.Content = "ADD";
         }
-        private void dronesInchargeList_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            listDronesInStation.Items.Refresh();
-        }
 
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {          
@@ -91,11 +87,7 @@ namespace PL
                     ibl.AddBaseStation(station);
                     station = ibl.GetBaseStation(station.Id);
                     int key = station.EmptyCharges;
-                    if (windowStations.Stations.ContainsKey(key))
-                        windowStations.Stations[key].Add(ibl.GetBaseStations().First(i => i.Id == station.Id));
-                    else
-                        windowStations.Stations.Add(key, ibl.GetBaseStations().Where(i => i.Id == station.Id).ToList());
-                    windowStations.MyRefresh();
+                    windowStations.Stations.Add(ibl.GetBaseStations().First(i => i.Id == station.Id));
                     MessageBoxResult messageBoxResult = MessageBox.Show("The station has been added successfully \n" + station.ToString());
                     _close = true;
                     Close();

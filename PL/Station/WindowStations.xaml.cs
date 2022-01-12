@@ -24,17 +24,18 @@ namespace PL
     {
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
-        public Dictionary<int ,List<BaseStationList>> Stations;
+        public ObservableCollection<BaseStationList> Stations;
         public BaseStationList selectedStation = new();
         public WindowStations(BlApi.IBL bl)
         {
             InitializeComponent();
             ibl = bl;
-            Stations = new Dictionary<int, List<BaseStationList>>();
-            Stations = (from item in ibl.GetBaseStations()
-                        group item by item.EmptyCharges
-                      ).ToDictionary(item => item.Key, item => item.ToList());
-            stationList.ItemsSource = Stations.Values.SelectMany(item => item);//to show all the drones 
+            Stations = new ObservableCollection<BaseStationList>();
+            List<BaseStationList> stations = ibl.GetBaseStations().ToList();
+            stations.OrderBy(item => item.Id);
+            Stations = (ObservableCollection<BaseStationList>)(from item in stations
+                                                               select item);
+            stationList.ItemsSource = Stations;//to show all the stations
         }
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -64,9 +65,7 @@ namespace PL
 
         public void MyRefresh()
         {
-            stationList.ItemsSource = from item in Stations.Values.SelectMany(x => x)
-                                      orderby item.EmptyCharges
-                                      select item;//to show the all list
+            stationList.ItemsSource = Stations;
         }
         /// <summary>
         /// to close the window of the drones list 
