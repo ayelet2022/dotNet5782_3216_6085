@@ -44,6 +44,16 @@ namespace BL
                 itD.CopyPropertiesTo(drone);
                 try
                 {
+                    dal.GetDrone(drone.Id);
+                    drone.IsActive = true;
+
+                }
+                catch (DO.DoesNotExistException ex)
+                {
+                    drone.IsActive = false;
+                }
+                try
+                {
                     DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
                     drone.NumOfParcelOnTheWay = parcel.Id;
                     drone.Status = DroneStatus.delivery;//the drone in deliver
@@ -82,7 +92,6 @@ namespace BL
                         minBattery = disRtoBS * dal.AskForBattery()[0] + disStoR * dal.AskForBattery()[(int)parcel.Weight + 1];
                     }
                     drone.Battery = Rand.Next((int)minBattery, 101);
-                    drone.IsActive= true;
                     drones.Add(drone);
                     drone = new();
 
@@ -124,7 +133,6 @@ namespace BL
                             (drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, FindMinDistanceOfDToBS(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude).Longitude, FindMinDistanceOfDToBS(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude).Latitude);
                         drone.Battery = Rand.Next((int)(disDtoS * dal.AskForBattery()[0]), 101);
                     }
-                    drone.IsActive = true;
                     drones.Add(drone);
                     drone = new();
                 }

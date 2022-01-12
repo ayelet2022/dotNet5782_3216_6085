@@ -199,5 +199,22 @@ namespace PL
             _close = true;
             Close();
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ibl.DeleteStation(station.Id);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station has been deleted successfully \n" + station.ToString());
+                _close = true;
+                Close();
+                if (windowStations != null)
+                    windowStations.MyRefresh();
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The station was not deleted \n" + station.ToString());
+            }
+        }
     }
 }

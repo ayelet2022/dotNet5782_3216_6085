@@ -295,7 +295,7 @@ namespace PL
                 MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + mainCustomer.ToString());
                 _close = true;
                 Close();
-                //windowCustomers.MyRefresh();
+                windowCustomers.MyRefresh();
             }
             catch(BO.ItemIsDeletedException ex)
             {
