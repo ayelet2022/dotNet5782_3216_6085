@@ -68,6 +68,10 @@ namespace PL
             DataContext = station;
             buttenAddUpdate.Content = "ADD";
         }
+        private void dronesInchargeList_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //listDronesInStation.Items.Refresh();
+        }
 
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {          

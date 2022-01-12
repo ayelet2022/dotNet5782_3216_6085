@@ -45,8 +45,7 @@ namespace PL
             Customers.CollectionChanged += Customers_CollactionChanged;
         }
         private void Customers_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-           
+        { 
             CustomerListView.Items.Refresh();
         }
 

@@ -168,8 +168,6 @@ namespace DalApi
         public void DeleteBaseStation(int id);
         public void DeleteCustomer(int id);
         public void NotActiveDrone(int id);
-
-
     }
 }
 
