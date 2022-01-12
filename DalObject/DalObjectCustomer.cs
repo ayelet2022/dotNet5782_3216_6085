@@ -14,6 +14,7 @@ namespace Dal
         {
             if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id && item.IsActive))
                 throw new ExistsException($"Customer id: {newCustomer.Id} already exists.");
+            newCustomer.IsActive = true;
             DataSource.Customers.Add(newCustomer);
         }
 
@@ -54,6 +55,8 @@ namespace Dal
                 customer.Phone = phone;
             DataSource.Customers[customerIndex] = customer;//to change the customer in the list of customers
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             try
@@ -69,6 +72,8 @@ namespace Dal
             }
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool IsActive(int id)
         {
             Customer customer = GetCustomer(id);

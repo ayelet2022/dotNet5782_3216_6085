@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
@@ -16,6 +14,7 @@ namespace Dal
         {
             if (DataSource.Drones.Exists(item => item.Id == addDrone.Id && item.IsActive))
                 throw new ExistsException($"Drone id: {addDrone.Id} already exists.");
+            addDrone.IsActive = true;
             DataSource.Drones.Add(addDrone);
         }
 
@@ -77,8 +76,7 @@ namespace Dal
         public IEnumerable<Drone> GetDrones(Predicate<Drone> predicate = null)
         {
             return from item in DataSource.Drones
-                   where predicate == null ? true : predicate(item)
-                   where item.IsActive
+                   where predicate == null ? true : predicate(item) && item.IsActive
                    select item;
         }
 
@@ -101,6 +99,7 @@ namespace Dal
             {
                 Drone drone = GetDrone(id);
                 DataSource.Drones.Remove(drone);
+                DeleteDroneCharge(id);
             }
             catch (DoesNotExistException ex)
             {

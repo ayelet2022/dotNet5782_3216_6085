@@ -1,13 +1,11 @@
 ﻿using DO;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     /// <summary>
-    /// includs all the data of the object-the arr of each object,
-    /// and the index of each arr 
+    /// includs all the data of the project
     /// </summary>
     internal static class DataSource
     {
@@ -18,7 +16,7 @@ namespace Dal
         internal static List<DroneCharge> DroneCharges = new List<DroneCharge>();
         static Random Rand = new Random();
         /// <summary>
-        /// restarting the indexes
+        /// basic data
         /// </summary>
         internal class Config
         {
@@ -28,6 +26,35 @@ namespace Dal
             internal static double Heavy = 4;
             internal static int RunningParcelId = 1000;
             internal static double ChargingRate =10;
+        }
+
+        #region Initialize
+        /// <summary>
+        /// Initialize the data
+        /// </summary>
+        internal static void Initialize()
+        {
+            InitializeBaseStation("Banana");
+            InitializeBaseStation("Apple");
+
+            InitializeDrones("Ab89ZX", 2);
+            InitializeDrones("Ui65JH", 2);
+            InitializeDrones("Gy70CW", 2);
+            InitializeDrones("Qs98VM", 1);
+            InitializeDrones("Aa44ZX", 0);
+
+            InitializeCustomer("0511111111", "Ayelet");
+            InitializeCustomer("0522222222", "Penina");
+            InitializeCustomer("0533333333", "Yosi");
+            InitializeCustomer("0544444444", "Avi");
+            InitializeCustomer("0555555555", "Nomi");
+            InitializeCustomer("0566666666", "Michal");
+            InitializeCustomer("0577777777", "Daniel");
+            InitializeCustomer("0588888888", "Chaya");
+            InitializeCustomer("0599999999", "Chani");
+            InitializeCustomer("0500000000", "Yakov");
+
+            InitializeParcel();
         }
         static void InitializeBaseStation(string name)
         {
@@ -59,7 +86,8 @@ namespace Dal
         }
         static void InitializeParcel()
         {
-            for (int index = 0; index < 10; index++)//Updating 10 parcels
+            int index = 0;
+            while(index < 10)//Updating 10 parcels
             {
                 Parcel newParcel = new();
                 newParcel.Id = Config.RunningParcelId++;//Updating the ID number of the package
@@ -112,35 +140,9 @@ namespace Dal
                     }
                 }
                 Parcels.Add(newParcel);
+                index++;
             }
         }
-
-        /// <summary>
-        /// Incluods the data that we enterd
-        /// </summary>
-        internal static void Initialize()
-        {
-            InitializeBaseStation("Banana");
-            InitializeBaseStation("Apple");
-
-            InitializeDrones("Ab89ZX", 2);
-            InitializeDrones("Ui65JH", 2);
-            InitializeDrones("Gy70CW", 2);
-            InitializeDrones("Qs98VM", 1);
-            InitializeDrones("Aa44ZX", 0);
-
-            InitializeCustomer("0511111111", "Ayelet");
-            InitializeCustomer("0522222222", "Penina");
-            InitializeCustomer("0533333333", "Yosi");
-            InitializeCustomer("0544444444", "Avi");
-            InitializeCustomer("0555555555", "Nomi");
-            InitializeCustomer("0566666666", "Michal");
-            InitializeCustomer("0577777777", "Daniel");
-            InitializeCustomer("0588888888", "Chaya");
-            InitializeCustomer("0599999999", "Chani");
-            InitializeCustomer("0500000000", "Yakov");
-
-            InitializeParcel();
-        }
+        #endregion
     }
 }

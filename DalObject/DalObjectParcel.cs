@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
@@ -91,8 +89,7 @@ namespace Dal
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
             return from item in DataSource.Parcels
-                   where predicate == null ? true : predicate(item)
-                   where item.IsActive == true
+                   where predicate == null ? true : predicate(item) && item.IsActive == true
                    select item;
         }
 

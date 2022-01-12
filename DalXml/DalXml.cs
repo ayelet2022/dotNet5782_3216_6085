@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using DalApi;
 using DO;
@@ -19,8 +17,7 @@ namespace Dal
         private static string ConfigXml = @"Config.xml";
 
         internal static DalXml Instance { get; set; } = new DalXml();
-        static DalXml() { //XMLTools.SaveListToXMLSerializer(new List<int> { 1010 },"ConfigXml.xml");
-                          }
+        static DalXml() { /*XMLTools.SaveListToXMLSerializer(new List<int> { 1010 },"ConfigXml.xml");*/ }
         private DalXml()
         {
             //DataSource.Initialize();
@@ -275,15 +272,14 @@ namespace Dal
             }
             catch (ItemIsDeletedException ex)
             {
-                throw new DoesNotExistException($"Parcel id: { idParcel } does not exists.");
+                throw new ItemIsDeletedException($"Parcel id: { idParcel } is deleted.");
             }
         }
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> predicate = null)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelXml);
             return from item in parcels
-                   where predicate == null ? true : predicate(item)
-                   where item.IsActive == true
+                   where predicate == null ? true : predicate(item) && item.IsActive == true
                    select item;
         }
         public void DronToAParcel(int droneId, int parcelId)
@@ -335,7 +331,6 @@ namespace Dal
         public void AddCustomer(Customer newCustomer)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
-
             XElement customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == newCustomer.Id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
@@ -343,7 +338,6 @@ namespace Dal
             {
                 throw new ExistsException($"Customer id: {newCustomer.Id} already exists.");
             }
-
             XElement CustomerElem = new XElement("Customer",
                                  new XElement("Id", newCustomer.Id),
                                  new XElement("Name", newCustomer.Name),
@@ -358,7 +352,6 @@ namespace Dal
         public Customer GetCustomer(int idCustomer)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
-
             Customer customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == idCustomer.ToString()
                                  select new Customer()
@@ -370,21 +363,16 @@ namespace Dal
                                      Latitude = double.Parse(cus.Element("Latitude").Value),
                                      IsActive= bool.Parse(cus.Element("IsActive").Value)
                                  }
-                        ).FirstOrDefault();
+                                  ).FirstOrDefault();
 
             if (customer.Id != 0)
-            {
                 return customer;
-            }
             else
-            {
                 throw new DoesNotExistException($"Customer id: { idCustomer } does not exists.");
-            }
         }
         public void UpdateCustomer(int id, string name, string phone)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
-
             XElement customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
@@ -414,9 +402,7 @@ namespace Dal
         }
         public void DeleteCustomer(int id)
         {
-
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
-
             XElement customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
@@ -478,7 +464,7 @@ namespace Dal
             }
             catch (InvalidOperationException ex)
             {
-                throw new ItemIsDeletedException($"Station: { id } is already deleted.");
+                throw new ItemIsDeletedException($"droneCharge: { id } is already deleted.");
             }
         }
         #endregion

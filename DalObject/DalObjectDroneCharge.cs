@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
@@ -39,6 +37,20 @@ namespace Dal
             catch (Exception)
             {
                 throw new DoesNotExistException($"Drone id: {idDrone} does not exist.");
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void DeleteDroneCharge(int id)
+        {
+            try
+            {
+                DroneCharge droneCharge = DataSource.DroneCharges.First(item => item.DroneId == id);
+                DataSource.DroneCharges.Remove(droneCharge);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new ItemIsDeletedException($"droneCharge: { id } is already deleted.");
             }
         }
     }

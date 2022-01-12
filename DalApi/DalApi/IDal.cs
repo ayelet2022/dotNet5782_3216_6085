@@ -10,16 +10,45 @@ namespace DalApi
 {
     public interface IDal
     {
+        #region DRONE
+        #endregion
+        #region STATION
+        public void DeleteBaseStation(int id);
+        /// <summary>
+        /// to update the base station that has the same id-change the name/the num of empty chargers
+        /// </summary>
+        /// <param name="id">the id of the base station we want to change</param>
+        /// <param name="newName">the new name we want to give the station</param>
+        /// <param name="emptyCharges">the new emount of chargers in base station</param>
+        public void UpdateStation(int id, string newName, int emptyCharges);
+        /// <summary>
+        /// copyes the values of al the base stations in order to print them
+        /// </summary>
+        /// <returns>the new arrey that has the the base stations</returns>
+        IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null);
+        /// <summary>
+        ///  search for the base station in the arrey thet has the same id that the user enterd and returnes it
+        /// </summary>
+        /// <param name="idBaseStation"><the id(that was enterd by the user in main) of the basestation that the user wants to print/param>
+        /// <returns>resturn the base station that needs to be printed</returns>
+        public BaseStation GetBaseStation(int idBaseStation);        /// <summary>
+                                                                     /// adds a new base station to the arrey
+                                                                     /// </summary>
+        public void AddBaseStation(BaseStation addBaseStation);
+        #endregion
+        #region PARCEL
+        #endregion
+        #region CUSTOMER
+        #endregion
+        #region DRONE_CHARGE
+        #endregion
         /// <summary>
         /// returnes an arrey of the battery use in diffrent kindes of delivery/flights 
         /// </summary>
         /// <returns>the arrey that has the data of the battery use of the drones</returns>
         public double[] AskForBattery();
 
-        /// <summary>
-        /// adds a new base station to the arrey
-        /// </summary>
-        public void AddBaseStation(BaseStation addBaseStation);
+
 
         /// <summary>
         /// adds a new drone to the arrey
@@ -42,12 +71,7 @@ namespace DalApi
         /// </summary>
         /// <param name="droneCharge">the new charager we want to add</param>
         public void AddDroneCharge(DroneCharge droneCharge);
-        /// <summary>
-        ///  search for the base station in the arrey thet has the same id that the user enterd and returnes it
-        /// </summary>
-        /// <param name="idBaseStation"><the id(that was enterd by the user in main) of the basestation that the user wants to print/param>
-        /// <returns>resturn the base station that needs to be printed</returns>
-        public BaseStation GetBaseStation(int idBaseStation);
+
 
         /// <summary>
         ///  search for the drone in the arrey thet has the same id as the user enterd and returnes it
@@ -103,11 +127,7 @@ namespace DalApi
         /// <param name="newId">the id pf the parcel that was enterd by the user</param>
         public void ParcelToCustomer(int newId);
 
-        /// <summary>
-        /// copyes the values of al the base stations in order to print them
-        /// </summary>
-        /// <returns>the new arrey that has the the base stations</returns>
-        IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null);
+
 
         /// <summary>
         /// copyes the values of all the drones in order to print them
@@ -148,13 +168,7 @@ namespace DalApi
         /// <param name="newModel">the new model we want to give the drone</param>
         public void UpdateDrone(int id, string newModel);
 
-        /// <summary>
-        /// to update the base station that has the same id-change the name/the num of empty chargers
-        /// </summary>
-        /// <param name="id">the id of the base station we want to change</param>
-        /// <param name="newName">the new name we want to give the station</param>
-        /// <param name="emptyCharges">the new emount of chargers in base station</param>
-        public void UpdateStation(int id, string newName, int emptyCharges);
+
 
         /// <summary>
         /// returns a drone the has the same id
@@ -165,10 +179,11 @@ namespace DalApi
 
         public void DeleteParcel(int id);
         public void DeleteDrone(int id);
-        public void DeleteBaseStation(int id);
+
         public void DeleteCustomer(int id);
         public void NotActiveDrone(int id);
         public bool IsActive(int id);
+        public void DeleteDroneCharge(int id);
     }
 }
 

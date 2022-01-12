@@ -10,14 +10,16 @@ namespace Dal
     {
         internal static  DalObject Instance { get; } = new DalObject();
         static DalObject() { }
-        private DalObject()
-        {
-            DataSource.Initialize();
-        }
+        private DalObject() => DataSource.Initialize();
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] AskForBattery()
         {
-            double[] arr = { DataSource.Config.Available, DataSource.Config.Light, DataSource.Config.MediumWeight, DataSource.Config.Heavy, DataSource.Config.ChargingRate };
+            double[] arr = { DataSource.Config.Available, 
+                             DataSource.Config.Light, 
+                             DataSource.Config.MediumWeight, 
+                             DataSource.Config.Heavy, 
+                             DataSource.Config.ChargingRate };
             return arr;
         }
     }

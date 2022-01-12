@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using DO;
 using DalApi;
@@ -58,6 +56,8 @@ namespace Dal
             baseStation.EmptyCharges = emptyCharging(charges, id);
             DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteBaseStation(int id)
         {
             try
