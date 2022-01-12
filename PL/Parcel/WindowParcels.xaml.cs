@@ -17,6 +17,10 @@ using BO;
 
 namespace PL
 {
+    public enum WeightCategoriesP { light, mediumWeight, heavy, All };
+    public enum Priorities { regular, fast, urgent, All };
+    public enum ParcelStatus { creat, schedul, pickup, delivery, All }
+
     /// <summary>
     /// Interaction logic for WindowDrones.xaml
     /// </summary>
@@ -38,20 +42,9 @@ namespace PL
             Parcels = new ObservableCollection<ParcelList>();
             List<ParcelList> parcels = bl.GetParcels().ToList();
             parcels.OrderBy(item => item.Id);
-            Parcels = new Dictionary<StatusWeightAndPriorities, List<ParcelList>>();
-            Parcels = (from item in bl.GetParcels()
-                       group item by
-                       new StatusWeightAndPriorities()
-                       {
-                           status = item.ParcelStatus,
-                           weight = item.Weight,
-                           priorities = item.Priority,
-                       }).ToDictionary(item => item.Key, item => item.ToList());
-            ParcelsListView.ItemsSource = Parcels.SelectMany(item => item.Value);//to show all the drones 
-            StatusSelector.ItemsSource = System.Enum.GetValues(typeof(ParcelStatus));
-            WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
-            PrioritiesSelector.ItemsSource= System.Enum.GetValues(typeof(Priorities)); 
-            StatusSelector.SelectedIndex = 4;//no filter
+            Parcels= (ObservableCollection<ParcelList>)(from item in parcels 
+                    select item);
+            ParcelsListView.ItemsSource = Parcels;
         }
 
         /// <summary>
@@ -97,28 +90,26 @@ namespace PL
             Priorities pPriorities=(Priorities)PrioritiesSelector.SelectedItem; 
             WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
-            if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All&&pPriorities==Priorities.All)
-                ParcelsListView.ItemsSource = from item in Parcels.Values.SelectMany(x => x)
-                                             orderby item.Weight, item.ParcelStatus,item.Priority
-                                             select item;//to show the all list//to show the all list
+            if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All && pPriorities == Priorities.All)
+                ParcelsListView.ItemsSource = Parcels;
             //if only he wants to filter the weight category
             if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All&&pPriorities!=Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.priorities == (BO.Priorities)PrioritiesSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem).Select(item => item);
             //if only he wants to filter the statuse category
             if (pStatus == ParcelStatus.All && dWeight != WeightCategories.All && pPriorities == Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem).Select(item => item);
             //if  he wants to filter both the weight category and the status category
             if (pStatus != ParcelStatus.All && dWeight == WeightCategories.All && pPriorities == Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.status == (BO.ParcelStatus)StatusSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
             if (pStatus == ParcelStatus.All && dWeight != WeightCategories.All && pPriorities != Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.priorities == (BO.Priorities)PrioritiesSelector.SelectedItem&& item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem&& item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem).Select(item => item);
             //if only he wants to filter the statuse category
             if (pStatus != ParcelStatus.All && dWeight == WeightCategories.All && pPriorities != Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.priorities == (BO.Priorities)PrioritiesSelector.SelectedItem && item.Key.status == (BO.ParcelStatus)StatusSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
             if (pStatus != ParcelStatus.All && dWeight != WeightCategories.All && pPriorities == Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Key.status == (BO.ParcelStatus)StatusSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
             if (pStatus != ParcelStatus.All && dWeight != WeightCategories.All && pPriorities != Priorities.All)
-                ParcelsListView.ItemsSource = Parcels.Where(item => item.Key.weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Key.priorities == (BO.Priorities)PrioritiesSelector.SelectedItem && item.Key.status == (BO.ParcelStatus)StatusSelector.SelectedItem).SelectMany(item => item.Value);
+                ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
             ParcelsListView.Items.Refresh();
         }
 
@@ -175,30 +166,23 @@ namespace PL
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Parcels = (from item in ibl.GetParcels()
-                       group item by
-                       new StatusWeightAndPriorities()
-                       {
-                           status = item.ParcelStatus,
-                           weight = item.Weight,
-                           priorities = item.Priority,
-                       }).ToDictionary(item => item.Key, item => item.ToList());
+            Parcels = (ObservableCollection<ParcelList>)ibl.GetParcels();
             Selector();
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement framework = sender as FrameworkElement;
-            selectedCustomer = framework.DataContext as CustomerList;
+            selectedParcel = framework.DataContext as ParcelList;
             try
             {
-                ibl.DeleteCustomer(selectedCustomer.Id);
-                Customers.Remove(selectedCustomer);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedCustomer.ToString());
+                ibl.DeleteCustomer(selectedParcel.Id);
+                Parcels.Remove(selectedParcel);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedParcel.ToString());
             }
             catch (BO.ItemIsDeletedException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedCustomer.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedParcel.ToString());
             }
 
         }
