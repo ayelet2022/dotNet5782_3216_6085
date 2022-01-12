@@ -246,45 +246,6 @@ namespace BL
                     }
                     else
                         throw new FailToUpdateException($"Failed to sceduled a parcel to drone:{droneId}.\n");
-                    //foreach (var item in dal.GetParcels(item => item.Scheduled == null))
-                    //{
-
-                    //    if (parcel == default || foundParcel == false)
-                    //    {
-                    //        parcel = GetParcel(item.Id);
-                    //        battery = UseOfBattery(item.Id, drone.Id);
-                    //        if (battery > 0 && parcel.Weight <= drone.MaxWeight)
-                    //            foundParcel = true;
-                    //    }
-                    //    if (foundParcel == true)
-                    //    {
-                    //        battery = UseOfBattery(item.Id, drone.Id);
-                    //        Customer senderOfParcel = GetCustomer(parcel.Sender.Id);
-                    //        Customer senderOfItem = GetCustomer(item.SenderId);
-                    //        Customer resepterOfItem = GetCustomer(item.TargetId);
-                    //        BaseStation baseStationToCharge = GetBaseStation(FindMinDistanceOfCToBS(resepterOfItem.CustomerLocation.Latitude, resepterOfItem.CustomerLocation.Longitude).Id);
-                    //        double disDroneToSenderP = DisDronToCustomer(drone.Id, senderOfParcel);
-                    //        double disDroneToSenderI = DisDronToCustomer(drone.Id, senderOfItem);
-                    //        double disReseverToBS = DisDronToBS(resepterOfItem, baseStationToCharge);
-                    //        double disSenderToResepter = DisSenderToResever(senderOfItem, resepterOfItem);
-                    //        if the priority of this parcel is higher then the one before and the drone has enugh battery in order to do the delivery and the wight is less then the one of drone if the wight of this parcel is heavier then the on before
-                    //        if ((int)item.Priority > (int)parcel.Priority && battery > 0 && (int)item.Weight <= (int)drone.MaxWeight && (int)item.Weight > (int)parcel.Weight)
-                    //            the distatnce of this parcel his smaller then the distance of the parcel before
-                    //            if (foundParcel == false)
-                    //            if (disDroneToSenderI < disDroneToSenderP)
-                    //            {
-                    //                parcel = GetParcel(item.Id);
-                    //                foundParcel = true;
-                    //            }
-                    //    }
-                    //}
-                    //meens if found a parcel
-                    //if (foundParcel == true)
-                    //{
-                    //    Drones.Find(item => item.Id == drone.Id).Status = DroneStatus.delivery;//update the drone to be in delivery
-                    //    dal.DronToAParcel(droneId, parcel.Id);
-                    //    drone.NumOfParcelOnTheWay = parcel.Id;
-                    //}
                 }
                 catch (InvalidOperationException ex)
                 {

@@ -12,7 +12,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBL bl = BL.BlFactory.GetBl();
+        BlApi.IBL bl = BlApi.BlFactory.GetBl();
         /// <summary>
         /// the constractor of main window
         /// </summary>
