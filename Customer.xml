@@ -6,7 +6,7 @@
     <Phone>0511111111</Phone>
     <Longitude>36.1611144836811</Longitude>
     <Latitude>33.4214664154786</Latitude>
-    <IsActive>false</IsActive>
+    <IsActive>true</IsActive>
   </Customer>
   <Customer>
     <Id>566257827</Id>
@@ -82,11 +82,11 @@
   </Customer>
   <Customer>
     <Id>999999999</Id>
-    <Name>n</Name>
+    <Name>nomi</Name>
     <Phone>0567676767</Phone>
     <Longitude>35.67</Longitude>
     <Latitude>32.78</Latitude>
-    <IsActive>true</IsActive>
+    <IsActive>True</IsActive>
   </Customer>
   <Customer>
     <Id>777777777</Id>

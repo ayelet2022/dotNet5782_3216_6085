@@ -61,8 +61,8 @@ namespace PL
             mainParcel.Recepter = new();
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             PriorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
-            addDeletDeliverPickUpButton.Content = "Add a Parcel";
-            addDeletDeliverPickUpButton.Visibility = Visibility.Visible;
+            addDeliverPickUpButton.Content = "Add a Parcel";
+            addDeliverPickUpButton.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -84,8 +84,7 @@ namespace PL
             DataContext = mainParcel;//to connect between the text box and the data
             if (mainParcel.Scheduled == null)
             {
-                addDeletDeliverPickUpButton.Content = "Delet the parcel";
-                addDeletDeliverPickUpButton.Visibility = Visibility.Visible;
+                addDeliverPickUpButton.Visibility = Visibility.Visible;
             }
             if (mainParcel.Scheduled != null)//if the parcel  has a drone 
             {
@@ -125,7 +124,7 @@ namespace PL
 
         private void addDeletDeliverPickUpButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (addDeletDeliverPickUpButton.Content)
+            switch (addDeliverPickUpButton.Content)
             {
                 case "Add a Parcel":
                     try
@@ -135,7 +134,7 @@ namespace PL
                         ibl.AddParcel(mainParcel);
                         int id = ibl.GetParcels().Last().Id;
                         mainParcel = ibl.GetParcel(id);
-                        windowParcels.Parcels.Add(ibl.GetParcels().First(item=>item.Id==mainParcel.Id));
+                        windowParcels.Parcels.Add(ibl.GetParcels().First(item => item.Id == mainParcel.Id));
                         MessageBoxResult messageBoxResult1 = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
                         _close = true;
                         Close();
@@ -189,65 +188,6 @@ namespace PL
                         }
                     }
                     break;
-                case "Delet the parcel":
-                    ibl.DeleteParcel(mainParcel.Id);
-                    if (customerId == mainParcel.Recepter.Id)
-                        windowCustomer.ParcelToCusW.Remove(windowCustomer.ParcelToCusW[index]);
-                    if (customerId == mainParcel.Sender.Id)
-                        windowCustomer.ParcelFromCusW.Remove(windowCustomer.ParcelFromCusW[index]);
-                    if (windowParcels != null)
-                        windowParcels.Selector();
-                    MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + mainParcel.ToString());
-                    Close();
-                    break;
-                //case "Pick up":
-                //    try
-                //    {
-                //        ibl.PickUpParcel(mainParcel.ParecelDrone.Id);
-                //    }
-                //    catch (FailToUpdateException ex)
-                //    {
-                //        var message = MessageBox.Show("Failed to pick up the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
-                //            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                //        switch (message)
-                //        {
-                //            case MessageBoxResult.Yes:
-                //                SenderBoxA.Text = "";
-                //                RecepterBoxA.Text = "";
-                //                break;
-                //            case MessageBoxResult.No:
-                //                _close = true;
-                //                Close();
-                //                break;
-                //            default:
-                //                break;
-                //        }
-                //    }
-                //    break;
-                //case "Deliver":
-                //    try
-                //    {
-                //        ibl.DeliverParcel(mainParcel.ParecelDrone.Id);
-                //    }
-                //    catch (FailToUpdateException ex)
-                //    {
-                //        var message = MessageBox.Show("Failed to deliver the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n", "Error",
-                //            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                //        switch (message)
-                //        {
-                //            case MessageBoxResult.Yes:
-                //                SenderBoxA.Text = "";
-                //                RecepterBoxA.Text = "";
-                //                break;
-                //            case MessageBoxResult.No:
-                //                _close = true;
-                //                Close();
-                //                break;
-                //            default:
-                //                break;
-                //        }
-                //    }
-                //    break;
             }
         }
 

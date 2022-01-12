@@ -286,21 +286,21 @@ namespace PL
             WindowParcels windowParcels = new WindowParcels(ibl);
             new WindowParcel(ibl, windowParcels).Show();
         }
-
-        private void DeletButton_Click(object sender, RoutedEventArgs e)
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            FrameworkElement framework = sender as FrameworkElement;
+            mainCustomer = framework.DataContext as ParcelInCustomer;
             try
             {
-                ibl.DeleteCustomer(mainCustomer.Id);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + mainCustomer.ToString());
-                _close = true;
-                Close();
-                windowCustomers.MyRefresh();
+                ibl.DeleteCustomer(selectedCustomer.Id);
+                Customers.Remove(selectedCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + selectedCustomer.ToString());
             }
-            catch(BO.ItemIsDeletedException ex)
+            catch (BO.ItemIsDeletedException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been added successfully \n" + mainCustomer.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The customer was not deleted \n" + selectedCustomer.ToString());
             }
+
         }
     }
 }

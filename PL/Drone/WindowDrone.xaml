@@ -14,7 +14,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="DeleteButten"  Style="{StaticResource ButtenStyle}" Content="Delet the drone" HorizontalAlignment="Left" Margin="615,364,0,0" VerticalAlignment="Top" Click="DeleteButten_Click"/>
         <Grid x:Name="AddGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>

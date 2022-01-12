@@ -17,10 +17,6 @@ namespace BL
         public Simulator(BL _bl, int droneID, Action ReportProgressInSimultor, Func<bool> IsTimeRun)
         {
             bl = _bl;
-            //Drone _drone = bl.GetDrone(droneID);
-            var dal = bl;
-            //area for seting puse time
-            //Drone drone = bl.GetDrone(droneID);
             double distance;
             int battery;
 
@@ -41,18 +37,8 @@ namespace BL
                             if (drone.Battery < 100)
                             {
                                 battery = drone.Battery;
-                                //IEnumerable<BaseStation> baseStations = (from item in bl.dal.GetBaseStations()
-                                //                                         select new BaseStation()
-                                //                                         {
-                                //                                             Id = item.Id,
-                                //                                             Name = item.Name,
-                                //                                             EmptyCharges = item.EmptyCharges,
-                                //                                             BaseStationLocation = new Location() { Longitude = item.Longitude, Latitude = item.Latitude },
-                                //                                             DronesInCharge = new List<DroneInCharge>()
-                                //                                         });
                                 DO.BaseStation baseStation = bl.FindMinDistanceOfDToBSWithEempChar(drone);
                                 distance = Distance.Haversine(drone.DroneLocation.Longitude, drone.DroneLocation.Latitude, baseStation.Longitude, baseStation.Latitude);
-                                //distance = bl.mindistancetanceBetweenBaseStationsAndLocation(baseStationBL, drone.CurrentLocation).Item2;
                                 while (distance > 0)
                                 {
                                     drone.Battery -= (int)bl.power[0];//the drone is available
@@ -95,6 +81,8 @@ namespace BL
                         {
                             battery = drone.Battery;
                             Location location = new Location { Longitude = drone.DroneLocation.Longitude, Latitude = drone.DroneLocation.Latitude };
+                            distance = Distance.Haversine
+                                (_drone.DroneLocation.Longitude, _drone.DroneLocation.Latitude, _drone.ParcelInTransfer.PickUpLocation.Longitude, _drone.ParcelInTransfer.PickUpLocation.Latitude);
                             distance = _drone.ParcelInTransfer.TransportDistance;
                             while (distance > 1)
                             {
@@ -114,8 +102,7 @@ namespace BL
                         else // PickedUp != null
                         {
                             battery = drone.Battery;
-                            distance = _drone.ParcelInTransfer.TransportDistance;
-
+                            distance = _drone.ParcelInTransfer.TransportDistance;//the distance betwwen the sender and the resever
                             while (distance > 1)
                             {
                                 switch (_drone.ParcelInTransfer.Weight)
@@ -146,7 +133,6 @@ namespace BL
                     default:
                         break;
                 }
-                //ReportProgressInSimultor();
                 Thread.Sleep(1000);
             }
         }

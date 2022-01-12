@@ -352,22 +352,5 @@ namespace PL
             //worker.WorkerSupportsCancellation = false;
             worker.CancelAsync();
         }
-
-        private void DeleteButten_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ibl.DeleteDrone(mainDrone.Id);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + mainDrone.ToString());
-                _close = true;
-                Close();
-                if (windowDrones != null)
-                    windowDrones.MyRefresh();
-            }
-            catch (BO.ItemIsDeletedException ex)
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + mainDrone.ToString());
-            }
-        }
     }
 }

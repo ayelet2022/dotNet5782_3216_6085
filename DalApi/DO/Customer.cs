@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace DO
 {
@@ -20,8 +21,7 @@ namespace DO
             result += $"ID is {Id}, \n";
             result += $"Name is {Name}, \n";
             result += $"Phone is {Phone}, \n";
-            result += $"Phone is {Latitude}, \n";
-            result += $"longitude is {Longitude}, \n";
+            result += $"Location is {Util.SexagesimalCoordinate(Longitude,Latitude)}, \n";
             return result;
         }
     }

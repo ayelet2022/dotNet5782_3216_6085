@@ -22,6 +22,6 @@
     <Id>368176</Id>
     <Model>Aa44ZX</Model>
     <MaxWeight>light</MaxWeight>
-    <IsActive>false</IsActive>
+    <IsActive>true</IsActive>
   </Drone>
 </ArrayOfDrone>
