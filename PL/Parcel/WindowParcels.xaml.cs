@@ -17,15 +17,6 @@ using BO;
 
 namespace PL
 {
-    public struct StatusWeightAndPriorities
-    {
-        public BO.WeightCategories weight { get; set; }
-        public BO.ParcelStatus status { get; set; }
-        public BO.Priorities priorities { get; set; }
-    }
-    public enum WeightCategoriesP { light, mediumWeight, heavy,All };
-    public enum Priorities { regular, fast, urgent,All };
-    public enum ParcelStatus { creat, schedul, pickup, delivery,All }
     /// <summary>
     /// Interaction logic for WindowDrones.xaml
     /// </summary>
@@ -33,7 +24,7 @@ namespace PL
     {
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
-        public Dictionary<StatusWeightAndPriorities, List<ParcelList>> Parcels;
+        public ObservableCollection<ParcelList> Parcels;
         public ParcelList selectedParcel = new();
 
         /// <summary>
@@ -44,6 +35,9 @@ namespace PL
         {
             InitializeComponent();
             ibl = bl;
+            Parcels = new ObservableCollection<ParcelList>();
+            List<ParcelList> parcels = bl.GetParcels().ToList();
+            parcels.OrderBy(item => item.Id);
             Parcels = new Dictionary<StatusWeightAndPriorities, List<ParcelList>>();
             Parcels = (from item in bl.GetParcels()
                        group item by
@@ -190,6 +184,23 @@ namespace PL
                            priorities = item.Priority,
                        }).ToDictionary(item => item.Key, item => item.ToList());
             Selector();
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            selectedCustomer = framework.DataContext as CustomerList;
+            try
+            {
+                ibl.DeleteCustomer(selectedCustomer.Id);
+                Customers.Remove(selectedCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedCustomer.ToString());
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedCustomer.ToString());
+            }
+
         }
     }
 }

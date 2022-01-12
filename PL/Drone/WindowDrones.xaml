@@ -41,7 +41,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Image   Width="30" MouseDown="Image_MouseDown" Source="/Drone/פח זבל.jpeg" IsHitTestVisible="True"/>
+                                    <Image MouseDown="Image_MouseDown" Source="/Drone/פח זבל.jpeg"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

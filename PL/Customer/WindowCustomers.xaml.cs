@@ -39,8 +39,8 @@ namespace PL
             Customers = new ObservableCollection<CustomerList>();
             List<CustomerList> customers = ibl.GetCustomers().ToList();
             customers.OrderBy(item => item.Id);
-            foreach (var item in customers)//to fet and shoe all the drones
-                Customers.Add(item);
+            Customers= (ObservableCollection<CustomerList>)(from item in customers
+                     select item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
             Customers.CollectionChanged += Customers_CollactionChanged;
         }
@@ -107,6 +107,22 @@ namespace PL
                 Customers.Add(item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
             CustomerListView.Items.Refresh();
+        }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            selectedCustomer = framework.DataContext as CustomerList;
+            try
+            {
+                ibl.DeleteCustomer(selectedCustomer.Id);
+                Customers.Remove(selectedCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedCustomer.ToString());
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedCustomer.ToString());
+            }
+
         }
     }
 }
