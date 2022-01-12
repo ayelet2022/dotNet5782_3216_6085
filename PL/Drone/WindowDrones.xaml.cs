@@ -17,7 +17,6 @@ using BO;
 
 namespace PL 
 {
-    public enum WeightCategories { Light, MediumWeight, Heavy, All };
     public enum DroneStatus { Available, InFix, Delivery, All };
     /// <summary>
     /// Interaction logic for WindowDrones.xaml
@@ -38,8 +37,7 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             Drones = new ObservableCollection<DroneList>();
-            List<DroneList> drones = new();
-            drones = ibl.GetDrones().ToList();
+            IEnumerable<DroneList> drones = ibl.GetDrones();
             drones.OrderBy(item => item.Id);
             foreach (var item in drones)Drones.Add(item);
             DronesListView.ItemsSource = Drones;//to show all the customers
@@ -47,18 +45,7 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StatusSelector.SelectedIndex = 3;//no filter
-        }
-
-        /// <summary>
-        /// when a drone in the drones was changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Drones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            Selector();//to update  the list that was printed 
         }
 
         /// <summary>
@@ -70,38 +57,20 @@ namespace PL
         {
             Selector();//to show the list according to the filter that was enterd
         }
-
-        /// <summary>
-        ///  filters the list of drones that was enterd according to what was filtterd
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Selector();// to show the list according to the filter that was enterd
-        }
-
         /// <summary>
         /// shows the list according to the filter that the user disided
         /// </summary>
         public void Selector()
         {
             DroneStatus dStatus = (DroneStatus)StatusSelector.SelectedItem;
-            if (WeightSelector.SelectedIndex == -1)//meens no filter was chosen
-                WeightSelector.SelectedIndex = 3;//no filter-shows all the drones
+            DronesListView.ItemsSource = null;
             WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
-            if (dStatus == DroneStatus.All && dWeight == WeightCategories.All)
+            if (dStatus == DroneStatus.All)
                 DronesListView.ItemsSource = Drones;
-            if (dStatus == DroneStatus.All && dWeight != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem).Select(item => item);
             //if only he wants to filter the statuse category
-            if (dStatus != DroneStatus.All && dWeight == WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem).Select(item => item);
-            //if  he wants to filter both the weight category and the status category
-            if (dStatus != DroneStatus.All && dWeight != WeightCategories.All)
-                DronesListView.ItemsSource = Drones.Where(item => item.MaxWeight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Status == (BO.DroneStatus)StatusSelector.SelectedItem)
-                    .Select(item => item);
+            if (dStatus != DroneStatus.All)
+                DronesListView.ItemsSource = Drones.Where(item => item.Status == (BO.DroneStatus)StatusSelector.SelectedItem);
             DronesListView.Items.Refresh();
         }
 
@@ -150,17 +119,9 @@ namespace PL
                 MessageBox.Show("You can't force the window to close");
             }
         }
-        public void MyRefresh()
-        {
-            DronesListView.ItemsSource = Drones;//to show all the drones
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
-            view.GroupDescriptions.Add(groupDescription);
-            Selector();
-        }
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            MyRefresh();
+            Selector();
         }
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
