@@ -289,16 +289,16 @@ namespace PL
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement framework = sender as FrameworkElement;
-            mainCustomer = framework.DataContext as ParcelInCustomer;
+            selectedParcel = framework.DataContext as ParcelList;
             try
             {
-                ibl.DeleteCustomer(selectedCustomer.Id);
-                Customers.Remove(selectedCustomer);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The customer has been deleted successfully \n" + selectedCustomer.ToString());
+                ibl.DeleteParcel(selectedParcel.Id);
+                Parcels.Remove(selectedParcel);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deleted successfully \n" + selectedParcel.ToString());
             }
             catch (BO.ItemIsDeletedException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The customer was not deleted \n" + selectedCustomer.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not deleted \n" + selectedParcel.ToString());
             }
 
         }
