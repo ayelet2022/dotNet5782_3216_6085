@@ -48,7 +48,7 @@ namespace PL
                     dronesInchargeList.Add(item);
                 labelDronesInStation.Visibility = Visibility.Visible;
                 listDronesInStation.Visibility = Visibility.Visible;
-                listDronesInStation.ItemsSource = station.DronesInCharge;
+                listDronesInStation.ItemsSource = dronesInchargeList;
             }
             buttenAddUpdate.Content = "UPDATE";
         }
