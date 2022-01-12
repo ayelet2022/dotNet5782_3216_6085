@@ -109,32 +109,20 @@ namespace BL
             lock (dal)
             {
                 CustomerList customer = new();
-                List<CustomerList> Customers = new();//the customer list that we whant to returne
-                foreach (var item in dal.GetCustomers())
-                {
-                    item.CopyPropertiesTo(customer);//copy only:id,name,phone
-                    foreach (var item1 in dal.GetParcels(x => x.SenderId == item.Id || x.TargetId == item.Id))
-                    {
-                        if (item1.SenderId == item.Id)//meens the customer send the parcel
-                        {
-                            if (item1.Delivered != DateTime.MinValue)//meens the parcel was deliverd
-                                customer.ParcelsSentAndDel++;
-                            else//meens the parcel was not deliverd
-                                customer.ParcelsSentAndNotDel++;
-                        }
-                        if (item1.TargetId == item.Id)//meens the customer has a parcel on the way/deliverd to him
-                        {
-                            if (item1.Delivered != DateTime.MinValue)//meens the parcel was deliverd to the customer
-                                customer.ParcelsResepted++;
-                            else//check if the parcel is on the way
-                                if (item1.PickedUp != DateTime.MinValue)//meens the parcel is on the way
-                                customer.ParcelsOnTheWay++;
-                        }
-                    }
-                    Customers.Add(customer);
-                    customer = new();
-                }
-                return Customers.FindAll(item => predicate == null ? true : predicate(item));
+                IEnumerable<CustomerList> Customers;//the customer list that we whant to returne
+                Customers = from item in dal.GetCustomers()
+                            select new CustomerList()
+                            {
+                                ParcelsSentAndDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered != DateTime.MinValue).Count(),
+                                ParcelsSentAndNotDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered == DateTime.MinValue).Count(),
+                                ParcelsResepted = dal.GetParcels(x => x.TargetId == item.Id && x.Delivered != DateTime.MinValue).Count(),
+                                ParcelsOnTheWay = dal.GetParcels(x => x.TargetId == item.Id && x.PickedUp == DateTime.MinValue).Count(),
+                                Id = item.Id,
+                                Name = item.Name,
+                                Phone = item.Phone
+                            };
+
+                return Customers.Where(item => predicate == null ? true : predicate(item));
             }
         }
 

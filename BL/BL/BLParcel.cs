@@ -79,33 +79,20 @@ namespace BL
         {
             lock (dal)
             {
-                ParcelList parcel = new();
-                List<ParcelList> Parcels = new();
-                foreach (var item in dal.GetParcels())
-                {
-                    item.CopyPropertiesTo(parcel);//copy only:id,weight,priority
-                                                  //findes the name of the customer that send the parcel
-                    parcel.SenderName = dal.GetCustomer(item.SenderId).Name;
-                    //findes the name of the customer that is recepting the parcel
-                    parcel.RecepterName = dal.GetCustomer(item.TargetId).Name;
-                    if (item.Delivered != null)//if parcel was delivered
-                        parcel.ParcelStatus = ParcelStatus.delivery;//state -> provided
-                    else
-                    {
-                        if (item.PickedUp != null)//if parcel was picked up by drone
-                            parcel.ParcelStatus = ParcelStatus.pickup;//state -> picked up
-                        else
-                        {
-                            if (item.Scheduled != null)//if if parcel was assigned to drone
-                                parcel.ParcelStatus = ParcelStatus.schedul;//state -> paired
-                            else//if parcel was requested
-                                parcel.ParcelStatus = ParcelStatus.creat;//state -> created
-                        }
-                    }
-                    Parcels.Add(parcel);
-                    parcel = new();
-                }
-                return Parcels.FindAll(item => predicate == null ? true : predicate(item));
+                IEnumerable<ParcelList> parcels;
+                parcels = from item in dal.GetParcels()
+                         select new ParcelList
+                         {
+                             Id = item.Id,
+                             SenderName = dal.GetCustomer(item.SenderId).Name,
+                             RecepterName = dal.GetCustomer(item.TargetId).Name,
+                             Weight = (WeightCategories)item.Weight,
+                             Priority = (Priorities)item.Priority,
+                             ParcelStatus= item.Delivered != null ? BO.ParcelStatus.delivery :
+                             (item.PickedUp != null ? BO.ParcelStatus.pickup :
+                             (item.Scheduled != null ? BO.ParcelStatus.schedul : BO.ParcelStatus.creat))
+            };
+                return parcels.Where(item => predicate == null ? true : predicate(item));
             }
         }
 
@@ -124,5 +111,5 @@ namespace BL
         }
     }
 }
-        
-        
+
+

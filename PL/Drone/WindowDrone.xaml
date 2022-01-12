@@ -85,7 +85,7 @@
             <TextBlock x:Name="weightAC"  Text="{Binding MaxWeight, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"   Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="BatteryBoxAc" Text="{Binding Battery, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"  Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="statusAC" Text="{Binding Status, Mode=TwoWay}"  Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-            <TextBlock x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay, StringFormat=Latitude: {0:0.##}}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}"  />
+            <TextBlock x:Name="DLatitudeBoxAc"  Text="{Binding DroneLocation.Latitude, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBlockStyle}"  />
             <TextBlock x:Name="DLongitudeBoxAc" Text="{Binding DroneLocation.Longitude, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBlockStyle}"  />
             <Button x:Name="Simulator" Content="Simulator" Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Top" Style="{StaticResource ButtenStyle}" Click="Simulator_Click"/>
             <Button x:Name="Regular" Content="Regular" Grid.Row="10" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Top" Style="{StaticResource ButtenStyle}" Click="Regular_Click"/>
@@ -153,8 +153,8 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="AddUpdateButten" Width="185"  Content="" Grid.Column="0" Click="AddUpdateButten_Click" Style="{StaticResource ButtenStyle}"/>
             <Button x:Name="CloseWindowButten"  Style="{StaticResource ButtenCloseStyle}" Content="Close" Grid.Column="4" Click="CloseButten_Click"/>
-            <Button x:Name="ChargeDroneButten" Width="185"  Content="" Grid.Column="2" Click="ChargeDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
-            <Button x:Name="ChangeStatusDroneButten" Width="185"  Content=""  Grid.Column="1" Click="ChangeStatusDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="ChargeDroneButten" Width="185" Visibility="Collapsed"  Content="" Grid.Column="2" Click="ChargeDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
+            <Button x:Name="ChangeStatusDroneButten" Visibility="Collapsed" Width="185"  Content=""  Grid.Column="1" Click="ChangeStatusDroneButten_Click"  Style="{StaticResource ButtenStyle}"/>
         </Grid>
     </Grid>
 </Window>

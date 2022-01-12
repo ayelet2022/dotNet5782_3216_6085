@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using BO;
 using System.ComponentModel;
@@ -32,6 +22,7 @@ namespace PL
         private WindowStation windowStation { get; set; }
         private int index { get; set; }
 
+        #region CUNTSRACTORS
         public WindowDrone(BlApi.IBL bl, WindowStation window_Station, int id, int _index) : this(bl, null, id)
         {
             windowStation = window_Station;
@@ -60,7 +51,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowDrones">the window with all the drones</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int id=0)
+        public WindowDrone(BlApi.IBL bl, WindowDrones _windowDrones, int id = 0)
         {
             InitializeComponent();
             ibl = bl;
@@ -78,6 +69,8 @@ namespace PL
             //changes the buttens content according to the drone statuse
             WindowUp();
         }
+        #endregion
+
         private void WindowUp()
         {
             
@@ -125,16 +118,17 @@ namespace PL
             {
                 try
                 {
-                    if (mainDrone.Id == default || mainDrone.Model == default)
+                    if (mainDrone.Model == "" || mainDrone.Id == default || mainDrone.Model == default)
                         throw new MissingInfoException("No information entered for this drone");
                     if (IdStation.SelectedItem == null)
                         throw new MissingInfoException("No station was entered for this drone");
                     ibl.AddDrone(mainDrone, (int)IdStation.SelectedItem);
-                    windowDrones.Drones.Add(ibl.GetDrones().First(item=>item.Id==mainDrone.Id));
+                    windowDrones.Drones.Add(ibl.GetDrones().First(item => item.Id == mainDrone.Id));
                     MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been added successfully \n" + mainDrone.ToString());
                     _close = true;
                     Close();
                 }
+                #region CATCH
                 catch (FailedToAddException ex)
                 {
                     var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
@@ -186,26 +180,56 @@ namespace PL
                             break;
                     }
                 }
+                #endregion
+
             }
             else
             {
                 try
                 {
-                    if (ModelBoxAc.Text == null)//if the model name was not enterd
+                    if (ModelBoxAc.Text == default|| ModelBoxAc.Text=="")//if the model name was not enterd
                         throw new MissingInfoException($"The drones model: {mainDrone.Model} is incorrect, the drone was not added.\n");
                     string oldName = windowDrones.selectedDrone.Model;
                     ibl.UpdateDrone(mainDrone, ModelBoxAc.Text);//change the drones model according to what was enterd
                     windowDrones.Selector();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
                 }
+                #region CATCH
                 catch (FailToUpdateException ex)
                 {
-                    MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+                    var message = MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            ModelBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (MissingInfoException ex)
                 {
-                    MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+                    var message = MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            ModelBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                #endregion
             }
             IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
             if(items!=null)

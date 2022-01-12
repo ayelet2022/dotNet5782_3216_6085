@@ -56,12 +56,6 @@ namespace PL
             }
         }
 
-        private void buttenClose_Click(object sender, RoutedEventArgs e)
-        {
-            _close = true;
-            Close();
-        }
-
         public void MyRefresh()
         {
             Stations = new ObservableCollection<BaseStationList>();

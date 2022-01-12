@@ -27,6 +27,8 @@ namespace PL
         BlApi.IBL ibl;
         private WindowStations windowStations;
         public ObservableCollection<DroneInCharge> dronesInchargeList = new ObservableCollection<DroneInCharge>();
+
+        #region CONSTRUCTERS
         /// <summary>
         /// constructer-updates the station that the mouse clicked twice on
         /// </summary>
@@ -68,6 +70,7 @@ namespace PL
             DataContext = station;
             buttenAddUpdate.Content = "ADD";
         }
+        #endregion
 
         private void listDronesInStation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -82,7 +85,7 @@ namespace PL
             {
                 if (buttenAddUpdate.Content == "ADD")
                 {
-                    if (station.Id == default || station.EmptyCharges == default || station.Name == default || station.BaseStationLocation.Latitude == default || station.BaseStationLocation.Longitude == default)
+                    if (station.Id == default || station.EmptyCharges == default || station.Name == "" || station.Name == default || station.BaseStationLocation.Latitude == default || station.BaseStationLocation.Longitude == default)
                         throw new MissingInfoException("No information entered for this station");
                     ibl.AddBaseStation(station);
                     station = ibl.GetBaseStation(station.Id);
@@ -94,28 +97,23 @@ namespace PL
                 }
                 else
                 {
-                    try
+
+                    if (chargingSlotsTB.Text == default || nameTB.Text == "" || nameTB.Text == default)
+                        throw new MissingInfoException("No information entered for this station");
+                    else
                     {
-                        if (chargingSlotsTB.Text == default || chargingSlotsTB.Text == "")
-                            ibl.UpdateStation(station.Id, nameTB.Text, 0);
-                        else
-                        {
-                            ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(chargingSlotsTB.Text));
-                            windowStations.selectedStation.EmptyCharges = int.Parse(chargingSlotsTB.Text) - windowStations.selectedStation.FullChargingPositions;
-                            avaiChargesTBl.Text = windowStations.selectedStation.EmptyCharges.ToString();
-                        }
-                        //updates all the text box according to what was updated
-                        station = ibl.GetBaseStation(station.Id);
-                        windowStations.selectedStation.Name = nameTB.Text;
-                        windowStations.MyRefresh();
-                        MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
+                        ibl.UpdateStation(station.Id, nameTB.Text, int.Parse(chargingSlotsTB.Text));
+                        windowStations.selectedStation.EmptyCharges = int.Parse(chargingSlotsTB.Text) - windowStations.selectedStation.FullChargingPositions;
+                        avaiChargesTBl.Text = windowStations.selectedStation.EmptyCharges.ToString();
                     }
-                    catch (InvalidInputException ex)
-                    {
-                        MessageBox.Show("Failed to update the station: " + ex.GetType().Name + "\n" + ex.Message);
-                    }
+                    //updates all the text box according to what was updated
+                    station = ibl.GetBaseStation(station.Id);
+                    windowStations.selectedStation.Name = nameTB.Text;
+                    windowStations.MyRefresh();
+                    MessageBoxResult messageBoxResult = MessageBox.Show("The station has been updateded successfully \n" + station.ToString());
                 }
             }
+            #region CATCH
             catch (FailedToAddException ex)
             {
                 var message = MessageBox.Show("Failed to add the station: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
@@ -174,6 +172,8 @@ namespace PL
                         break;
                 }
             }
+            #endregion
+
         }
         /// <summary>
         /// to only allow to enter int in a text box

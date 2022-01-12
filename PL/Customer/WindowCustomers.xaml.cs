@@ -95,7 +95,7 @@ namespace PL
         }
         public void MyRefresh()
         {
-            List<CustomerList> customers = ibl.GetCustomers().ToList();
+            IEnumerable<CustomerList> customers = ibl.GetCustomers();
             customers.OrderBy(item => item.Id);
             foreach (var item in customers)//to fet and shoe all the drones
                 Customers.Add(item);

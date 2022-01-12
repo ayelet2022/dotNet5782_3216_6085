@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BO;
 
 namespace PL
@@ -47,17 +39,7 @@ namespace PL
         }
 
         /// <summary>
-        /// when a parcel in the drones was changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Parcels_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            Selector();//to update  the ist that was printed 
-        }
-
-        /// <summary>
-        /// filters the list of drones that was enterd according to what was filtterd
+        /// filters the list of parcels that was enterd according to what was filtterd
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -66,6 +48,15 @@ namespace PL
             Selector();//to show the list according to the filter that was enterd
         }
 
+        /// <summary>
+        /// filters the list of parcels that was enterd according to what was filtterd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrioritiesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Selector();
+        }
         /// <summary>
         ///  filters the list of drones that was enterd according to what was filtterd
         /// </summary>
@@ -158,10 +149,7 @@ namespace PL
             }
         }
 
-        private void PrioritiesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Selector();
-        }
+        
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {

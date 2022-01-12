@@ -27,7 +27,7 @@ namespace BL
         private BL()
         {
             Rand = new Random();
-            dal = DalApi.DalFactory.GetDL();
+            dal = DalFactory.GetDL();
             power = dal.AskForBattery();
             chargingRate = power[4];
             InitializeDroneList(Drones);

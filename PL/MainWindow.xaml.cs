@@ -97,7 +97,7 @@ namespace PL
             manager.Visibility = Visibility.Collapsed;
             options.Visibility = Visibility.Visible;
         }
-
+        
         private void SignInM_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -141,10 +141,6 @@ namespace PL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-        private void WindowClose(object sender, CancelEventArgs e)
-        {
         }
     }
 }

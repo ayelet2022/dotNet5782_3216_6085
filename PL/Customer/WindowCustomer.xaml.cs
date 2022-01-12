@@ -32,6 +32,8 @@ namespace PL
         public ObservableCollection<ParcelInCustomer> ParcelFromCusW;
         public ObservableCollection<ParcelInCustomer> ParcelToCusW;
         private WindowParcel windowParcel { get; set; }
+
+        #region CUNSTRACTERS
         public WindowCustomer(BlApi.IBL bl, WindowParcel _windowParcel, int id, Parcel _parcel) : this(bl, null, id)
         {
             windowParcel = _windowParcel;
@@ -46,7 +48,7 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             windowCustomers = _windowCustomers;
-            AddGrid.Visibility=Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
             UpdateGride.Visibility = Visibility.Collapsed;
             UpdateAddButton.Content = "Add a customer";
             mainCustomer.CustomerLocation = new();
@@ -59,7 +61,7 @@ namespace PL
         /// <param name="bl">the accses to IBL</param>
         /// <param name="_windowCustomers">the window with all the Customers</param>
         /// <param name="i">the diffrence between the constractor of add to the constractor of update</param>
-        public WindowCustomer(BlApi.IBL bl, WindowCustomers _windowCustomers, int i=0)
+        public WindowCustomer(BlApi.IBL bl, WindowCustomers _windowCustomers, int i = 0)
         {
             ibl = bl;
             InitializeComponent();
@@ -88,13 +90,14 @@ namespace PL
             List<ParcelInCustomer> parcelInCustomerToCus = mainCustomer.ParcelsToCustomers.ToList();
             if (parcelInCustomerToCus.Count() != 0)
             {
-                ParcelToCusLable.Visibility= Visibility.Visible;
+                ParcelToCusLable.Visibility = Visibility.Visible;
                 ParcelToCusListView.Visibility = Visibility.Visible;
                 foreach (var item in parcelInCustomerToCus)//to fet and shoe all the drones
                     ParcelToCusW.Add(item);
                 ParcelToCusListView.ItemsSource = ParcelToCusW;//to show all the drones 
             }
         }
+        #endregion
 
         /// <summary>
         /// when the butten of update was clicked and updates the drones model according to what was enterd
@@ -116,6 +119,7 @@ namespace PL
                     _close = true;
                     Close();
                 }
+                #region CATCH
                 catch (FailedToAddException ex)
                 {
                     var message = MessageBox.Show("Failed to add the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
@@ -137,7 +141,7 @@ namespace PL
                 }
                 catch (InvalidInputException ex)
                 {
-                    var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    var message = MessageBox.Show("Failed to add the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
                         MessageBoxButton.YesNo, MessageBoxImage.Error);
                     switch (message)
                     {
@@ -158,7 +162,7 @@ namespace PL
                 }
                 catch (MissingInfoException ex)
                 {
-                    var message = MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    var message = MessageBox.Show("Failed to add the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
                         MessageBoxButton.YesNo, MessageBoxImage.Error);
                     switch (message)
                     {
@@ -177,7 +181,7 @@ namespace PL
                             break;
                     }
                 }
-
+                #endregion
             }
             else//meens to update the customer
             {
@@ -185,6 +189,8 @@ namespace PL
                 {
                     AddGrid.Visibility = Visibility.Collapsed;
                     UpdateGride.Visibility = Visibility.Visible;
+                    if (NameBoxA.Text == "" || mainCustomer.Phone == ""|| NameBoxA.Text == default || mainCustomer.Phone == default)
+                        throw new MissingInfoException("No information entered for this Customer");
                     ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
                     mainCustomer = ibl.GetCustomer(mainCustomer.Id);
                     int index = -1;
@@ -199,18 +205,63 @@ namespace PL
                         windowParcel.MyRefresh();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The Customer has been updateded successfully \n" + mainCustomer.ToString());
                 }
+                #region CATCH
                 catch (FailToUpdateException ex)
                 {
-                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                    var message = MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                        MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            NameBoxA.Text = "";
+                            PhoneBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (MissingInfoException ex)
                 {
-                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                    var message = MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                      MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            NameBoxA.Text = "";
+                            PhoneBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (NotFoundInputException ex)
                 {
-                    MessageBox.Show("Failed to update the Customer: " + ex.GetType().Name + "\n" + ex.Message);
+                    var message = MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                      MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    switch (message)
+                    {
+                        case MessageBoxResult.Yes:
+                            NameBoxA.Text = "";
+                            PhoneBoxA.Text = "";
+                            break;
+                        case MessageBoxResult.No:
+                            _close = true;
+                            Close();
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                #endregion
+
             }
         }
 

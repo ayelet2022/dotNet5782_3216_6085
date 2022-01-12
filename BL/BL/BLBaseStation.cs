@@ -10,7 +10,6 @@ namespace BL
 {
     public partial class BL
     {
-        //public delegate bool conditionDelegate(IDAL.DO.BaseStation baseStation);
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation baseStation)
         {
@@ -87,23 +86,20 @@ namespace BL
         {
             lock (dal)
             {
-                List<BaseStationList> listStations = new List<BaseStationList>();
+                IEnumerable<BaseStationList> listStations = new List<BaseStationList>();
                 BaseStationList baseStationList = new();
-                BaseStation blStations = new();
+                //BaseStation blStations = new();
                 //to go over all of the base station list and copy only the onece that have avilable chargers
-                foreach (var item in dal.GetBaseStations())
-                {
-                    blStations = GetBaseStation(item.Id);
-                    blStations.CopyPropertiesTo(baseStationList);
-                    //meens there are no drones charging in the station
-                    if (blStations.DronesInCharge == null)
-                        baseStationList.FullChargingPositions = 0;
-                    else//meens thare are drones that charging
-                        baseStationList.FullChargingPositions = blStations.DronesInCharge.Count();
-                    listStations.Add(baseStationList);
-                    baseStationList = new();
-                }
-                return listStations.FindAll(item => predicate == null ? true : predicate(item));
+                listStations = from item in dal.GetBaseStations()
+                               let blStations = GetBaseStation(item.Id)
+                               select new BaseStationList()
+                               {
+                                   Id = blStations.Id,
+                                   FullChargingPositions = blStations.DronesInCharge != null ? blStations.DronesInCharge.Count() : 0,
+                                   EmptyCharges = blStations.EmptyCharges,
+                                   Name = blStations.Name
+                               };
+                return listStations.Where(item => predicate == null ? true : predicate(item));
             }
         }
 

@@ -80,10 +80,11 @@
             <TextBox x:Name="chargingSlotsTB" Grid.Row="4" Grid.Column="2" Style="{StaticResource TextBoxStyle}"/>
             <Label Content="Charging&#10; Slots" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource LableStyle}"/>
             <Label Visibility="Collapsed" x:Name="labelDronesInStation" Grid.ColumnSpan="2" Content="Drones that are charging:" Grid.Row="0" Grid.Column="1" Style="{StaticResource LableStyle}"/>
-            <ListView Visibility="Collapsed" x:Name="listDronesInStation" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource ListViewStyle}" MouseDoubleClick="listDronesInStation_MouseDoubleClick">
+            <ListView Visibility="Collapsed"  x:Name="listDronesInStation" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource ListViewStyle}" MouseDoubleClick="listDronesInStation_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="Id" Width="80" DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Header="Battery" Width="80" DisplayMemberBinding="{Binding Battery}" />
                     </GridView>
                 </ListView.View>
             </ListView>

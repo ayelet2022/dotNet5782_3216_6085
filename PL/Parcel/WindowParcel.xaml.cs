@@ -31,6 +31,8 @@ namespace PL
         private WindowCustomer windowCustomer { get; set; }
         private int index { get; set; }
         private int customerId { get; set; }
+
+        #region CUNSTRACTORS
         /// <summary>
         /// a constructer of parcel (when we come from a customer window)
         /// </summary>
@@ -39,7 +41,7 @@ namespace PL
         /// <param name="id">the id of the parcel</param>
         /// <param name="_index">the index wehre the parcel was</param>
         /// <param name="_customerId">the customer that has the parcel</param>
-        public WindowParcel(BlApi.IBL bl, WindowCustomer _windowCustomer, int id, int _index,int _customerId) : this(bl, null, id)
+        public WindowParcel(BlApi.IBL bl, WindowCustomer _windowCustomer, int id, int _index, int _customerId) : this(bl, null, id)
         {
             windowCustomer = _windowCustomer;
             index = _index;
@@ -61,8 +63,8 @@ namespace PL
             mainParcel.Recepter = new();
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             PriorityComboBox.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
-            addDeliverPickUpButton.Content = "Add a Parcel";
-            addDeliverPickUpButton.Visibility = Visibility.Visible;
+            addButton.Content = "Add a Parcel";
+            addButton.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -83,23 +85,12 @@ namespace PL
                 mainParcel = ibl.GetParcel(i);
             DataContext = mainParcel;//to connect between the text box and the data
             if (mainParcel.Scheduled == null)
-            {
-                addDeliverPickUpButton.Visibility = Visibility.Visible;
-            }
+                addButton.Visibility = Visibility.Visible;
             if (mainParcel.Scheduled != null)//if the parcel  has a drone 
-            {
-                //if (mainParcel.Delivered == null && mainParcel.PickedUp == null)
-                //{
-                //    addDeletDeliverPickUpButton.Content = "Pick up";
-                //}
-                //if (mainParcel.Delivered == null && mainParcel.PickedUp != null)
-                //{
-                //    addDeletDeliverPickUpButton.Content = "Deliver";
-                //}
-
                 DroneInParcel.Visibility = Visibility.Visible;//show the gride of the parcels drone
-            }
         }
+        #endregion
+
 
         /// <summary>
         /// to close the drones window
@@ -122,73 +113,70 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void addDeletDeliverPickUpButton_Click(object sender, RoutedEventArgs e)
+        private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (addDeliverPickUpButton.Content)
+            try
             {
-                case "Add a Parcel":
-                    try
-                    {
-                        if (mainParcel.Sender.Id == default || mainParcel.Recepter.Id == default)
-                            throw new MissingInfoException("No information entered for this drone");
-                        ibl.AddParcel(mainParcel);
-                        int id = ibl.GetParcels().Last().Id;
-                        mainParcel = ibl.GetParcel(id);
-                        windowParcels.Parcels.Add(ibl.GetParcels().First(item => item.Id == mainParcel.Id));
-                        MessageBoxResult messageBoxResult1 = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
+                if (mainParcel.Sender.Id == default || mainParcel.Recepter.Id == default)
+                    throw new MissingInfoException("No information entered for this drone");
+                ibl.AddParcel(mainParcel);
+                int id = ibl.GetParcels().Last().Id;
+                mainParcel = ibl.GetParcel(id);
+                windowParcels.Parcels.Add(ibl.GetParcels().First(item => item.Id == mainParcel.Id));
+                MessageBoxResult messageBoxResult1 = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
+                _close = true;
+                Close();
+            }
+            #region CATCH
+            catch (FailedToAddException ex)
+            {
+                var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        SenderBoxA.Text = "";
+                        RecepterBoxA.Text = "";
+                        break;
+                    case MessageBoxResult.No:
                         _close = true;
                         Close();
-                    }
-                    catch (FailedToAddException ex)
-                    {
-                        var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        switch (message)
-                        {
-                            case MessageBoxResult.Yes:
-                                SenderBoxA.Text = "";
-                                RecepterBoxA.Text = "";
-                                break;
-                            case MessageBoxResult.No:
-                                _close = true;
-                                Close();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    catch (InvalidInputException ex)
-                    {
-                        var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        switch (message)
-                        {
-                            case MessageBoxResult.No:
-                                _close = true;
-                                Close();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    catch (MissingInfoException ex)
-                    {
-                        var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
-                            MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        switch (message)
-                        {
-                            case MessageBoxResult.Yes:
-                                break;
-                            case MessageBoxResult.No:
-                                _close = true;
-                                Close();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (InvalidInputException ex)
+            {
+                var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.No:
+                        _close = true;
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (MissingInfoException ex)
+            {
+                var message = MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message + "\n" + "Woul'd you like to try agein?\n", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                switch (message)
+                {
+                    case MessageBoxResult.Yes:
+                        break;
+                    case MessageBoxResult.No:
+                        _close = true;
+                        Close();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            #endregion
         }
         public void MyRefresh()
         {

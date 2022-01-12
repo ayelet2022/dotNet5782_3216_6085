@@ -57,7 +57,7 @@
             <TextBox x:Name="LatitudeBoxA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4"  Style="{StaticResource TextBoxStyle}" />
             <TextBox x:Name="LongitudeBoxA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5"  Style="{StaticResource TextBoxStyle}" />
         </Grid>
-        <Grid x:Name="UpdateGride" Visibility="Visible"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="7">
+        <Grid x:Name="UpdateGride" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8" Grid.ColumnSpan="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -80,10 +80,10 @@
             <TextBlock x:Name="IDBlockA" Text="{Binding Id, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}" PreviewTextInput="NumberValidationTextBox" />
             <TextBox x:Name="NameBlockA"  Text="{Binding Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
             <TextBox x:Name="PhoneBlockA" MaxLength="10" PreviewTextInput="NumberValidationTextBox"  Text="{Binding Phone, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxStyle}" />
-            <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
-            <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
-            <Label x:Name="ParcelFromCusLable" Content="Parcel from CusList:" Visibility="Visible"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
-            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Visible"  Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
+            <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
+            <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
+            <Label x:Name="ParcelFromCusLable" Content="Parcel from CusList:" Visibility="Collapsed"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
+            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="">
@@ -106,8 +106,8 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <Label x:Name="ParcelToCusLable" Content="Parcel To Customer:" Visibility="Visible"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="3"/>
-            <ListView x:Name="ParcelToCusListView"  Visibility="Visible"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
+            <Label x:Name="ParcelToCusLable" Content="Parcel To Customer:" Visibility="Collapsed"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="3"/>
+            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="">
