@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using BO;
+using BlApi;
 
-namespace BL
+namespace BlApi
 {
     static public class BlFactory
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
-        static public BL GetBl() { return BL.Instance; }
+        public static IBL GetBl() => BL.BL.Instance;
     }
 }

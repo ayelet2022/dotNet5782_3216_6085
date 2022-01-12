@@ -40,57 +40,65 @@ namespace BL
                 }
             }
         }
+        private ParcelInCustomer NewMethod(DO.Parcel indexOfParcels, Customer blCustomer)
+        {
+            ParcelInCustomer parcelAtCustomer = new ParcelInCustomer();
+            indexOfParcels.CopyPropertiesTo(parcelAtCustomer);// converting dal->bl
+                                                              //If the customer we want is either the sender or the recipient of the package
+            if (indexOfParcels.SenderId == blCustomer.Id || indexOfParcels.TargetId == blCustomer.Id)
+            {
+                if (indexOfParcels.Scheduled != null)//if parcel is assigned a drones
+                {
+                    if (indexOfParcels.PickedUp != null)//if parcel is picked up by drone
+                    {
+                        if (indexOfParcels.Delivered != null)//parcel is delivered
+                            parcelAtCustomer.Status = ParcelStatus.delivery;
+                        else
+                            parcelAtCustomer.Status = ParcelStatus.pickup;
+                    }
+                    else
+                        parcelAtCustomer.Status = ParcelStatus.schedul;
+                }
+                else
+                    parcelAtCustomer.Status = ParcelStatus.creat;
+                parcelAtCustomer.SenderOrRecepter = new CustomerInParcel();
+                parcelAtCustomer.SenderOrRecepter.Id = blCustomer.Id;//Updates the source information of the parcel
+                parcelAtCustomer.SenderOrRecepter.Name = blCustomer.Name;//Updates the source information of the parcel
+            }
+            return parcelAtCustomer;
+
+        }
+        private IEnumerable<ParcelInCustomer> parcelAtCustomers(bool flag, Customer blCustomer, List<DO.Parcel> parcelList)
+        {
+            return from item in parcelList
+                   where flag ? item.SenderId == blCustomer.Id : item.TargetId == blCustomer.Id
+                   select NewMethod(item, blCustomer);
+        }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Customer GetCustomer(int idCustomer)
+        public Customer GetCustomer(int customerId)
         {
-            lock (dal)
+            Customer blCustomer = new Customer();
+            try
             {
-                try
-                {
-                    DO.Customer dalCustomer = dal.GetCustomer(idCustomer);
-                    Customer customer = new();//the customer to returne
-                    dalCustomer.CopyPropertiesTo(customer);//only puts:id,name,phone,location
-                    customer.CustomerLocation = new();
-                    customer.ParcelsFromCustomers = new();
-                    customer.ParcelsToCustomers = new();
-                    customer.CustomerLocation.Latitude = dalCustomer.Latitude;
-                    customer.CustomerLocation.Longitude = dalCustomer.Longitude;
-                    //check if the parcel is from this customer or to this customer
-                    foreach (var item in dal.GetParcels(item => item.SenderId == idCustomer || item.TargetId == idCustomer))//checks all the parcels in dal
-                    {
-                        ParcelInCustomer parcelFromCustomer = new ParcelInCustomer();
-                        item.CopyPropertiesTo(parcelFromCustomer);//only copies:id,weight,priority
-                        if (item.Delivered != null)//meens the parcel was deliverd
-                            parcelFromCustomer.Status = ParcelStatus.delivery;//the parcel was deliverd
-                        else//meens the parcel is pickedup/scheduled/created
-                        {
-                            if (item.PickedUp != null)//meens the parcel was picked up by the drone
-                                parcelFromCustomer.Status = ParcelStatus.pickup;//the parcel was pickedup by the drone
-                            else//meens the parcel is scheduled/created
-                            {
-                                if (item.Scheduled != null)//meens the parcel was scheduled
-                                    parcelFromCustomer.Status = ParcelStatus.schedul;//the parcel was scheduled
-                                else//meens the parcel is created
-                                    parcelFromCustomer.Status = ParcelStatus.creat;//the parcel was created
-                            }
-                        }
-                        parcelFromCustomer.SenderOrRecepter = new();
-                        parcelFromCustomer.SenderOrRecepter.Id = customer.Id;
-                        parcelFromCustomer.SenderOrRecepter.Name = customer.Name;
-                        if (item.SenderId == idCustomer)//meens the parcel is from the customer
-                            customer.ParcelsFromCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
-                        if (item.TargetId == idCustomer)//meens the parcel to the customer
-                            customer.ParcelsToCustomers.Add(parcelFromCustomer);//adds the parcel that this customer send
-                    }
-                    return customer;
-                }
-                catch (DO.DoesNotExistException ex)
-                {
-                    throw new NotFoundInputException($"The customer: {idCustomer} was not found.\n", ex);
-                }
+                DO.Customer dalCustomer = dal.GetCustomer(customerId);//finding customer using inputted id
+                dalCustomer.CopyPropertiesTo(blCustomer);//converting dal->bl
+                blCustomer.CustomerLocation.Longitude = dalCustomer.Longitude;
+                blCustomer.CustomerLocation.Latitude = dalCustomer.Latitude;
+                blCustomer.ParcelsFromCustomers = new List<ParcelInCustomer>();
+                blCustomer.ParcelsToCustomers = new List<ParcelInCustomer>();
+                //goes through the parcels with the sent condition
+                List<DO.Parcel> parcelList = dal.GetParcels(parcel => parcel.SenderId == customerId || parcel.TargetId == customerId).ToList();
+                blCustomer.ParcelsFromCustomers = parcelAtCustomers(true, blCustomer, parcelList);
+                blCustomer.ParcelsToCustomers = parcelAtCustomers(false, blCustomer, parcelList);
             }
+            catch (DO.DoesNotExistException ex)
+            {
+                throw new NotFoundInputException("ERROR\n", ex);
+            }
+            return blCustomer;
         }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> GetCustomers(Predicate<CustomerList> predicate = null)
         {

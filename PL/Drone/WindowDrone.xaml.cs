@@ -361,8 +361,10 @@ namespace PL
         }
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
+            //worker.WorkerSupportsCancellation = false;
             worker.CancelAsync();
-            worker = null;
+            checkStop();
+            //worker = null;
         }
     }
 }
