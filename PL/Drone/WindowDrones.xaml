@@ -27,9 +27,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
+        <Button x:Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
         <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
-        <Label Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
+        <Label x:Name="Status" Content="Sort by status:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <ComboBox x:Name="WeightSelector"   Grid.Column="3" Grid.Row="0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="WeightSelector_SelectionChanged"/>
         <Label Content="Sort by weight:" Grid.Column="2" Grid.Row="0" Style="{StaticResource LableStyle}"/>
         <Button x:Name="Refresh" Content="Refresh" Grid.Column="4"  Grid.Row="5" Style="{StaticResource ButtenCloseStyle}" Click="Refresh_Click"/>

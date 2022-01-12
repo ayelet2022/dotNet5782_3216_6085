@@ -87,6 +87,7 @@ namespace PL
                 DroneParcel.Visibility = Visibility.Visible;
             if (mainDrone.Status == (BO.DroneStatus)DroneStatus.Available)//if the drone is available
             {
+                DroneParcel.Visibility = Visibility.Collapsed;
                 ChargeDroneButten.Visibility = Visibility.Visible;
                 ChangeStatusDroneButten.Visibility = Visibility.Visible;
                 ChargeDroneButten.Content = "Send drone to charging";
