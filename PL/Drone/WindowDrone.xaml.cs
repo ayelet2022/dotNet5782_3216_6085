@@ -207,6 +207,12 @@ namespace PL
                     MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
                 }
             }
+            IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
+            if(items!=null)
+            {
+                items.EditItem(windowDrones.Drones);
+                items.CommitEdit();
+            }
         }
 
         /// <summary>
@@ -241,9 +247,15 @@ namespace PL
                     ChargeDroneButten.Content = "Send drone to charging";//to change the butten conntact to only be send to drone
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//to change the butten conntact to only be delivering a parcel
                 }                                                                                                //fineds the drone that we were updating  index in the list 
-                DataContext = ibl.GetDrone(mainDrone.Id);
-                windowDrones.Selector();
                 mainDrone = ibl.GetDrone(mainDrone.Id);
+                DataContext = mainDrone;
+                IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
+                if (items != null)
+                {
+                    items.EditItem(windowDrones.Drones);
+                    items.CommitEdit();
+                }
+                windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -278,8 +290,14 @@ namespace PL
                     ChargeDroneButten.Content = "Send drone to charging";//we can send now the drone to charging 
                     ChangeStatusDroneButten.Content = "Send drone to delievery";//we can send the drone to deliver
                 }
-                DataContext = ibl.GetDrone(mainDrone.Id);
                 mainDrone = ibl.GetDrone(mainDrone.Id);
+                DataContext = mainDrone;
+                IEditableCollectionView items = windowDrones.DronesListView.Items as IEditableCollectionView;
+                if (items != null)
+                {
+                    items.EditItem(windowDrones.Drones);
+                    items.CommitEdit();
+                }
                 if (windowDrones != null)
                     windowDrones.Selector();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
@@ -331,7 +349,6 @@ namespace PL
             new WindowParcel(ibl, windowParcels, mainDrone.ParcelInTransfer.Id).Show();
         }
 
-        bool Auto;
         BackgroundWorker worker;
         private void UpdateWidowDrone()
         {
@@ -349,7 +366,6 @@ namespace PL
         }
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
-            //worker.WorkerSupportsCancellation = false;
             worker.CancelAsync();
         }
     }

@@ -50,18 +50,28 @@
             </ListView.View>
             <ListView.GroupStyle>
                 <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Status}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="22" Foreground="Green" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListView.GroupStyle>
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>-->
         </ListView>
         <Button x:Name="Add" Content="Add new drone" Style="{StaticResource ButtenStyle}" Click="Add_Click" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" />
         <ComboBox x:Name="StatusSelector" Grid.Column="1" Grid.Row="0" SelectionChanged="StatusSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>

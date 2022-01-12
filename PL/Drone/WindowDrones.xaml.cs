@@ -122,6 +122,7 @@ namespace PL
         {
             Selector();
         }
+
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement framework = sender as FrameworkElement;

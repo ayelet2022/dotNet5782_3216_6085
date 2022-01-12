@@ -212,7 +212,6 @@ namespace PL
 
         private void SenderButten_Click(object sender, RoutedEventArgs e)
         {
-            WindowCustomers windowCustomers = new WindowCustomers(ibl);
             new WindowCustomer(ibl, this, mainParcel.Sender.Id, mainParcel).Show();
         }
 
