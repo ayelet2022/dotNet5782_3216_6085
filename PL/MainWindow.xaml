@@ -27,9 +27,9 @@
             <Button x:Name="NewCusButten" Grid.Row="5" Content="NewCus" Grid.Column="1" Style="{StaticResource ButtenNainStyle}" Click="newCusButten_Click"/>
             <Button x:Name="SignInM" Visibility="Collapsed"  Width="129" Height="28" Grid.Row="4" Content="Sign in" Grid.Column="2" Style="{StaticResource ButtenStyle}" Click="SignInM_Click"/>
             <Button x:Name="ManagerButten" Grid.Row="5"  Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="68" Width="165" Background="{x:Null}" BorderBrush="#FF3E13E8" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" ClipToBounds="True" Click="managerButten_Click"/>
-            <Label Content="ID" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" FontSize="18" FontFamily="Aharoni"/>
-            <Label Content="EXISTING CUSTOMERS" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="36" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="307" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="idTB" HorizontalAlignment="Left" PreviewTextInput="NumberValidationTextBox" MaxLength="9" Grid.Row="4" TextWrapping="Wrap" Text=""  Width="129" Height="28"/>
+            <Label Content="ID" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Top"  FontSize="18" FontFamily="Aharoni"/>
+            <Label Content="EXISTING CUSTOMERS" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Bottom"  Foreground="#FF3E13E8" FontFamily="Bernard MT Condensed" FontSize="25" FontWeight="Normal" FontStyle="Normal" BorderThickness="5,5,5,5" Height="58" Width="307" Grid.ColumnSpan="2" Margin="30,0,0,60" Grid.RowSpan="2"/>
+            <TextBox x:Name="idTB" PreviewTextInput="NumberValidationTextBox" MaxLength="9" Grid.Row="4" TextWrapping="Wrap" Text=""  Width="129" Height="28"/>
             <PasswordBox x:Name="PasswordBox" PreviewTextInput="NumberValidationTextBox" MaxLength="9" Visibility="Collapsed"  Width="129" Height="28" Grid.Row="3" Grid.Column="2"  BorderBrush="#FFB3ACAB"/>
         </Grid>
         <Grid x:Name="manager" Visibility="Collapsed">

@@ -5,4 +5,9 @@
     <StationId>1584</StationId>
     <StartCharging>2022-01-11T19:30:18.1859831+02:00</StartCharging>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>368176</DroneId>
+    <StationId>1584</StationId>
+    <StartCharging>2022-01-12T09:03:00.1787356+02:00</StartCharging>
+  </DroneCharge>
 </ArrayOfDroneCharge>
