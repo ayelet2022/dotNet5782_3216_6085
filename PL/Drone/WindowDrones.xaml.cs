@@ -64,7 +64,6 @@ namespace PL
         {
             DroneStatus dStatus = (DroneStatus)StatusSelector.SelectedItem;
             DronesListView.ItemsSource = null;
-            WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
             if (dStatus == DroneStatus.All)
                 DronesListView.ItemsSource = Drones;

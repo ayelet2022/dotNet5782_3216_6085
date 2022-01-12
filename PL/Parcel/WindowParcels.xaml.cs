@@ -40,10 +40,9 @@ namespace PL
             InitializeComponent();
             ibl = bl;
             Parcels = new ObservableCollection<ParcelList>();
-            List<ParcelList> parcels = bl.GetParcels().ToList();
+            IEnumerable<ParcelList> parcels = bl.GetParcels();
             parcels.OrderBy(item => item.Id);
-            foreach (var item in parcels)
-                Parcels.Add(item);
+            foreach (var item in parcels)Parcels.Add(item);
             ParcelsListView.ItemsSource = Parcels;
         }
 
@@ -87,28 +86,28 @@ namespace PL
                 WeightSelector.SelectedIndex = 3;//no filter-shows all the drones
             if (PrioritiesSelector.SelectedIndex == -1)
                 PrioritiesSelector.SelectedIndex = 3;
-            Priorities pPriorities=(Priorities)PrioritiesSelector.SelectedItem; 
-            WeightCategories dWeight = (WeightCategories)WeightSelector.SelectedItem;
+            Priorities pPriorities=(Priorities)PrioritiesSelector.SelectedItem;
+            WeightCategoriesP dWeight = (WeightCategoriesP)WeightSelector.SelectedItem;
             //if no filter was chosen-show the all list
-            if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All && pPriorities == Priorities.All)
+            if (pStatus == ParcelStatus.All && dWeight == WeightCategoriesP.All && pPriorities == Priorities.All)
                 ParcelsListView.ItemsSource = Parcels;
             //if only he wants to filter the weight category
-            if (pStatus == ParcelStatus.All && dWeight == WeightCategories.All&&pPriorities!=Priorities.All)
+            if (pStatus == ParcelStatus.All && dWeight == WeightCategoriesP.All&&pPriorities!=Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem).Select(item => item);
             //if only he wants to filter the statuse category
-            if (pStatus == ParcelStatus.All && dWeight != WeightCategories.All && pPriorities == Priorities.All)
+            if (pStatus == ParcelStatus.All && dWeight != WeightCategoriesP.All && pPriorities == Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem).Select(item => item);
             //if  he wants to filter both the weight category and the status category
-            if (pStatus != ParcelStatus.All && dWeight == WeightCategories.All && pPriorities == Priorities.All)
+            if (pStatus != ParcelStatus.All && dWeight == WeightCategoriesP.All && pPriorities == Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
-            if (pStatus == ParcelStatus.All && dWeight != WeightCategories.All && pPriorities != Priorities.All)
+            if (pStatus == ParcelStatus.All && dWeight != WeightCategoriesP.All && pPriorities != Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem&& item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem).Select(item => item);
             //if only he wants to filter the statuse category
-            if (pStatus != ParcelStatus.All && dWeight == WeightCategories.All && pPriorities != Priorities.All)
+            if (pStatus != ParcelStatus.All && dWeight == WeightCategoriesP.All && pPriorities != Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
-            if (pStatus != ParcelStatus.All && dWeight != WeightCategories.All && pPriorities == Priorities.All)
+            if (pStatus != ParcelStatus.All && dWeight != WeightCategoriesP.All && pPriorities == Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
-            if (pStatus != ParcelStatus.All && dWeight != WeightCategories.All && pPriorities != Priorities.All)
+            if (pStatus != ParcelStatus.All && dWeight != WeightCategoriesP.All && pPriorities != Priorities.All)
                 ParcelsListView.ItemsSource = Parcels.Where(item => item.Weight == (BO.WeightCategories)WeightSelector.SelectedItem && item.Priority == (BO.Priorities)PrioritiesSelector.SelectedItem && item.ParcelStatus == (BO.ParcelStatus)StatusSelector.SelectedItem).Select(item => item);
             ParcelsListView.Items.Refresh();
         }
@@ -166,8 +165,16 @@ namespace PL
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Parcels = (ObservableCollection<ParcelList>)ibl.GetParcels();
-            Selector();
+            MyRefresh();
+        }
+
+        public void MyRefresh()
+        {
+            IEnumerable<ParcelList> parcels = ibl.GetParcels();
+            parcels.OrderBy(item => item.Id);
+            Parcels = new ObservableCollection<ParcelList>();
+            foreach (var item in parcels) Parcels.Add(item);
+            ParcelsListView.ItemsSource = Parcels;
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)

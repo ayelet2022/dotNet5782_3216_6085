@@ -32,11 +32,9 @@ namespace PL
         public ObservableCollection<ParcelInCustomer> ParcelFromCusW;
         public ObservableCollection<ParcelInCustomer> ParcelToCusW;
         private WindowParcel windowParcel { get; set; }
-        private Parcel parcel;
         public WindowCustomer(BlApi.IBL bl, WindowParcel _windowParcel, int id, Parcel _parcel) : this(bl, null, id)
         {
             windowParcel = _windowParcel;
-            parcel = _parcel;
         }
         /// <summary>
         /// constructer-adds a new customer   
@@ -188,24 +186,17 @@ namespace PL
                     AddGrid.Visibility = Visibility.Collapsed;
                     UpdateGride.Visibility = Visibility.Visible;
                     ibl.UpdateCustomer(mainCustomer.Id, NameBoxA.Text, PhoneBoxA.Text);//change the drones model according to what was enterd
+                    mainCustomer = ibl.GetCustomer(mainCustomer.Id);
                     int index = -1;
                     if (windowCustomers != null)
-                        index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
-                    if (index == -1)
-                        windowCustomers.MyRefresh();
-                    else
                     {
-                        if (windowCustomers != null)
-                        {
-                            if (NameBoxA.Text != default)
-                                windowCustomers.selectedCustomer.Name = NameBoxA.Text;//changes the model of the drone thet was clicked in the drones list
-                            if (PhoneBoxA.Text != default)
-                                windowCustomers.selectedCustomer.Phone = PhoneBoxA.Text;//changes the model of the drone thet was clicked in the drones list
-                            windowCustomers.Customers[index] = windowCustomers.selectedCustomer;//to update the drone in the list of drones in the main window
-                        }
-                        else
-                            parcel.Sender.Name = NameBoxA.Text;
+                        index = windowCustomers.Customers.IndexOf(windowCustomers.selectedCustomer);//fineds the index of the drone that we wanted to update
+                        windowCustomers.selectedCustomer.Name = mainCustomer.Name;//changes the model of the drone thet was clicked in the drones list
+                        windowCustomers.selectedCustomer.Phone = mainCustomer.Phone;//changes the model of the drone thet was clicked in the drones list
+                        windowCustomers.Customers[index] = windowCustomers.selectedCustomer;//to update the drone in the list of drones in the main window
                     }
+                    else
+                        windowParcel.MyRefresh();
                     MessageBoxResult messageBoxResult = MessageBox.Show("The Customer has been updateded successfully \n" + mainCustomer.ToString());
                 }
                 catch (FailToUpdateException ex)

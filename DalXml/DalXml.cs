@@ -337,7 +337,7 @@ namespace Dal
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
 
             XElement customer = (from cus in customerXml.Elements()
-                                 where cus.Element("Id").Value == newCustomer.Id.ToString() && cus.Element("IsActive").Value == "true"
+                                 where cus.Element("Id").Value == newCustomer.Id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
             if (customer != null)
             {
@@ -368,7 +368,7 @@ namespace Dal
                                      Phone = cus.Element("Phone").Value,
                                      Longitude = double.Parse(cus.Element("Longitude").Value),
                                      Latitude = double.Parse(cus.Element("Latitude").Value),
-                                     IsActive=bool.Parse(cus.Element("IsActive").Value)
+                                     IsActive= bool.Parse(cus.Element("IsActive").Value)
                                  }
                         ).FirstOrDefault();
 
@@ -386,7 +386,7 @@ namespace Dal
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
 
             XElement customer = (from cus in customerXml.Elements()
-                                 where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "true"
+                                 where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
             if (customer == null)
                 throw new DoesNotExistException($"Customer id: {id} does not exist.");
@@ -418,12 +418,12 @@ namespace Dal
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
 
             XElement customer = (from cus in customerXml.Elements()
-                                 where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "true"
+                                 where cus.Element("Id").Value == id.ToString() && cus.Element("IsActive").Value == "True"
                                  select cus).FirstOrDefault();
             if (customer == null)
                 throw new ItemIsDeletedException($"Drone: { id } is already deleted.");
             customer.Element("Id").Value = id.ToString();
-            customer.Element("IsActive").Value = "false";
+            customer.Element("IsActive").Value = "False";
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
         #endregion

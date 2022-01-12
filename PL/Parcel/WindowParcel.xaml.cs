@@ -190,7 +190,12 @@ namespace PL
                     break;
             }
         }
-
+        public void MyRefresh()
+        {
+            mainParcel = ibl.GetParcel(mainParcel.Id);
+            DataContext = mainParcel;
+            windowParcels.MyRefresh();
+        }
         /// <summary>
         /// to not be able to close the window with the x on the top
         /// </summary>
