@@ -19,9 +19,9 @@
 
   <ItemGroup>
     <Resource Include="Customer\לקוחות 2.png" />
-    <Content Include="Drone\פח זבל.jpeg">
+    <Resource Include="Drone\פח זבל.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Resource Include="קופסאות.jpg" />
     <Resource Include="רחפן.jpg" />
   </ItemGroup>

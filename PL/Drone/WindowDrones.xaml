@@ -30,6 +30,15 @@
         <ListView Grid.ColumnSpan="6" Grid.RowSpan="5" x:Name="DronesListView" MouseDoubleClick="DronesListView_MouseDoubleClick_1" Style="{StaticResource ListViewStyle}" Margin="67,104,65,0" Background="{x:Null}" >
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="" Width="70" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Width="25" MouseDown="Image_MouseDown" Source="/Drone/פח זבל.jpeg"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Id" Width="70" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding Status}" />
                     <GridViewColumn Header="Model" Width="70" DisplayMemberBinding="{Binding Model}" />
@@ -37,15 +46,6 @@
                     <GridViewColumn Header="MaxWeight" Width="100" DisplayMemberBinding="{Binding MaxWeight}" />
                     <GridViewColumn Header="DroneLocation" Width="150" DisplayMemberBinding="{Binding DroneLocation}" />
                     <GridViewColumn Header="Parcel" Width="65" DisplayMemberBinding="{Binding NumOfParcelOnTheWay}" />
-                    <GridViewColumn Header="" Width="100" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Image MouseDown="Image_MouseDown" Source="/Drone/פח זבל.jpeg"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>

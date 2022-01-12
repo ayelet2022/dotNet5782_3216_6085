@@ -42,11 +42,6 @@ namespace PL
             Customers= (ObservableCollection<CustomerList>)(from item in customers
                      select item);
             CustomerListView.ItemsSource = Customers;//to show all the customers
-            Customers.CollectionChanged += Customers_CollactionChanged;
-        }
-        private void Customers_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        { 
-            CustomerListView.Items.Refresh();
         }
 
         /// <summary>

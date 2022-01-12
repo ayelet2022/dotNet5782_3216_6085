@@ -16,12 +16,12 @@
     <Id>627277</Id>
     <Model>Qs98VM</Model>
     <MaxWeight>inbetween</MaxWeight>
-    <IsActive>true</IsActive>
+    <IsActive>false</IsActive>
   </Drone>
   <Drone>
     <Id>368176</Id>
     <Model>Aa44ZX</Model>
     <MaxWeight>light</MaxWeight>
-    <IsActive>true</IsActive>
+    <IsActive>false</IsActive>
   </Drone>
 </ArrayOfDrone>
