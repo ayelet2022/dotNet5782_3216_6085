@@ -54,8 +54,8 @@ namespace PL
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
-            StatusSelector.ItemsSource = System.Enum.GetValues(typeof(DroneStatus));
-            WeightSelector.ItemsSource = System.Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StatusSelector.SelectedIndex = 3;//no filter
             //Drones.CollectionChanged += Drones_CollectionChanged;//if the a drone in the drone list was changed
         }
