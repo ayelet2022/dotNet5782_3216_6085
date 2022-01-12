@@ -341,8 +341,6 @@ namespace PL
 
         bool Auto;
         BackgroundWorker worker;
-        private void updateDrone() => worker.ReportProgress(0);
-        private bool checkStop() => worker.CancellationPending;
         private void UpdateWidowDrone()
         {
             mainDrone=ibl.GetDrone(mainDrone.Id);
@@ -352,10 +350,8 @@ namespace PL
 
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
-            //Auto = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-            worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, updateDrone, checkStop);
-            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, ()=> worker.ReportProgress(0), () => worker.CancellationPending);
             worker.ProgressChanged += (sender, args) =>UpdateWidowDrone();
             worker.RunWorkerAsync(mainDrone.Id);
         }
@@ -363,8 +359,23 @@ namespace PL
         {
             //worker.WorkerSupportsCancellation = false;
             worker.CancelAsync();
-            checkStop();
-            //worker = null;
+        }
+
+        private void DeleteButten_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ibl.DeleteDrone(mainDrone.Id);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + mainDrone.ToString());
+                _close = true;
+                Close();
+                if (windowDrones != null)
+                    windowDrones.MyRefresh();
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + mainDrone.ToString());
+            }
         }
     }
 }

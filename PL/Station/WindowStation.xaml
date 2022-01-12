@@ -38,6 +38,7 @@
         <Label Content="Longitude:" Grid.Row="5" Grid.Column="0" Style="{StaticResource LableStyle}"/>
         <TextBox x:Name="nameTB" Text="{Binding Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
         <Button  x:Name="buttenAddUpdate" Content="" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource ButtenStyle}" Click="buttenAddUpdate_Click"/>
+        <Button x:Name="DeleteButton" Content="Delet the station" Grid.ColumnSpan="2" Grid.Column="5" Grid.Row="7" Style="{StaticResource ButtenStyle}" Click="DeleteButton_Click" />
         <Button x:Name="CloseWindowA" Content="Close" Grid.Column="7" Grid.Row="7" Style="{StaticResource ButtenCloseStyle}" Click="Close_Click"/>
         <Grid x:Name="addGrid" Visibility="Collapsed"  Grid.Column="1" Grid.RowSpan="8">
             <Grid.RowDefinitions>
@@ -88,8 +89,5 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        
-
-
     </Grid>
 </Window>

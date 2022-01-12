@@ -32,7 +32,9 @@ namespace BO
         /// </summary>
         /// <returns></returns>the string that collect all the delaies and then prints it
         public Location DroneLocation { get; set; }
-
+        /// <summary>
+        /// the parcel that the drone is delivering
+        /// </summary>
         public ParcelInTransfer ParcelInTransfer { get; set; }
         public override string ToString()
         {

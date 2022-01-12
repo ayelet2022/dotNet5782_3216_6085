@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="AddGrid" Grid.ColumnSpan="2" Grid.RowSpan="5" Visibility="Visible" >
+            <Grid x:Name="AddGrid" Grid.ColumnSpan="2" Grid.RowSpan="5" Visibility="Collapsed" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -44,10 +44,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Weight:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                <Label Content="Priority:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" />
-                <Label Content="Sender ID:"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" />
-                <Label Content="Resepter ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Weight:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="0"/>
+                <Label Content="Priority:" Style="{StaticResource LableStyle}"  Grid.Column="0" Grid.Row="1" />
+                <Label Content="Sender ID:"  Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="2" />
+                <Label Content="Resepter ID:" Style="{StaticResource LableStyle}" Grid.Column="0" Grid.Row="3" />
 
                 <ComboBox x:Name="WeightComboBox" Text="{Binding Weight, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />
                 <ComboBox x:Name="PriorityComboBox" Text="{Binding Priority, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboBoxStyle}" />

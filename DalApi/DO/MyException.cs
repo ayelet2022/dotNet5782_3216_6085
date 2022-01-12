@@ -40,5 +40,12 @@ namespace DO
             return base.ToString() + $", fail to load or create xml file: {xmlFilePath}";
         }
     }
+
+    public class ItemIsDeletedException : Exception
+    {
+        public ItemIsDeletedException() : base() { }
+        public ItemIsDeletedException(string message) : base(message) { }
+        public ItemIsDeletedException(string message, Exception inner) : base(message, inner) { }
+    }
 }
 

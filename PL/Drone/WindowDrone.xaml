@@ -14,6 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Button x:Name="DeleteButten"  Style="{StaticResource ButtenStyle}" Content="Delet the drone" HorizontalAlignment="Left" Margin="615,364,0,0" VerticalAlignment="Top" Click="DeleteButten_Click"/>
         <Grid x:Name="AddGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -141,7 +142,7 @@
                 <TextBlock x:Name="RIdBoxAc"  Text="{Binding ParcelInTransfer.Recepter.Id, Mode=TwoWay}" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBlockStyle}"/>
                 <TextBlock x:Name="RNameBoxAc"  Text="{Binding ParcelInTransfer.Recepter.Name, Mode=TwoWay}" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBlockStyle}" />
                 <Button x:Name="ParcelButton" Content="Show More"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Style="{StaticResource ButtenStyle}" Click="ParcelButton_Click"/>
-                
+
             </Grid>
         </Grid>
         <Grid x:Name="Buttens" Grid.Row="1" Grid.ColumnSpan="5">

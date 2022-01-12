@@ -190,6 +190,22 @@ namespace BL
                 return baseStation;
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void DeleteCustomer(int id)
+        {
+            lock (dal)
+            {
+                try
+                {
+                    dal.DeleteCustomer(id);
+                }
+                catch (DO.ItemIsDeletedException ex)
+                {
+                    throw new ItemIsDeletedException($"Customer: { id } is already deleted.");
+                }
+            }
+        }
     }
 }
 

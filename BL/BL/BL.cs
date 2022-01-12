@@ -44,6 +44,16 @@ namespace BL
                 itD.CopyPropertiesTo(drone);
                 try
                 {
+                    dal.GetDrone(drone.Id);
+                    drone.IsActive = true;
+
+                }
+                catch (DO.DoesNotExistException ex)
+                {
+                    drone.IsActive = false;
+                }
+                try
+                {
                     DO.Parcel parcel = dal.GetParcels().First(item => item.DroneId == itD.Id && item.Delivered == null); //a parcel was scheduled
                     drone.NumOfParcelOnTheWay = parcel.Id;
                     drone.Status = DroneStatus.delivery;//the drone in deliver

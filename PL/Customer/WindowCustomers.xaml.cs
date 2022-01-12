@@ -46,6 +46,7 @@ namespace PL
         }
         private void Customers_CollactionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+           
             CustomerListView.Items.Refresh();
         }
 
@@ -97,11 +98,15 @@ namespace PL
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Customers.OrderBy(item => item.Id);
+            MyRefresh();
         }
         public void MyRefresh()
         {
-            Customers.OrderBy(item => item.Id);
+            List<CustomerList> customers = ibl.GetCustomers().ToList();
+            customers.OrderBy(item => item.Id);
+            foreach (var item in customers)//to fet and shoe all the drones
+                Customers.Add(item);
+            CustomerListView.ItemsSource = Customers;//to show all the customers
             CustomerListView.Items.Refresh();
         }
     }

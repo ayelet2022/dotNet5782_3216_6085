@@ -33,6 +33,7 @@ namespace BL
                     object obj = drone1;
                     drone.CopyPropertiesTo(obj);
                     drone1 = (DO.Drone)obj;
+                    drone1.IsActive = true;
                     dal.AddDrone(drone1);
                     DroneList droneList = new();
                     drone.CopyPropertiesTo(droneList);
@@ -40,6 +41,7 @@ namespace BL
                     droneList.DroneLocation = new();
                     droneList.DroneLocation.Latitude = baseStation.Latitude;
                     droneList.DroneLocation.Longitude = baseStation.Longitude;
+                    droneList.IsActive = true;
                     Drones.Add(droneList);
                     dal.DronToCharger(drone.Id, idFirstStation);
                 }
@@ -67,7 +69,7 @@ namespace BL
                 {
                     DroneList droneList = new();
                     //searching for the drone that has the same id
-                    droneList = Drones.First(item => item.Id == idDrone);
+                    droneList = Drones.First(item => item.Id == idDrone && item.IsActive);
                     //meens ther is no drone with that id
                     Drone returningDrone = new();
                     droneList.CopyPropertiesTo(returningDrone);
@@ -114,12 +116,9 @@ namespace BL
         {
             lock (dal)
             {
-                List<DroneList> droneList = new();
-                foreach (var item in Drones)
-                {
-                    if (predicate == null || predicate(item))
-                        droneList.Add(item);
-                }
+                IEnumerable<DroneList> droneList = from item in Drones
+                                                   where (predicate == null || predicate(item))&&item.IsActive
+                                                   select item;
                 return droneList;
             }
         }
@@ -131,7 +130,7 @@ namespace BL
             {
                 try
                 {
-                    DroneList drone1 = Drones.First(x => x.Id == drone.Id);
+                    DroneList drone1 = Drones.First(x => x.Id == drone.Id && x.IsActive);
                     drone1.Model = newModel;
                     //to update the drone in the drone list
                     dal.UpdateDrone(drone.Id, newModel);
@@ -150,7 +149,7 @@ namespace BL
             {
                 try
                 {
-                    DroneList droneList = Drones.First(item => item.Id == id);
+                    DroneList droneList = Drones.First(item => item.Id == id && item.IsActive);
                     DO.Drone dalDrone = dal.GetDrone(id);
                     DO.BaseStation baseStation = new();
                     //droneList = GetDrone(id);
@@ -188,7 +187,7 @@ namespace BL
             {
                 try
                 {
-                    DroneList drone = Drones.First(item => item.Id == id);
+                    DroneList drone = Drones.First(item => item.Id == id && item.IsActive);
                     if (drone.Status == DroneStatus.inFix)
                     {
                         //calculate how much battery the drone have now after charging
@@ -226,7 +225,7 @@ namespace BL
             {
                 try
                 {
-                    DroneList drone = Drones.First(item => item.Id == droneId);
+                    DroneList drone = Drones.First(item => item.Id == droneId && item.IsActive);
                     if (drone.Status == DroneStatus.delivery)//meens the drone is in delivery
                         throw new FailedToScheduledAParcelToADroneException($"Failed to sceduled a parcel to drone:{droneId}.\n");
                     ParcelList parcel = default;
@@ -267,7 +266,7 @@ namespace BL
                 try
                 {
                     Drone drone = GetDrone(id);
-                    DroneList droneList = Drones.First(item => item.Id == id);
+                    DroneList droneList = Drones.First(item => item.Id == id && item.IsActive);
                     if (drone.ParcelInTransfer == null)
                         throw new FailToUpdateException($"The drone: {id} could not pick up a parcel. \n");
                     Customer customerS = new();
@@ -308,7 +307,7 @@ namespace BL
                 try
                 {
                     Drone drone = GetDrone(id);
-                    DroneList droneList = Drones.First(item => item.Id == id);
+                    DroneList droneList = Drones.First(item => item.Id == id && item.IsActive);
                     if (drone.ParcelInTransfer == null)
                         throw new FailToUpdateException($"The drone: {id} could not deliever the parcel.\n");
                     Customer customerR = GetCustomer(drone.ParcelInTransfer.Recepter.Id);
@@ -338,6 +337,36 @@ namespace BL
                 catch (NotFoundInputException ex)
                 {
                     throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} could not deliever the parcel\n", ex);
+                }
+            }
+        }
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void DeleteDrone(int idDrone)
+        {
+            lock (dal)
+            {
+                try
+                {
+                    Drone drone = GetDrone(idDrone);
+                    int dronIndex = Drones.FindIndex(item => item.Id == drone.Id);
+                    if (drone.Status == DroneStatus.inFix)
+                    {
+                        dal.DeleteDrone(idDrone);
+                        Drones.RemoveAt(dronIndex);
+                    }
+                    else
+                    {
+                        dal.NotActiveDrone(idDrone);
+                        Drones[dronIndex].IsActive = false;
+                    }
+                }
+                catch (NotFoundInputException ex)
+                {
+                    throw new NotFoundInputException($"The drone: {idDrone} was not found.\n", ex);
+                }
+                catch (DO.ItemIsDeletedException ex)
+                {
+                    throw new ItemIsDeletedException($"Drone: { idDrone } is already deleted.");
                 }
             }
         }

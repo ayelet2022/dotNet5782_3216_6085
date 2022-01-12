@@ -15,8 +15,9 @@ namespace Dal
         public void AddBaseStation(BaseStation addBaseStation)
         {
 
-            if (DataSource.Stations.Exists(item => item.Id == addBaseStation.Id))
+            if (DataSource.Stations.Exists(item => item.Id == addBaseStation.Id && item.IsActive))
                 throw new ExistsException($"Base station id: {addBaseStation.Id} already exists.");
+            addBaseStation.IsActive = true;
             DataSource.Stations.Add(addBaseStation);
         }
 
@@ -26,7 +27,7 @@ namespace Dal
             try
             {
                 //search for the base station that has the same id has the id that the user enterd
-                return DataSource.Stations.First(item => item.Id == idBaseStation);
+                return DataSource.Stations.First(item => item.Id == idBaseStation && item.IsActive);
             }
             catch (InvalidOperationException ex)
             {
@@ -38,7 +39,7 @@ namespace Dal
         public IEnumerable<BaseStation> GetBaseStations(Predicate<BaseStation> predicate = null)
         {
             return from item in DataSource.Stations
-                   where predicate == null ? true : predicate(item)
+                   where (predicate == null ? true : predicate(item)) && item.IsActive
                    select item;
         }
         private int emptyCharging(int charges, int id)
@@ -50,20 +51,26 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int id, string newName, int charges)
         {
-            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == id);
+            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == id && item.IsActive);
             BaseStation baseStation = DataSource.Stations[baseStationIndex];
             if (newName != "\n")
                 baseStation.Name = newName;
             baseStation.EmptyCharges = emptyCharging(charges, id);
             DataSource.Stations[baseStationIndex] = baseStation;//to update the station in the list of base stations
         }
-
-        public void DroneInStation(int stationId)
+        public void DeleteBaseStation(int id)
         {
-            int baseStationIndex = DataSource.Stations.FindIndex(item => item.Id == stationId);
-            BaseStation baseStation = DataSource.Stations[baseStationIndex];
-            baseStation.EmptyCharges--;
-            DataSource.Stations[baseStationIndex] = baseStation;
+            try
+            {
+                BaseStation baseStation = GetBaseStation(id);
+                baseStation.IsActive = false;
+                int stationIndex = DataSource.Stations.FindIndex(item => item.Id == id);
+                DataSource.Stations[stationIndex] = baseStation;
+            }
+            catch (DoesNotExistException ex)
+            {
+                throw new ItemIsDeletedException($"Station: { id } is already deleted.");
+            }
         }
     }
 }

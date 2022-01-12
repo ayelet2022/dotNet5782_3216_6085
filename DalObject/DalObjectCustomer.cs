@@ -12,7 +12,7 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
-            if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id))
+            if (DataSource.Customers.Exists(item => item.Id == newCustomer.Id && item.IsActive))
                 throw new ExistsException($"Customer id: {newCustomer.Id} already exists.");
             DataSource.Customers.Add(newCustomer);
         }
@@ -23,7 +23,7 @@ namespace Dal
             try
             {
                 //search for the customer that has the same id has the id that the user enterd
-                return DataSource.Customers.First(item => item.Id == idCustomer);
+                return DataSource.Customers.First(item => item.Id == idCustomer && item.IsActive);
             }
             catch (InvalidOperationException ex)
             {
@@ -35,14 +35,14 @@ namespace Dal
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> predicate = null)
         {
             return from item in DataSource.Customers
-                   where predicate == null ? true : predicate(item)
+                   where (predicate == null ? true : predicate(item)) && item.IsActive
                    select item;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(int id,string name,string phone)
         {
-            int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id);
+            int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id && item.IsActive);
             if(customerIndex == -1)
                 throw new DoesNotExistException($"Customer id: {id} does not exist.");
             Customer customer = DataSource.Customers[customerIndex];
@@ -54,5 +54,21 @@ namespace Dal
                 customer.Phone = phone;
             DataSource.Customers[customerIndex] = customer;//to change the customer in the list of customers
         }
+        public void DeleteCustomer(int id)
+        {
+            try
+            {
+                Customer customer = GetCustomer(id);
+                customer.IsActive = false;
+                int customerIndex = DataSource.Customers.FindIndex(item => item.Id == id);
+                DataSource.Customers[customerIndex] = customer;
+            }
+            catch (DoesNotExistException ex)
+            {
+                throw new ItemIsDeletedException($"Customer: { id } is already deleted.");
+            }
+
+        }
+
     }
 }

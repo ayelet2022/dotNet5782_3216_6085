@@ -22,8 +22,8 @@ namespace PL
         public BO.WeightCategories weight { get; set; }
         public BO.DroneStatus status { get; set; }
     }
-    public enum WeightCategories { Light, MediumWeight, Heavy, All};
-    public enum DroneStatus { Available, InFix, Delivery, All};
+    public enum WeightCategories { Light, MediumWeight, Heavy, All };
+    public enum DroneStatus { Available, InFix, Delivery, All };
     /// <summary>
     /// Interaction logic for WindowDrones.xaml
     /// </summary>
@@ -50,7 +50,7 @@ namespace PL
                           status = item.Status,
                           weight = item.MaxWeight
                       }).ToDictionary(item => item.Key, item => item.ToList());
-            DronesListView.ItemsSource = Drones.SelectMany(item => item.Value);//to show all the drones 
+            DronesListView.ItemsSource = Drones.SelectMany(item => item.Value);//to show all the drones
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
@@ -162,10 +162,42 @@ namespace PL
                 MessageBox.Show("You can't force the window to close");
             }
         }
-
+        public void MyRefresh()
+        {
+            Drones = (from item in ibl.GetDrones()
+                      group item by
+                      new StatusAndWeight()
+                      {
+                          status = item.Status,
+                          weight = item.MaxWeight
+                      }).ToDictionary(item => item.Key, item => item.ToList());
+            DronesListView.ItemsSource = Drones.SelectMany(item => item.Value);//to show all the drones
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+            Selector();
+        }
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            Selector();
+            MyRefresh();
+        }
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            selectedDrone = framework.DataContext as DroneList;
+            try
+            {
+                ibl.DeleteDrone(selectedDrone.Id);
+                StatusAndWeight statusAndWeight = new() { status = selectedDrone.Status, weight = selectedDrone.MaxWeight };
+                Drones[statusAndWeight].RemoveAll(i => i.Id == selectedDrone.Id);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been deleted successfully \n" + selectedDrone.ToString());
+                Selector();
+            }
+            catch (BO.ItemIsDeletedException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The drone was not deleted \n" + selectedDrone.ToString());
+            }
+
         }
     }
 }

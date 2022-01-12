@@ -34,6 +34,8 @@ namespace BlApi
         /// <param name="newName">the new name to the base station </param>
         /// <param name="emptyCharges">the new emount of empty chargers in the base station</param>
         void UpdateStation(int id, string newName, int emptyCharges);
+
+        void DeleteStation(int id);
         #endregion
 
         #region DRONE
@@ -79,6 +81,12 @@ namespace BlApi
         /// <param name="newModel">the new model of the drone</param>
         void UpdateDrone(Drone drone, string newModel);
 
+        /// <summary>
+        /// delet a drone 
+        /// </summary>
+        /// <param name="idDrone">the is of the drone we want to delete</param>
+        void DeleteDrone(int idDrone);
+
         #endregion
 
         #region PARCEL
@@ -113,7 +121,7 @@ namespace BlApi
         /// to delet a parcel
         /// </summary>
         /// <param name="parcel">the parcel we want to delet</param>
-        public void DeletParcel(Parcel parcel);
+        public void DeleteParcel(Parcel parcel);
 
         #endregion
 
@@ -144,6 +152,7 @@ namespace BlApi
         /// <param name="name">the new name to the customer</param>
         /// <param name="phone">the new phone to the customer</param>
         void UpdateCustomer(int id, string name, string phone);
+        void DeleteCustomer(int id);
         #endregion
         public void StartSimulatur(int droneId, Action action, Func<bool> stop);
     }
