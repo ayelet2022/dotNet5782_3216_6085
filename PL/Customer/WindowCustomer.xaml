@@ -130,7 +130,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <Image Width="15 MouseDown="ImageT_MouseDown" Source="/Customer/check.jpeg"/>
+                                        <Image Width="15" MouseDown="ImageT_MouseDown" Source="/Customer/check.jpeg"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
