@@ -27,7 +27,7 @@ namespace PL
         private bool _close { get; set; } = false;
         BlApi.IBL ibl;
         public ParcelList selectedparcelFC = new();
-        public CustomerList selectedParcelTC = new();
+        public ParcelList selectedParcelTC = new();
         private WindowCustomers windowCustomers;
         public ObservableCollection<ParcelInCustomer> ParcelFromCusW;
         public ObservableCollection<ParcelInCustomer> ParcelToCusW;
@@ -327,6 +327,68 @@ namespace PL
         {
             WindowParcels windowParcels = new WindowParcels(ibl);
             new WindowParcel(ibl, windowParcels).Show();
+        }
+        private void ImageF_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            selectedparcelFC = framework.DataContext as ParcelList;
+            try
+            {
+                ibl.PickUpParcel(ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == selectedparcelFC.Id).Id);
+                ParcelInCustomer parcelInCustomer = new()
+                {
+                    Id = selectedparcelFC.Id,
+                    Weight = selectedparcelFC.Weight,
+                    Priority = selectedparcelFC.Priority,
+                    Status = selectedparcelFC.ParcelStatus,
+                    SenderOrRecepter = new()
+                    {
+                        Id = ibl.GetParcel(selectedparcelFC.Id).Sender.Id,
+                        Name = selectedparcelFC.SenderName
+                    }
+                };
+                ParcelFromCusW.Remove(parcelInCustomer);
+                parcelInCustomer.Status = BO.ParcelStatus.pickup;
+                ParcelFromCusW.Add(parcelInCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been picked up successfully \n" + selectedparcelFC.ToString());
+            }
+            catch (FailToUpdateException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not picked up \n" + selectedparcelFC.ToString());
+            }
+
+        }
+
+        private void ImageT_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement framework = sender as FrameworkElement;
+            ParcelList parcel= framework.DataContext as ParcelList;
+            selectedParcelTC = parcel;
+            if (selectedparcelFC.ParcelStatus == BO.ParcelStatus.delivery)
+                throw new FailToUpdateException("the parcel is already deliverd");
+            try
+            {
+                ibl.DeliverParcel(ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == selectedparcelFC.Id).Id);
+                ParcelInCustomer parcelInCustomer = new()
+                {
+                    Id = selectedparcelFC.Id,
+                    Weight = selectedparcelFC.Weight,
+                    Priority = selectedparcelFC.Priority,
+                    Status = selectedparcelFC.ParcelStatus,
+                    SenderOrRecepter = new()
+                    {
+                        Id = ibl.GetParcel(selectedparcelFC.Id).Recepter.Id,
+                        Name = selectedparcelFC.SenderName
+                    }
+                };
+                ParcelFromCusW.Remove(parcelInCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deliverd successfully \n" + selectedparcelFC.ToString());
+            }
+            catch (FailToUpdateException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not deliverd  \n" + selectedparcelFC.ToString());
+            }
+
         }
     }
 }

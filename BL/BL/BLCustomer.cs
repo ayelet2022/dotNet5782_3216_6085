@@ -113,10 +113,10 @@ namespace BL
                 Customers = from item in dal.GetCustomers()
                             select new CustomerList()
                             {
-                                ParcelsSentAndDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered != DateTime.MinValue).Count(),
-                                ParcelsSentAndNotDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered == DateTime.MinValue).Count(),
-                                ParcelsResepted = dal.GetParcels(x => x.TargetId == item.Id && x.Delivered != DateTime.MinValue).Count(),
-                                ParcelsOnTheWay = dal.GetParcels(x => x.TargetId == item.Id && x.PickedUp == DateTime.MinValue).Count(),
+                                ParcelsSentAndDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered != null).Count(),
+                                ParcelsSentAndNotDel = dal.GetParcels(x => x.SenderId == item.Id && x.Delivered == null).Count(),
+                                ParcelsResepted = dal.GetParcels(x => x.TargetId == item.Id && x.Delivered != null).Count(),
+                                ParcelsOnTheWay = dal.GetParcels(x => x.TargetId == item.Id && x.PickedUp ==null).Count(),
                                 Id = item.Id,
                                 Name = item.Name,
                                 Phone = item.Phone

@@ -85,7 +85,7 @@ namespace PL
                 mainParcel = ibl.GetParcel(i);
             DataContext = mainParcel;//to connect between the text box and the data
             if (mainParcel.Scheduled == null)
-                addButton.Visibility = Visibility.Visible;
+                addButton.Visibility = Visibility.Collapsed;
             if (mainParcel.Scheduled != null)//if the parcel  has a drone 
                 DroneInParcel.Visibility = Visibility.Visible;//show the gride of the parcels drone
         }
@@ -122,7 +122,24 @@ namespace PL
                 ibl.AddParcel(mainParcel);
                 int id = ibl.GetParcels().Last().Id;
                 mainParcel = ibl.GetParcel(id);
-                windowParcels.Parcels.Add(ibl.GetParcels().First(item => item.Id == mainParcel.Id));
+                if (windowParcels != null)
+                    windowParcels.Parcels.Add(ibl.GetParcels().First(item => item.Id == mainParcel.Id));
+                else
+                {
+                    ParcelInCustomer parcelInCustomer = new()
+                    {
+                        Id = mainParcel.Id,
+                        Weight = mainParcel.Weight,
+                        Priority = mainParcel.Priority,
+                        Status =BO.ParcelStatus.creat,
+                        SenderOrRecepter =new()
+                        {
+                            Id = mainParcel.Sender.Id,
+                            Name = mainParcel.Sender.Name
+                        }
+                    };
+                    windowCustomer.ParcelFromCusW.Add(parcelInCustomer);
+                }
                 MessageBoxResult messageBoxResult1 = MessageBox.Show("The parcel has been added successfully \n" + mainParcel.ToString());
                 _close = true;
                 Close();

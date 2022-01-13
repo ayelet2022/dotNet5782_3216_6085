@@ -12,16 +12,12 @@ namespace BL
     {
         BL bl;
 
-        private const double kmh = 3600;//כל קילומטר זה שנייה כי בשעה יש 3600 שניות
-
         public Simulator(BL _bl, int droneID, Action ReportProgressInSimultor, Func<bool> IsTimeRun)
         {
             bl = _bl;
             double distance;
             int battery;
-
             DroneList drone = bl.GetDrones().First(x => x.Id == droneID);
-
             while (!IsTimeRun())
             {
                 switch (drone.Status)
@@ -53,13 +49,9 @@ namespace BL
                         }
                         break;
                     case DroneStatus.inFix:
-                        TimeSpan timeCharge = (TimeSpan)(DateTime.Now - bl.dal.GetDroneCharge(droneID).StartCharging);
-                        double hoursnInCahrge = timeCharge.Hours + (((double)timeCharge.Minutes) / 60) + (((double)timeCharge.Seconds) / 3600);
-                        double batrryCharge = (int)(timeCharge.TotalHours * bl.power[4]) + drone.Battery; //DroneLoadingRate == 10000
-
                         while (drone.Battery < 100)//meens the battery isnt full
                         {
-                            if (drone.Battery + 10 > 100)//check if there aill be to much battery
+                            if (drone.Battery + (int)bl.power[4] > 100)//check if there aill be to much battery
                             {
                                 bl.GetDrones().First(x => x.Id == droneID).Battery = 100;
                             }
@@ -106,8 +98,8 @@ namespace BL
                             battery = drone.Battery;
                             distance = _drone.ParcelInTransfer.TransportDistance;//the distance betwwen the sender and the resever
                             Location d = new Location { Longitude = drone.DroneLocation.Longitude, Latitude = drone.DroneLocation.Latitude };
-                            double latitude = Abs((bl.GetCustomer(_drone.ParcelInTransfer.Sender.Id).CustomerLocation.Latitude - drone.DroneLocation.Latitude) / distance);
-                            double longitude = Abs((bl.GetCustomer(_drone.ParcelInTransfer.Sender.Id).CustomerLocation.Longitude - drone.DroneLocation.Longitude) / distance);
+                            double latitude = Abs((bl.GetCustomer(_drone.ParcelInTransfer.Recepter.Id).CustomerLocation.Latitude - drone.DroneLocation.Latitude) / distance);
+                            double longitude = Abs((bl.GetCustomer(_drone.ParcelInTransfer.Recepter.Id).CustomerLocation.Longitude - drone.DroneLocation.Longitude) / distance);
                             //meens the drone didnt get to recever yet
                             while (distance > 1)
                             {
@@ -125,7 +117,7 @@ namespace BL
                                     default:
                                         break;
                                 }
-                                UpdateLocationDrone(_drone.DroneLocation, bl.GetCustomer(_drone.ParcelInTransfer.Sender.Id).CustomerLocation, _drone, longitude, latitude);
+                                UpdateLocationDrone(_drone.DroneLocation, bl.GetCustomer(_drone.ParcelInTransfer.Recepter.Id).CustomerLocation, _drone, longitude, latitude);
                                 drone.DroneLocation = _drone.DroneLocation;
                                 ReportProgressInSimultor();
                                 distance -= 1;
@@ -156,16 +148,16 @@ namespace BL
             double droneLatitude = locationOfDrone.Latitude;
             double droneLongitude = locationOfDrone.Longitude;
 
-            double nextStepLatitude = locationOfNextStep.Latitude;
-            double nextStepLongitude = locationOfNextStep.Longitude;
+            double targetLatitude = locationOfNextStep.Latitude;
+            double targetLongitude = locationOfNextStep.Longitude;
 
             //Calculate the latitude of the new location.
-            if (droneLatitude < nextStepLatitude)
+            if (droneLatitude < targetLatitude)
                 myDrone.DroneLocation.Latitude += lat;
             else
                 myDrone.DroneLocation.Latitude -= lat;
             //Calculate the Longitude of the new location.
-            if (droneLongitude < nextStepLongitude)
+            if (droneLongitude < targetLongitude)
                 myDrone.DroneLocation.Longitude += lon;
             else
                 myDrone.DroneLocation.Longitude -= lon;

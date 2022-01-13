@@ -294,7 +294,7 @@ namespace BL
                 }
                 catch (NotFoundInputException ex)
                 {
-                    throw new FailToUpdateException($"The Drone: {id} was not found, the dron: {id} couldn't pick up the parcel\n", ex);
+                    throw new FailToUpdateException($"The Drone: {id} was not found, the dronn: {id} couldn't pick up the parcel\n", ex);
                 }
             }
         }

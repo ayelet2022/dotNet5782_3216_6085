@@ -83,13 +83,22 @@
             <TextBlock x:Name="LatitudeBlockA"  Text="{Binding CustomerLocation.Latitude, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
             <TextBlock x:Name="LongitudeBlockA"  Text="{Binding CustomerLocation.Longitude, Mode=TwoWay}" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" />
             <Label x:Name="ParcelFromCusLable" Content="Parcel from CusList:" Visibility="Collapsed"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="0"/>
-            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
+            <ListView x:Name="ParcelFromCusListView"  Style="{StaticResource ListViewStyle}" Visibility="Collapsed"  Grid.ColumnSpan="5"  Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" MouseDoubleClick="ParcelFromCusListView_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel></StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pick up" Width="40" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Image Width="15" MouseDown="ImageF_MouseDown" Source="/Customer/check.jpeg"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -106,14 +115,23 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <Label x:Name="ParcelToCusLable" Content="Parcel To Customer:" Visibility="Collapsed"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="3"/>
-            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="5"  Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
+            <Label x:Name="ParcelToCusLable" Content="Parcel To Customer:" Visibility="Collapsed"  Grid.ColumnSpan="2" Style="{StaticResource LableStyle}" Grid.Column="2" Grid.Row="4"/>
+            <ListView x:Name="ParcelToCusListView"  Visibility="Collapsed"  Style="{StaticResource ListViewStyle}" Grid.ColumnSpan="5"  Grid.Column="1" Grid.Row="5" Grid.RowSpan="3" MouseDoubleClick="ParcelToCusListView_MouseDoubleClick" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel></StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Deliverd" Width="40" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Image Width="15 MouseDown="ImageT_MouseDown" Source="/Customer/check.jpeg"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

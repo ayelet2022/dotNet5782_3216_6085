@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Customer\check.jpeg" />
     <None Remove="Customer\לקוחות 2.png" />
     <None Remove="Customer\פח זבל.jpeg" />
     <None Remove="Drone\פח זבל.jpeg" />
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Customer\check.jpeg" />
     <Resource Include="Customer\פח זבל.jpeg" />
     <Resource Include="Drone\פח זבל.jpeg" />
     <Resource Include="Images\לקוחות 2.png" />

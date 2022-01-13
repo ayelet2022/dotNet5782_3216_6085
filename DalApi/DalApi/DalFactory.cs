@@ -45,7 +45,7 @@ namespace DalApi
 
             try // Load into CLR the dal implementation assembly according to dll file name (taken above)
             {
-                _ = Assembly.Load(dlPackageName);
+                _ = Assembly.Load(dlPackageName);//check it exsist
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace DalApi
 
             try
             {
-                type = Type.GetType($"{dlNameSpace}.{dlClass}, {dlPackageName}", true);
+                type = Type.GetType($"{dlNameSpace}.{dlClass}, {dlPackageName}", true);//bring the dalobject or the dalxml
             }
 
             catch (Exception ex)
