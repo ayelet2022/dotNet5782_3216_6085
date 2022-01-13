@@ -332,30 +332,26 @@ namespace PL
         private void ImageF_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement framework = sender as FrameworkElement;
-            selectedparcelFC = framework.DataContext as ParcelList;
+            ParcelInCustomer parcelInCustomer;
+            parcelInCustomer = framework.DataContext as ParcelInCustomer;
             try
             {
-                ibl.PickUpParcel(ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == selectedparcelFC.Id).Id);
-                ParcelInCustomer parcelInCustomer = new()
-                {
-                    Id = selectedparcelFC.Id,
-                    Weight = selectedparcelFC.Weight,
-                    Priority = selectedparcelFC.Priority,
-                    Status = selectedparcelFC.ParcelStatus,
-                    SenderOrRecepter = new()
-                    {
-                        Id = ibl.GetParcel(selectedparcelFC.Id).Sender.Id,
-                        Name = selectedparcelFC.SenderName
-                    }
-                };
+                if (parcelInCustomer.Status == BO.ParcelStatus.pickup)
+                    throw new FailToUpdateException("the parcel is already picked up");
+                DroneList drone = ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == parcelInCustomer.Id);
+                ibl.PickUpParcel(drone.Id);
                 ParcelFromCusW.Remove(parcelInCustomer);
                 parcelInCustomer.Status = BO.ParcelStatus.pickup;
                 ParcelFromCusW.Add(parcelInCustomer);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been picked up successfully \n" + selectedparcelFC.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been picked up successfully \n" + parcelInCustomer.ToString());
             }
             catch (FailToUpdateException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not picked up \n" + selectedparcelFC.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was already picked up \n" + parcelInCustomer.ToString());
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not schedulde yet \n" + parcelInCustomer.ToString());
             }
 
         }
@@ -363,31 +359,25 @@ namespace PL
         private void ImageT_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement framework = sender as FrameworkElement;
-            ParcelList parcel= framework.DataContext as ParcelList;
-            selectedParcelTC = parcel;
-            if (selectedparcelFC.ParcelStatus == BO.ParcelStatus.delivery)
-                throw new FailToUpdateException("the parcel is already deliverd");
+            ParcelInCustomer parcelInCustomer;
+            parcelInCustomer = framework.DataContext as ParcelInCustomer;
             try
             {
-                ibl.DeliverParcel(ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == selectedparcelFC.Id).Id);
-                ParcelInCustomer parcelInCustomer = new()
-                {
-                    Id = selectedparcelFC.Id,
-                    Weight = selectedparcelFC.Weight,
-                    Priority = selectedparcelFC.Priority,
-                    Status = selectedparcelFC.ParcelStatus,
-                    SenderOrRecepter = new()
-                    {
-                        Id = ibl.GetParcel(selectedparcelFC.Id).Recepter.Id,
-                        Name = selectedparcelFC.SenderName
-                    }
-                };
-                ParcelFromCusW.Remove(parcelInCustomer);
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deliverd successfully \n" + selectedparcelFC.ToString());
+                if (parcelInCustomer.Status == BO.ParcelStatus.delivery)
+                    throw new FailToUpdateException("the parcel is already deliverd");
+                ibl.DeliverParcel(ibl.GetDrones().First(item => item.NumOfParcelOnTheWay == parcelInCustomer.Id).Id);
+                ParcelToCusW.Remove(parcelInCustomer);
+                parcelInCustomer.Status = BO.ParcelStatus.delivery;
+                ParcelToCusW.Add(parcelInCustomer);
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel has been deliverd successfully \n" + parcelInCustomer.ToString());
             }
             catch (FailToUpdateException ex)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was not deliverd  \n" + selectedparcelFC.ToString());
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was already deliverd  \n" + parcelInCustomer.ToString());
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("The parcel was already deliverd  \n" + parcelInCustomer.ToString());
             }
 
         }
