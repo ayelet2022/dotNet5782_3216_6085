@@ -6,6 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Targil0", "Targil0\Targil0.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{78760FD6-569E-439D-9DE1-D6C349F71EC8}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\OneDrive\שולחן העבודה\מיני פרויקט\bonus.pdf = ..\..\..\..\OneDrive\שולחן העבודה\מיני פרויקט\bonus.pdf
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -37,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{36EF1AE6-5E2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{E1BC88C3-E7DF-4175-B589-CA38430F27E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{674B4617-5B2C-4CF7-8954-D3788609487E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{674B4617-5B2C-4CF7-8954-D3788609487E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
