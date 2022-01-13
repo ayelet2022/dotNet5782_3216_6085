@@ -8,7 +8,8 @@ namespace Dal
 {
     internal sealed partial class DalObject : IDal
     {
-        internal static  DalObject Instance { get; } = new DalObject();
+        internal static DalObject Instance { get { return instance.Value; } }
+        private static readonly Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject());
         static DalObject() { }
         private DalObject() => DataSource.Initialize();
 

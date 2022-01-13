@@ -3,14 +3,14 @@
   <Customer>
     <Id>838358303</Id>
     <Name>Ayali</Name>
-    <Phone>0511111111</Phone>
+    <Phone>0511122222</Phone>
     <Longitude>36.1611144836811</Longitude>
     <Latitude>33.4214664154786</Latitude>
     <IsActive>True</IsActive>
   </Customer>
   <Customer>
     <Id>566257827</Id>
-    <Name>Pe</Name>
+    <Name>Penina</Name>
     <Phone>0522222222</Phone>
     <Longitude>36.37885123322664</Longitude>
     <Latitude>31.112155873380672</Latitude>
@@ -30,15 +30,15 @@
     <Phone>0544444444</Phone>
     <Longitude>34.81832239116464</Longitude>
     <Latitude>32.33000125285704</Latitude>
-    <IsActive>True</IsActive>
+    <IsActive>False</IsActive>
   </Customer>
   <Customer>
     <Id>893276918</Id>
-    <Name>Nomi</Name>
-    <Phone>0555555555</Phone>
+    <Name>N</Name>
+    <Phone>0555999999</Phone>
     <Longitude>37.60002112183721</Longitude>
     <Latitude>30.72049808582314</Latitude>
-    <IsActive>True</IsActive>
+    <IsActive>False</IsActive>
   </Customer>
   <Customer>
     <Id>756051636</Id>
@@ -46,7 +46,7 @@
     <Phone>0566666666</Phone>
     <Longitude>35.56339883923689</Longitude>
     <Latitude>30.66436327186616</Latitude>
-    <IsActive>True</IsActive>
+    <IsActive>False</IsActive>
   </Customer>
   <Customer>
     <Id>288874844</Id>
@@ -66,7 +66,7 @@
   </Customer>
   <Customer>
     <Id>694743651</Id>
-    <Name>Chani</Name>
+    <Name>C</Name>
     <Phone>0599999999</Phone>
     <Longitude>34.791381837703</Longitude>
     <Latitude>33.73753961582553</Latitude>
