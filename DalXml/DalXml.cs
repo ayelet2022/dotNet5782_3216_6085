@@ -16,7 +16,8 @@ namespace Dal
         private static string DroneChargeXml = @"DroneCharge.xml";
         private static string ConfigXml = @"Config.xml";
 
-        internal static DalXml Instance { get; set; } = new DalXml();
+        internal static DalXml Instance { get { return instance.Value; } }
+        private static readonly Lazy<DalXml> instance = new Lazy<DalXml>(() => new DalXml());
         static DalXml() { /*XMLTools.SaveListToXMLSerializer(new List<int> { 1010 },"ConfigXml.xml");*/ }
         private DalXml()
         {
@@ -186,8 +187,7 @@ namespace Dal
         public void UpdateStation(int id, string newName, int charges)
         {
             List<BaseStation> stations = XMLTools.LoadListFromXMLSerializer<BaseStation>(StationXml);
-            XElement droneCharge = XMLTools.LoadListFromXMLElement(DroneChargeXml);
-            List<DroneCharge> droneCharges = (List<DroneCharge>)droneCharge.Elements(DroneChargeXml);
+            IEnumerable<DroneCharge> droneCharges = GetDroneCharges();
             int baseStationIndex = stations.FindIndex(item => item.Id == id && item.IsActive);
             BaseStation baseStation = stations[baseStationIndex];
             if (newName != "\n")

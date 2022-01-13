@@ -200,6 +200,7 @@ namespace PL
                         windowCustomers.selectedCustomer.Name = mainCustomer.Name;//changes the model of the drone thet was clicked in the drones list
                         windowCustomers.selectedCustomer.Phone = mainCustomer.Phone;//changes the model of the drone thet was clicked in the drones list
                         windowCustomers.Customers[index] = windowCustomers.selectedCustomer;//to update the drone in the list of drones in the main window
+                        windowCustomers.MyRefresh();
                     }
                     else
                         windowParcel.MyRefresh();

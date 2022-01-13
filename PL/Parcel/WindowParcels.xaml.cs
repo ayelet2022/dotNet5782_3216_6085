@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using BO;
 
@@ -36,6 +38,9 @@ namespace PL
             parcels.OrderBy(item => item.Id);
             foreach (var item in parcels)Parcels.Add(item);
             ParcelsListView.ItemsSource = Parcels;
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
+            PrioritiesSelector.ItemsSource= Enum.GetValues(typeof(Priorities));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategoriesP));
         }
 
         /// <summary>

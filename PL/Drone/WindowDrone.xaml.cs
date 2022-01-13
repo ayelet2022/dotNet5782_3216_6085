@@ -57,9 +57,17 @@ namespace PL
             ibl = bl;
             windowDrones = _windowDrones;
             if (id == 0)
+            {
                 mainDrone = ibl.GetDrone(windowDrones.selectedDrone.Id);//returnes the drone that the mouce clicked twise on
+                Simulator.Visibility = Visibility.Visible;
+                Regular.Visibility = Visibility.Visible;
+            }
             else
+            {
                 mainDrone = ibl.GetDrone(id);
+                Simulator.Visibility = Visibility.Collapsed;
+                Regular.Visibility = Visibility.Collapsed;
+            }
             ActionseGrid.Visibility = Visibility.Visible;
             Buttens.Visibility = Visibility.Visible;
             AddUpdateButten.Content = "Update the Drone";
@@ -86,6 +94,7 @@ namespace PL
             }
             if (mainDrone.Status == (BO.DroneStatus)DroneStatus.InFix)//if the drone is in charge
             {
+                ChargeDroneButten.Visibility = Visibility.Visible;
                 ChargeDroneButten.Content = "Release drone from charging";
                 ChangeStatusDroneButten.Visibility = Visibility.Collapsed;
             }
@@ -105,7 +114,7 @@ namespace PL
                 }
             }
             if (windowDrones != null)
-                windowDrones.Selector();
+                windowDrones.MyRefresh();
         }
         /// <summary>
         /// when the butten add was prest and the new drone
@@ -237,6 +246,7 @@ namespace PL
                 items.EditItem(windowDrones.Drones);
                 items.CommitEdit();
             }
+            windowDrones.MyRefresh();
         }
 
         /// <summary>
@@ -279,7 +289,7 @@ namespace PL
                     items.EditItem(windowDrones.Drones);
                     items.CommitEdit();
                 }
-                windowDrones.Selector();
+                windowDrones.MyRefresh();
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
             catch (FailToUpdateException ex)
@@ -327,7 +337,7 @@ namespace PL
                         items.EditItem(windowDrones.Drones);
                         items.CommitEdit();
                     }
-                    windowDrones.Selector();
+                    windowDrones.MyRefresh();
                 }
                 MessageBoxResult messageBoxResult = MessageBox.Show("The drone has been updateded successfully \n" + mainDrone.ToString());
             }
@@ -383,13 +393,14 @@ namespace PL
         BackgroundWorker worker;
         private void UpdateWidowDrone()
         {
-            mainDrone=ibl.GetDrone(mainDrone.Id);
+            mainDrone = ibl.GetDrone(mainDrone.Id);
             DataContext = mainDrone;
             WindowUp();
         }
 
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
+            Regular.IsEnabled = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
             worker.DoWork += (sender, args) => ibl.StartSimulatur((int)args.Argument, ()=> worker.ReportProgress(0), () => worker.CancellationPending);
             worker.ProgressChanged += (sender, args) =>UpdateWidowDrone();
@@ -398,6 +409,7 @@ namespace PL
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
             worker.CancelAsync();
+            Regular.IsEnabled = false;
         }
     }
 }

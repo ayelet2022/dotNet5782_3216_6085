@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlApi;
 using BO;
 using Dal;
@@ -11,10 +9,11 @@ using DalApi;
 
 namespace BL
 {
-    sealed partial class BL : BlApi.IBL
+    sealed partial class BL : IBL
     {
         internal readonly IDal dal = DalFactory.GetDL();
-        internal static BL Instance { get; } = new BL();
+        private static readonly Lazy<BL> instance = new Lazy<BL>(() => new BL());
+        public static BL Instance { get { return instance.Value; } }
 
         List<DroneList> Drones = new List<DroneList>();
         static BL() { }

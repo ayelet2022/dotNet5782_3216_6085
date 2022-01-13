@@ -3,7 +3,7 @@
   <BaseStation>
     <Id>9129</Id>
     <Name>Banana</Name>
-    <EmptyCharges>3</EmptyCharges>
+    <EmptyCharges>10</EmptyCharges>
     <Longitude>37.41426472059184</Longitude>
     <Latitude>33.96256364135191</Latitude>
     <IsActive>true</IsActive>
@@ -14,6 +14,14 @@
     <EmptyCharges>4</EmptyCharges>
     <Longitude>36.52314133873356</Longitude>
     <Latitude>32.99316442152167</Latitude>
-    <IsActive>false</IsActive>
+    <IsActive>true</IsActive>
+  </BaseStation>
+  <BaseStation>
+    <Id>8888</Id>
+    <Name>Orange</Name>
+    <EmptyCharges>10</EmptyCharges>
+    <Longitude>35.999</Longitude>
+    <Latitude>32.888</Latitude>
+    <IsActive>true</IsActive>
   </BaseStation>
 </ArrayOfBaseStation>

@@ -77,6 +77,19 @@ namespace PL
             new WindowDrone(ibl, this).Show();//t oadd a new drone to the parcel
         }
 
+        public void MyRefresh()
+        {
+            IEnumerable<DroneList> drones = ibl.GetDrones();
+            drones.OrderBy(item => item.Id);
+            Drones = new ObservableCollection<DroneList>();
+            foreach (var item in drones) Drones.Add(item);
+            DronesListView.ItemsSource = Drones;//to show all the customers
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DronesListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+            Selector();
+        }
+
         /// <summary>
         /// t opresent the drone that the mous double clicked  on
         /// </summary>
