@@ -164,6 +164,7 @@ namespace DalApi
         public DroneCharge GetDroneCharge(int droneId);
 
         public void DeleteDroneCharge(int id);
+        public void AddDroneCharge(DroneCharge droneCharge);
 
         #endregion
 

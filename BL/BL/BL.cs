@@ -101,7 +101,7 @@ namespace BL
                 {
                     try
                     //drone.Status = (DroneStatus)Rand.Next(0, 2);
-                    //if (drone.Status==DroneStatus.inFix)
+                    //if (drone.Status == DroneStatus.inFix)
                     {
                         dal.GetDroneCharge(drone.Id);
                         drone.Status = DroneStatus.inFix;
@@ -118,7 +118,7 @@ namespace BL
                         //dal.AddDroneCharge(droneCharge);
                     }
                     //else
-                    catch(DO.DoesNotExistException ex)
+                    catch (DO.DoesNotExistException ex)
                     {
                         drone.Status = DroneStatus.available;
                         List<DO.Parcel> parcels = new();

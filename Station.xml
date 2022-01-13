@@ -19,7 +19,7 @@
   <BaseStation>
     <Id>8888</Id>
     <Name>Orange</Name>
-    <EmptyCharges>10</EmptyCharges>
+    <EmptyCharges>9</EmptyCharges>
     <Longitude>35.999</Longitude>
     <Latitude>32.888</Latitude>
     <IsActive>true</IsActive>
